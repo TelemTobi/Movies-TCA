@@ -11,19 +11,33 @@ import ComposableArchitecture
 struct Main: Reducer {
     
     struct State: Equatable {
-        
+        var selectedTab: Tab = .home
+        var home = Home.State()
     }
     
     enum Action: Equatable {
         case onFirstAppear
+        case onTabSelection(Tab)
+        case home(Home.Action)
     }
     
     var body: some ReducerOf<Self> {
-        Reduce { state, action in
+        Reduce<State, Action> { state, action in
             switch action {
-            case .onFirstAppear:
+            case let .onTabSelection(tab):
+                state.selectedTab = tab
+                return .none
+                
+            case .onFirstAppear, .home:
                 return .none
             }
         }
+    }
+}
+
+extension Main {
+    
+    enum Tab {
+        case home, search, watchlist
     }
 }

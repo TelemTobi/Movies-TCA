@@ -13,22 +13,24 @@ struct MainView: View {
     let store: StoreOf<Main>
     
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            TabView {
-                Text("Home")
-                    .tabItem {
-                        Label("Home", systemImage: "house")
-                    }
+        WithViewStore(store, observe: \.selectedTab) { viewStore in
+            TabView(selection: viewStore.binding(send: Main.Action.onTabSelection)) {
+                HomeView(
+                    store: store.scope(
+                        state: \.home,
+                        action: Main.Action.home
+                    )
+                )
+                .tabItem { Label("Home", systemImage: "house") }
+                .tag(Main.Tab.home)
                 
                 Text("Search")
-                    .tabItem {
-                        Label("Search", systemImage: "magnifyingglass")
-                    }
+                    .tabItem { Label("Search", systemImage: "magnifyingglass") }
+                    .tag(Main.Tab.search)
                 
                 Text("Watchlist")
-                    .tabItem {
-                        Label("Watchlist", systemImage: "popcorn")
-                    }
+                    .tabItem { Label("Watchlist", systemImage: "popcorn") }
+                    .tag(Main.Tab.watchlist)
             }
             .onFirstAppear {
                 store.send(.onFirstAppear)
