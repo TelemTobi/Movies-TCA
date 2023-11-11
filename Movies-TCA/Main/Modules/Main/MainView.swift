@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  MainView.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 06/11/2023.
@@ -8,9 +8,9 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct HomeView: View {
+struct MainView: View {
     
-    let store: StoreOf<Home>
+    let store: StoreOf<Main>
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
@@ -38,10 +38,10 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(
+    MainView(
         store: .init(
-            initialState: Home.State(),
-            reducer: { Home() }
+            initialState: Main.State(),
+            reducer: { Main() }
         )
     )
 }
