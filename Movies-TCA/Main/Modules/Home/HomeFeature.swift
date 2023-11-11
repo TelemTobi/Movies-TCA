@@ -18,7 +18,7 @@ struct Home: Reducer {
         case onFirstAppear
     }
     
-    var body: some ReducerOf<Home> {
+    var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onFirstAppear:

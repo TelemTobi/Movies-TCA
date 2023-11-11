@@ -16,13 +16,19 @@ struct HomeView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             TabView {
                 Text("Home")
-                    .tabItem { Label("Home", systemImage: "house") }
+                    .tabItem {
+                        Label("Home", systemImage: "house")
+                    }
                 
                 Text("Search")
-                    .tabItem { Label("Search", systemImage: "magnifyingglass") }
+                    .tabItem {
+                        Label("Search", systemImage: "magnifyingglass")
+                    }
                 
                 Text("Watchlist")
-                    .tabItem { Label("Watchlist", systemImage: "popcorn") }
+                    .tabItem {
+                        Label("Watchlist", systemImage: "popcorn")
+                    }
             }
             .onFirstAppear {
                 store.send(.onFirstAppear)
