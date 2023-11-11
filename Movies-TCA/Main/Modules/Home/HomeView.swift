@@ -6,19 +6,36 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct HomeView: View {
+    
+    let store: StoreOf<Home>
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            TabView {
+                Text("Home")
+                    .tabItem { Label("Home", systemImage: "house") }
+                
+                Text("Search")
+                    .tabItem { Label("Search", systemImage: "magnifyingglass") }
+                
+                Text("Watchlist")
+                    .tabItem { Label("Watchlist", systemImage: "popcorn") }
+            }
+            .onFirstAppear {
+                store.send(.onFirstAppear)
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView(
+        store: .init(
+            initialState: Home.State(),
+            reducer: { Home() }
+        )
+    )
 }
