@@ -33,7 +33,7 @@ struct MainView: View {
                     .tag(Main.Tab.watchlist)
             }
             .onFirstAppear {
-                store.send(.onFirstAppear)
+                viewStore.send(.onFirstAppear)
             }
         }
     }

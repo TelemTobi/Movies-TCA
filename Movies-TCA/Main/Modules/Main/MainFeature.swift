@@ -22,7 +22,7 @@ struct Main: Reducer {
     }
     
     var body: some ReducerOf<Self> {
-        Reduce<State, Action> { state, action in
+        Reduce { state, action in
             switch action {
             case let .onTabSelection(tab):
                 state.selectedTab = tab
@@ -31,6 +31,10 @@ struct Main: Reducer {
             case .onFirstAppear, .home:
                 return .none
             }
+        }
+        
+        Scope(state: \.home, action: /Action.home) {
+            Home()
         }
     }
 }
