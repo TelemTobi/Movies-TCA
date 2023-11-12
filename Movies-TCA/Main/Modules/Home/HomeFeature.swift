@@ -1,5 +1,5 @@
 //
-//  MainFeature.swift
+//  HomeFeature.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 11/11/2023.
@@ -8,10 +8,10 @@
 import Foundation
 import ComposableArchitecture
 
-struct Main: Reducer {
+struct Home: Reducer {
     
     struct State: Equatable {
-        var selectedTab: Tab = .home
+        var selectedTab: Tab = .discover
         var genres: [Movie.Genre] = []
         var discover = Discover.State()
     }
@@ -40,9 +40,9 @@ struct Main: Reducer {
     }
 }
 
-extension Main {
+extension Home {
     
     enum Tab {
-        case home, search, watchlist
+        case discover, search, watchlist
     }
 }

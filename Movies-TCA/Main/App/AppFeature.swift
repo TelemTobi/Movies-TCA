@@ -12,13 +12,13 @@ struct AppReducer: Reducer {
     
     struct State: Equatable {
         var isSplashRunning = true
-        var main = Main.State()
+        var main = Home.State()
     }
     
     enum Action: Equatable {
         case onFirstAppear
         case dataLoaded([Movie.Genre])
-        case main(Main.Action)
+        case main(Home.Action)
     }
     
     var body: some ReducerOf<Self> {
@@ -39,7 +39,7 @@ struct AppReducer: Reducer {
         }
         
         Scope(state: \.main, action: /Action.main) {
-            Main()
+            Home()
         }
     }
 }

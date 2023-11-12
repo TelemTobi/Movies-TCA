@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  DiscoverView.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 11/11/2023.
