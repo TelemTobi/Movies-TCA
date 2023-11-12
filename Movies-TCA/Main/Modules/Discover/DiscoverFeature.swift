@@ -1,5 +1,5 @@
 //
-//  HomeFeature.swift
+//  DiscoverFeature.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 11/11/2023.
@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-struct Home: Reducer {
+struct Discover: Reducer {
     
     struct State: Equatable {
         

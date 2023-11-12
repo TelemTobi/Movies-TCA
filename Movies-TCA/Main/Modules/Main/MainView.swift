@@ -15,10 +15,10 @@ struct MainView: View {
     var body: some View {
         WithViewStore(store, observe: \.selectedTab) { viewStore in
             TabView(selection: viewStore.binding(send: Main.Action.onTabSelection)) {
-                HomeView(
+                DiscoverView(
                     store: store.scope(
-                        state: \.home,
-                        action: Main.Action.home
+                        state: \.discover,
+                        action: Main.Action.discover
                     )
                 )
                 .tabItem { Label("Home", systemImage: "house") }

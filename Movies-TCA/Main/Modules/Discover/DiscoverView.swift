@@ -8,9 +8,9 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct HomeView: View {
+struct DiscoverView: View {
     
-    let store: StoreOf<Home>
+    let store: StoreOf<Discover>
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
@@ -23,10 +23,10 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(
+    DiscoverView(
         store: .init(
-            initialState: Home.State(),
-            reducer: { Home() }
+            initialState: Discover.State(),
+            reducer: { Discover() }
         )
     )
 }
