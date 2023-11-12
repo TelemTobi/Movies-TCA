@@ -12,6 +12,7 @@ struct Main: Reducer {
     
     struct State: Equatable {
         var selectedTab: Tab = .home
+        var genres: [Movie.Genre] = []
         var home = Home.State()
     }
     

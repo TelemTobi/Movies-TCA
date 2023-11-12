@@ -1,14 +1,14 @@
 //
-//  HomeFeature.swift
+//  SplashFeature.swift
 //  Movies-TCA
 //
-//  Created by Telem Tobi on 11/11/2023.
+//  Created by Telem Tobi on 12/11/2023.
 //
 
 import Foundation
 import ComposableArchitecture
 
-struct Home: Reducer {
+struct Splash: Reducer {
     
     struct State: Equatable {
         
@@ -22,7 +22,7 @@ struct Home: Reducer {
         Reduce { state, action in
             switch action {
             case .onFirstAppear:
-                // TODO: Perform network call
+                // TODO: Fetch genres
                 return .none
             }
         }
