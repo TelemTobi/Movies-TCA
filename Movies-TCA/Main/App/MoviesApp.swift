@@ -11,10 +11,10 @@ import SwiftUI
 struct MoviesApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView(
+            SplashView(
                 store: .init(
-                    initialState: Main.State(),
-                    reducer: { Main() }
+                    initialState: Splash.State(),
+                    reducer: { Splash() }
                 )
             )
         }
