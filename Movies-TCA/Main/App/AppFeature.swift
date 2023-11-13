@@ -17,7 +17,7 @@ struct AppReducer: Reducer {
     
     enum Action: Equatable {
         case onFirstAppear
-        case genresLoaded([Movie.Genre])
+        case genresLoaded([Genre])
         case home(Home.Action)
     }
     
@@ -25,15 +25,24 @@ struct AppReducer: Reducer {
         Reduce { state, action in
             switch action {
             case .onFirstAppear:
-                // TODO: Fetch genres
                 return .run { send in
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        send(.genresLoaded([]))
+                    var request = URLRequest(
+                        url: .init(string: "https://api.themoviedb.org/3/genre/movie/list?api_key=99090e29e8bdefea91a422c1d35f8204")!
+                    )
+                    
+                    let (data, _) = try await URLSession.shared.data(for: request)
+                    let response = try JSONDecoder().decode(GenresResponse.self, from: data)
+                    
+                    guard let genres = response.genres, genres.isNotEmpty else {
+                        // TODO: Handle error
+                        return
                     }
+                    
+                    await send(.genresLoaded(genres))
                 }
                 
             case let .genresLoaded(genres):
-                state.home.genres = genres
+                state.home.movieGenres = genres
                 state.isLoading = false
                 return .none
                 

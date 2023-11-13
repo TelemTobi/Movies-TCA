@@ -40,12 +40,3 @@ struct Movie: Decodable {
         
     }
 }
-
-extension Movie {
-    
-    struct Genre: Decodable, Equatable {
-        
-        let id: Int?
-        let name: String?
-    }
-}
