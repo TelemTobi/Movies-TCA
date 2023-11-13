@@ -11,14 +11,14 @@ import ComposableArchitecture
 struct AppReducer: Reducer {
     
     struct State: Equatable {
-        var isSplashRunning = true
-        var main = Home.State()
+        var isLoading = true
+        var home = Home.State()
     }
     
     enum Action: Equatable {
         case onFirstAppear
-        case dataLoaded([Movie.Genre])
-        case main(Home.Action)
+        case genresLoaded([Movie.Genre])
+        case home(Home.Action)
     }
     
     var body: some ReducerOf<Self> {
@@ -26,20 +26,20 @@ struct AppReducer: Reducer {
             switch action {
             case .onFirstAppear:
                 // TODO: Fetch genres
-                return .send(.dataLoaded([]))
-            
-            case let .dataLoaded(genres):
-                state.isSplashRunning = false
-                state.main.genres = genres
+                return .run { send in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        send(.genresLoaded([]))
+                    }
+                }
+                
+            case let .genresLoaded(genres):
+                state.home.genres = genres
+                state.isLoading = false
                 return .none
                 
-            case .main:
+            case .home:
                 return .none
             }
-        }
-        
-        Scope(state: \.main, action: /Action.main) {
-            Home()
         }
     }
 }
