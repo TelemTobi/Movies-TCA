@@ -21,7 +21,7 @@ struct HomeView: View {
                         action: Home.Action.discover
                     )
                 )
-                .tabItem { Label("Home", systemImage: "house") }
+                .tabItem { Label("Discover", systemImage: "globe") }
                 .tag(Home.Tab.discover)
                 
                 Text("Search")

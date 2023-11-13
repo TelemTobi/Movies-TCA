@@ -6,22 +6,19 @@
 //
 
 import SwiftUI
-import ComposableArchitecture
 
 struct SplashView: View {
     
-    let store: StoreOf<Splash>
-    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Image(systemName: "sprinkler.and.droplets")
+                .font(.largeTitle)
+            Text("Splashing")
+                .font(.title)
+        }
     }
 }
 
 #Preview {
-    SplashView(
-        store: .init(
-            initialState: Splash.State(),
-            reducer: { Splash() }
-        )
-    )
+    SplashView()
 }

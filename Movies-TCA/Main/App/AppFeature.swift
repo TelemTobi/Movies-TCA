@@ -11,35 +11,44 @@ import ComposableArchitecture
 struct AppReducer: Reducer {
     
     struct State: Equatable {
-        var isSplashRunning = true
-        var main = Home.State()
+        var isLoading = true
+        var home = Home.State()
     }
     
     enum Action: Equatable {
         case onFirstAppear
-        case dataLoaded([Movie.Genre])
-        case main(Home.Action)
+        case genresLoaded([Genre])
+        case home(Home.Action)
     }
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onFirstAppear:
-                // TODO: Fetch genres
-                return .send(.dataLoaded([]))
-            
-            case let .dataLoaded(genres):
-                state.isSplashRunning = false
-                state.main.genres = genres
+                return .run { send in
+                    var request = URLRequest(
+                        url: .init(string: "https://api.themoviedb.org/3/genre/movie/list?api_key=99090e29e8bdefea91a422c1d35f8204")!
+                    )
+                    
+                    let (data, _) = try await URLSession.shared.data(for: request)
+                    let response = try JSONDecoder().decode(GenresResponse.self, from: data)
+                    
+                    guard let genres = response.genres, genres.isNotEmpty else {
+                        // TODO: Handle error
+                        return
+                    }
+                    
+                    await send(.genresLoaded(genres))
+                }
+                
+            case let .genresLoaded(genres):
+                state.home.movieGenres = genres
+                state.isLoading = false
                 return .none
                 
-            case .main:
+            case .home:
                 return .none
             }
-        }
-        
-        Scope(state: \.main, action: /Action.main) {
-            Home()
         }
     }
 }
