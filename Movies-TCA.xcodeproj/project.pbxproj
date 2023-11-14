@@ -19,9 +19,11 @@
 		7DE17DDE2B00B073005F4848 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DDD2B00B073005F4848 /* Movie.swift */; };
 		7DE17DE12B00B0AC005F4848 /* DiscoverResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DE02B00B0AC005F4848 /* DiscoverResponse.swift */; };
 		7DE17DEA2B014719005F4848 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DE92B014719005F4848 /* SplashView.swift */; };
-		7DE17DEE2B014F59005F4848 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DED2B014F59005F4848 /* AppFeature.swift */; };
 		7DE17DF02B01F6A2005F4848 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DEF2B01F6A2005F4848 /* Genre.swift */; };
 		7DE17DF72B01F96A005F4848 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DF62B01F96A005F4848 /* Collection+Extension.swift */; };
+		7DE17DFB2B040D25005F4848 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DFA2B040D25005F4848 /* ApiError.swift */; };
+		7DE17DFE2B0410A7005F4848 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DFD2B0410A7005F4848 /* RootView.swift */; };
+		7DE17E002B0410B0005F4848 /* RootFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DFF2B0410B0005F4848 /* RootFeature.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,9 +39,11 @@
 		7DE17DDD2B00B073005F4848 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		7DE17DE02B00B0AC005F4848 /* DiscoverResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverResponse.swift; sourceTree = "<group>"; };
 		7DE17DE92B014719005F4848 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		7DE17DED2B014F59005F4848 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
 		7DE17DEF2B01F6A2005F4848 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		7DE17DF62B01F96A005F4848 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
+		7DE17DFA2B040D25005F4848 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		7DE17DFD2B0410A7005F4848 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		7DE17DFF2B0410B0005F4848 /* RootFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFeature.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +114,6 @@
 		7DE17DC92AFE04BD005F4848 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				7DE17DED2B014F59005F4848 /* AppFeature.swift */,
 				7DD6D96D2AF943B7004828AB /* MoviesApp.swift */,
 			);
 			path = App;
@@ -138,6 +141,7 @@
 		7DE17DCC2AFE04FD005F4848 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				7DE17DFA2B040D25005F4848 /* ApiError.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -154,6 +158,7 @@
 		7DE17DCE2AFE0528005F4848 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				7DE17DFC2B041092005F4848 /* Root */,
 				7DE17DE82B01470B005F4848 /* Splash */,
 				7DE17DD22AFE05F9005F4848 /* Home */,
 				7DE17DD72AFFDE3B005F4848 /* Discover */,
@@ -235,6 +240,15 @@
 			path = Foundation;
 			sourceTree = "<group>";
 		};
+		7DE17DFC2B041092005F4848 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				7DE17DFF2B0410B0005F4848 /* RootFeature.swift */,
+				7DE17DFD2B0410A7005F4848 /* RootView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -314,15 +328,17 @@
 				7DE17DDE2B00B073005F4848 /* Movie.swift in Sources */,
 				7DE17DF72B01F96A005F4848 /* Collection+Extension.swift in Sources */,
 				7DE17DD42AFE0BC1005F4848 /* OnFirstAppear.swift in Sources */,
-				7DE17DEE2B014F59005F4848 /* AppFeature.swift in Sources */,
 				7DE17DF02B01F6A2005F4848 /* Genre.swift in Sources */,
 				7DE17DD62AFFB980005F4848 /* HomeFeature.swift in Sources */,
+				7DE17DFB2B040D25005F4848 /* ApiError.swift in Sources */,
 				7DD6D9702AF943B7004828AB /* HomeView.swift in Sources */,
 				7DE17DDB2AFFDE56005F4848 /* DiscoverFeature.swift in Sources */,
 				7DE17DD92AFFDE4E005F4848 /* DiscoverView.swift in Sources */,
 				7DE17DEA2B014719005F4848 /* SplashView.swift in Sources */,
+				7DE17E002B0410B0005F4848 /* RootFeature.swift in Sources */,
 				7DD6D96E2AF943B7004828AB /* MoviesApp.swift in Sources */,
 				7DE17DE12B00B0AC005F4848 /* DiscoverResponse.swift in Sources */,
+				7DE17DFE2B0410A7005F4848 /* RootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

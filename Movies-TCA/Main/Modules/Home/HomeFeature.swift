@@ -25,12 +25,12 @@ struct Home: Reducer {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case let .onTabSelection(tab):
-                state.selectedTab = tab
-                return .none
-                
-            case .onFirstAppear, .discover:
-                return .none
+                case let .onTabSelection(tab):
+                    state.selectedTab = tab
+                    return .none
+                    
+                case .onFirstAppear, .discover:
+                    return .none
             }
         }
         

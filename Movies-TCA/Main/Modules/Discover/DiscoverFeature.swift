@@ -21,9 +21,9 @@ struct Discover: Reducer {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .onFirstAppear:
-                // TODO: Perform network call
-                return .none
+                case .onFirstAppear:
+                    // TODO: Perform network call
+                    return .none
             }
         }
     }
