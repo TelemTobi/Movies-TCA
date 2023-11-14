@@ -1,0 +1,2 @@
+TMDB_API_BASE_URL = https:/$()/api.themoviedb.org/3
+TMDB_API_KEY = 99090e29e8bdefea91a422c1d35f8204

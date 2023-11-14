@@ -30,8 +30,9 @@ struct Root: Reducer {
                     
                 case .loadGenres:
                     return .run { send in
-                        var request = URLRequest(
-                            url: .init(string: "https://api.themoviedb.org/3/genre/movie/list?api_key=99090e29e8bdefea91a422c1d35f8204")!
+                        let request = URLRequest(
+                            url: .init(string: "\(Config.tmdbApi.baseUrl)/genre/movie/list")!
+                                .appending(queryItems: [.init(name: "api_key", value: Config.tmdbApi.apiKey)])
                         )
                         
                         let (data, _) = try await URLSession.shared.data(for: request)
