@@ -13,6 +13,7 @@ struct Discover: Reducer {
     struct State: Equatable {
         var isLoading = true
         var movieGenres: [Genre] = []
+        var movies: [Section: [Movie]] = [:]
     }
     
     enum Action: Equatable {

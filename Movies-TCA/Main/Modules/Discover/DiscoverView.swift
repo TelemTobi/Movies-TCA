@@ -20,7 +20,8 @@ struct DiscoverView: View {
                         makeSection(for: sectionType)
                     }
                 }
-                .listStyle(.grouped)
+                .listStyle(.plain)
+                .background(.white)
                 .onFirstAppear {
                     viewStore.send(.onFirstAppear)
                 }
@@ -45,11 +46,21 @@ struct DiscoverView: View {
     @ViewBuilder
     private func makeSection(for section: Discover.Section) -> some View {
         Section {
-            
+            ScrollView(.horizontal) {
+                LazyHStack {
+                    switch section {
+                        case .nowPlaying:
+                            EmptyView()
+                        case .popular, .topRated, .upcoming:
+                            EmptyView()
+                    }
+                }
+            }
         } header: {
             Text(section.title)
         }
         .headerProminence(.increased)
+        .listRowSeparator(.hidden)
     }
 }
 
