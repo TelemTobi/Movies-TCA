@@ -25,11 +25,15 @@ struct Home: Reducer {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+                case .onFirstAppear:
+                    state.discover.movieGenres = state.movieGenres
+                    return .none
+                    
                 case let .onTabSelection(tab):
                     state.selectedTab = tab
                     return .none
                     
-                case .onFirstAppear, .discover:
+                case .discover:
                     return .none
             }
         }

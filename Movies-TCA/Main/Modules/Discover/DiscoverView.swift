@@ -13,12 +13,43 @@ struct DiscoverView: View {
     let store: StoreOf<Discover>
     
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            WithViewStore(store, observe: { $0 }) { viewStore in
+                List {
+                    ForEach(Discover.Section.allCases, id: \.self) { sectionType in
+                        makeSection(for: sectionType)
+                    }
+                }
+                .listStyle(.grouped)
                 .onFirstAppear {
                     viewStore.send(.onFirstAppear)
                 }
+            }
+            .toolbar(content: toolbarContent)
+            .navigationBarTitleDisplayMode(.inline)
         }
+    }
+    
+    @ToolbarContentBuilder
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                
+            } label: {
+                Image(systemName: "person.fill")
+                    .foregroundColor(.accentColor)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func makeSection(for section: Discover.Section) -> some View {
+        Section {
+            
+        } header: {
+            Text(section.title)
+        }
+        .headerProminence(.increased)
     }
 }
 

@@ -24,7 +24,7 @@ enum Config {
         }
     }
     
-    enum tmdbApi {
+    enum TmdbApi {
         static var baseUrl: String {
             value(for: .tmdbBaseUrl) ?? ""
         }
