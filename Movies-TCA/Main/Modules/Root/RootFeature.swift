@@ -22,6 +22,12 @@ struct Root: Reducer {
         case home(Home.Action)
     }
     
+    var fetchGenres: @Sendable () async throws -> [Genre]
+    
+    static let live = Self(
+        fetchGenres: ApiClient.Tmdb.fetchGenres
+    )
+    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
@@ -30,19 +36,7 @@ struct Root: Reducer {
                     
                 case .loadGenres:
                     return .run { send in
-                        let request = URLRequest(
-                            url: .init(string: "\(Config.TmdbApi.baseUrl)/genre/movie/list")!
-                                .appending(queryItems: [.init(name: "api_key", value: Config.TmdbApi.apiKey)])
-                        )
-                        
-                        let (data, _) = try await URLSession.shared.data(for: request)
-                        let response = try JSONDecoder().decode(GenresResponse.self, from: data)
-                        
-                        guard let genres = response.genres, genres.isNotEmpty else {
-                            // TODO: Handle error
-                            return
-                        }
-                        
+                        let genres = try await fetchGenres()
                         await send(.genresLoaded(genres))
                     }
                     

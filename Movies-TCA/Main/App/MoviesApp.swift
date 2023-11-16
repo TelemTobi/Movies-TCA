@@ -16,7 +16,7 @@ struct MoviesApp: App {
             RootView(
                 store: .init(
                     initialState: Root.State(),
-                    reducer: { Root() }
+                    reducer: { Root.live }
                 )
             )
         }

@@ -28,6 +28,8 @@
 		7DE17E042B0413A1005F4848 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E032B0413A1005F4848 /* String+Extension.swift */; };
 		7DE17E072B0413CB005F4848 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7DE17E052B0413CB005F4848 /* Release.xcconfig */; };
 		7DE17E082B0413CB005F4848 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7DE17E062B0413CB005F4848 /* Debug.xcconfig */; };
+		7DE17E0B2B053C21005F4848 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E0A2B053C21005F4848 /* ApiClient.swift */; };
+		7DE17E0E2B053C4E005F4848 /* TmdbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E0D2B053C4E005F4848 /* TmdbClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		7DE17E052B0413CB005F4848 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		7DE17E062B0413CB005F4848 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		7DE17E092B0415B6005F4848 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7DE17E0A2B053C21005F4848 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		7DE17E0D2B053C4E005F4848 /* TmdbClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +155,9 @@
 		7DE17DCC2AFE04FD005F4848 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				7DE17E0A2B053C21005F4848 /* ApiClient.swift */,
 				7DE17DFA2B040D25005F4848 /* ApiError.swift */,
+				7DE17E0C2B053C41005F4848 /* Tmdb */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -263,6 +269,14 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		7DE17E0C2B053C41005F4848 /* Tmdb */ = {
+			isa = PBXGroup;
+			children = (
+				7DE17E0D2B053C4E005F4848 /* TmdbClient.swift */,
+			);
+			path = Tmdb;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -345,11 +359,13 @@
 				7DE17DF72B01F96A005F4848 /* Collection+Extension.swift in Sources */,
 				7DE17E022B041357005F4848 /* Config.swift in Sources */,
 				7DE17E042B0413A1005F4848 /* String+Extension.swift in Sources */,
+				7DE17E0B2B053C21005F4848 /* ApiClient.swift in Sources */,
 				7DE17DD42AFE0BC1005F4848 /* OnFirstAppear.swift in Sources */,
 				7DE17DF02B01F6A2005F4848 /* Genre.swift in Sources */,
 				7DE17DD62AFFB980005F4848 /* HomeFeature.swift in Sources */,
 				7DE17DFB2B040D25005F4848 /* ApiError.swift in Sources */,
 				7DD6D9702AF943B7004828AB /* HomeView.swift in Sources */,
+				7DE17E0E2B053C4E005F4848 /* TmdbClient.swift in Sources */,
 				7DE17DDB2AFFDE56005F4848 /* DiscoverFeature.swift in Sources */,
 				7DE17DD92AFFDE4E005F4848 /* DiscoverView.swift in Sources */,
 				7DE17DEA2B014719005F4848 /* SplashView.swift in Sources */,
