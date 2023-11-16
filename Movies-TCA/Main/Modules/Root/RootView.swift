@@ -38,7 +38,7 @@ struct RootView: View {
     RootView(
         store: .init(
             initialState: Root.State(),
-            reducer: { Root(fetchGenres: { [] }) }
+            reducer: { Root(fetchGenres: { (nil, nil) }) }
         )
     )
 }

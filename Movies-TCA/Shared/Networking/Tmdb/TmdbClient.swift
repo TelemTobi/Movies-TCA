@@ -9,24 +9,37 @@ import Foundation
 import ComposableArchitecture
 
 struct TmdbClient {
-    var fetchGenres: @Sendable () async throws -> [Genre]
+    var fetchGenres: @Sendable () async -> (GenresResponse?, ApiError?)
+    
+    static private func makeRequest<T>(url: URL) async -> (T?, ApiError?) where T: Decodable {
+        var request = URLRequest(url: url)
+        request.setValue(Config.TmdbApi.accessToken, forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "content-type")
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, (200...299) ~= statusCode else {
+                return (nil, .serverError)
+            }
+            
+            do {
+                let response = try JSONDecoder().decode(T.self, from: data)
+                return (response, nil)
+            } catch {
+                return (nil, .decodingError)
+            }
+            
+        } catch {
+            return (nil, .badRequest)
+        }
+    }
 }
 
 extension TmdbClient {
     static let live = Self(
         fetchGenres: {
-            var request = URLRequest(url: .init(string: "\(Config.TmdbApi.baseUrl)/genre/movie/list")!)
-            request.setValue(Config.TmdbApi.accessToken, forHTTPHeaderField: "Authorization")
-            request.setValue("application/json", forHTTPHeaderField: "content-type")
-            
-            do {
-                let (data, _) = try await URLSession.shared.data(for: request)
-                let response = try JSONDecoder().decode(GenresResponse.self, from: data)
-                return response.genres ?? []
-            } catch(let error) {
-                // TODO: Find a way to handle errors properly
-                fatalError(error.localizedDescription)
-            }
+            await makeRequest(url: .init(string: "\(Config.TmdbApi.baseUrl)/genre/movie/list")!)
         }
     )
 }

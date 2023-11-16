@@ -8,6 +8,7 @@
 import Foundation
 
 enum ApiError: Error {
-    case downloadError
+    case badRequest
+    case serverError
     case decodingError
 }

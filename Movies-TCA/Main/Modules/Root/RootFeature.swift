@@ -18,11 +18,13 @@ struct Root: Reducer {
     enum Action: Equatable {
         case onFirstAppear
         case loadGenres
-        case genresLoaded([Genre])
+        case genresLoadingSucceeded([Genre])
+        case genresLoadingFailed(ApiError?)
+        
         case home(Home.Action)
     }
     
-    var fetchGenres: @Sendable () async throws -> [Genre]
+    var fetchGenres: @Sendable () async -> (GenresResponse?, ApiError?)
     
     static let live = Self(
         fetchGenres: ApiClient.Tmdb.fetchGenres
@@ -36,13 +38,23 @@ struct Root: Reducer {
                     
                 case .loadGenres:
                     return .run { send in
-                        let genres = try await fetchGenres()
-                        await send(.genresLoaded(genres))
+                        let (response, error) = await fetchGenres()
+                        
+                        if let genres = response?.genres, genres.isNotEmpty {
+                            await send(.genresLoadingSucceeded(genres))
+                        } else {
+                            await send(.genresLoadingFailed(error))
+                        }
                     }
                     
-                case let .genresLoaded(genres):
+                case let .genresLoadingSucceeded(genres):
+                    customDump(genres)
                     state.home.movieGenres = genres
                     state.isLoading = false
+                    return .none
+                    
+                case let .genresLoadingFailed(error):
+                    customDump(error) // TODO: Handle error somehow
                     return .none
                     
                 case .home:
