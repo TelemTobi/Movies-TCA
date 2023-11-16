@@ -30,6 +30,10 @@
 		7DE17E082B0413CB005F4848 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7DE17E062B0413CB005F4848 /* Debug.xcconfig */; };
 		7DE17E0B2B053C21005F4848 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E0A2B053C21005F4848 /* ApiClient.swift */; };
 		7DE17E0E2B053C4E005F4848 /* TmdbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E0D2B053C4E005F4848 /* TmdbClient.swift */; };
+		7DE17E222B068E27005F4848 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE17E212B068E27005F4848 /* CombineMoya */; };
+		7DE17E242B068E27005F4848 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE17E232B068E27005F4848 /* Moya */; };
+		7DE17E262B068E27005F4848 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE17E252B068E27005F4848 /* ReactiveMoya */; };
+		7DE17E282B068E27005F4848 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE17E272B068E27005F4848 /* RxMoya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,7 +68,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DE17E282B068E27005F4848 /* RxMoya in Frameworks */,
+				7DE17E222B068E27005F4848 /* CombineMoya in Frameworks */,
+				7DE17E262B068E27005F4848 /* ReactiveMoya in Frameworks */,
 				7DE17DC62AFE0325005F4848 /* ComposableArchitecture in Frameworks */,
+				7DE17E242B068E27005F4848 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +303,10 @@
 			name = "Movies-TCA";
 			packageProductDependencies = (
 				7DE17DC52AFE0325005F4848 /* ComposableArchitecture */,
+				7DE17E212B068E27005F4848 /* CombineMoya */,
+				7DE17E232B068E27005F4848 /* Moya */,
+				7DE17E252B068E27005F4848 /* ReactiveMoya */,
+				7DE17E272B068E27005F4848 /* RxMoya */,
 			);
 			productName = "Movies-TCA";
 			productReference = 7DD6D96A2AF943B7004828AB /* Movies-TCA.app */;
@@ -326,6 +338,7 @@
 			mainGroup = 7DD6D9612AF943B7004828AB;
 			packageReferences = (
 				7DE17DC42AFE0325005F4848 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				7DE17E202B068E27005F4848 /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			productRefGroup = 7DD6D96B2AF943B7004828AB /* Products */;
 			projectDirPath = "";
@@ -596,6 +609,14 @@
 				minimumVersion = 1.3.0;
 			};
 		};
+		7DE17E202B068E27005F4848 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -603,6 +624,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7DE17DC42AFE0325005F4848 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
+		};
+		7DE17E212B068E27005F4848 /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE17E202B068E27005F4848 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = CombineMoya;
+		};
+		7DE17E232B068E27005F4848 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE17E202B068E27005F4848 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		7DE17E252B068E27005F4848 /* ReactiveMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE17E202B068E27005F4848 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = ReactiveMoya;
+		};
+		7DE17E272B068E27005F4848 /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE17E202B068E27005F4848 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = RxMoya;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
