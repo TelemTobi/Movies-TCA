@@ -6,40 +6,20 @@
 //
 
 import Foundation
-import ComposableArchitecture
+import Moya
 
-struct TmdbClient {
-    var fetchGenres: @Sendable () async -> (GenresResponse?, ApiError?)
+struct TmdbClient: Networking {
     
-    static private func makeRequest<T>(url: URL) async -> (T?, ApiError?) where T: Decodable {
-        var request = URLRequest(url: url)
-        request.setValue(Config.TmdbApi.accessToken, forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "content-type")
-        
-        do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-            
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, (200...299) ~= statusCode else {
-                return (nil, .serverError)
-            }
-            
-            do {
-                let response = try JSONDecoder().decode(T.self, from: data)
-                return (response, nil)
-            } catch {
-                return (nil, .decodingError)
-            }
-            
-        } catch {
-            return (nil, .badRequest)
-        }
+    var provider = MoyaProvider<TmdbEndpoint>()
+    var authenticator: Authenticating = TmdbAuthenticator()
+    
+    @Sendable
+    func fetchGenres() async -> (GenresResponse?, ApiError?) {
+        await request(.listGenres)
     }
 }
 
 extension TmdbClient {
-    static let live = Self(
-        fetchGenres: {
-            await makeRequest(url: .init(string: "\(Config.TmdbApi.baseUrl)/genre/movie/list")!)
-        }
-    )
+    
+    static let live = Self()
 }
