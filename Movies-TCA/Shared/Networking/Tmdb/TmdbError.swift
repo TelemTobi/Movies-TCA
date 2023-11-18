@@ -13,11 +13,16 @@ struct TmdbError: Errorable {
     let developerMessage: String?
     
     var debugDescription: String {
-        developerMessage ?? ApiError.unkownError.debugDescription
+        developerMessage ?? PredefinedError.unkownError.debugDescription
     }
     
     enum CodingKeys: String, CodingKey {
         case statusCode = "status_code"
         case developerMessage = "status_message"
+    }
+    
+    init(_ errorType: PredefinedError) {
+        statusCode = -1
+        developerMessage = errorType.debugDescription
     }
 }

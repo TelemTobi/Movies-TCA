@@ -14,7 +14,7 @@ struct TmdbClient: Networking {
     var authenticator: Authenticating = TmdbAuthenticator()
     
     @Sendable
-    func fetchGenres() async -> (GenresResponse?, ApiError?) {
+    func fetchGenres() async -> (GenresResponse?, TmdbError?) {
         await request(.listGenres)
     }
 }

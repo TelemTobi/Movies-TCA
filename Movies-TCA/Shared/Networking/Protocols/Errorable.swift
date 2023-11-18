@@ -10,4 +10,5 @@ import Foundation
 protocol Errorable: Error {
     
     var debugDescription: String { get }
+    init(_ errorType: PredefinedError)
 }
