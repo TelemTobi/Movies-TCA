@@ -18,12 +18,12 @@ protocol Networking {
 
 extension Networking {
     
-    func request<T: Decodable & JsonResolver, F: Errorable>(_ endpoint: EndPoint) async -> (T?, F?) {
+    func request<T: Decodable & JsonResolver, F: Errorable>(_ endpoint: EndPoint) async -> Result<T, F> {
         switch authenticator.authState {
         case .notReachable:
-            return (nil, .init(.connectionError))
+            return .failure(.init(.connectionError))
         case .notLoggedIn:
-            return (nil, .init(.authError))
+                return .failure(.init(.authError))
         case .reachable:
             break
         }
@@ -32,10 +32,10 @@ extension Networking {
             if try await authenticator.authenticate() {
                 return await makeRequest(endpoint)
             } else {
-                return (nil, .init(.authError))
+                return .failure(.init(.authError))
             }
         } catch {
-            return (nil, .init(.connectionError))
+            return .failure(.init(.connectionError))
         }
         
 //        var request = URLRequest(url: url)

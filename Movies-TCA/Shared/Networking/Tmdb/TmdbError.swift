@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TmdbError: Errorable {
+struct TmdbError: Errorable, Equatable {
     
     let statusCode: Int?
     let developerMessage: String?
