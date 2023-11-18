@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Moya
 
 enum AuthState {
     case reachable, notReachable, notLoggedIn
@@ -16,9 +15,9 @@ protocol Authenticating {
 
     var authState: AuthState { get }
 
-    // Can be used to asynchronously authenticate the user
+    /// Use this method to asynchronously authenticate the user
     func authenticate() async throws -> Bool
     
-    // Can be used to map the endpoint right before the request is excecuted
-    func mapEndpoint(_ endpoint: Endpoint, for target: TargetTypeEndPoint) -> Endpoint
+    /// Use this method to map the request right before the request is excecuted.
+    func mapRequest(_ request: inout URLRequest)
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 /// The protocol used to define the specifications necessary for a URLRequest..
-protocol EndPoint {
+protocol Endpoint {
 
     /// The target's base `URL`.
     var baseURL: URL { get }
@@ -23,14 +23,23 @@ protocol EndPoint {
     var task: HTTPTask { get }
 
     /// The headers to be used in the request.
-    var headers: [String: String]? { get }
+    var headers: [String: String] { get }
     
     /// Provides stub data for use in testing. Default is `Data()`.
     var sampleData: Data { get }
     
-    /// Strategy for decoding keys.
+    /// Strategy for decoding keys. Default is `useDefaultKeys`.
     var keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy { get }
     
-    /// Strategy for decoding dates.
+    /// Strategy for decoding dates. Default is `iso8601`.
     var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy { get }
+}
+
+extension Endpoint {
+    
+    var sampleData: Data { Data() }
+    
+    var keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy { .useDefaultKeys }
+    
+    var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy { .iso8601 }
 }
