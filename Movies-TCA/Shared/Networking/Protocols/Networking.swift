@@ -19,6 +19,7 @@ protocol Networking {
 extension Networking {
     
     func request<T: Decodable & JsonResolver, F: Errorable>(_ endpoint: EndPoint) async -> Result<T, F> {
+        URLRequest().method
         switch authenticator.authState {
         case .notReachable:
             return .failure(.init(.connectionError))

@@ -46,12 +46,12 @@ struct Root: Reducer {
                     if let genres = response.genres, genres.isNotEmpty {
                         state.home.movieGenres = genres
                     } else {
-                        return .send(.genresResponse(.unkownError))
+                        return .send(.genresResponse(.unknownError))
                     }
                     return .none
                     
                 case let .genresResponse(.failure(error)):
-                    customDump(error) // TODO: Handle error somehow
+                    customDump(error) // TODO: Handle error
                     return .none
                     
                 case .home:
