@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Errorable: Error {
+protocol Errorable: Error, Decodable, JsonResolver {
     
     var debugDescription: String { get }
     init(_ errorType: PredefinedError)
