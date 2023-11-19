@@ -6,16 +6,19 @@
 //
 
 import Foundation
-import Moya
 
-struct TmdbClient: Networking {
+struct TmdbClient {
     
-    var provider = MoyaProvider<TmdbEndpoint>()
-    var authenticator: Authenticating = TmdbAuthenticator()
+    var authenticator: Authenticating
+    var networkManager: NetworkManager<TmdbEndpoint, TmdbError>
     
-    @Sendable
+    init() {
+        authenticator = TmdbAuthenticator()
+        networkManager = NetworkManager(authenticator: authenticator)
+    }
+    
     func fetchGenres() async -> Result<GenresResponse, TmdbError> {
-        await request(.listGenres)
+        await networkManager.request(.listGenres)
     }
 }
 

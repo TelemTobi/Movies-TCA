@@ -6,14 +6,13 @@
 //
 
 import Foundation
-import Moya
 
 enum TmdbEndpoint {
     case listGenres
 }
 
-extension TmdbEndpoint: TargetTypeEndPoint {
-    
+extension TmdbEndpoint: Endpoint {
+
     var baseURL: URL {
         URL(string: Config.TmdbApi.baseUrl)!
     }
@@ -24,13 +23,13 @@ extension TmdbEndpoint: TargetTypeEndPoint {
         }
     }
     
-    var method: Moya.Method {
+    var method: HTTPMethod {
         return switch self {
             case .listGenres: .get
         }
     }
     
-    var task: Moya.Task {
+    var task: HTTPTask {
         return switch self {
             case .listGenres: .requestPlain
         }

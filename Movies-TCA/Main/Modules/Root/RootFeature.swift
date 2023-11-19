@@ -23,12 +23,6 @@ struct Root: Reducer {
         case home(Home.Action)
     }
     
-    var fetchGenres: @Sendable () async -> Result<GenresResponse, TmdbError>
-    
-    static let live = Self(
-        fetchGenres: ApiClient.Tmdb.fetchGenres
-    )
-    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
@@ -37,10 +31,11 @@ struct Root: Reducer {
                     
                 case .loadGenres:
                     return .run { send in
-                        await send(.genresResponse(fetchGenres()))
+                        await send(.genresResponse(ApiClient.Tmdb.fetchGenres()))
                     }
                     
                 case let .genresResponse(.success(response)):
+                    customDump(response)
                     state.isLoading = false
 
                     if let genres = response.genres, genres.isNotEmpty {
