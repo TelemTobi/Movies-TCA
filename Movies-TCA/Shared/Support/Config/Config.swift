@@ -11,7 +11,7 @@ enum Config {
     
     enum Key: String {
         case tmdbBaseUrl
-        case tmdbApiKey
+        case tmdbAccessToken
     }
     
     static func value<T>(for key: Key) -> T? {
@@ -29,8 +29,8 @@ enum Config {
             value(for: .tmdbBaseUrl) ?? ""
         }
         
-        static var apiKey: String {
-            value(for: .tmdbApiKey) ?? ""
+        static var accessToken: String {
+            value(for: .tmdbAccessToken) ?? ""
         }
     }
 }

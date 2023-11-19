@@ -18,7 +18,8 @@ struct Root: Reducer {
     enum Action: Equatable {
         case onFirstAppear
         case loadGenres
-        case genresLoaded([Genre])
+        case genresResponse(Result<GenresResponse, TmdbError>)
+        
         case home(Home.Action)
     }
     
@@ -30,25 +31,22 @@ struct Root: Reducer {
                     
                 case .loadGenres:
                     return .run { send in
-                        let request = URLRequest(
-                            url: .init(string: "\(Config.TmdbApi.baseUrl)/genre/movie/list")!
-                                .appending(queryItems: [.init(name: "api_key", value: Config.TmdbApi.apiKey)])
-                        )
-                        
-                        let (data, _) = try await URLSession.shared.data(for: request)
-                        let response = try JSONDecoder().decode(GenresResponse.self, from: data)
-                        
-                        guard let genres = response.genres, genres.isNotEmpty else {
-                            // TODO: Handle error
-                            return
-                        }
-                        
-                        await send(.genresLoaded(genres))
+                        await send(.genresResponse(ApiClient.Tmdb.fetchGenres()))
                     }
                     
-                case let .genresLoaded(genres):
-                    state.home.movieGenres = genres
+                case let .genresResponse(.success(response)):
+                    customDump(response)
                     state.isLoading = false
+
+                    if let genres = response.genres, genres.isNotEmpty {
+                        state.home.movieGenres = genres
+                    } else {
+                        return .send(.genresResponse(.unknownError))
+                    }
+                    return .none
+                    
+                case let .genresResponse(.failure(error)):
+                    customDump(error) // TODO: Handle error
                     return .none
                     
                 case .home:

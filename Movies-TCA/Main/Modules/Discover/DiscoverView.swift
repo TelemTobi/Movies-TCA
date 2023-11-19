@@ -15,13 +15,11 @@ struct DiscoverView: View {
     var body: some View {
         NavigationView {
             WithViewStore(store, observe: { $0 }) { viewStore in
-                List {
+                ScrollView {
                     ForEach(Discover.Section.allCases, id: \.self) { sectionType in
                         makeSection(for: sectionType)
                     }
                 }
-                .listStyle(.plain)
-                .background(.white)
                 .onFirstAppear {
                     viewStore.send(.onFirstAppear)
                 }
@@ -57,10 +55,13 @@ struct DiscoverView: View {
                 }
             }
         } header: {
-            Text(section.title)
+            HStack {
+                Text(section.title)
+                    .font(.title3.weight(.medium))
+                Spacer()
+            }
         }
-        .headerProminence(.increased)
-        .listRowSeparator(.hidden)
+        .padding(.horizontal)
     }
 }
 
