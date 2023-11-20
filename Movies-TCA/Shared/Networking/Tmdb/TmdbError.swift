@@ -13,7 +13,7 @@ struct TmdbError: Errorable, Equatable {
     let developerMessage: String?
     
     var debugDescription: String {
-        developerMessage ?? PredefinedError.unkownError.debugDescription
+        developerMessage ?? PredefinedError.unknownError.debugDescription
     }
     
     enum CodingKeys: String, CodingKey {

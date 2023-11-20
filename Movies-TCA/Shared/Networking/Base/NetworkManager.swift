@@ -33,7 +33,7 @@ struct NetworkManager<E: Endpoint, F: Errorable> {
     }
     
     private func makeRequest<T: Decodable & JsonResolver>(_ endpoint: Endpoint) async -> Result<T, F> {
-        var urlRequest = urlRequest(for: endpoint)
+        var urlRequest = URLRequest(endpoint)
         authenticator.mapRequest(&urlRequest)
      
         do {
@@ -50,11 +50,11 @@ struct NetworkManager<E: Endpoint, F: Errorable> {
                 return .success(model)
                 
             } catch {
-                return await handleError(endpoint, data)
+                return .failure(.init(.decodingError))
             }
             
         } catch {
-            return .failure(.init(.unkownError))
+            return .failure(.init(.unknownError))
         }
     }
     
@@ -64,58 +64,7 @@ struct NetworkManager<E: Endpoint, F: Errorable> {
             .parse(type: F.self, using: endpoint.dateDecodingStrategy, endpoint.keyDecodingStrategy) {
             return .failure(error)
         } else {
-            return .failure(.init(.unkownError))
+            return .failure(.init(.unknownError))
         }
-    }
-    
-    private func urlRequest(for endpoint: Endpoint) -> URLRequest {
-        URLRequest(
-            url: endpoint.baseURL,
-            path: endpoint.path,
-            method: endpoint.method,
-            task: endpoint.task,
-            headers: endpoint.headers
-        )
-    }
-}
-
-extension URLRequest {
-    init(url: URL, path: String, method: HTTPMethod, task: HTTPTask, headers: [String: String]?) {
-        self.init(url: url.appending(path: path))
-        self.httpMethod = method.rawValue
-        
-        headers?.forEach { (key, value) in
-            self.setValue(value, forHTTPHeaderField: key)
-        }
-        
-        switch task {
-            case .requestPlain:
-                break
-                
-            case .requestEncodable(let encodable):
-                self.httpBody = try? JSONEncoder().encode(encodable)
-                
-            case .requestParameters(let parameters):
-                self.url?.append(queryItems: parameters.map { URLQueryItem(name: $0.key, value: String(describing: $0.value)) })
-                
-            case .requestCompositeEncodable(let encodable, let parameters):
-                self.httpBody = try? JSONEncoder().encode(encodable)
-                self.url?.append(queryItems: parameters.map { URLQueryItem(name: $0.key, value: String(describing: $0.value)) })
-        }
-    }
-}
-
-extension Data {
-    
-    func parse<T: Decodable>(type: T.Type, using dateDecodingStrategy: JSONDecoder.DateDecodingStrategy? = .iso8601, _ keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) throws -> T {
-        
-        let jsonDecoder = JSONDecoder()
-        jsonDecoder.keyDecodingStrategy = keyDecodingStrategy
-        
-        if let dateDecodingStrategy = dateDecodingStrategy {
-            jsonDecoder.dateDecodingStrategy = dateDecodingStrategy
-        }
-        
-        return try jsonDecoder.decode(type, from: self)
     }
 }

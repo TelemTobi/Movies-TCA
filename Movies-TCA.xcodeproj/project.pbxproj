@@ -18,6 +18,8 @@
 		7DDA64402B094635008BF425 /* Result+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA643F2B094635008BF425 /* Result+Extension.swift */; };
 		7DDA64422B094C8B008BF425 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA64412B094C8B008BF425 /* HTTPMethod.swift */; };
 		7DDA64452B094DA8008BF425 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA64442B094DA8008BF425 /* HTTPTask.swift */; };
+		7DDA644D2B0AB023008BF425 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA644C2B0AB023008BF425 /* URLRequest+Extension.swift */; };
+		7DDA644F2B0AB02C008BF425 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA644E2B0AB02C008BF425 /* Data+Extension.swift */; };
 		7DE17DC62AFE0325005F4848 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE17DC52AFE0325005F4848 /* ComposableArchitecture */; };
 		7DE17DD42AFE0BC1005F4848 /* OnFirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DD32AFE0BC1005F4848 /* OnFirstAppear.swift */; };
 		7DE17DD62AFFB980005F4848 /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DD52AFFB980005F4848 /* HomeFeature.swift */; };
@@ -55,6 +57,8 @@
 		7DDA643F2B094635008BF425 /* Result+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extension.swift"; sourceTree = "<group>"; };
 		7DDA64412B094C8B008BF425 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		7DDA64442B094DA8008BF425 /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
+		7DDA644C2B0AB023008BF425 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
+		7DDA644E2B0AB02C008BF425 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		7DE17DD32AFE0BC1005F4848 /* OnFirstAppear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnFirstAppear.swift; sourceTree = "<group>"; };
 		7DE17DD52AFFB980005F4848 /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
 		7DE17DD82AFFDE4E005F4848 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
@@ -288,9 +292,11 @@
 		7DE17DF52B01F957005F4848 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				7DE17E032B0413A1005F4848 /* String+Extension.swift */,
 				7DE17DF62B01F96A005F4848 /* Collection+Extension.swift */,
+				7DDA644E2B0AB02C008BF425 /* Data+Extension.swift */,
 				7DDA643F2B094635008BF425 /* Result+Extension.swift */,
+				7DE17E032B0413A1005F4848 /* String+Extension.swift */,
+				7DDA644C2B0AB023008BF425 /* URLRequest+Extension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -410,6 +416,7 @@
 				7DDA643C2B07A8E2008BF425 /* JsonResolver.swift in Sources */,
 				7DE17E0E2B053C4E005F4848 /* TmdbClient.swift in Sources */,
 				7DDA64422B094C8B008BF425 /* HTTPMethod.swift in Sources */,
+				7DDA644F2B0AB02C008BF425 /* Data+Extension.swift in Sources */,
 				7DE17DDB2AFFDE56005F4848 /* DiscoverFeature.swift in Sources */,
 				7DE17E102B06861C005F4848 /* Errorable.swift in Sources */,
 				7DDA64362B079863008BF425 /* TmdbEndpoint.swift in Sources */,
@@ -419,6 +426,7 @@
 				7DE17E002B0410B0005F4848 /* RootFeature.swift in Sources */,
 				7DDA64382B0798C1008BF425 /* TmdbAuthenticator.swift in Sources */,
 				7DD6D96E2AF943B7004828AB /* MoviesApp.swift in Sources */,
+				7DDA644D2B0AB023008BF425 /* URLRequest+Extension.swift in Sources */,
 				7DE17DE12B00B0AC005F4848 /* DiscoverResponse.swift in Sources */,
 				7DE17DFE2B0410A7005F4848 /* RootView.swift in Sources */,
 			);

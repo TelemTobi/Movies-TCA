@@ -17,7 +17,7 @@ enum PredefinedError: String, Error {
     case connectionError
     case authError
     case decodingError
-    case unkownError
+    case unknownError
     
     var debugDescription: String {
         self.rawValue.titleCased
