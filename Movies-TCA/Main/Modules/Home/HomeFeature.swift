@@ -8,18 +8,18 @@
 import Foundation
 import ComposableArchitecture
 
-struct Home: Reducer {
+struct HomeFeature: Reducer {
     
     struct State: Equatable {
         var selectedTab: Tab = .discover
         var movieGenres: [Genre] = []
-        var discover = Discover.State()
+        var discover = DiscoverFeature.State()
     }
     
     enum Action: Equatable {
         case onFirstAppear
         case onTabSelection(Tab)
-        case discover(Discover.Action)
+        case discover(DiscoverFeature.Action)
     }
     
     var body: some ReducerOf<Self> {
@@ -39,12 +39,12 @@ struct Home: Reducer {
         }
         
         Scope(state: \.discover, action: /Action.discover) {
-            Discover()
+            DiscoverFeature()
         }
     }
 }
 
-extension Home {
+extension HomeFeature {
     
     enum Tab {
         case discover, search, watchlist

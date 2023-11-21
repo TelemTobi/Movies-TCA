@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct RootView: View {
     
-    let store: StoreOf<Root>
+    let store: StoreOf<RootFeature>
     
     var body: some View {
         WithViewStore(store, observe: \.isLoading) { viewStore in
@@ -24,7 +24,7 @@ struct RootView: View {
                     HomeView(
                         store: store.scope(
                             state: \.home,
-                            action: Root.Action.home
+                            action: RootFeature.Action.home
                         )
                     )
                 }
@@ -37,8 +37,8 @@ struct RootView: View {
 #Preview {
     RootView(
         store: .init(
-            initialState: Root.State(),
-            reducer: { Root() }
+            initialState: RootFeature.State(),
+            reducer: { RootFeature() }
         )
     )
 }

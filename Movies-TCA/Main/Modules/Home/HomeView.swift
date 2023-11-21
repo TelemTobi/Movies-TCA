@@ -10,27 +10,27 @@ import ComposableArchitecture
 
 struct HomeView: View {
     
-    let store: StoreOf<Home>
+    let store: StoreOf<HomeFeature>
     
     var body: some View {
         WithViewStore(store, observe: \.selectedTab) { viewStore in
-            TabView(selection: viewStore.binding(send: Home.Action.onTabSelection)) {
+            TabView(selection: viewStore.binding(send: HomeFeature.Action.onTabSelection)) {
                 DiscoverView(
                     store: store.scope(
                         state: \.discover,
-                        action: Home.Action.discover
+                        action: HomeFeature.Action.discover
                     )
                 )
                 .tabItem { Label("Discover", systemImage: "globe") }
-                .tag(Home.Tab.discover)
+                .tag(HomeFeature.Tab.discover)
                 
                 Text("Search")
                     .tabItem { Label("Search", systemImage: "magnifyingglass") }
-                    .tag(Home.Tab.search)
+                    .tag(HomeFeature.Tab.search)
                 
                 Text("Watchlist")
                     .tabItem { Label("Watchlist", systemImage: "popcorn") }
-                    .tag(Home.Tab.watchlist)
+                    .tag(HomeFeature.Tab.watchlist)
             }
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
@@ -42,8 +42,8 @@ struct HomeView: View {
 #Preview {
     HomeView(
         store: .init(
-            initialState: Home.State(),
-            reducer: { Home() }
+            initialState: HomeFeature.State(),
+            reducer: { HomeFeature() }
         )
     )
 }

@@ -10,13 +10,13 @@ import ComposableArchitecture
 
 struct DiscoverView: View {
     
-    let store: StoreOf<Discover>
+    let store: StoreOf<DiscoverFeature>
     
     var body: some View {
         NavigationView {
             WithViewStore(store, observe: { $0 }) { viewStore in
                 ScrollView {
-                    ForEach(Discover.Section.allCases, id: \.self) { sectionType in
+                    ForEach(DiscoverFeature.Section.allCases, id: \.self) { sectionType in
                         makeSection(for: sectionType)
                     }
                 }
@@ -42,7 +42,7 @@ struct DiscoverView: View {
     }
     
     @ViewBuilder
-    private func makeSection(for section: Discover.Section) -> some View {
+    private func makeSection(for section: DiscoverFeature.Section) -> some View {
         Section {
             ScrollView(.horizontal) {
                 LazyHStack {
@@ -68,8 +68,8 @@ struct DiscoverView: View {
 #Preview {
     DiscoverView(
         store: .init(
-            initialState: Discover.State(),
-            reducer: { Discover() }
+            initialState: DiscoverFeature.State(),
+            reducer: { DiscoverFeature() }
         )
     )
 }
