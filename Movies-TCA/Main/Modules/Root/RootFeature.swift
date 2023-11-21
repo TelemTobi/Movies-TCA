@@ -37,7 +37,6 @@ struct RootFeature: Reducer {
                     }
                     
                 case let .genresResponse(.success(response)):
-                    customDump(response)
                     state.isLoading = false
 
                     if let genres = response.genres, genres.isNotEmpty {

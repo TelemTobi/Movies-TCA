@@ -12,8 +12,8 @@ struct DiscoverFeature: Reducer {
     
     struct State: Equatable {
         var isLoading = true
-        var movieGenres: [Genre] = []
-        var movies: [Section: [Movie]] = [:]
+        var movieGenres: IdentifiedArrayOf<Genre> = []
+        var movies: [Section: IdentifiedArrayOf<Movie>] = [:]
     }
     
     enum Action: Equatable {

@@ -21,6 +21,26 @@ struct TmdbClient {
     func fetchGenres() async -> Result<GenresResponse, TmdbError> {
         await networkManager.request(.listGenres)
     }
+    
+    @Sendable
+    func fetchNowPlayingMovies() async -> Result<MoviesList, TmdbError> {
+        await networkManager.request(.listGenres) // TODO: ⚠️
+    }
+    
+    @Sendable
+    func fetchPopularMovies() async -> Result<MoviesList, TmdbError> {
+        await networkManager.request(.listGenres) // TODO: ⚠️
+    }
+    
+    @Sendable
+    func fetchTopRatedMovies() async -> Result<MoviesList, TmdbError> {
+        await networkManager.request(.listGenres) // TODO: ⚠️
+    }
+    
+    @Sendable
+    func fetchUpcomingMovies() async -> Result<MoviesList, TmdbError> {
+        await networkManager.request(.listGenres) // TODO: ⚠️
+    }
 }
 
 extension TmdbClient {

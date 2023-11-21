@@ -7,7 +7,28 @@
 
 import Foundation
 
-struct Movie: Decodable, Equatable {
+struct MoviesList: Decodable, JsonResolver, Equatable {
+    
+    let results: [Movie]?
+    let page: Int?
+    let totalPages: Int?
+    let totalResults: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case results, page
+        case totalPages = "total_pages"
+        case totalResults = "total_results"
+    }
+    
+    enum ListType: String {
+        case nowPlaying
+        case popular
+        case topRated
+        case upcoming
+    }
+}
+
+struct Movie: Decodable, Equatable, Identifiable {
     
     let id: Int?
     let title: String?
@@ -21,7 +42,7 @@ struct Movie: Decodable, Equatable {
     let voteCount: Int?
     let hasTrailer: Bool?
     let isAdult: Bool?
-    let genres: [Genre]?
+    let genreIds: [Int]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -36,7 +57,7 @@ struct Movie: Decodable, Equatable {
         case isAdult = "adult"
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
-        case genres = "genre_ids"
+        case genreIds = "genre_ids"
         
     }
 }
