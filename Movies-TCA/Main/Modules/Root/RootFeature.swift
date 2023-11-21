@@ -23,6 +23,8 @@ struct Root: Reducer {
         case home(Home.Action)
     }
     
+    @Dependency(\.tmdbClient) var tmdbClient
+    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
@@ -31,7 +33,7 @@ struct Root: Reducer {
                     
                 case .loadGenres:
                     return .run { send in
-                        await send(.genresResponse(ApiClient.Tmdb.fetchGenres()))
+                        await send(.genresResponse(tmdbClient.fetchGenres()))
                     }
                     
                 case let .genresResponse(.success(response)):
