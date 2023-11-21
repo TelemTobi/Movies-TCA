@@ -8,11 +8,11 @@
 import Foundation
 import ComposableArchitecture
 
-struct Root: Reducer {
+struct RootFeature: Reducer {
     
     struct State: Equatable {
         var isLoading = true
-        var home = Home.State()
+        var home = HomeFeature.State()
     }
     
     enum Action: Equatable {
@@ -20,8 +20,10 @@ struct Root: Reducer {
         case loadGenres
         case genresResponse(Result<GenresResponse, TmdbError>)
         
-        case home(Home.Action)
+        case home(HomeFeature.Action)
     }
+    
+    @Dependency(\.tmdbClient) var tmdbClient
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -31,7 +33,7 @@ struct Root: Reducer {
                     
                 case .loadGenres:
                     return .run { send in
-                        await send(.genresResponse(ApiClient.Tmdb.fetchGenres()))
+                        await send(.genresResponse(tmdbClient.fetchGenres()))
                     }
                     
                 case let .genresResponse(.success(response)):

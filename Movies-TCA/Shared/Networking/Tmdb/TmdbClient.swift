@@ -9,14 +9,15 @@ import Foundation
 
 struct TmdbClient {
     
-    var authenticator: Authenticating
-    var networkManager: NetworkManager<TmdbEndpoint, TmdbError>
+    private let authenticator: Authenticating
+    private let networkManager: NetworkManager<TmdbEndpoint, TmdbError>
     
     init() {
         authenticator = TmdbAuthenticator()
         networkManager = NetworkManager(authenticator: authenticator)
     }
     
+    @Sendable
     func fetchGenres() async -> Result<GenresResponse, TmdbError> {
         await networkManager.request(.listGenres)
     }

@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-struct Discover: Reducer {
+struct DiscoverFeature: Reducer {
     
     struct State: Equatable {
         var isLoading = true
@@ -35,7 +35,7 @@ struct Discover: Reducer {
     }
 }
 
-extension Discover {
+extension DiscoverFeature {
     
     enum Section: CaseIterable {
         case nowPlaying, popular, topRated, upcoming

@@ -10,6 +10,6 @@ import Foundation
 extension Result where Failure : Errorable {
     
     static var unknownError: Result<Success, Failure> {
-        .failure(Failure(.unkownError))
+        .failure(Failure(.unknownError))
     }
 }

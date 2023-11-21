@@ -15,8 +15,8 @@ struct MoviesApp: App {
         WindowGroup {
             RootView(
                 store: .init(
-                    initialState: Root.State(),
-                    reducer: { Root() }
+                    initialState: RootFeature.State(),
+                    reducer: { RootFeature() }
                 )
             )
         }

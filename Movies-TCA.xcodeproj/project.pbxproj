@@ -18,6 +18,9 @@
 		7DDA64402B094635008BF425 /* Result+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA643F2B094635008BF425 /* Result+Extension.swift */; };
 		7DDA64422B094C8B008BF425 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA64412B094C8B008BF425 /* HTTPMethod.swift */; };
 		7DDA64452B094DA8008BF425 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA64442B094DA8008BF425 /* HTTPTask.swift */; };
+		7DDA644D2B0AB023008BF425 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA644C2B0AB023008BF425 /* URLRequest+Extension.swift */; };
+		7DDA644F2B0AB02C008BF425 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA644E2B0AB02C008BF425 /* Data+Extension.swift */; };
+		7DDA64522B0C79B5008BF425 /* TmdbClientDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA64512B0C79B5008BF425 /* TmdbClientDependency.swift */; };
 		7DE17DC62AFE0325005F4848 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE17DC52AFE0325005F4848 /* ComposableArchitecture */; };
 		7DE17DD42AFE0BC1005F4848 /* OnFirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DD32AFE0BC1005F4848 /* OnFirstAppear.swift */; };
 		7DE17DD62AFFB980005F4848 /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DD52AFFB980005F4848 /* HomeFeature.swift */; };
@@ -35,7 +38,6 @@
 		7DE17E042B0413A1005F4848 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E032B0413A1005F4848 /* String+Extension.swift */; };
 		7DE17E072B0413CB005F4848 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7DE17E052B0413CB005F4848 /* Release.xcconfig */; };
 		7DE17E082B0413CB005F4848 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7DE17E062B0413CB005F4848 /* Debug.xcconfig */; };
-		7DE17E0B2B053C21005F4848 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E0A2B053C21005F4848 /* ApiClient.swift */; };
 		7DE17E0E2B053C4E005F4848 /* TmdbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E0D2B053C4E005F4848 /* TmdbClient.swift */; };
 		7DE17E102B06861C005F4848 /* Errorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E0F2B06861C005F4848 /* Errorable.swift */; };
 		7DE17E142B068B72005F4848 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E132B068B72005F4848 /* NetworkManager.swift */; };
@@ -55,6 +57,9 @@
 		7DDA643F2B094635008BF425 /* Result+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extension.swift"; sourceTree = "<group>"; };
 		7DDA64412B094C8B008BF425 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		7DDA64442B094DA8008BF425 /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
+		7DDA644C2B0AB023008BF425 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
+		7DDA644E2B0AB02C008BF425 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
+		7DDA64512B0C79B5008BF425 /* TmdbClientDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbClientDependency.swift; sourceTree = "<group>"; };
 		7DE17DD32AFE0BC1005F4848 /* OnFirstAppear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnFirstAppear.swift; sourceTree = "<group>"; };
 		7DE17DD52AFFB980005F4848 /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
 		7DE17DD82AFFDE4E005F4848 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
@@ -72,7 +77,6 @@
 		7DE17E052B0413CB005F4848 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		7DE17E062B0413CB005F4848 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		7DE17E092B0415B6005F4848 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		7DE17E0A2B053C21005F4848 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		7DE17E0D2B053C4E005F4848 /* TmdbClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbClient.swift; sourceTree = "<group>"; };
 		7DE17E0F2B06861C005F4848 /* Errorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errorable.swift; sourceTree = "<group>"; };
 		7DE17E132B068B72005F4848 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -139,6 +143,14 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		7DDA64502B0C7662008BF425 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				7DDA64512B0C79B5008BF425 /* TmdbClientDependency.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
 		7DE17DC72AFE049D005F4848 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +191,7 @@
 		7DE17DCB2AFE04F0005F4848 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				7DDA64502B0C7662008BF425 /* Dependencies */,
 				7DE17DCF2AFE0546005F4848 /* Extensions */,
 				7DE17DD02AFE0553005F4848 /* Modifiers */,
 				7DE17DD12AFE0561005F4848 /* Protocols */,
@@ -189,7 +202,6 @@
 		7DE17DCC2AFE04FD005F4848 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				7DE17E0A2B053C21005F4848 /* ApiClient.swift */,
 				7DDA64432B094CF0008BF425 /* Base */,
 				7DE17E0C2B053C41005F4848 /* Tmdb */,
 			);
@@ -288,9 +300,11 @@
 		7DE17DF52B01F957005F4848 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				7DE17E032B0413A1005F4848 /* String+Extension.swift */,
 				7DE17DF62B01F96A005F4848 /* Collection+Extension.swift */,
+				7DDA644E2B0AB02C008BF425 /* Data+Extension.swift */,
 				7DDA643F2B094635008BF425 /* Result+Extension.swift */,
+				7DE17E032B0413A1005F4848 /* String+Extension.swift */,
+				7DDA644C2B0AB023008BF425 /* URLRequest+Extension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -393,13 +407,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DDA64522B0C79B5008BF425 /* TmdbClientDependency.swift in Sources */,
 				7DDA643A2B0799B1008BF425 /* Authenticating.swift in Sources */,
 				7DE17DDE2B00B073005F4848 /* Movie.swift in Sources */,
 				7DE17DF72B01F96A005F4848 /* Collection+Extension.swift in Sources */,
 				7DE17E022B041357005F4848 /* Config.swift in Sources */,
 				7DE17E142B068B72005F4848 /* NetworkManager.swift in Sources */,
 				7DE17E042B0413A1005F4848 /* String+Extension.swift in Sources */,
-				7DE17E0B2B053C21005F4848 /* ApiClient.swift in Sources */,
 				7DE17DD42AFE0BC1005F4848 /* OnFirstAppear.swift in Sources */,
 				7DE17E1F2B068C60005F4848 /* Endpoint.swift in Sources */,
 				7DE17DF02B01F6A2005F4848 /* Genre.swift in Sources */,
@@ -410,6 +424,7 @@
 				7DDA643C2B07A8E2008BF425 /* JsonResolver.swift in Sources */,
 				7DE17E0E2B053C4E005F4848 /* TmdbClient.swift in Sources */,
 				7DDA64422B094C8B008BF425 /* HTTPMethod.swift in Sources */,
+				7DDA644F2B0AB02C008BF425 /* Data+Extension.swift in Sources */,
 				7DE17DDB2AFFDE56005F4848 /* DiscoverFeature.swift in Sources */,
 				7DE17E102B06861C005F4848 /* Errorable.swift in Sources */,
 				7DDA64362B079863008BF425 /* TmdbEndpoint.swift in Sources */,
@@ -419,6 +434,7 @@
 				7DE17E002B0410B0005F4848 /* RootFeature.swift in Sources */,
 				7DDA64382B0798C1008BF425 /* TmdbAuthenticator.swift in Sources */,
 				7DD6D96E2AF943B7004828AB /* MoviesApp.swift in Sources */,
+				7DDA644D2B0AB023008BF425 /* URLRequest+Extension.swift in Sources */,
 				7DE17DE12B00B0AC005F4848 /* DiscoverResponse.swift in Sources */,
 				7DE17DFE2B0410A7005F4848 /* RootView.swift in Sources */,
 			);
@@ -488,6 +504,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
 			};
 			name = Debug;
 		};
@@ -544,6 +561,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
