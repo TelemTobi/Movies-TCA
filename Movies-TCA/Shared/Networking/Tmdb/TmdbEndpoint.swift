@@ -51,6 +51,6 @@ extension TmdbEndpoint: Endpoint {
     }
     
     var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy {
-        .iso8601
+        .tmdbDateDecodingStrategy
     }
 }

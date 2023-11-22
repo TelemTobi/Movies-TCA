@@ -26,7 +26,7 @@ struct HomeFeature: Reducer {
         Reduce { state, action in
             switch action {
                 case .onFirstAppear:
-                    state.discover.movieGenres = state.movieGenres
+                    state.discover.movieGenres = .init(uniqueElements: state.movieGenres)
                     return .none
                     
                 case let .onTabSelection(tab):

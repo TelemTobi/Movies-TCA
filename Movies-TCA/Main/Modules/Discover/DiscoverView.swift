@@ -15,13 +15,17 @@ struct DiscoverView: View {
     var body: some View {
         NavigationView {
             WithViewStore(store, observe: { $0 }) { viewStore in
-                ScrollView {
-                    ForEach(DiscoverFeature.Section.allCases, id: \.self) { sectionType in
-                        makeSection(for: sectionType)
+                if viewStore.isLoading {
+                    ProgressView()
+                        .onFirstAppear {
+                            viewStore.send(.onFirstAppear)
+                        }
+                } else {
+                    ScrollView {
+                        ForEach(MoviesList.ListType.allCases, id: \.self) { sectionType in
+                            makeSection(for: sectionType)
+                        }
                     }
-                }
-                .onFirstAppear {
-                    viewStore.send(.onFirstAppear)
                 }
             }
             .toolbar(content: toolbarContent)
@@ -42,7 +46,7 @@ struct DiscoverView: View {
     }
     
     @ViewBuilder
-    private func makeSection(for section: DiscoverFeature.Section) -> some View {
+    private func makeSection(for section: MoviesList.ListType) -> some View {
         Section {
             ScrollView(.horizontal) {
                 LazyHStack {

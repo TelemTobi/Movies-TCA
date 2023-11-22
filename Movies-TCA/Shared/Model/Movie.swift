@@ -20,11 +20,17 @@ struct MoviesList: Decodable, JsonResolver, Equatable {
         case totalResults = "total_results"
     }
     
-    enum ListType: String {
-        case nowPlaying
-        case popular
-        case topRated
-        case upcoming
+    enum ListType: String, CaseIterable {
+        case nowPlaying, popular, topRated, upcoming
+        
+        var title: String {
+            return switch self {
+                case .nowPlaying: "Now Playing"
+                case .popular: "Popular"
+                case .topRated: "Top Rated"
+                case .upcoming: "Upcoming"
+            }
+        }
     }
 }
 
@@ -53,11 +59,10 @@ struct Movie: Decodable, Equatable, Identifiable {
         case posterPath = "poster_path"
         case backdropPath = "backdrop_path"
         case releaseDate = "release_date"
-        case hasTrailer = "video"
-        case isAdult = "adult"
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+        case hasTrailer = "video"
+        case isAdult = "adult"
         case genreIds = "genre_ids"
-        
     }
 }
