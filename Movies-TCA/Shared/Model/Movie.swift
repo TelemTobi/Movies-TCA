@@ -65,4 +65,19 @@ struct Movie: Decodable, Equatable, Identifiable {
         case isAdult = "adult"
         case genreIds = "genre_ids"
     }
+    
+    var posterUrl: URL? {
+        guard let posterPath else { return nil }
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/w500/" + posterPath)
+    }
+    
+    var thumbnailUrl: URL? {
+        guard let posterPath else { return nil }
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/w250/" + posterPath)
+    }
+    
+    var backdropUrl: URL? {
+        guard let backdropPath else { return nil }
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/w500/" + backdropPath)
+    }
 }

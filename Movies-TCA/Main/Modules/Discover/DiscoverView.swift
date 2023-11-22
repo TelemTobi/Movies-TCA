@@ -25,6 +25,7 @@ struct DiscoverView: View {
                                     makeSection(for: sectionType, movies: movies)
                                 }
                             }
+                            
                         }
                     }
                 }
@@ -52,25 +53,22 @@ struct DiscoverView: View {
     
     @ViewBuilder
     private func makeSection(for section: MoviesList.ListType, movies: IdentifiedArrayOf<Movie>) -> some View {
-        Section {
-            ScrollView(.horizontal) {
-                LazyHStack {
-                    switch section {
-                    case .nowPlaying:
-                        EmptyView()
-                    case .popular, .topRated, .upcoming:
-                        EmptyView()
-                    }
-                }
-            }
-        } header: {
+        VStack {
             HStack {
                 Text(section.title)
                     .font(.title3.weight(.medium))
                 Spacer()
             }
+            .padding(.horizontal)
+            
+            switch section {
+            case .nowPlaying:
+                MoviesPagerView(movies: movies)
+            case .popular, .topRated, .upcoming:
+                EmptyView()
+            }
         }
-        .padding(.horizontal)
+        .padding(.bottom)
     }
 }
 
