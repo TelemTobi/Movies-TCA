@@ -23,7 +23,11 @@ struct NetworkManager<E: Endpoint, F: Errorable> {
         
         do {
             if try await authenticator.authenticate() {
-                return await makeRequest(endpoint)
+                if endpoint.sampleData != nil {
+                    return await makeStubRequest(endpoint)
+                } else {
+                    return await makeRequest(endpoint)
+                }
             } else {
                 return .failure(.init(.authError))
             }
@@ -55,6 +59,18 @@ struct NetworkManager<E: Endpoint, F: Errorable> {
             
         } catch {
             return .failure(.init(.unknownError))
+        }
+    }
+    
+    private func makeStubRequest<T: Decodable & JsonResolver>(_ endpoint: Endpoint) async -> Result<T, F> {
+        do {
+            let model: T = try T
+                .resolve(endpoint.sampleData ?? Data())
+                .parse(type: T.self, using: endpoint.dateDecodingStrategy, endpoint.keyDecodingStrategy)
+            return .success(model)
+            
+        } catch {
+            return .failure(.init(.decodingError))
         }
     }
     

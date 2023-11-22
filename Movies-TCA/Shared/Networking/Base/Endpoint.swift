@@ -25,8 +25,8 @@ protocol Endpoint {
     /// The headers to be used in the request.
     var headers: [String: String]? { get }
     
-    /// Provides stub data for use in testing. Default is `Data()`.
-    var sampleData: Data { get }
+    /// Provides stub data for use in testing. Default is `nil`.
+    var sampleData: Data? { get }
     
     /// Strategy for decoding keys. Default is `useDefaultKeys`.
     var keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy { get }
@@ -37,7 +37,7 @@ protocol Endpoint {
 
 extension Endpoint {
     
-    var sampleData: Data { Data() }
+    var sampleData: Data? { nil }
     
     var keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy { .useDefaultKeys }
     
