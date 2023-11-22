@@ -13,19 +13,24 @@ struct DiscoverView: View {
     let store: StoreOf<DiscoverFeature>
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             WithViewStore(store, observe: { $0 }) { viewStore in
-                if viewStore.isLoading {
-                    ProgressView()
-                        .onFirstAppear {
-                            viewStore.send(.onFirstAppear)
-                        }
-                } else {
-                    ScrollView {
-                        ForEach(MoviesList.ListType.allCases, id: \.self) { sectionType in
-                            makeSection(for: sectionType)
+                ZStack {
+                    if viewStore.isLoading {
+                        ProgressView()
+                    } else {
+                        ScrollView {
+                            ForEach(MoviesList.ListType.allCases, id: \.self) { sectionType in
+                                if let movies = viewStore.movies[sectionType] {
+                                    makeSection(for: sectionType, movies: movies)
+                                }
+                            }
                         }
                     }
+                }
+                .animation(.easeInOut, value: viewStore.isLoading)
+                .onFirstAppear {
+                    viewStore.send(.onFirstAppear)
                 }
             }
             .toolbar(content: toolbarContent)
@@ -39,22 +44,22 @@ struct DiscoverView: View {
             Button {
                 
             } label: {
-                Image(systemName: "person.fill")
+                Image(systemName: "line.3.horizontal.decrease.circle")
                     .foregroundColor(.accentColor)
             }
         }
     }
     
     @ViewBuilder
-    private func makeSection(for section: MoviesList.ListType) -> some View {
+    private func makeSection(for section: MoviesList.ListType, movies: IdentifiedArrayOf<Movie>) -> some View {
         Section {
             ScrollView(.horizontal) {
                 LazyHStack {
                     switch section {
-                        case .nowPlaying:
-                            EmptyView()
-                        case .popular, .topRated, .upcoming:
-                            EmptyView()
+                    case .nowPlaying:
+                        EmptyView()
+                    case .popular, .topRated, .upcoming:
+                        EmptyView()
                     }
                 }
             }
