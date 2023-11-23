@@ -14,9 +14,7 @@ struct MoviesCollectionView: View {
     let movies: IdentifiedArrayOf<Movie>
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 0) {
-            
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 20) {
                     ForEach(movies) { movie in
@@ -37,7 +35,7 @@ struct MoviesCollectionView: View {
         var body: some View {
             
             NavigationLink {
-                EmptyView()
+                Color.clear
                     .navigationTitle(movie.title ?? .empty)
             } label: {
                 VStack(alignment: .leading) {
@@ -46,7 +44,7 @@ struct MoviesCollectionView: View {
                         .placeholder {
                             RoundedRectangle(cornerRadius: 10)
                                 .foregroundColor(.gray)
-                                .frame(width: 130, height: 200)
+                                .frame(width: 140, height: 210)
                             
                             Image(systemName: "popcorn")
                                 .resizable()
@@ -55,19 +53,19 @@ struct MoviesCollectionView: View {
                                 .foregroundColor(.white)
                         }
                         .scaledToFill()
-                        .frame(width: 130, height: 200)
+                        .frame(width: 140, height: 210)
                         .cornerRadius(10)
                         .transition(.fade)
                         .shadow(radius: 4)
                     
                     Text(movie.title ?? .empty)
+                        .lineLimit(1)
                         .font(.subheadline)
                         .padding(.trailing)
                         .padding(.leading, 4)
                         .foregroundColor(.primary)
-                        .multilineTextAlignment(.leading)
                 }
-                .frame(width: 130)
+                .frame(width: 140)
             }
             .buttonStyle(.plain)
         }

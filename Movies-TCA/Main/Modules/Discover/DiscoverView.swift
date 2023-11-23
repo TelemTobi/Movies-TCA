@@ -13,30 +13,29 @@ struct DiscoverView: View {
     let store: StoreOf<DiscoverFeature>
     
     var body: some View {
-        NavigationStack {
-            WithViewStore(store, observe: { $0 }) { viewStore in
-                ZStack {
-                    if viewStore.isLoading {
-                        ProgressView()
-                    } else {
-                        List {
-                            ForEach(MoviesList.ListType.allCases, id: \.self) { sectionType in
-                                if let movies = viewStore.movies[sectionType] {
-                                    makeSection(for: sectionType, movies: movies)
-                                }
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            ZStack {
+                if viewStore.isLoading {
+                    ProgressView()
+                } else {
+                    List {
+                        ForEach(MoviesList.ListType.allCases, id: \.self) { sectionType in
+                            if let movies = viewStore.movies[sectionType] {
+                                makeSection(for: sectionType, movies: movies)
                             }
-                            .listRowInsets(.zero)
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
-                            .listSectionSeparator(.hidden, edges: .top)
                         }
-                        .listStyle(.grouped)
+                        .listRowInsets(.zero)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                        .listSectionSeparator(.hidden, edges: .top)
                     }
+                    .listStyle(.grouped)
+                    .scrollIndicators(.hidden)
                 }
-                .animation(.easeInOut, value: viewStore.isLoading)
-                .onFirstAppear {
-                    viewStore.send(.onFirstAppear)
-                }
+            }
+            .animation(.easeInOut, value: viewStore.isLoading)
+            .onFirstAppear {
+                viewStore.send(.onFirstAppear)
             }
             .navigationTitle("Discover")
             .toolbar(content: toolbarContent)
@@ -67,7 +66,7 @@ struct DiscoverView: View {
             }
         } header: {
             SectionHeader(title: section.title, action: "See All") {
-                EmptyView()
+                Color.clear
                     .navigationTitle(section.title)
             }
             .padding(.horizontal)

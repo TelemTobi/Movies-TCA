@@ -21,12 +21,14 @@ struct HomeView: View {
                 //                        action: HomeFeature.Action.discover
                 //                    )
                 //                )
-                DiscoverView(store:
-                    .init(
-                        initialState: DiscoverFeature.State(),
-                        reducer: { DiscoverFeature() }
+                NavigationStack {
+                    DiscoverView(store:
+                            .init(
+                                initialState: DiscoverFeature.State(),
+                                reducer: { DiscoverFeature() }
+                            )
                     )
-                )
+                }
                 .tabItem { Label("Discover", systemImage: "globe") }
                 .tag(HomeFeature.Tab.discover)
                 
