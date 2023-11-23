@@ -22,11 +22,12 @@ struct MoviesPagerView: View {
                     }
                 }
                 .scrollTargetLayout()
+                .padding(.vertical)
                 .padding(.horizontal, 16)
             }
             .scrollTargetBehavior(.viewAligned)
         }
-        .frame(height: 240)
+        .frame(height: 250)
     }
     
     private struct ItemView: View {
@@ -51,8 +52,7 @@ struct MoviesPagerView: View {
             }
             .frame(width: geometry.size.width - 32)
             .scrollTransition(.interactive, axis: .horizontal) { view, phase in
-                view
-                    .scaleEffect(phase.isIdentity ? 1 : 0.95)
+                view.scaleEffect(phase.isIdentity ? 1 : 0.95)
             }
         }
         

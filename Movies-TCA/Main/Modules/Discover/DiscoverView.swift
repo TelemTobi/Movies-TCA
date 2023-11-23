@@ -23,12 +23,12 @@ struct DiscoverView: View {
                             ForEach(MoviesList.ListType.allCases, id: \.self) { sectionType in
                                 if let movies = viewStore.movies[sectionType] {
                                     makeSection(for: sectionType, movies: movies)
-                                        .listRowInsets(.zero)
-                                        .listRowSeparator(.hidden)
-                                        .listRowBackground(Color.clear)
-                                        .listSectionSeparator(.hidden, edges: .top)
                                 }
                             }
+                            .listRowInsets(.zero)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                            .listSectionSeparator(.hidden, edges: .top)
                         }
                         .listStyle(.grouped)
                     }
@@ -63,14 +63,14 @@ struct DiscoverView: View {
                 MoviesPagerView(movies: movies)
                 
             case .popular, .topRated, .upcoming:
-                EmptyView()
+                MoviesCollectionView(movies: movies)
             }
         } header: {
             SectionHeader(title: section.title, action: "See All") {
                 EmptyView()
                     .navigationTitle(section.title)
             }
-            .padding()
+            .padding(.horizontal)
             .textCase(.none)
         }
     }
