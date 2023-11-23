@@ -12,40 +12,60 @@ struct DiscoverFeature: Reducer {
     
     struct State: Equatable {
         var isLoading = true
-        var movieGenres: [Genre] = []
-        var movies: [Section: [Movie]] = [:]
+        var movieGenres: IdentifiedArrayOf<Genre> = []
+        var movies: [MoviesList.ListType: IdentifiedArrayOf<Movie>] = [:]
     }
     
     enum Action: Equatable {
         case onFirstAppear
         case loadMovies
+        case moviesListLoaded(type: MoviesList.ListType, Result<MoviesList, TmdbError>)
+        case loadingCompleted
     }
+    
+    @Dependency(\.tmdbClient) var tmdbClient
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-                case .onFirstAppear:
-                    return .send(.loadMovies)
+            case .onFirstAppear:
+                return .send(.loadMovies)
+                
+            case .loadMovies:
+                state.isLoading = true
+                
+                return .run { send in
+                    async let nowPlayingResult = tmdbClient.fetchMovies(.nowPlaying)
+                    await send(.moviesListLoaded(type: .nowPlaying, nowPlayingResult))
                     
-                case .loadMovies:
-                    // TODO: Perform network call
-                    return .none
-            }
-        }
-    }
-}
-
-extension DiscoverFeature {
-    
-    enum Section: CaseIterable {
-        case nowPlaying, popular, topRated, upcoming
-        
-        var title: String {
-            return switch self {
-                case .nowPlaying: "Now Playing"
-                case .popular: "Popular"
-                case .topRated: "Top Rated"
-                case .upcoming: "Upcoming"
+                    async let popularResult = tmdbClient.fetchMovies(.popular)
+                    await send(.moviesListLoaded(type: .popular, popularResult))
+                    
+                    async let topRatedResult = tmdbClient.fetchMovies(.topRated)
+                    await send(.moviesListLoaded(type: .topRated, topRatedResult))
+                    
+                    async let upcomingResult = tmdbClient.fetchMovies(.upcoming)
+                    await send(.moviesListLoaded(type: .upcoming, upcomingResult))
+                    
+                    await send(.loadingCompleted)
+                }
+                
+            case let .moviesListLoaded(type, .success(response)):
+                if let movies = response.results {
+                    state.movies[type] = .init(uniqueElements: movies)
+                } else {
+                    return .send(.moviesListLoaded(type: type, .unknownError))
+                }
+                
+                return .none
+                
+            case let .moviesListLoaded(_, .failure(error)):
+                customDump(error) // TODO: Handle error
+                return .none
+                
+            case .loadingCompleted:
+                state.isLoading = false
+                return .none
             }
         }
     }

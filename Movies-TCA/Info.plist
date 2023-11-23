@@ -6,5 +6,7 @@
 	<string>${TMDB_API_ACCESS_TOKEN}</string>
 	<key>tmdbBaseUrl</key>
 	<string>${TMDB_API_BASE_URL}</string>
+	<key>tmdbPhotoBaseUrl</key>
+	<string>$(TMDB_PHOTO_BASE_URL)</string>
 </dict>
 </plist>

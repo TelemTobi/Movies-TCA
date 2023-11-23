@@ -15,10 +15,16 @@ struct HomeView: View {
     var body: some View {
         WithViewStore(store, observe: \.selectedTab) { viewStore in
             TabView(selection: viewStore.binding(send: HomeFeature.Action.onTabSelection)) {
-                DiscoverView(
-                    store: store.scope(
-                        state: \.discover,
-                        action: HomeFeature.Action.discover
+                //                DiscoverView(
+                //                    store: store.scope(
+                //                        state: \.discover,
+                //                        action: HomeFeature.Action.discover
+                //                    )
+                //                )
+                DiscoverView(store:
+                    .init(
+                        initialState: DiscoverFeature.State(),
+                        reducer: { DiscoverFeature() }
                     )
                 )
                 .tabItem { Label("Discover", systemImage: "globe") }

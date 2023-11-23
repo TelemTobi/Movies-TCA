@@ -13,19 +13,33 @@ struct DiscoverView: View {
     let store: StoreOf<DiscoverFeature>
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             WithViewStore(store, observe: { $0 }) { viewStore in
-                ScrollView {
-                    ForEach(DiscoverFeature.Section.allCases, id: \.self) { sectionType in
-                        makeSection(for: sectionType)
+                ZStack {
+                    if viewStore.isLoading {
+                        ProgressView()
+                    } else {
+                        List {
+                            ForEach(MoviesList.ListType.allCases, id: \.self) { sectionType in
+                                if let movies = viewStore.movies[sectionType] {
+                                    makeSection(for: sectionType, movies: movies)
+                                }
+                            }
+                            .listRowInsets(.zero)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                            .listSectionSeparator(.hidden, edges: .top)
+                        }
+                        .listStyle(.grouped)
                     }
                 }
+                .animation(.easeInOut, value: viewStore.isLoading)
                 .onFirstAppear {
                     viewStore.send(.onFirstAppear)
                 }
             }
+            .navigationTitle("Discover")
             .toolbar(content: toolbarContent)
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
     
@@ -35,33 +49,30 @@ struct DiscoverView: View {
             Button {
                 
             } label: {
-                Image(systemName: "person.fill")
+                Image(systemName: "line.3.horizontal.decrease.circle")
                     .foregroundColor(.accentColor)
             }
         }
     }
     
     @ViewBuilder
-    private func makeSection(for section: DiscoverFeature.Section) -> some View {
+    private func makeSection(for section: MoviesList.ListType, movies: IdentifiedArrayOf<Movie>) -> some View {
         Section {
-            ScrollView(.horizontal) {
-                LazyHStack {
-                    switch section {
-                        case .nowPlaying:
-                            EmptyView()
-                        case .popular, .topRated, .upcoming:
-                            EmptyView()
-                    }
-                }
+            switch section {
+            case .nowPlaying:
+                MoviesPagerView(movies: movies)
+                
+            case .popular, .topRated, .upcoming:
+                MoviesCollectionView(movies: movies)
             }
         } header: {
-            HStack {
-                Text(section.title)
-                    .font(.title3.weight(.medium))
-                Spacer()
+            SectionHeader(title: section.title, action: "See All") {
+                EmptyView()
+                    .navigationTitle(section.title)
             }
+            .padding(.horizontal)
+            .textCase(.none)
         }
-        .padding(.horizontal)
     }
 }
 

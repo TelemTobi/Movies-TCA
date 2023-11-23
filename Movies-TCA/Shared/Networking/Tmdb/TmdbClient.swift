@@ -21,6 +21,11 @@ struct TmdbClient {
     func fetchGenres() async -> Result<GenresResponse, TmdbError> {
         await networkManager.request(.listGenres)
     }
+    
+    @Sendable
+    func fetchMovies(ofType type: MoviesList.ListType) async -> Result<MoviesList, TmdbError> {
+        await networkManager.request(.listMovies(type: type))
+    }
 }
 
 extension TmdbClient {

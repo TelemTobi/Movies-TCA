@@ -1,0 +1,412 @@
+{
+    "dates": {
+        "maximum": "2023-12-20",
+        "minimum": "2023-11-29"
+    },
+    "page": 1,
+    "results": [
+        {
+            "adult": false,
+            "backdrop_path": "/xgGGinKRL8xeRkaAR9RMbtyk60y.jpg",
+            "genre_ids": [
+                16,
+                10751,
+                10402,
+                14,
+                35
+            ],
+            "id": 901362,
+            "original_language": "en",
+            "original_title": "Trolls Band Together",
+            "overview": "When Branch’s brother, Floyd, is kidnapped for his musical talents by a pair of nefarious pop-star villains, Branch and Poppy embark on a harrowing and emotional journey to reunite the other brothers and rescue Floyd from a fate even worse than pop-culture obscurity.",
+            "popularity": 853.007,
+            "poster_path": "/bkpPTZUdq31UGDovmszsg2CchiI.jpg",
+            "release_date": "2023-10-12",
+            "title": "Trolls Band Together",
+            "video": false,
+            "vote_average": 6.6,
+            "vote_count": 59
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/dZbLqRjjiiNCpTYzhzL2NMvz4J0.jpg",
+            "genre_ids": [
+                27,
+                53
+            ],
+            "id": 951491,
+            "original_language": "en",
+            "original_title": "Saw X",
+            "overview": "Between the events of 'Saw' and 'Saw II', a sick and desperate John Kramer travels to Mexico for a risky and experimental medical procedure in hopes of a miracle cure for his cancer, only to discover the entire operation is a scam to defraud the most vulnerable. Armed with a newfound purpose, the infamous serial killer returns to his work, turning the tables on the con artists in his signature visceral way through devious, deranged, and ingenious traps.",
+            "popularity": 532.5,
+            "poster_path": "/aQPeznSu7XDTrrdCtT5eLiu52Yu.jpg",
+            "release_date": "2023-09-26",
+            "title": "Saw X",
+            "video": false,
+            "vote_average": 7.41,
+            "vote_count": 1106
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/iiXliCeykkzmJ0Eg9RYJ7F2CWSz.jpg",
+            "genre_ids": [
+                28,
+                53,
+                80
+            ],
+            "id": 762430,
+            "original_language": "en",
+            "original_title": "Retribution",
+            "overview": "When a mysterious caller puts a bomb under his car seat, Matt Turner begins a high-speed chase across the city to complete a specific series of tasks- all with his kids trapped in the back seat.",
+            "popularity": 448.195,
+            "poster_path": "/oUmmY7QWWn7OhKlcPOnirHJpP1F.jpg",
+            "release_date": "2023-08-23",
+            "title": "Retribution",
+            "video": false,
+            "vote_average": 6.991,
+            "vote_count": 678
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/azD31DjpV3PJfjF3h72LVw2WCSD.jpg",
+            "genre_ids": [
+                27
+            ],
+            "id": 807172,
+            "original_language": "en",
+            "original_title": "The Exorcist: Believer",
+            "overview": "When two girls disappear into the woods and return three days later with no memory of what happened to them, the father of one girl seeks out Chris MacNeil, who's been forever altered by what happened to her daughter fifty years ago.",
+            "popularity": 373.773,
+            "poster_path": "/fFXkAlMH2iQrNknv4eq7LGTkcti.jpg",
+            "release_date": "2023-10-04",
+            "title": "The Exorcist: Believer",
+            "video": false,
+            "vote_average": 6.165,
+            "vote_count": 588
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/zgQQF04u3OgNBJqClRNby1FPz9s.jpg",
+            "genre_ids": [
+                16,
+                10751,
+                28,
+                878,
+                35
+            ],
+            "id": 893723,
+            "original_language": "en",
+            "original_title": "PAW Patrol: The Mighty Movie",
+            "overview": "A magical meteor crash lands in Adventure City and gives the PAW Patrol pups superpowers, transforming them into The Mighty Pups.",
+            "popularity": 381.365,
+            "poster_path": "/aTvePCU7exLepwg5hWySjwxojQK.jpg",
+            "release_date": "2023-09-21",
+            "title": "PAW Patrol: The Mighty Movie",
+            "video": false,
+            "vote_average": 6.9,
+            "vote_count": 177
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/wOYDsD7WIKsz5DtrnjsvCcEyFJa.jpg",
+            "genre_ids": [
+                18,
+                36,
+                10752
+            ],
+            "id": 753342,
+            "original_language": "en",
+            "original_title": "Napoleon",
+            "overview": "A personal look at the French military leader’s origins and swift, ruthless climb to emperor, viewed through the prism of Napoleon’s addictive, volatile relationship with his wife and one true love, Josephine.",
+            "popularity": 392.893,
+            "poster_path": "/xzUnkQGqPjL14wQYBk2MnpKF9kl.jpg",
+            "release_date": "2023-11-22",
+            "title": "Napoleon",
+            "video": false,
+            "vote_average": 6.714,
+            "vote_count": 14
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/ehumsuIBbgAe1hg343oszCLrAfI.jpg",
+            "genre_ids": [
+                16,
+                10751,
+                14,
+                12
+            ],
+            "id": 1022796,
+            "original_language": "en",
+            "original_title": "Wish",
+            "overview": "Asha, a sharp-witted idealist, makes a wish so powerful that it is answered by a cosmic force – a little ball of boundless energy called Star. Together, Asha and Star confront a most formidable foe - the ruler of Rosas, King Magnifico - to save her community and prove that when the will of one courageous human connects with the magic of the stars, wondrous things can happen.",
+            "popularity": 220.209,
+            "poster_path": "/vgJZSqKMXWDDx09iSIStGKfHMku.jpg",
+            "release_date": "2023-11-13",
+            "title": "Wish",
+            "video": false,
+            "vote_average": 7.3,
+            "vote_count": 12
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/6WFfCMe7J7FxsnlHEo1wzU2JH6s.jpg",
+            "genre_ids": [
+                80,
+                18,
+                36
+            ],
+            "id": 466420,
+            "original_language": "en",
+            "original_title": "Killers of the Flower Moon",
+            "overview": "When oil is discovered in 1920s Oklahoma under Osage Nation land, the Osage people are murdered one by one—until the FBI steps in to unravel the mystery.",
+            "popularity": 207.46,
+            "poster_path": "/dB6Krk806zeqd0YNp2ngQ9zXteH.jpg",
+            "release_date": "2023-10-18",
+            "title": "Killers of the Flower Moon",
+            "video": false,
+            "vote_average": 7.713,
+            "vote_count": 984
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/iEFuHjqrE059SmflBva1JzDJutE.jpg",
+            "genre_ids": [
+                16,
+                10751,
+                28,
+                14,
+                10749
+            ],
+            "id": 496450,
+            "original_language": "fr",
+            "original_title": "Miraculous - le film",
+            "overview": "A life of an ordinary Parisian teenager Marinette goes superhuman when she becomes Ladybug. Bestowed with magical powers of creation, Ladybug must unite with her opposite, Cat Noir, to save Paris as a new villain unleashes chaos unto the city.",
+            "popularity": 177.635,
+            "poster_path": "/dQNJ8SdCMn3zWwHzzQD2xrphR1X.jpg",
+            "release_date": "2023-07-05",
+            "title": "Miraculous: Ladybug & Cat Noir, The Movie",
+            "video": false,
+            "vote_average": 7.759,
+            "vote_count": 661
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/igwshQHV36aBkPyWp7En5P4Kn2V.jpg",
+            "genre_ids": [
+                27,
+                53,
+                9648
+            ],
+            "id": 1071215,
+            "original_language": "en",
+            "original_title": "Thanksgiving",
+            "overview": "After a Black Friday riot ends in tragedy, a mysterious Thanksgiving-inspired killer terrorizes Plymouth, Massachusetts - the birthplace of the holiday. Picking off residents one by one, what begins as random revenge killings are soon revealed to be part of a larger, sinister holiday plan.",
+            "popularity": 183.221,
+            "poster_path": "/f5f3TEVst1nHHyqgn7Z3tlwnBIH.jpg",
+            "release_date": "2023-11-16",
+            "title": "Thanksgiving",
+            "video": false,
+            "vote_average": 6.3,
+            "vote_count": 37
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/1HzL603WOer58xtnrRYdSIL5K04.jpg",
+            "genre_ids": [
+                35,
+                12
+            ],
+            "id": 912908,
+            "original_language": "en",
+            "original_title": "Strays",
+            "overview": "When Reggie is abandoned on the mean city streets by his lowlife owner, Doug, Reggie is certain that his beloved owner would never leave him on purpose. But once Reggie falls in with Bug, a fast-talking, foul-mouthed stray who loves his freedom and believes that owners are for suckers, Reggie finally realizes he was in a toxic relationship and begins to see Doug for the heartless sleazeball that he is.",
+            "popularity": 142.105,
+            "poster_path": "/muDaKftykz9Nj1mhRheMdbuNI9Z.jpg",
+            "release_date": "2023-08-17",
+            "title": "Strays",
+            "video": false,
+            "vote_average": 7.6,
+            "vote_count": 523
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/t6UhLiCST91FdWvLfnKRzElbl2V.jpg",
+            "genre_ids": [
+                28,
+                12,
+                14
+            ],
+            "id": 572802,
+            "original_language": "en",
+            "original_title": "Aquaman and the Lost Kingdom",
+            "overview": "Black Manta, still driven by the need to avenge his father's death and wielding the power of the mythic Black Trident, will stop at nothing to take Aquaman down once and for all. To defeat him, Aquaman must turn to his imprisoned brother Orm, the former King of Atlantis, to forge an unlikely alliance in order to save the world from irreversible destruction.",
+            "popularity": 178.422,
+            "poster_path": "/8xV47NDrjdZDpkVcCFqkdHa3T0C.jpg",
+            "release_date": "2023-12-20",
+            "title": "Aquaman and the Lost Kingdom",
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/rron9HAuS9s7zBF8iCX1tsafxUo.jpg",
+            "genre_ids": [
+                18,
+                10749
+            ],
+            "id": 666277,
+            "original_language": "en",
+            "original_title": "Past Lives",
+            "overview": "Nora and Hae Sung, two childhood friends, are reunited in New York for one fateful week as they confront notions of destiny, love, and the choices that make a life.",
+            "popularity": 95.62,
+            "poster_path": "/k3waqVXSnvCZWfJYNtdamTgTtTA.jpg",
+            "release_date": "2023-06-02",
+            "title": "Past Lives",
+            "video": false,
+            "vote_average": 7.941,
+            "vote_count": 290
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/dp0rdbGSbZTyWumnbWspXQp87hA.jpg",
+            "genre_ids": [
+                27,
+                9648
+            ],
+            "id": 1024773,
+            "original_language": "en",
+            "original_title": "It Lives Inside",
+            "overview": "Desperate to fit in at school, Sam rejects her East Indian culture and family to be like everyone else. However, when a mythological demonic spirit latches onto her former best friend, she must come to terms with her heritage to defeat it.",
+            "popularity": 100.233,
+            "poster_path": "/73gIfV8gDwkVgUrFDzt4TfZC9Zc.jpg",
+            "release_date": "2023-09-06",
+            "title": "It Lives Inside",
+            "video": false,
+            "vote_average": 5.702,
+            "vote_count": 84
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/f9ErVXAyR9EP5WOOp4i5ivBKsKC.jpg",
+            "genre_ids": [
+                35
+            ],
+            "id": 814776,
+            "original_language": "en",
+            "original_title": "Bottoms",
+            "overview": "Unpopular best friends PJ and Josie start a high school self-defense club to meet girls and lose their virginity. They soon find themselves in over their heads when the most popular students start beating each other up in the name of self-defense.",
+            "popularity": 136.417,
+            "poster_path": "/jeyTQrNEpyE1LZIgVlswYh3sc34.jpg",
+            "release_date": "2023-08-25",
+            "title": "Bottoms",
+            "video": false,
+            "vote_average": 6.962,
+            "vote_count": 182
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/8KJMOKyl9rpgb9ELEwhfBMIaTHw.jpg",
+            "genre_ids": [
+                10751,
+                16,
+                14,
+                35
+            ],
+            "id": 1139087,
+            "original_language": "en",
+            "original_title": "Once Upon a Studio",
+            "overview": "Created for Disney's 100th anniversary, the short features Mickey Mouse corralling a gallery of legendary Disney characters for a group photo.",
+            "popularity": 111.845,
+            "poster_path": "/hr8ZtwdbtjBquxlTCrczr685K5T.jpg",
+            "release_date": "2023-09-24",
+            "title": "Once Upon a Studio",
+            "video": false,
+            "vote_average": 8.445,
+            "vote_count": 237
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/pIbsQ4Cu8rGWkj8QjD6Sqy9NzAS.jpg",
+            "genre_ids": [
+                35,
+                12
+            ],
+            "id": 1002315,
+            "original_language": "en",
+            "original_title": "Please Don't Destroy: The Treasure of Foggy Mountain",
+            "overview": "When three friends who live together realize that they don't like their life trajectory, they set off to find a gold treasure that is rumored to be buried in the nearby mountain.",
+            "popularity": 177.806,
+            "poster_path": "/2WSTjQNamyMoy3kFDemd1os8TNz.jpg",
+            "release_date": "2023-11-17",
+            "title": "Please Don't Destroy: The Treasure of Foggy Mountain",
+            "video": false,
+            "vote_average": 6.118,
+            "vote_count": 17
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/uIk2g2bRkNwNywKZIhC5oIU94Kh.jpg",
+            "genre_ids": [
+                35,
+                10751,
+                14
+            ],
+            "id": 787699,
+            "original_language": "en",
+            "original_title": "Wonka",
+            "overview": "Willy Wonka – chock-full of ideas and determined to change the world one delectable bite at a time – is proof that the best things in life begin with a dream, and if you’re lucky enough to meet Willy Wonka, anything is possible.",
+            "popularity": 99.862,
+            "poster_path": "/dbABBH3DvFLkBUKwPUG0BlTYdmh.jpg",
+            "release_date": "2023-12-06",
+            "title": "Wonka",
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/hjyqNFHx5wIO8dqaRi0v2ix1wiR.jpg",
+            "genre_ids": [
+                53,
+                28,
+                80,
+                27
+            ],
+            "id": 808396,
+            "original_language": "en",
+            "original_title": "God Is a Bullet",
+            "overview": "Based on true events and the novel of the same name. Vice detective Bob Hightower finds his ex-wife murdered and daughter kidnapped by a cult. Frustrated by the botched official investigations, he quits the force and infiltrates the cult to hunt down the leader with the help of the cult’s only female victim escapee, Case Hardin.",
+            "popularity": 72.815,
+            "poster_path": "/5kiLS9nsSJxDdlYUyYGiSUt8Fi8.jpg",
+            "release_date": "2023-06-22",
+            "title": "God Is a Bullet",
+            "video": false,
+            "vote_average": 6.3,
+            "vote_count": 108
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/a0GM57AnJtNi7lMOCamniiyV10W.jpg",
+            "genre_ids": [
+                16,
+                12,
+                14,
+                18
+            ],
+            "id": 508883,
+            "original_language": "ja",
+            "original_title": "君たちはどう生きるか",
+            "overview": "While the Second World War rages, the teenage Mahito, haunted by his mother's tragic death, is relocated from Tokyo to the serene rural home of his new stepmother Natsuko, a woman who bears a striking resemblance to the boy's mother. As he tries to adjust, this strange new world grows even stranger following the appearance of a persistent gray heron, who perplexes and bedevils Mahito, dubbing him the \"long-awaited one.\"",
+            "popularity": 87.865,
+            "poster_path": "/y9xS5NQTBnFjDoXhSFQeGxlmkoM.jpg",
+            "release_date": "2023-07-14",
+            "title": "The Boy and the Heron",
+            "video": false,
+            "vote_average": 7.2,
+            "vote_count": 183
+        }
+    ],
+    "total_pages": 27,
+    "total_results": 521
+}

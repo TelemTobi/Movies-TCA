@@ -7,7 +7,34 @@
 
 import Foundation
 
-struct Movie: Decodable, Equatable {
+struct MoviesList: Decodable, JsonResolver, Equatable {
+    
+    let results: [Movie]?
+    let page: Int?
+    let totalPages: Int?
+    let totalResults: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case results, page
+        case totalPages = "total_pages"
+        case totalResults = "total_results"
+    }
+    
+    enum ListType: String, CaseIterable {
+        case nowPlaying, popular, topRated, upcoming
+        
+        var title: String {
+            return switch self {
+                case .nowPlaying: "Now Playing"
+                case .popular: "Popular"
+                case .topRated: "Top Rated"
+                case .upcoming: "Upcoming"
+            }
+        }
+    }
+}
+
+struct Movie: Decodable, Equatable, Identifiable {
     
     let id: Int?
     let title: String?
@@ -21,7 +48,7 @@ struct Movie: Decodable, Equatable {
     let voteCount: Int?
     let hasTrailer: Bool?
     let isAdult: Bool?
-    let genres: [Genre]?
+    let genreIds: [Int]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -32,11 +59,25 @@ struct Movie: Decodable, Equatable {
         case posterPath = "poster_path"
         case backdropPath = "backdrop_path"
         case releaseDate = "release_date"
-        case hasTrailer = "video"
-        case isAdult = "adult"
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
-        case genres = "genre_ids"
-        
+        case hasTrailer = "video"
+        case isAdult = "adult"
+        case genreIds = "genre_ids"
+    }
+    
+    var posterUrl: URL? {
+        guard let posterPath else { return nil }
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/original/" + posterPath)
+    }
+    
+    var thumbnailUrl: URL? {
+        guard let posterPath else { return nil }
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/w500/" + posterPath)
+    }
+    
+    var backdropUrl: URL? {
+        guard let backdropPath else { return nil }
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/w780/" + backdropPath)
     }
 }
