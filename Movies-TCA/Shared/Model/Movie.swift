@@ -68,16 +68,16 @@ struct Movie: Decodable, Equatable, Identifiable {
     
     var posterUrl: URL? {
         guard let posterPath else { return nil }
-        return .init(string: Config.TmdbApi.photoBaseUrl + "/w500/" + posterPath)
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/original/" + posterPath)
     }
     
     var thumbnailUrl: URL? {
         guard let posterPath else { return nil }
-        return .init(string: Config.TmdbApi.photoBaseUrl + "/w250/" + posterPath)
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/w500/" + posterPath)
     }
     
     var backdropUrl: URL? {
         guard let backdropPath else { return nil }
-        return .init(string: Config.TmdbApi.photoBaseUrl + "/w500/" + backdropPath)
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/w780/" + backdropPath)
     }
 }
