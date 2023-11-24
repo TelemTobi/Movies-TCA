@@ -15,24 +15,31 @@ struct HomeView: View {
     var body: some View {
         WithViewStore(store, observe: \.selectedTab) { viewStore in
             TabView(selection: viewStore.binding(send: HomeFeature.Action.onTabSelection)) {
-                //                DiscoverView(
-                //                    store: store.scope(
-                //                        state: \.discover,
-                //                        action: HomeFeature.Action.discover
-                //                    )
-                //                )
+//                DiscoverView(
+//                    store: store.scope(
+//                        state: \.discover,
+//                        action: HomeFeature.Action.discover
+//                    )
+//                )
                 NavigationStack {
                     DiscoverView(store:
-                            .init(
-                                initialState: DiscoverFeature.State(),
-                                reducer: { DiscoverFeature() }
-                            )
+                        .init(
+                            initialState: DiscoverFeature.State(),
+                            reducer: { DiscoverFeature() }
+                        )
                     )
                 }
                 .tabItem { Label("Discover", systemImage: "globe") }
                 .tag(HomeFeature.Tab.discover)
                 
-                Text("Search")
+                NavigationStack {
+                    SearchView(store:
+                        .init(
+                            initialState: SearchFeature.State(),
+                            reducer: { SearchFeature() }
+                        )
+                    )
+                }
                     .tabItem { Label("Search", systemImage: "magnifyingglass") }
                     .tag(HomeFeature.Tab.search)
                 

@@ -35,6 +35,8 @@
 		7DDA646F2B0FC2C1008BF425 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA646E2B0FC2C1008BF425 /* SectionHeader.swift */; };
 		7DDA64712B0FC31D008BF425 /* EdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA64702B0FC31D008BF425 /* EdgeInsets+Extension.swift */; };
 		7DDA64742B0FC434008BF425 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA64732B0FC434008BF425 /* Font+Extension.swift */; };
+		7DDA64772B10959C008BF425 /* SearchFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA64762B10959C008BF425 /* SearchFeature.swift */; };
+		7DDA64792B1095A6008BF425 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA64782B1095A6008BF425 /* SearchView.swift */; };
 		7DE17DC62AFE0325005F4848 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE17DC52AFE0325005F4848 /* ComposableArchitecture */; };
 		7DE17DD42AFE0BC1005F4848 /* OnFirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DD32AFE0BC1005F4848 /* OnFirstAppear.swift */; };
 		7DE17DD62AFFB980005F4848 /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DD52AFFB980005F4848 /* HomeFeature.swift */; };
@@ -86,6 +88,8 @@
 		7DDA646E2B0FC2C1008BF425 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		7DDA64702B0FC31D008BF425 /* EdgeInsets+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EdgeInsets+Extension.swift"; sourceTree = "<group>"; };
 		7DDA64732B0FC434008BF425 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
+		7DDA64762B10959C008BF425 /* SearchFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFeature.swift; sourceTree = "<group>"; };
+		7DDA64782B1095A6008BF425 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		7DE17DD32AFE0BC1005F4848 /* OnFirstAppear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnFirstAppear.swift; sourceTree = "<group>"; };
 		7DE17DD52AFFB980005F4848 /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
 		7DE17DD82AFFDE4E005F4848 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
@@ -209,6 +213,15 @@
 			path = SwiftUI;
 			sourceTree = "<group>";
 		};
+		7DDA64752B109525008BF425 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7DDA64762B10959C008BF425 /* SearchFeature.swift */,
+				7DDA64782B1095A6008BF425 /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		7DE17DC72AFE049D005F4848 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +297,7 @@
 				7DE17DE82B01470B005F4848 /* Splash */,
 				7DE17DD22AFE05F9005F4848 /* Home */,
 				7DE17DD72AFFDE3B005F4848 /* Discover */,
+				7DDA64752B109525008BF425 /* Search */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -504,11 +518,13 @@
 				7DE17DDB2AFFDE56005F4848 /* DiscoverFeature.swift in Sources */,
 				7DE17E102B06861C005F4848 /* Errorable.swift in Sources */,
 				7DDA64362B079863008BF425 /* TmdbEndpoint.swift in Sources */,
+				7DDA64772B10959C008BF425 /* SearchFeature.swift in Sources */,
 				7DE17DD92AFFDE4E005F4848 /* DiscoverView.swift in Sources */,
 				7DE17DEA2B014719005F4848 /* SplashView.swift in Sources */,
 				7DDA64452B094DA8008BF425 /* HTTPTask.swift in Sources */,
 				7DE17E002B0410B0005F4848 /* RootFeature.swift in Sources */,
 				7DDA64382B0798C1008BF425 /* TmdbAuthenticator.swift in Sources */,
+				7DDA64792B1095A6008BF425 /* SearchView.swift in Sources */,
 				7DD6D96E2AF943B7004828AB /* MoviesApp.swift in Sources */,
 				7DDA64572B0E7DB8008BF425 /* MoviesPagerView.swift in Sources */,
 				7DDA644D2B0AB023008BF425 /* URLRequest+Extension.swift in Sources */,

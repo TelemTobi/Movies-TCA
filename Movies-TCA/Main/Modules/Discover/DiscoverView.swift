@@ -102,10 +102,12 @@ private struct FeedView: View {
 }
 
 #Preview {
-    DiscoverView(
-        store: .init(
-            initialState: DiscoverFeature.State(),
-            reducer: { DiscoverFeature() }
+    NavigationStack {
+        DiscoverView(
+            store: .init(
+                initialState: DiscoverFeature.State(),
+                reducer: { DiscoverFeature() }
+            )
         )
-    )
+    }
 }

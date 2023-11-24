@@ -12,7 +12,7 @@ struct DiscoverFeature: Reducer {
     
     struct State: Equatable {
         var isLoading = true
-        var movieGenres: IdentifiedArrayOf<Genre> = []
+        var genres: IdentifiedArrayOf<Genre> = []
         var movies: [MoviesList.ListType: IdentifiedArrayOf<Movie>] = [:]
     }
     
