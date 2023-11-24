@@ -12,9 +12,9 @@ struct TmdbClient {
     private let authenticator: Authenticating
     private let networkManager: NetworkManager<TmdbEndpoint, TmdbError>
     
-    init() {
+    init(environment: Constants.Environment = .live) {
         authenticator = TmdbAuthenticator()
-        networkManager = NetworkManager(authenticator: authenticator)
+        networkManager = NetworkManager(authenticator: authenticator, environment: environment)
     }
     
     @Sendable
@@ -30,5 +30,6 @@ struct TmdbClient {
 
 extension TmdbClient {
     
-    static let live = Self()
+    static let live = Self(environment: .live)
+    static let test = Self(environment: .test)
 }

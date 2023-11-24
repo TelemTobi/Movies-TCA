@@ -14,24 +14,24 @@ struct DiscoverView: View {
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            GeometryReader { geometry in
-                ZStack {
-                    if viewStore.isLoading {
-                        ProgressView()
-                    } else {
+            ZStack {
+                if viewStore.isLoading {
+                    ProgressView()
+                } else {
+                    GeometryReader { geometry in
                         FeedView(
                             movies: viewStore.movies,
                             geometry: geometry
                         )
                     }
                 }
-                .animation(.easeInOut, value: viewStore.isLoading)
-            }
-            .onFirstAppear {
-                viewStore.send(.onFirstAppear)
             }
             .navigationTitle("Discover")
             .toolbar(content: toolbarContent)
+            .animation(.easeInOut, value: viewStore.isLoading)
+            .onFirstAppear {
+                viewStore.send(.onFirstAppear)
+            }
         }
     }
     

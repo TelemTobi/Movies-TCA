@@ -9,4 +9,12 @@ import Foundation
 
 enum Constants {
     
+    enum Environment {
+        case live
+        case test
+    }
+    
+    enum Stub {
+        static let delay: Int = 2
+    }
 }

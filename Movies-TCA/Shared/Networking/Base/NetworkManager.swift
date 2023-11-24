@@ -10,8 +10,13 @@ import Foundation
 struct NetworkManager<E: Endpoint, F: Errorable> {
     
     let authenticator: Authenticating
+    let environment: Constants.Environment
     
     func request<T: Decodable & JsonResolver>(_ endpoint: E) async -> Result<T, F> {
+        guard environment == .live else {
+            return await makeStubRequest(endpoint)
+        }
+        
         switch authenticator.authState {
         case .notReachable:
             return .failure(.init(.connectionError))
@@ -23,11 +28,7 @@ struct NetworkManager<E: Endpoint, F: Errorable> {
         
         do {
             if try await authenticator.authenticate() {
-                if endpoint.sampleData != nil {
-                    return await makeStubRequest(endpoint)
-                } else {
-                    return await makeRequest(endpoint)
-                }
+                return await makeRequest(endpoint)
             } else {
                 return .failure(.init(.authError))
             }
@@ -64,6 +65,8 @@ struct NetworkManager<E: Endpoint, F: Errorable> {
     
     private func makeStubRequest<T: Decodable & JsonResolver>(_ endpoint: Endpoint) async -> Result<T, F> {
         do {
+            try await Task.sleep(until: .now + .seconds(Constants.Stub.delay))
+            
             let model: T = try T
                 .resolve(endpoint.sampleData ?? Data())
                 .parse(type: T.self, using: endpoint.dateDecodingStrategy, endpoint.keyDecodingStrategy)

@@ -21,6 +21,13 @@ extension TmdbClientDependency: DependencyKey {
             fetchMovies: TmdbClient.live.fetchMovies
         )
     }
+    
+    static var testValue: TmdbClientDependency {
+        TmdbClientDependency(
+            fetchGenres: TmdbClient.test.fetchGenres,
+            fetchMovies: TmdbClient.test.fetchMovies
+        )
+    }
 }
 
 extension DependencyValues {

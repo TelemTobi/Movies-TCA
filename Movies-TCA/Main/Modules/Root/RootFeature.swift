@@ -33,7 +33,8 @@ struct RootFeature: Reducer {
                 
             case .loadGenres:
                 return .run { send in
-                    await send(.genresResponse(tmdbClient.fetchGenres()))
+                    let genresResult = await tmdbClient.fetchGenres()
+                    await send(.genresResponse(genresResult))
                 }
                 
             case let .genresResponse(.success(response)):
@@ -47,6 +48,8 @@ struct RootFeature: Reducer {
                 return .none
                 
             case let .genresResponse(.failure(error)):
+                state.isLoading = false
+                
                 customDump(error) // TODO: Handle error
                 return .none
                 
