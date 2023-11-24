@@ -27,7 +27,6 @@ struct MoviesPagerView: View {
             }
             .scrollTargetBehavior(.viewAligned)
         }
-        .frame(height: 250)
     }
     
     private struct ItemView: View {
@@ -49,6 +48,7 @@ struct MoviesPagerView: View {
                     .frame(width: itemSize.width, height: itemSize.height)
                     .overlay { OverlayView(for: movie) }
                     .clipShape(.rect(cornerRadius: 10))
+                    .shadow(radius: 3)
             }
             .frame(width: geometry.size.width - 32)
             .scrollTransition(.interactive, axis: .horizontal) { view, phase in

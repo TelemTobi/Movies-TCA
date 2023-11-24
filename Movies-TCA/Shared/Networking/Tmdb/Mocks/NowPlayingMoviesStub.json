@@ -7,26 +7,6 @@
     "results": [
         {
             "adult": false,
-            "backdrop_path": "/kjQBrc00fB2RjHZB3PGR4w9ibpz.jpg",
-            "genre_ids": [
-                878,
-                28,
-                53
-            ],
-            "id": 670292,
-            "original_language": "en",
-            "original_title": "The Creator",
-            "overview": "Amid a future war between the human race and the forces of artificial intelligence, a hardened ex-special forces agent grieving the disappearance of his wife, is recruited to hunt down and kill the Creator, the elusive architect of advanced AI who has developed a mysterious weapon with the power to end the war—and mankind itself.",
-            "popularity": 1965.179,
-            "poster_path": "/vBZ0qvaRxqEhZwl6LWmruJqWE8Z.jpg",
-            "release_date": "2023-09-27",
-            "title": "The Creator",
-            "video": false,
-            "vote_average": 7.218,
-            "vote_count": 985
-        },
-        {
-            "adult": false,
             "backdrop_path": "/t5zCBSB5xMDKcDqe91qahCOUYVV.jpg",
             "genre_ids": [
                 27,
