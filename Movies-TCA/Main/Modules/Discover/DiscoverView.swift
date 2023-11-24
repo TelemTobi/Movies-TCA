@@ -14,26 +14,19 @@ struct DiscoverView: View {
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            ZStack {
-                if viewStore.isLoading {
-                    ProgressView()
-                } else {
-                    List {
-                        ForEach(MoviesList.ListType.allCases, id: \.self) { sectionType in
-                            if let movies = viewStore.movies[sectionType] {
-                                makeSection(for: sectionType, movies: movies)
-                            }
-                        }
-                        .listRowInsets(.zero)
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
-                        .listSectionSeparator(.hidden, edges: .top)
+            GeometryReader { geometry in
+                ZStack {
+                    if viewStore.isLoading {
+                        ProgressView()
+                    } else {
+                        FeedView(
+                            movies: viewStore.movies,
+                            geometry: geometry
+                        )
                     }
-                    .listStyle(.grouped)
-                    .scrollIndicators(.hidden)
                 }
+                .animation(.easeInOut, value: viewStore.isLoading)
             }
-            .animation(.easeInOut, value: viewStore.isLoading)
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
             }
@@ -53,24 +46,57 @@ struct DiscoverView: View {
             }
         }
     }
+}
+
+private struct FeedView: View {
+    
+    let movies: [MoviesList.ListType: IdentifiedArrayOf<Movie>]
+    let geometry: GeometryProxy
+    
+    var body: some View {
+        List {
+            ForEach(MoviesList.ListType.allCases, id: \.self) { sectionType in
+                if let movies = movies[sectionType] {
+                    makeSection(
+                        for: sectionType,
+                        movies: movies,
+                        geometry: geometry
+                    )
+                }
+            }
+            .listRowInsets(.zero)
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+            .listSectionSeparator(.hidden, edges: .top)
+        }
+        .listStyle(.grouped)
+        .scrollIndicators(.hidden)
+    }
     
     @ViewBuilder
-    private func makeSection(for section: MoviesList.ListType, movies: IdentifiedArrayOf<Movie>) -> some View {
+    private func makeSection(for section: MoviesList.ListType, movies: IdentifiedArrayOf<Movie>, geometry: GeometryProxy) -> some View {
+        
         Section {
             switch section {
             case .nowPlaying:
                 MoviesPagerView(movies: movies)
+                    .frame(height: geometry.size.width / 1.6)
                 
             case .popular, .topRated, .upcoming:
                 MoviesCollectionView(movies: movies)
+                    .frame(height: geometry.size.width * 0.7)
             }
         } header: {
-            SectionHeader(title: section.title, action: "See All") {
-                Color.clear
-                    .navigationTitle(section.title)
+            if section != .nowPlaying {
+                SectionHeader(title: section.title, action: "See All") {
+                    Color.clear
+                        .navigationTitle(section.title)
+                }
+                .padding(.horizontal)
+                .textCase(.none)
+            } else {
+                EmptyView()
             }
-            .padding(.horizontal)
-            .textCase(.none)
         }
     }
 }

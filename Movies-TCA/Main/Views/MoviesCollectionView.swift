@@ -14,11 +14,11 @@ struct MoviesCollectionView: View {
     let movies: IdentifiedArrayOf<Movie>
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        GeometryReader { geometry in
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 20) {
                     ForEach(movies) { movie in
-                        ItemView(movie: movie)
+                        ItemView(movie: movie ,geometry: geometry)
                             .transition(.slide.combined(with: .opacity))
                     }
                 }
@@ -31,8 +31,11 @@ struct MoviesCollectionView: View {
     private struct ItemView: View {
         
         let movie: Movie
+        let geometry: GeometryProxy
         
         var body: some View {
+            let itemWidth = geometry.size.height / 1.8
+            let itemHeight = geometry.size.height - 40
             
             NavigationLink {
                 Color.clear
@@ -44,7 +47,7 @@ struct MoviesCollectionView: View {
                         .placeholder {
                             RoundedRectangle(cornerRadius: 10)
                                 .foregroundColor(.gray)
-                                .frame(width: 140, height: 210)
+                                .frame(width: itemWidth, height: itemHeight)
                             
                             Image(systemName: "popcorn")
                                 .resizable()
@@ -53,10 +56,10 @@ struct MoviesCollectionView: View {
                                 .foregroundColor(.white)
                         }
                         .scaledToFill()
-                        .frame(width: 140, height: 210)
+                        .frame(width: itemWidth, height: itemHeight)
                         .cornerRadius(10)
                         .transition(.fade)
-                        .shadow(radius: 4)
+                        .shadow(radius: 3)
                     
                     Text(movie.title ?? .empty)
                         .lineLimit(1)
@@ -65,7 +68,7 @@ struct MoviesCollectionView: View {
                         .padding(.leading, 4)
                         .foregroundColor(.primary)
                 }
-                .frame(width: 140)
+                .frame(width: itemWidth)
             }
             .buttonStyle(.plain)
         }
