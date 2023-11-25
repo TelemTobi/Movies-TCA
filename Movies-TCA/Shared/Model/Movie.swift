@@ -85,7 +85,15 @@ struct Movie: Decodable, Equatable, Identifiable {
 extension Movie {
     
     static var mock: Movie {
-        // TODO: ⚠️
-        Movie(id: 0, title: nil, overview: nil, language: nil, popularity: nil, posterPath: nil, backdropPath: nil, releaseDate: nil, voteAverage: nil, voteCount: nil, hasTrailer: nil, isAdult: nil, genreIds: nil)
+        let movie = try? MoviesList.self
+            .resolve(Mock.nowPlayingMovies.dataEncoded)
+            .parse(type: MoviesList.self)
+            .results?.randomElement()
+        
+        guard let movie else {
+            fatalError("Movies mock decoding error")
+        }
+        
+        return movie
     }
 }
