@@ -12,13 +12,18 @@ import SDWebImageSwiftUI
 struct MoviesPagerView: View {
     
     let movies: IdentifiedArrayOf<Movie>
+    let onMovieTap: (Movie) -> Void
     
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 0) {
                     ForEach(movies) { movie in
-                        ItemView(movie: movie, geometry: geometry)
+                        Button(
+                            action: { onMovieTap(movie) },
+                            label: { ItemView(movie: movie, geometry: geometry) }
+                        )
+                        .buttonStyle(.plain)
                     }
                 }
                 .scrollTargetLayout()
@@ -41,7 +46,7 @@ struct MoviesPagerView: View {
                 
                 WebImage(url: movie.backdropUrl ?? movie.thumbnailUrl)
                     .resizable()
-                    .transition(.fade(duration: 0.2))
+                    .transition(.fade)
                     .aspectRatio(contentMode: .fill)
                     .scaleEffect(1.2)
                     .offset(x: -minX)
@@ -50,6 +55,7 @@ struct MoviesPagerView: View {
                     .clipShape(.rect(cornerRadius: 10))
                     .shadow(radius: 3)
             }
+            .contentShape(Rectangle())
             .frame(width: geometry.size.width - 32)
             .scrollTransition(.interactive, axis: .horizontal) { view, phase in
                 view.scaleEffect(phase.isIdentity ? 1 : 0.95)
@@ -83,5 +89,5 @@ struct MoviesPagerView: View {
 }
 
 #Preview {
-    MoviesPagerView(movies: [])
+    MoviesPagerView(movies: [], onMovieTap: { _ in })
 }

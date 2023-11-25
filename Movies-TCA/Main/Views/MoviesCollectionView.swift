@@ -12,14 +12,18 @@ import ComposableArchitecture
 struct MoviesCollectionView: View {
     
     let movies: IdentifiedArrayOf<Movie>
+    let onMovieTap: (Movie) -> Void
     
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 20) {
                     ForEach(movies) { movie in
-                        ItemView(movie: movie ,geometry: geometry)
-                            .transition(.slide.combined(with: .opacity))
+                        Button(
+                            action: { onMovieTap(movie) },
+                            label: { ItemView(movie: movie, geometry: geometry) }
+                        )
+                        .buttonStyle(.plain)
                     }
                 }
                 .padding(.vertical)
@@ -37,44 +41,38 @@ struct MoviesCollectionView: View {
             let itemWidth = geometry.size.height / 1.8
             let itemHeight = geometry.size.height - 40
             
-            NavigationLink {
-                Color.clear
-                    .navigationTitle(movie.title ?? .empty)
-            } label: {
-                VStack(alignment: .leading) {
-                    WebImage(url: movie.thumbnailUrl)
-                        .resizable()
-                        .placeholder {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.gray)
-                                .frame(width: itemWidth, height: itemHeight)
-                            
-                            Image(systemName: "popcorn")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40)
-                                .foregroundColor(.white)
-                        }
-                        .scaledToFill()
-                        .frame(width: itemWidth, height: itemHeight)
-                        .cornerRadius(10)
-                        .transition(.fade)
-                        .shadow(radius: 3)
-                    
-                    Text(movie.title ?? .empty)
-                        .lineLimit(1)
-                        .font(.subheadline)
-                        .padding(.trailing)
-                        .padding(.leading, 4)
-                        .foregroundColor(.primary)
-                }
-                .frame(width: itemWidth)
+            VStack(alignment: .leading) {
+                WebImage(url: movie.thumbnailUrl)
+                    .resizable()
+                    .placeholder {
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(.gray)
+                            .frame(width: itemWidth, height: itemHeight)
+                        
+                        Image(systemName: "popcorn")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40)
+                            .foregroundColor(.white)
+                    }
+                    .scaledToFill()
+                    .frame(width: itemWidth, height: itemHeight)
+                    .cornerRadius(10)
+                    .transition(.fade)
+                    .shadow(radius: 3)
+                
+                Text(movie.title ?? .empty)
+                    .lineLimit(1)
+                    .font(.subheadline)
+                    .padding(.trailing)
+                    .padding(.leading, 4)
+                    .foregroundColor(.primary)
             }
-            .buttonStyle(.plain)
+            .frame(width: itemWidth)
         }
     }
 }
 
 #Preview {
-    MoviesCollectionView(movies: [])
+    MoviesCollectionView(movies: [], onMovieTap: { _ in })
 }

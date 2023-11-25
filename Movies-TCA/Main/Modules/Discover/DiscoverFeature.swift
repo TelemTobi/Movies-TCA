@@ -23,8 +23,9 @@ struct DiscoverFeature: Reducer {
         case loadMovies
         case moviesListLoaded(type: MoviesList.ListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
-        
         case onMovieTap(_ movie: Movie)
+        case onCloseMovieTap
+        
         case movie(PresentationAction<MovieFeature.Action>)
     }
     
@@ -74,6 +75,10 @@ struct DiscoverFeature: Reducer {
                 
             case let .onMovieTap(movie):
                 state.movie = MovieFeature.State(movie: movie)
+                return .none
+                
+            case .onCloseMovieTap:
+                state.movie = nil
                 return .none
                 
             case .movie:

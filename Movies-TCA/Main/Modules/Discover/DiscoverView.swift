@@ -23,9 +23,7 @@ struct DiscoverView: View {
                             movies: viewStore.movies,
                             geometry: geometry
                         )
-                        .onTapGesture {
-                            viewStore.send(.onMovieTap(viewStore.movies[.nowPlaying]!.first!))
-                        }
+                        .environmentObject(viewStore)
                     }
                 }
             }
@@ -41,9 +39,10 @@ struct DiscoverView: View {
                     action: { .movie($0) }
                 ),
                 content: { movieStore in
-                    NavigationStack {
-                        MovieView(store: movieStore)
-                    }
+                    MovieSheet(
+                        viewStore: viewStore,
+                        movieStore: movieStore
+                    )
                 }
             )
         }
@@ -60,9 +59,25 @@ struct DiscoverView: View {
             }
         }
     }
+    
+    @MainActor
+    private func MovieSheet(viewStore: ViewStoreOf<DiscoverFeature>, movieStore: StoreOf<MovieFeature>) -> some View {
+        NavigationStack {
+            MovieView(store: movieStore)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Close", systemImage: "xmark") {
+                            viewStore.send(.onCloseMovieTap)
+                        }
+                    }
+                }
+        }
+    }
 }
 
 private struct FeedView: View {
+
+    @EnvironmentObject var viewStore: ViewStoreOf<DiscoverFeature>
     
     let movies: [MoviesList.ListType: IdentifiedArrayOf<Movie>]
     let geometry: GeometryProxy
@@ -74,7 +89,10 @@ private struct FeedView: View {
                     makeSection(
                         for: sectionType,
                         movies: movies,
-                        geometry: geometry
+                        geometry: geometry,
+                        onMovieTap: { movie in
+                            viewStore.send(.onMovieTap(movie))
+                        }
                     )
                 }
             }
@@ -88,16 +106,16 @@ private struct FeedView: View {
     }
     
     @ViewBuilder
-    private func makeSection(for section: MoviesList.ListType, movies: IdentifiedArrayOf<Movie>, geometry: GeometryProxy) -> some View {
+    private func makeSection(for section: MoviesList.ListType, movies: IdentifiedArrayOf<Movie>, geometry: GeometryProxy, onMovieTap: @escaping (Movie) -> Void) -> some View {
         
         Section {
             switch section {
             case .nowPlaying:
-                MoviesPagerView(movies: movies)
+                MoviesPagerView(movies: movies, onMovieTap: onMovieTap)
                     .frame(height: geometry.size.width / 1.6)
                 
             case .popular, .topRated, .upcoming:
-                MoviesCollectionView(movies: movies)
+                MoviesCollectionView(movies: movies, onMovieTap: onMovieTap)
                     .frame(height: geometry.size.width * 0.7)
             }
         } header: {
