@@ -81,3 +81,11 @@ struct Movie: Decodable, Equatable, Identifiable {
         return .init(string: Config.TmdbApi.photoBaseUrl + "/w780/" + backdropPath)
     }
 }
+
+extension Movie {
+    
+    static var mock: Movie {
+        // TODO: ⚠️
+        Movie(id: 0, title: nil, overview: nil, language: nil, popularity: nil, posterPath: nil, backdropPath: nil, releaseDate: nil, voteAverage: nil, voteCount: nil, hasTrailer: nil, isAdult: nil, genreIds: nil)
+    }
+}

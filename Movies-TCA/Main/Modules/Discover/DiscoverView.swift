@@ -23,6 +23,9 @@ struct DiscoverView: View {
                             movies: viewStore.movies,
                             geometry: geometry
                         )
+                        .onTapGesture {
+                            viewStore.send(.onMovieTap(viewStore.movies[.nowPlaying]!.first!))
+                        }
                     }
                 }
             }
@@ -32,6 +35,17 @@ struct DiscoverView: View {
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
             }
+            .fullScreenCover(
+                store: store.scope(
+                    state: \.$movie,
+                    action: { .movie($0) }
+                ),
+                content: { movieStore in
+                    NavigationStack {
+                        MovieView(store: movieStore)
+                    }
+                }
+            )
         }
     }
     

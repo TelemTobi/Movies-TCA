@@ -14,6 +14,8 @@ struct DiscoverFeature: Reducer {
         var isLoading = true
         var genres: IdentifiedArrayOf<Genre> = []
         var movies: [MoviesList.ListType: IdentifiedArrayOf<Movie>] = [:]
+        
+        @PresentationState var movie: MovieFeature.State?
     }
     
     enum Action: Equatable {
@@ -21,6 +23,9 @@ struct DiscoverFeature: Reducer {
         case loadMovies
         case moviesListLoaded(type: MoviesList.ListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
+        
+        case onMovieTap(_ movie: Movie)
+        case movie(PresentationAction<MovieFeature.Action>)
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
@@ -66,7 +71,17 @@ struct DiscoverFeature: Reducer {
             case .loadingCompleted:
                 state.isLoading = false
                 return .none
+                
+            case let .onMovieTap(movie):
+                state.movie = MovieFeature.State(movie: movie)
+                return .none
+                
+            case .movie:
+                return .none
             }
+        }
+        .ifLet(\.$movie, action: /Action.movie) {
+            MovieFeature()
         }
     }
 }
