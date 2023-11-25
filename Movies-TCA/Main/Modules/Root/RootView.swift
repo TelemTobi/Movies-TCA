@@ -24,7 +24,7 @@ struct RootView: View {
                     HomeView(
                         store: store.scope(
                             state: \.home,
-                            action: RootFeature.Action.home
+                            action: { .home($0) }
                         )
                     )
                 }

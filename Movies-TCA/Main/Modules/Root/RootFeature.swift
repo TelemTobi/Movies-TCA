@@ -12,6 +12,7 @@ struct RootFeature: Reducer {
     
     struct State: Equatable {
         var isLoading = true
+        
         var home = HomeFeature.State()
     }
     
@@ -26,6 +27,10 @@ struct RootFeature: Reducer {
     @Dependency(\.tmdbClient) var tmdbClient
     
     var body: some ReducerOf<Self> {
+        Scope(state: \.home, action: /Action.home) {
+            HomeFeature()
+        }
+        
         Reduce { state, action in
             switch action {
             case .onFirstAppear:

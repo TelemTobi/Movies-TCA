@@ -14,7 +14,7 @@ struct SearchFeature: Reducer {
         @BindingState var searchInput: String = ""
     }
     
-    enum Action: BindableAction {
+    enum Action: Equatable, BindableAction {
         case onFirstAppear
         case binding(BindingAction<State>)
     }

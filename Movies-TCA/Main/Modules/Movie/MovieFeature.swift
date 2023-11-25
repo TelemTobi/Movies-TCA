@@ -20,7 +20,9 @@ struct MovieFeature: Reducer {
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
-            return .none
+            switch action {
+                
+            }
         }
     }
 }
