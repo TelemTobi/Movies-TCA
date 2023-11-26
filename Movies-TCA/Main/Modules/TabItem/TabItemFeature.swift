@@ -27,18 +27,16 @@ struct TabItemFeature: Reducer {
     struct Path: Reducer {
         
         enum State: Equatable {
-            
+            case moviesList(MoviesListFeature.State)
         }
         
         enum Action: Equatable {
-            
+            case moviesList(MoviesListFeature.Action)
         }
         
         var body: some ReducerOf<Self> {
-            Reduce { state, action in
-                switch action {
-                
-                }
+            Scope(state: /State.moviesList, action: /Action.moviesList) {
+                MoviesListFeature()
             }
         }
     }
@@ -60,6 +58,9 @@ struct TabItemFeature: Reducer {
             case .discover, .search:
                 return .none
             }
+        }
+        .forEach(\.path, action: /Action.path) {
+            Path()
         }
     }
 }

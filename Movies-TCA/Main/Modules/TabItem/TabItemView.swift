@@ -34,9 +34,14 @@ struct TabItemView: View {
                 Text("Watchlist")
             }
         } destination: { state in
-//            switch state {
-//
-//            }
+            switch state {
+            case .moviesList:
+                CaseLet(
+                    /TabItemFeature.Path.State.moviesList,
+                    action: TabItemFeature.Path.Action.moviesList,
+                     then: MoviesListView.init(store:)
+                )
+            }
         }
     }
 }
