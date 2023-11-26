@@ -16,31 +16,35 @@ struct HomeView: View {
         WithViewStore(store, observe: \.selectedTab) { viewStore in
             TabView(selection: viewStore.binding(send: HomeFeature.Action.onTabSelection)) {
                 
-                NavigationStack {
-                    DiscoverView(
-                        store: store.scope(
-                            state: \.discover,
-                            action: { .discover($0) }
-                        )
+                TabItemView(
+                    type: .discover,
+                    store: store.scope(
+                        state: \.tabItem,
+                        action: { .tabItem($0) }
                     )
-                }
+                )
                 .tabItem { Label("Discover", systemImage: "globe") }
                 .tag(HomeFeature.Tab.discover)
                 
-                NavigationStack {
-                    SearchView(
-                        store: store.scope(
-                            state: \.search,
-                            action: { .search($0) }
-                        )
+                TabItemView(
+                    type: .search,
+                    store: store.scope(
+                        state: \.tabItem,
+                        action: { .tabItem($0) }
                     )
-                }
+                )
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
                 .tag(HomeFeature.Tab.search)
                 
-                Text("Watchlist")
-                    .tabItem { Label("Watchlist", systemImage: "popcorn") }
-                    .tag(HomeFeature.Tab.watchlist)
+                TabItemView(
+                    type: .watchlist,
+                    store: store.scope(
+                        state: \.tabItem,
+                        action: { .tabItem($0) }
+                    )
+                )
+                .tabItem { Label("Watchlist", systemImage: "popcorn") }
+                .tag(HomeFeature.Tab.watchlist)
             }
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
