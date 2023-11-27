@@ -7,37 +7,29 @@
 
 import SwiftUI
 
-struct SectionHeader<Destination: View>: View {
+struct SectionHeader: View {
     
     let title: String
     let action: String?
-    let destination: Destination?
+    let onActionTap: EmptyClosure?
     
-    init(title: String, action: String, @ViewBuilder destination: (() -> Destination)) {
+    init(title: String, action: String? = nil, onActionTap: EmptyClosure? = nil) {
         self.title = title
         self.action = action
-        self.destination = destination()
-    }
-    
-    init(title: String) where Destination == EmptyView {
-        self.title = title
-        self.action = nil
-        self.destination = nil
+        self.onActionTap = onActionTap
     }
     
     var body: some View {
-        
         HStack {
-            
             Text(title)
                 .font(.rounded(.title2, weight: .semibold))
                 .foregroundColor(.primary)
             
             Spacer()
             
-            if let destination, let action {
-                NavigationLink {
-                    destination
+            if let action, let onActionTap {
+                Button {
+                    onActionTap()
                 } label: {
                     Text(action)
                         .font(.callout)
@@ -51,6 +43,6 @@ struct SectionHeader<Destination: View>: View {
 
 #Preview {
     SectionHeader(title: "Now Playing", action: "See All") {
-        Text("Hello, World!")
+        
     }
 }

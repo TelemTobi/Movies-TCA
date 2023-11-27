@@ -46,6 +46,17 @@ struct MoviesPagerView: View {
                 
                 WebImage(url: movie.backdropUrl ?? movie.thumbnailUrl)
                     .resizable()
+                    .placeholder {
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(.gray)
+                            .frame(width: itemSize.width, height: itemSize.height)
+                        
+                        Image(systemName: "popcorn")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40)
+                            .foregroundColor(.white)
+                    }
                     .transition(.fade)
                     .aspectRatio(contentMode: .fill)
                     .scaleEffect(1.2)

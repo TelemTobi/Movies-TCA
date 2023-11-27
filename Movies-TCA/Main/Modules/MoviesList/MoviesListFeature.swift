@@ -1,33 +1,28 @@
 //
-//  SearchFeature.swift
+//  MoviesListFeature.swift
 //  Movies-TCA
 //
-//  Created by Telem Tobi on 24/11/2023.
+//  Created by Telem Tobi on 26/11/2023.
 //
 
 import Foundation
 import ComposableArchitecture
 
-struct SearchFeature: Reducer {
+struct MoviesListFeature: Reducer {
     
     struct State: Equatable {
-        @BindingState var searchInput: String = ""
+        let listType: MoviesList.ListType
+        let movies: IdentifiedArrayOf<Movie>
     }
     
-    enum Action: Equatable, BindableAction {
+    enum Action: Equatable {
         case onFirstAppear
-        case binding(BindingAction<State>)
     }
     
     var body: some ReducerOf<Self> {
-        BindingReducer()
-        
         Reduce { state, action in
             switch action {
             case .onFirstAppear:
-                return .none
-                
-            case .binding(_):
                 return .none
             }
         }

@@ -13,33 +13,38 @@ struct HomeFeature: Reducer {
     struct State: Equatable {
         var selectedTab: Tab = .discover
         var movieGenres: [Genre] = []
-        var discover = DiscoverFeature.State()
+        
+        var tabItem = TabItemFeature.State()
     }
     
     enum Action: Equatable {
         case onFirstAppear
         case onTabSelection(Tab)
-        case discover(DiscoverFeature.Action)
+        
+        case tabItem(TabItemFeature.Action)
     }
     
     var body: some ReducerOf<Self> {
+        Scope(state: \.tabItem, action: /Action.tabItem) {
+            TabItemFeature()
+        }
+        
         Reduce { state, action in
             switch action {
             case .onFirstAppear:
-                state.discover.genres = .init(uniqueElements: state.movieGenres)
+                // TODO: Figure that out
+//                state.discover.genres = .init(uniqueElements: state.movieGenres)
                 return .none
                 
             case let .onTabSelection(tab):
                 state.selectedTab = tab
                 return .none
                 
-            case .discover:
+            case .tabItem:
                 return .none
+//            case .discover, .search:
+//                return .none
             }
-        }
-        
-        Scope(state: \.discover, action: /Action.discover) {
-            DiscoverFeature()
         }
     }
 }

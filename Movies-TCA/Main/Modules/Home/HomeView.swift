@@ -15,37 +15,36 @@ struct HomeView: View {
     var body: some View {
         WithViewStore(store, observe: \.selectedTab) { viewStore in
             TabView(selection: viewStore.binding(send: HomeFeature.Action.onTabSelection)) {
-//                DiscoverView(
-//                    store: store.scope(
-//                        state: \.discover,
-//                        action: HomeFeature.Action.discover
-//                    )
-//                )
-                NavigationStack {
-                    DiscoverView(store:
-                        .init(
-                            initialState: DiscoverFeature.State(),
-                            reducer: { DiscoverFeature() }
-                        )
+                
+                TabItemView(
+                    type: .discover,
+                    store: store.scope(
+                        state: \.tabItem,
+                        action: { .tabItem($0) }
                     )
-                }
+                )
                 .tabItem { Label("Discover", systemImage: "globe") }
                 .tag(HomeFeature.Tab.discover)
                 
-                NavigationStack {
-                    SearchView(store:
-                        .init(
-                            initialState: SearchFeature.State(),
-                            reducer: { SearchFeature() }
-                        )
+                TabItemView(
+                    type: .search,
+                    store: store.scope(
+                        state: \.tabItem,
+                        action: { .tabItem($0) }
                     )
-                }
-                    .tabItem { Label("Search", systemImage: "magnifyingglass") }
-                    .tag(HomeFeature.Tab.search)
+                )
+                .tabItem { Label("Search", systemImage: "magnifyingglass") }
+                .tag(HomeFeature.Tab.search)
                 
-                Text("Watchlist")
-                    .tabItem { Label("Watchlist", systemImage: "popcorn") }
-                    .tag(HomeFeature.Tab.watchlist)
+                TabItemView(
+                    type: .watchlist,
+                    store: store.scope(
+                        state: \.tabItem,
+                        action: { .tabItem($0) }
+                    )
+                )
+                .tabItem { Label("Watchlist", systemImage: "popcorn") }
+                .tag(HomeFeature.Tab.watchlist)
             }
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
@@ -56,7 +55,7 @@ struct HomeView: View {
 
 #Preview {
     HomeView(
-        store: .init(
+        store: Store(
             initialState: HomeFeature.State(),
             reducer: { HomeFeature() }
         )

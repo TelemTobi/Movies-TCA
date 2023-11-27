@@ -24,7 +24,7 @@ struct SearchView: View {
 #Preview {
     NavigationStack {
         SearchView(
-            store: .init(
+            store: Store(
                 initialState: SearchFeature.State(),
                 reducer: { SearchFeature() }
             )

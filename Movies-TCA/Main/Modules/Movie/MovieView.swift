@@ -22,7 +22,7 @@ struct MovieView: View {
 
 #Preview {
     MovieView(
-        store: .init(
+        store: Store(
             initialState: MovieFeature.State(movie: .mock),
             reducer: { MovieFeature() }
         )
