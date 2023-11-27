@@ -19,7 +19,7 @@ struct MoviesListView: View {
                     Text(movie.title ?? .empty)
                 }
             }
-            .navigationTitle(viewStore.section.title)
+            .navigationTitle(viewStore.listType.title)
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
             }
@@ -32,7 +32,7 @@ struct MoviesListView: View {
         MoviesListView(
             store: Store(
                 initialState: MoviesListFeature.State(
-                    section: .nowPlaying,
+                    listType: .nowPlaying,
                     movies: [.mock, .mock]
                 ),
                 reducer: { MoviesListFeature() }

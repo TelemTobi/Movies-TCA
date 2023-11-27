@@ -11,7 +11,7 @@ import ComposableArchitecture
 struct MoviesListFeature: Reducer {
     
     struct State: Equatable {
-        let section: MoviesList.ListType
+        let listType: MoviesList.ListType
         let movies: IdentifiedArrayOf<Movie>
     }
     

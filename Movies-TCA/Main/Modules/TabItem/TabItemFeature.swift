@@ -55,7 +55,17 @@ struct TabItemFeature: Reducer {
             case .path:
                 return .none
                 
-            case .discover, .search:
+            case let .discover(action):
+                switch action {
+                case let .onMoviesListTap(listType, movies):
+                    let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
+                    state.path.append(Path.State.moviesList(moviesListState))
+                    return .none
+                default:
+                    return .none
+                }
+                
+            case .search:
                 return .none
             }
         }
