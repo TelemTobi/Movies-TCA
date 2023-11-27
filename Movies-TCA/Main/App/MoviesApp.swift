@@ -14,7 +14,7 @@ struct MoviesApp: App {
     var body: some Scene {
         WindowGroup {
             RootView(
-                store: .init(
+                store: Store(
                     initialState: RootFeature.State(),
                     reducer: { RootFeature() }
                 )

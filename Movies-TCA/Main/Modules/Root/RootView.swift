@@ -36,7 +36,7 @@ struct RootView: View {
 
 #Preview {
     RootView(
-        store: .init(
+        store: Store(
             initialState: RootFeature.State(),
             reducer: { RootFeature() }
         )

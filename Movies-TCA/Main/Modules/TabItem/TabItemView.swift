@@ -23,6 +23,7 @@ struct TabItemView: View {
                         action: { .discover($0) }
                     )
                 )
+                
             case .search:
                 SearchView(
                     store: store.scope(
@@ -30,16 +31,18 @@ struct TabItemView: View {
                         action: { .search($0) }
                     )
                 )
+                
             case .watchlist:
                 Text("Watchlist")
             }
+            
         } destination: { state in
             switch state {
             case .moviesList:
                 CaseLet(
                     /TabItemFeature.Path.State.moviesList,
                     action: TabItemFeature.Path.Action.moviesList,
-                     then: MoviesListView.init(store:)
+                    then: MoviesListView.init(store:)
                 )
             }
         }

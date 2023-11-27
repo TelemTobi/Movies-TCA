@@ -55,7 +55,7 @@ struct HomeView: View {
 
 #Preview {
     HomeView(
-        store: .init(
+        store: Store(
             initialState: HomeFeature.State(),
             reducer: { HomeFeature() }
         )

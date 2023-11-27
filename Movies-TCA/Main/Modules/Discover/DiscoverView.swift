@@ -90,6 +90,9 @@ private struct FeedView: View {
                         for: sectionType,
                         movies: movies,
                         geometry: geometry,
+                        onSeeAllTap: { section in
+                            viewStore.send(.onSeeAllTap(section))
+                        },
                         onMovieTap: { movie in
                             viewStore.send(.onMovieTap(movie))
                         }
@@ -106,7 +109,7 @@ private struct FeedView: View {
     }
     
     @ViewBuilder
-    private func makeSection(for section: MoviesList.ListType, movies: IdentifiedArrayOf<Movie>, geometry: GeometryProxy, onMovieTap: @escaping (Movie) -> Void) -> some View {
+    private func makeSection(for section: MoviesList.ListType, movies: IdentifiedArrayOf<Movie>, geometry: GeometryProxy, onSeeAllTap: @escaping (MoviesList.ListType) -> Void, onMovieTap: @escaping (Movie) -> Void) -> some View {
         
         Section {
             switch section {
@@ -121,8 +124,7 @@ private struct FeedView: View {
         } header: {
             if section != .nowPlaying {
                 SectionHeader(title: section.title, action: "See All") {
-                    Color.clear
-                        .navigationTitle(section.title)
+                    onSeeAllTap(section)
                 }
                 .padding(.horizontal)
                 .textCase(.none)
@@ -136,7 +138,7 @@ private struct FeedView: View {
 #Preview {
     NavigationStack {
         DiscoverView(
-            store: .init(
+            store: Store(
                 initialState: DiscoverFeature.State(),
                 reducer: { DiscoverFeature() }
             )

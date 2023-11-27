@@ -87,7 +87,7 @@ extension Movie {
     static var mock: Movie {
         let movie = try? MoviesList.self
             .resolve(Mock.nowPlayingMovies.dataEncoded)
-            .parse(type: MoviesList.self)
+            .parse(type: MoviesList.self, using: .tmdbDateDecodingStrategy)
             .results?.randomElement()
         
         guard let movie else {

@@ -14,16 +14,29 @@ struct MoviesListView: View {
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            ScrollView {
+                ForEach(viewStore.movies) { movie in
+                    Text(movie.title ?? .empty)
+                }
+            }
+            .navigationTitle(viewStore.section.title)
+            .onFirstAppear {
+                viewStore.send(.onFirstAppear)
+            }
         }
     }
 }
 
 #Preview {
-    MoviesListView(
-        store: Store(
-            initialState: MoviesListFeature.State(),
-            reducer: { MoviesListFeature() }
+    NavigationStack {
+        MoviesListView(
+            store: Store(
+                initialState: MoviesListFeature.State(
+                    section: .nowPlaying,
+                    movies: [.mock, .mock]
+                ),
+                reducer: { MoviesListFeature() }
+            )
         )
-    )
+    }
 }

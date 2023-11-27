@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias EmptyClosure = () -> Void
+
 enum Constants {
     
     enum Environment {
