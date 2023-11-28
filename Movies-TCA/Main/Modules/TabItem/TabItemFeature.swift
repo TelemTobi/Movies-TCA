@@ -12,14 +12,12 @@ struct TabItemFeature: Reducer {
     
     struct State: Equatable {
         var path = StackState<Path.State>()
-        
         var discover = DiscoverFeature.State()
         var search = SearchFeature.State()
     }
     
     enum Action: Equatable {
         case path(StackAction<Path.State, Path.Action>)
-        
         case discover(DiscoverFeature.Action)
         case search(SearchFeature.Action)
     }

@@ -39,7 +39,7 @@ struct TagCloudsView<Content: View>: View {
             ForEach(Array(tags.enumerated()), id: \.element) { index, tag in
                 self.item(index, tag)
                     .padding(.vertical, 6)
-                    .padding(.horizontal, 4)
+                    .padding(.trailing, 8)
                     .alignmentGuide(.leading, computeValue: { d in
                         if (abs(width - d.width) > g.size.width) {
                             width = 0
