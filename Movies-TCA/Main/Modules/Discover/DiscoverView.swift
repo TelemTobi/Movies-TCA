@@ -32,32 +32,6 @@ struct DiscoverView: View {
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
             }
-            .fullScreenCover(
-                store: store.scope(
-                    state: \.$movie,
-                    action: { .movie($0) }
-                ),
-                content: { movieStore in
-                    MovieSheet(
-                        viewStore: viewStore,
-                        movieStore: movieStore
-                    )
-                }
-            )
-        }
-    }
-    
-    @MainActor
-    private func MovieSheet(viewStore: ViewStoreOf<DiscoverFeature>, movieStore: StoreOf<MovieFeature>) -> some View {
-        NavigationStack {
-            MovieView(store: movieStore)
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Close", systemImage: "xmark") {
-                            viewStore.send(.onCloseMovieTap)
-                        }
-                    }
-                }
         }
     }
 }

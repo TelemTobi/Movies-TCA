@@ -21,7 +21,8 @@ struct SearchFeature: Reducer {
         case onFirstAppear
         case loadGenres
         case genresResponse(Result<GenresResponse, TmdbError>)
-
+        case onMovieTap(_ movie: Movie)
+        
         case binding(BindingAction<State>)
     }
     
@@ -55,6 +56,10 @@ struct SearchFeature: Reducer {
                 state.isLoading = false
                 
                 customDump(error) // TODO: Handle error
+                return .none
+                
+            // MARK: Handled in parent feature
+            case .onMovieTap:
                 return .none
                 
             case .binding(_):

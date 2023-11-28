@@ -38,6 +38,15 @@ struct TabItemView: View {
                 }
             }
             .toolbar(content: toolbarContent)
+            .fullScreenCover(
+                store: store.scope(
+                    state: \.$presentedMovie,
+                    action: { .presentedMovie($0) }
+                ),
+                content: { movieStore in
+                    MovieSheet(movieStore: movieStore)
+                }
+            )
             
         } destination: { state in
             switch state {
@@ -60,6 +69,20 @@ struct TabItemView: View {
                 Image(systemName: "gear")
                     .foregroundColor(.accentColor)
             }
+        }
+    }
+    
+    @MainActor
+    private func MovieSheet(movieStore: StoreOf<MovieFeature>) -> some View {
+        NavigationStack {
+            MovieView(store: movieStore)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Close", systemImage: "xmark") {
+                            movieStore.send(.onCloseButtonTap)
+                        }
+                    }
+                }
         }
     }
 }

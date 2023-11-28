@@ -14,12 +14,16 @@ struct TabItemFeature: Reducer {
         var path = StackState<Path.State>()
         var discover = DiscoverFeature.State()
         var search = SearchFeature.State()
+        
+        @PresentationState var presentedMovie: MovieFeature.State?
     }
     
     enum Action: Equatable {
         case path(StackAction<Path.State, Path.Action>)
         case discover(DiscoverFeature.Action)
         case search(SearchFeature.Action)
+        
+        case presentedMovie(PresentationAction<MovieFeature.Action>)
     }
     
     struct Path: Reducer {
@@ -53,17 +57,24 @@ struct TabItemFeature: Reducer {
             case .path:
                 return .none
                 
+            case let .discover(.onMovieTap(movie)), let .search(.onMovieTap(movie)):
+                state.presentedMovie = MovieFeature.State(movie: movie)
+                return .none
+                
             case let .discover(.onMoviesListTap(listType, movies)):
                 let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
                 state.path.append(.moviesList(moviesListState))
                 return .none
                 
-            case .discover, .search:
+            case .discover, .search, .presentedMovie:
                 return .none
             }
         }
         .forEach(\.path, action: /Action.path) {
             Path()
+        }
+        .ifLet(\.$presentedMovie, action: /Action.presentedMovie) {
+            MovieFeature()
         }
     }
 }
