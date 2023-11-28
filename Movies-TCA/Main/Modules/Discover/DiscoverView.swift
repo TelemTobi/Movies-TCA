@@ -28,7 +28,6 @@ struct DiscoverView: View {
                 }
             }
             .navigationTitle("Discover")
-            .toolbar(content: toolbarContent)
             .animation(.easeInOut, value: viewStore.isLoading)
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
@@ -45,18 +44,6 @@ struct DiscoverView: View {
                     )
                 }
             )
-        }
-    }
-    
-    @ToolbarContentBuilder
-    private func toolbarContent() -> some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                
-            } label: {
-                Image(systemName: "line.3.horizontal.decrease.circle")
-                    .foregroundColor(.accentColor)
-            }
         }
     }
     

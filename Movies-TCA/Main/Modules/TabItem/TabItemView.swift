@@ -15,26 +15,29 @@ struct TabItemView: View {
     
     var body: some View {
         NavigationStackStore(store.scope(state: \.path, action: { .path($0) })) {
-            switch type {
-            case .discover:
-                DiscoverView(
-                    store: store.scope(
-                        state: \.discover,
-                        action: { .discover($0) }
+            Group {
+                switch type {
+                case .discover:
+                    DiscoverView(
+                        store: store.scope(
+                            state: \.discover,
+                            action: { .discover($0) }
+                        )
                     )
-                )
-                
-            case .search:
-                SearchView(
-                    store: store.scope(
-                        state: \.search,
-                        action: { .search($0) }
+                    
+                case .search:
+                    SearchView(
+                        store: store.scope(
+                            state: \.search,
+                            action: { .search($0) }
+                        )
                     )
-                )
-                
-            case .watchlist:
-                Text("Watchlist")
+                    
+                case .watchlist:
+                    Text("Watchlist")
+                }
             }
+            .toolbar(content: toolbarContent)
             
         } destination: { state in
             switch state {
@@ -44,6 +47,18 @@ struct TabItemView: View {
                     action: TabItemFeature.Path.Action.moviesList,
                     then: MoviesListView.init(store:)
                 )
+            }
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                
+            } label: {
+                Image(systemName: "gear")
+                    .foregroundColor(.accentColor)
             }
         }
     }

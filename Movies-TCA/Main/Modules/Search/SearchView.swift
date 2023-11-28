@@ -14,9 +14,26 @@ struct SearchView: View {
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-                .navigationTitle("Search")
-                .searchable(text: viewStore.$searchInput)
+            ZStack {
+                if viewStore.isLoading {
+                    ProgressView()
+                } else {
+                    List {
+                        Text("Hello")
+                    }
+                    .listStyle(.grouped)
+                    .scrollIndicators(.hidden)
+                    .searchable(
+                        text: viewStore.$searchInput,
+                        prompt: "Search for cinematic treasures!"
+                    )
+                }
+            }
+            .navigationTitle("Search")
+            .animation(.easeInOut, value: viewStore.isLoading)
+            .onFirstAppear {
+                viewStore.send(.onFirstAppear)
+            }
         }
     }
 }

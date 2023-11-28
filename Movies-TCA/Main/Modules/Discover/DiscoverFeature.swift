@@ -12,7 +12,6 @@ struct DiscoverFeature: Reducer {
     
     struct State: Equatable {
         var isLoading = true
-        var genres: IdentifiedArrayOf<Genre> = []
         var movies: [MoviesList.ListType: IdentifiedArrayOf<Movie>] = [:]
         
         @PresentationState var movie: MovieFeature.State?

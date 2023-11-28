@@ -12,8 +12,6 @@ struct HomeFeature: Reducer {
     
     struct State: Equatable {
         var selectedTab: Tab = .discover
-        var movieGenres: [Genre] = []
-        
         var tabItem = TabItemFeature.State()
     }
     
@@ -32,8 +30,6 @@ struct HomeFeature: Reducer {
         Reduce { state, action in
             switch action {
             case .onFirstAppear:
-                // TODO: Figure that out
-//                state.discover.genres = .init(uniqueElements: state.movieGenres)
                 return .none
                 
             case let .onTabSelection(tab):
@@ -42,8 +38,6 @@ struct HomeFeature: Reducer {
                 
             case .tabItem:
                 return .none
-//            case .discover, .search:
-//                return .none
             }
         }
     }
