@@ -49,7 +49,7 @@ extension SearchView {
         @State private var didFirstAppear = false
         
         var body: some View {
-            let delays = Array(0..<genres.count).map { CGFloat($0) * 0.05 }.shuffled()
+            let delays = Array(0..<genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()
             
             TagCloudsView(tags: genres.compactMap(\.name)) { index, genre in
                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
