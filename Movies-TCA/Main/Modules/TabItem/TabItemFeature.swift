@@ -24,9 +24,11 @@ struct TabItemFeature: Reducer {
         case discover(DiscoverFeature.Action)
         case search(SearchFeature.Action)
         
-        case setGenres(IdentifiedArrayOf<Genre>)
         case presentedMovie(PresentationAction<MovieFeature.Action>)
         case preferences(PresentationAction<PreferencesFeature.Action>)
+
+        case setGenres(IdentifiedArrayOf<Genre>)
+        case onPreferencesTap
     }
     
     struct Path: Reducer {
@@ -71,6 +73,10 @@ struct TabItemFeature: Reducer {
                 
             case let .setGenres(genres):
                 state.search.genres = genres
+                return .none
+                
+            case .onPreferencesTap:
+                state.preferences = PreferencesFeature.State()
                 return .none
                 
             case .discover, .search, .presentedMovie, .preferences:

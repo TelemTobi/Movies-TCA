@@ -73,7 +73,7 @@ struct TabItemView: View {
     private func toolbarContent() -> some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button {
-                
+                store.send(.onPreferencesTap)
             } label: {
                 Image(systemName: "gear")
                     .foregroundColor(.accentColor)
@@ -97,14 +97,16 @@ struct TabItemView: View {
     
     @MainActor
     private func PreferencesSheet(store: StoreOf<PreferencesFeature>) -> some View {
-        PreferencesView(store: store)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Close", systemImage: "xmark") {
-                        store.send(.onCloseButtonTap)
+        NavigationStack {
+            PreferencesView(store: store)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Close", systemImage: "xmark") {
+                            store.send(.onCloseButtonTap)
+                        }
                     }
                 }
-            }
+        }
     }
 }
 
