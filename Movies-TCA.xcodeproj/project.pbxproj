@@ -14,6 +14,7 @@
 		7D77E6282B13B70C00B308A6 /* MoviesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E6272B13B70C00B308A6 /* MoviesListView.swift */; };
 		7D77E62A2B13B71900B308A6 /* MoviesListFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E6292B13B71900B308A6 /* MoviesListFeature.swift */; };
 		7D77E62E2B15BCB500B308A6 /* TagCloudsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E62D2B15BCB500B308A6 /* TagCloudsView.swift */; };
+		7D77E6322B16551700B308A6 /* TagButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E6312B16551700B308A6 /* TagButtonStyle.swift */; };
 		7DD6D96E2AF943B7004828AB /* MoviesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD6D96D2AF943B7004828AB /* MoviesApp.swift */; };
 		7DD6D9702AF943B7004828AB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD6D96F2AF943B7004828AB /* HomeView.swift */; };
 		7DD6D9722AF943B8004828AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DD6D9712AF943B8004828AB /* Assets.xcassets */; };
@@ -74,6 +75,7 @@
 		7D77E6272B13B70C00B308A6 /* MoviesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListView.swift; sourceTree = "<group>"; };
 		7D77E6292B13B71900B308A6 /* MoviesListFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListFeature.swift; sourceTree = "<group>"; };
 		7D77E62D2B15BCB500B308A6 /* TagCloudsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCloudsView.swift; sourceTree = "<group>"; };
+		7D77E6312B16551700B308A6 /* TagButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButtonStyle.swift; sourceTree = "<group>"; };
 		7DD6D96A2AF943B7004828AB /* Movies-TCA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movies-TCA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD6D96D2AF943B7004828AB /* MoviesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesApp.swift; sourceTree = "<group>"; };
 		7DD6D96F2AF943B7004828AB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -164,6 +166,22 @@
 				7D77E6272B13B70C00B308A6 /* MoviesListView.swift */,
 			);
 			path = MoviesList;
+			sourceTree = "<group>";
+		};
+		7D77E62F2B16550000B308A6 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				7D77E6302B16550700B308A6 /* Button Styles */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
+		7D77E6302B16550700B308A6 /* Button Styles */ = {
+			isa = PBXGroup;
+			children = (
+				7D77E6312B16551700B308A6 /* TagButtonStyle.swift */,
+			);
+			path = "Button Styles";
 			sourceTree = "<group>";
 		};
 		7DD6D9612AF943B7004828AB = {
@@ -310,6 +328,7 @@
 				7DE17DCF2AFE0546005F4848 /* Extensions */,
 				7DE17DD02AFE0553005F4848 /* Modifiers */,
 				7DE17DD12AFE0561005F4848 /* Protocols */,
+				7D77E62F2B16550000B308A6 /* Styles */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -549,6 +568,7 @@
 				7DDA64542B0DD407008BF425 /* Date+Extension.swift in Sources */,
 				7DE17E142B068B72005F4848 /* NetworkManager.swift in Sources */,
 				7DDA64712B0FC31D008BF425 /* EdgeInsets+Extension.swift in Sources */,
+				7D77E6322B16551700B308A6 /* TagButtonStyle.swift in Sources */,
 				7DDA64592B0E8780008BF425 /* Constants.swift in Sources */,
 				7DE17E042B0413A1005F4848 /* String+Extension.swift in Sources */,
 				7DE17DD42AFE0BC1005F4848 /* OnFirstAppear.swift in Sources */,

@@ -18,9 +18,12 @@ struct RootFeature: Reducer {
     
     enum Action: Equatable {
         case onFirstAppear
-        case loadingCompleted
+        case loadGenres
+        case genresResponse(Result<GenresResponse, TmdbError>)
         case home(HomeFeature.Action)
     }
+    
+    @Dependency(\.tmdbClient) var tmdbClient
     
     var body: some ReducerOf<Self> {
         Scope(state: \.home, action: /Action.home) {
@@ -30,14 +33,29 @@ struct RootFeature: Reducer {
         Reduce { state, action in
             switch action {
             case .onFirstAppear:
+                return .send(.loadGenres)
+                
+            case .loadGenres:
                 return .run { send in
-                    try await Task.sleep(until: .now + .seconds(Constants.Stub.delay))
-                    await send(.loadingCompleted)
+                    let genresResult = await tmdbClient.fetchGenres()
+                    await send(.genresResponse(genresResult))
                 }
                 
-            case .loadingCompleted:
+            case let .genresResponse(.success(response)):
                 state.isLoading = false
+                
+                if let genres = response.genres, genres.isNotEmpty {
+                    return .send(.home(.tabItem(.setGenres(IdentifiedArray(uniqueElements: genres)))))
+                } else {
+                    return .send(.genresResponse(.unknownError))
+                }
+                
+            case let .genresResponse(.failure(error)):
+                state.isLoading = false
+                
+                customDump(error) // TODO: Handle error
                 return .none
+                
                 
             case .home:
                 return .none

@@ -15,13 +15,16 @@ struct MovieFeature: Reducer {
     }
     
     enum Action: Equatable {
-        
+        case onCloseButtonTap
     }
+    
+    @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-                
+            case .onCloseButtonTap:
+                return .run { _ in await self.dismiss() }
             }
         }
     }

@@ -32,93 +32,78 @@ struct DiscoverView: View {
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
             }
-            .fullScreenCover(
-                store: store.scope(
-                    state: \.$movie,
-                    action: { .movie($0) }
-                ),
-                content: { movieStore in
-                    MovieSheet(
-                        viewStore: viewStore,
-                        movieStore: movieStore
-                    )
-                }
-            )
-        }
-    }
-    
-    @MainActor
-    private func MovieSheet(viewStore: ViewStoreOf<DiscoverFeature>, movieStore: StoreOf<MovieFeature>) -> some View {
-        NavigationStack {
-            MovieView(store: movieStore)
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Close", systemImage: "xmark") {
-                            viewStore.send(.onCloseMovieTap)
-                        }
-                    }
-                }
         }
     }
 }
 
-private struct FeedView: View {
+extension DiscoverView {
+    
+    private struct FeedView: View {
 
-    @EnvironmentObject var viewStore: ViewStoreOf<DiscoverFeature>
-    
-    let movies: [MoviesList.ListType: IdentifiedArrayOf<Movie>]
-    let geometry: GeometryProxy
-    
-    var body: some View {
-        List {
-            ForEach(MoviesList.ListType.allCases, id: \.self) { sectionType in
-                if let movies = movies[sectionType] {
-                    makeSection(
-                        for: sectionType,
-                        movies: movies,
-                        geometry: geometry,
-                        onSeeAllTap: {
-                            viewStore.send(.onMoviesListTap(sectionType, movies))
-                        },
-                        onMovieTap: { movie in
-                            viewStore.send(.onMovieTap(movie))
+        @EnvironmentObject private var viewStore: ViewStoreOf<DiscoverFeature>
+        
+        let movies: [MoviesList.ListType: IdentifiedArrayOf<Movie>]
+        let geometry: GeometryProxy
+        
+        var body: some View {
+            List {
+                ForEach(MoviesList.ListType.allCases, id: \.self) { listType in
+                    if let movies = movies[listType] {
+                        SectionView(
+                            listType: listType,
+                            movies: movies,
+                            geometry: geometry
+                        )
+                        .environmentObject(viewStore)
+                    }
+                }
+                .listRowInsets(.zero)
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+                .listSectionSeparator(.hidden, edges: .top)
+            }
+            .listStyle(.grouped)
+            .scrollIndicators(.hidden)
+        }
+    }
+
+    private struct SectionView: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<DiscoverFeature>
+        
+        let listType: MoviesList.ListType
+        let movies: IdentifiedArrayOf<Movie>
+        let geometry: GeometryProxy
+        
+        var body: some View {
+            Section {
+                switch listType {
+                case .nowPlaying:
+                    MoviesPagerView(movies: movies) {
+                        viewStore.send(.onMovieTap($0))
+                    }
+                    .frame(height: geometry.size.width / 1.6)
+                    
+                case .popular, .topRated, .upcoming:
+                    MoviesCollectionView(movies: movies) {
+                        viewStore.send(.onMovieTap($0))
+                    }
+                    .frame(height: geometry.size.width * 0.7)
+                }
+            } header: {
+                if listType != .nowPlaying {
+                    SectionHeader(
+                        title: listType.title,
+                        action: "See All",
+                        onActionTap: {
+                            viewStore.send(.onMoviesListTap(listType, movies))
                         }
                     )
+                    .padding(.horizontal)
+                    .textCase(.none)
+                } else {
+                    EmptyView()
                 }
-            }
-            .listRowInsets(.zero)
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
-            .listSectionSeparator(.hidden, edges: .top)
-        }
-        .listStyle(.grouped)
-        .scrollIndicators(.hidden)
-    }
-    
-    @ViewBuilder
-    private func makeSection(for section: MoviesList.ListType, movies: IdentifiedArrayOf<Movie>, geometry: GeometryProxy, onSeeAllTap: @escaping EmptyClosure, onMovieTap: @escaping (Movie) -> Void) -> some View {
-        
-        Section {
-            switch section {
-            case .nowPlaying:
-                MoviesPagerView(movies: movies, onMovieTap: onMovieTap)
-                    .frame(height: geometry.size.width / 1.6)
-                
-            case .popular, .topRated, .upcoming:
-                MoviesCollectionView(movies: movies, onMovieTap: onMovieTap)
-                    .frame(height: geometry.size.width * 0.7)
-            }
-        } header: {
-            if section != .nowPlaying {
-                SectionHeader(
-                    title: section.title,
-                    action: "See All",
-                    onActionTap: onSeeAllTap
-                )
-                .padding(.horizontal)
-                .textCase(.none)
-            } else {
-                EmptyView()
             }
         }
     }

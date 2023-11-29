@@ -19,13 +19,16 @@ struct SearchView: View {
                     ProgressView()
                 } else {
                     List {
-                        Text("Hello")
+                        SuggestionsView(genres: viewStore.genres.elements)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                            .listSectionSeparator(.hidden, edges: .top)
                     }
                     .listStyle(.grouped)
                     .scrollIndicators(.hidden)
                     .searchable(
                         text: viewStore.$searchInput,
-                        prompt: "Search for cinematic treasures!"
+                        prompt: "Find movie marvels! What's your genre?"
                     )
                 }
             }
@@ -33,6 +36,38 @@ struct SearchView: View {
             .animation(.easeInOut, value: viewStore.isLoading)
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
+            }
+        }
+    }
+}
+
+extension SearchView {
+    
+    private struct SuggestionsView: View {
+        
+        let genres: [Genre]
+        @State private var didFirstAppear = false
+        
+        var body: some View {
+            let delays = Array(0..<genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()
+            
+            TagCloudsView(tags: genres.compactMap(\.name)) { index, genre in
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                    Text(genre)
+                        .font(.footnote)
+                        .fontWeight(.medium)
+                }
+                .buttonStyle(TagButtonStyle())
+                .opacity(didFirstAppear ? 1 : 0)
+                .scaleEffect(didFirstAppear ? 1 : 0.7)
+                .rotationEffect(.degrees(didFirstAppear ? 0 : 10))
+                .animation(
+                    .easeInOut(duration: 0.25).delay(delays[index]),
+                    value: didFirstAppear
+                )
+            }
+            .onFirstAppear {
+                withAnimation { didFirstAppear = true }
             }
         }
     }
