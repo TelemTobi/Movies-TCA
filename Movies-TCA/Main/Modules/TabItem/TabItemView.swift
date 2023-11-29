@@ -44,7 +44,16 @@ struct TabItemView: View {
                     action: { .presentedMovie($0) }
                 ),
                 content: { movieStore in
-                    MovieSheet(movieStore: movieStore)
+                    MovieSheet(store: movieStore)
+                }
+            )
+            .sheet(
+                store: store.scope(
+                    state: \.$preferences,
+                    action: { .preferences($0) }
+                ),
+                content: { preferencesStore in
+                    PreferencesSheet(store: preferencesStore)
                 }
             )
             
@@ -73,17 +82,29 @@ struct TabItemView: View {
     }
     
     @MainActor
-    private func MovieSheet(movieStore: StoreOf<MovieFeature>) -> some View {
+    private func MovieSheet(store: StoreOf<MovieFeature>) -> some View {
         NavigationStack {
-            MovieView(store: movieStore)
+            MovieView(store: store)
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Close", systemImage: "xmark") {
-                            movieStore.send(.onCloseButtonTap)
+                            store.send(.onCloseButtonTap)
                         }
                     }
                 }
         }
+    }
+    
+    @MainActor
+    private func PreferencesSheet(store: StoreOf<PreferencesFeature>) -> some View {
+        PreferencesView(store: store)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Close", systemImage: "xmark") {
+                        store.send(.onCloseButtonTap)
+                    }
+                }
+            }
     }
 }
 

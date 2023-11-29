@@ -16,6 +16,7 @@ struct TabItemFeature: Reducer {
         var search = SearchFeature.State()
         
         @PresentationState var presentedMovie: MovieFeature.State?
+        @PresentationState var preferences: PreferencesFeature.State?
     }
     
     enum Action: Equatable {
@@ -25,6 +26,7 @@ struct TabItemFeature: Reducer {
         
         case setGenres(IdentifiedArrayOf<Genre>)
         case presentedMovie(PresentationAction<MovieFeature.Action>)
+        case preferences(PresentationAction<PreferencesFeature.Action>)
     }
     
     struct Path: Reducer {
@@ -71,7 +73,7 @@ struct TabItemFeature: Reducer {
                 state.search.genres = genres
                 return .none
                 
-            case .discover, .search, .presentedMovie:
+            case .discover, .search, .presentedMovie, .preferences:
                 return .none
             }
         }
@@ -80,6 +82,9 @@ struct TabItemFeature: Reducer {
         }
         .ifLet(\.$presentedMovie, action: /Action.presentedMovie) {
             MovieFeature()
+        }
+        .ifLet(\.$preferences, action: /Action.preferences) {
+            PreferencesFeature()
         }
     }
 }
