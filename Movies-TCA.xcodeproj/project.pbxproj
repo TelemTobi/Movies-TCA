@@ -145,13 +145,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7D513F7A2B17220D0040F913 /* Settings */ = {
+		7D513F7A2B17220D0040F913 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
 				7D513F7B2B17221A0040F913 /* PreferencesFeature.swift */,
 				7D513F7D2B1722210040F913 /* PreferencesView.swift */,
 			);
-			path = Settings;
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		7D77E6172B113F3900B308A6 /* Movie */ = {
@@ -375,7 +375,7 @@
 				7DDA64752B109525008BF425 /* Search */,
 				7D77E6262B13B6F300B308A6 /* MoviesList */,
 				7D77E6172B113F3900B308A6 /* Movie */,
-				7D513F7A2B17220D0040F913 /* Settings */,
+				7D513F7A2B17220D0040F913 /* Preferences */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
