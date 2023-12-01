@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7D513F7C2B17221A0040F913 /* PreferencesFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F7B2B17221A0040F913 /* PreferencesFeature.swift */; };
 		7D513F7E2B1722210040F913 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F7D2B1722210040F913 /* PreferencesView.swift */; };
+		7D513F812B1A3D810040F913 /* Numeric+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F802B1A3D810040F913 /* Numeric+Extension.swift */; };
 		7D77E6192B113F4E00B308A6 /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E6182B113F4E00B308A6 /* MovieView.swift */; };
 		7D77E61B2B113F5800B308A6 /* MovieFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E61A2B113F5800B308A6 /* MovieFeature.swift */; };
 		7D77E6232B13B21900B308A6 /* TabItemFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E6222B13B21900B308A6 /* TabItemFeature.swift */; };
@@ -72,6 +73,7 @@
 /* Begin PBXFileReference section */
 		7D513F7B2B17221A0040F913 /* PreferencesFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesFeature.swift; sourceTree = "<group>"; };
 		7D513F7D2B1722210040F913 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		7D513F802B1A3D810040F913 /* Numeric+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Numeric+Extension.swift"; sourceTree = "<group>"; };
 		7D77E6182B113F4E00B308A6 /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
 		7D77E61A2B113F5800B308A6 /* MovieFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFeature.swift; sourceTree = "<group>"; };
 		7D77E6222B13B21900B308A6 /* TabItemFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemFeature.swift; sourceTree = "<group>"; };
@@ -154,6 +156,13 @@
 			path = Preferences;
 			sourceTree = "<group>";
 		};
+		7D513F822B1A41840040F913 /* Foreground Styles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Foreground Styles";
+			sourceTree = "<group>";
+		};
 		7D77E6172B113F3900B308A6 /* Movie */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +193,7 @@
 		7D77E62F2B16550000B308A6 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
+				7D513F822B1A41840040F913 /* Foreground Styles */,
 				7D77E6302B16550700B308A6 /* Button Styles */,
 			);
 			path = Styles;
@@ -458,6 +468,7 @@
 				7DDA643F2B094635008BF425 /* Result+Extension.swift */,
 				7DE17E032B0413A1005F4848 /* String+Extension.swift */,
 				7DDA644C2B0AB023008BF425 /* URLRequest+Extension.swift */,
+				7D513F802B1A3D810040F913 /* Numeric+Extension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -569,6 +580,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DDA64522B0C79B5008BF425 /* TmdbClientDependency.swift in Sources */,
+				7D513F812B1A3D810040F913 /* Numeric+Extension.swift in Sources */,
 				7DDA643A2B0799B1008BF425 /* Authenticating.swift in Sources */,
 				7DE17DDE2B00B073005F4848 /* Movie.swift in Sources */,
 				7D77E6232B13B21900B308A6 /* TabItemFeature.swift in Sources */,
