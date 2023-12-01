@@ -17,9 +17,13 @@ struct MoviesListView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             List {
                 ForEach(viewStore.movies) { movie in
-                    ItemView(movie: movie)
-                        .padding()
-                        .frame(height: 180)
+                    Button(
+                        action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/,
+                        label: { ItemView(movie: movie) }
+                    )
+                    .padding()
+                    .frame(height: 180)
+                    .buttonStyle(.plain)
                 }
                 .listRowInsets(.zero)
                 .listRowBackground(Color.clear)
@@ -47,7 +51,7 @@ extension MoviesListView {
                 let imageWidth = geometry.size.height / 1.6
                 let imageHeight = geometry.size.height
 
-                HStack(alignment: .top) {
+                HStack(spacing: 10) {
                     WebImage(url: movie.thumbnailUrl)
                         .resizable()
                         .placeholder {
@@ -79,27 +83,15 @@ extension MoviesListView {
                         
                         Spacer(minLength: 2)
                         
-                        HStack {
-                            Text(movie.releaseYearFormatted)
-                                .font(.body.bold())
-                                .padding(.vertical, 2)
-                                .padding(.horizontal, 8)
-                                .foregroundStyle(.white)
-                                .background(.blue)
-                                .clipShape(Capsule())
-                            
-                            Label(
-                                title: { Text(movie.voteAverageFormatted) },
-                                icon: { Image(systemName: "calendar.circle.fill").foregroundStyle(.blue) }
-                            )
-                            
-                            Label(
-                                title: { Text(movie.voteAverageFormatted) },
-                                icon: { Image(systemName: "heart.circle.fill").foregroundStyle(.red) }
-                            )
-                            
+                        HStack(spacing: 5) {
                             Spacer()
+                            
+                            Image(systemName: "heart.circle.fill")
+                                .foregroundStyle(.pink)
+                            Text(movie.voteAverageFormatted)
                         }
+                        .font(.footnote)
+                        .padding(.horizontal, 5)
                     }
                 }
             }
