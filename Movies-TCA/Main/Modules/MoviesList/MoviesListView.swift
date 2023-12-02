@@ -22,7 +22,7 @@ struct MoviesListView: View {
                         label: { ItemView(movie: movie) }
                     )
                     .padding()
-                    .frame(height: 180)
+                    .frame(height: 200)
                     .buttonStyle(.plain)
                 }
                 .listRowInsets(.zero)
