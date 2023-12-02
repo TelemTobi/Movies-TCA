@@ -19,8 +19,8 @@ struct HomeView: View {
                 TabItemView(
                     type: .discover,
                     store: store.scope(
-                        state: \.tabItem,
-                        action: { .tabItem($0) }
+                        state: \.discoverTabItem,
+                        action: { .discoverTabItem($0) }
                     )
                 )
                 .tabItem { Label("Discover", systemImage: "globe") }
@@ -29,8 +29,8 @@ struct HomeView: View {
                 TabItemView(
                     type: .search,
                     store: store.scope(
-                        state: \.tabItem,
-                        action: { .tabItem($0) }
+                        state: \.searchTabItem,
+                        action: { .searchTabItem($0) }
                     )
                 )
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
@@ -39,8 +39,8 @@ struct HomeView: View {
                 TabItemView(
                     type: .watchlist,
                     store: store.scope(
-                        state: \.tabItem,
-                        action: { .tabItem($0) }
+                        state: \.watchlistTabItem,
+                        action: { .watchlistTabItem($0) }
                     )
                 )
                 .tabItem { Label("Watchlist", systemImage: "popcorn") }
