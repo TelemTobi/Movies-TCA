@@ -66,6 +66,11 @@ struct Movie: Decodable, Equatable, Identifiable {
         case genreIds = "genre_ids"
     }
     
+    var voteAverageFormatted: String {
+        guard let voteAverage else { return .notAvailable }
+        return (voteAverage / 10).asPercentage
+    }
+    
     var posterUrl: URL? {
         guard let posterPath else { return nil }
         return .init(string: Config.TmdbApi.photoBaseUrl + "/original/" + posterPath)
