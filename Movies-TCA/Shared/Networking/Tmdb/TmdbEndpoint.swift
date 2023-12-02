@@ -54,15 +54,6 @@ extension TmdbEndpoint: Endpoint {
         }
     }
     
-    var headers: [String : String]? {
-        return switch self {
-        case .listGenres: nil
-        case .listMovies: nil
-        case .searchMovies: nil
-        case .discoverMovies: nil
-        }
-    }
-    
     #if DEBUG
     var sampleData: Data? {
         return switch self {
