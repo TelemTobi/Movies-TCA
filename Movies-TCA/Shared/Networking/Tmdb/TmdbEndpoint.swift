@@ -10,6 +10,8 @@ import Foundation
 enum TmdbEndpoint {
     case listGenres
     case listMovies(type: MoviesList.ListType)
+    case searchMovies(query: String)
+    case discoverMovies(genre: Int)
 }
 
 extension TmdbEndpoint: Endpoint {
@@ -22,6 +24,8 @@ extension TmdbEndpoint: Endpoint {
         return switch self {
         case .listGenres: "/genre/movie/list"
         case .listMovies(let type): "/movie/\(type.rawValue.snakeCased)"
+        case .searchMovies: "/search/movie"
+        case .discoverMovies: "/discover/movie"
         }
     }
     
@@ -29,13 +33,24 @@ extension TmdbEndpoint: Endpoint {
         return switch self {
         case .listGenres: .get
         case .listMovies: .get
+        case .searchMovies: .get
+        case .discoverMovies: .get
         }
     }
     
     var task: HTTPTask {
         return switch self {
-        case .listGenres: .requestPlain
-        case .listMovies: .requestPlain
+        case .listGenres: 
+            .requestPlain
+            
+        case .listMovies:
+            .requestPlain
+            
+        case .searchMovies(let query):
+            .requestParameters(["query": query])
+            
+        case .discoverMovies(let genre):
+            .requestParameters(["with_genres": genre.description])
         }
     }
     
@@ -43,6 +58,8 @@ extension TmdbEndpoint: Endpoint {
         return switch self {
         case .listGenres: nil
         case .listMovies: nil
+        case .searchMovies: nil
+        case .discoverMovies: nil
         }
     }
     
@@ -51,6 +68,7 @@ extension TmdbEndpoint: Endpoint {
         return switch self {
         case .listGenres:
             Mock.listGenres.dataEncoded
+            
         case .listMovies(let type):
             switch type {
             case .nowPlaying:
@@ -62,6 +80,12 @@ extension TmdbEndpoint: Endpoint {
             case .upcoming:
                 Mock.upcomingMovies.dataEncoded
             }
+            
+        case .searchMovies:
+            Mock.searchMovies.dataEncoded
+            
+        case .discoverMovies:
+            Mock.discoverMovies.dataEncoded
         }
     }
     #endif

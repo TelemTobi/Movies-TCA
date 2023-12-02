@@ -1,0 +1,389 @@
+{
+    "page": 1,
+    "results": [
+        {
+            "adult": false,
+            "backdrop_path": "/vL5LR6WdxWPjLPFRLe133jXWsh5.jpg",
+            "genre_ids": [
+                28,
+                12,
+                14,
+                878
+            ],
+            "id": 19995,
+            "original_language": "en",
+            "original_title": "Avatar",
+            "overview": "In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization.",
+            "popularity": 113.63,
+            "poster_path": "/kyeqWdyUXW608qlYkRqosgbbJyK.jpg",
+            "release_date": "2009-12-15",
+            "title": "Avatar",
+            "video": false,
+            "vote_average": 7.575,
+            "vote_count": 30065
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/pzgzH4LJoFmQKVPgKs0VZPWUoFZ.jpg",
+            "genre_ids": [
+                18
+            ],
+            "id": 1096978,
+            "original_language": "es",
+            "original_title": "Avatar",
+            "overview": "Tension mounts between a quadraplegic man and his wife as she prepares a bath for him.",
+            "popularity": 3.93,
+            "poster_path": "/gmnD2e1RvMdCl9D1rsDEQaQlJxK.jpg",
+            "release_date": "2006-04-11",
+            "title": "Avatar",
+            "video": false,
+            "vote_average": 6.0,
+            "vote_count": 23
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/8rpDcsfLJypbO6vREc0547VKqEv.jpg",
+            "genre_ids": [
+                878,
+                12,
+                28
+            ],
+            "id": 76600,
+            "original_language": "en",
+            "original_title": "Avatar: The Way of Water",
+            "overview": "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+            "popularity": 336.921,
+            "poster_path": "/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+            "release_date": "2022-12-14",
+            "title": "Avatar: The Way of Water",
+            "video": false,
+            "vote_average": 7.65,
+            "vote_count": 10265
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/uEwGFGtao9YG2JolmdvtHLLVbA9.jpg",
+            "genre_ids": [
+                99
+            ],
+            "id": 111332,
+            "original_language": "en",
+            "original_title": "Avatar: Creating the World of Pandora",
+            "overview": "The Making-of James Cameron's Avatar. It shows interesting parts of the work on the set.",
+            "popularity": 14.619,
+            "poster_path": "/d9oqcfeCyc3zmMal6eJbfj3gatc.jpg",
+            "release_date": "2010-02-07",
+            "title": "Avatar: Creating the World of Pandora",
+            "video": false,
+            "vote_average": 6.8,
+            "vote_count": 125
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [],
+            "id": 1132450,
+            "original_language": "ja",
+            "original_title": "暴太郎戦隊ドンブラザーズVS暴太郎戦隊ドンブリーズ",
+            "overview": "The Avataro Sentai Donburies, which first appeared in Avataro Sentai Donbrothers' press conference gets a TTFC special!",
+            "popularity": 3.679,
+            "poster_path": "/9hiiML3NMC4Qj25V97XEYl7bVKw.jpg",
+            "release_date": "2023-11-05",
+            "title": "Avataro Sentai Donbrothers vs. Avataro Sentai Donburies",
+            "video": false,
+            "vote_average": 10.0,
+            "vote_count": 1
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/fCK2T5ruQrqRsciJ01jjQSkNWVq.jpg",
+            "genre_ids": [
+                16,
+                28,
+                12,
+                14
+            ],
+            "id": 613200,
+            "original_language": "zh",
+            "original_title": "全职高手之巅峰荣耀",
+            "overview": "In this prequel to the animated series The King's Avatar, Ye Xiu enters into the pro gaming world of Glory, and competes in the first Pro League series tournament.",
+            "popularity": 9.37,
+            "poster_path": "/6lyXW6GC7ruwDmhvEcRd9d46ZO7.jpg",
+            "release_date": "2019-08-16",
+            "title": "The King's Avatar: For the Glory",
+            "video": false,
+            "vote_average": 7.0,
+            "vote_count": 37
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/agnESua8QxISkOERvs7td6BAesa.jpg",
+            "genre_ids": [
+                28,
+                18,
+                878
+            ],
+            "id": 1092060,
+            "original_language": "ja",
+            "original_title": "暴太郎戦隊ドンブラザーズVSゼンカイジャー",
+            "overview": "",
+            "popularity": 3.205,
+            "poster_path": "/h5MwCuYy2EUv3AmD3d3E6AUYo90.jpg",
+            "release_date": "2023-05-03",
+            "title": "Avataro Sentai Donbrothers vs. Zenkaiger",
+            "video": false,
+            "vote_average": 5.643,
+            "vote_count": 7
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                35
+            ],
+            "id": 926519,
+            "original_language": "fr",
+            "original_title": "L'Avatar botanique de mademoiselle Flora",
+            "overview": "A young woman lives sadly in a small garrison town with a soldier. Little by little, won over by boredom, sadness, total inaction, she develops a relationship with plants and starts talking to plants.",
+            "popularity": 2.301,
+            "poster_path": "/jV7LWoQbwXplgdIbMvT4UB8O1E3.jpg",
+            "release_date": "1965-05-05",
+            "title": "The Botanical Avatar of Mademoiselle Flora",
+            "video": false,
+            "vote_average": 6.8,
+            "vote_count": 7
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/eoAvHxfbaPOcfiQyjqypWIXWxDr.jpg",
+            "genre_ids": [
+                99
+            ],
+            "id": 1059673,
+            "original_language": "en",
+            "original_title": "Avatar: The Deep Dive - A Special Edition of 20/20",
+            "overview": "An inside look at one of the most anticipated movie sequels ever with James Cameron and cast.",
+            "popularity": 19.089,
+            "poster_path": "/rtVeIsmeXnpjNbEKnm9Say58XjV.jpg",
+            "release_date": "2022-12-14",
+            "title": "Avatar: The Deep Dive - A Special Edition of 20/20",
+            "video": false,
+            "vote_average": 7.333,
+            "vote_count": 60
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                28,
+                878,
+                12
+            ],
+            "id": 83533,
+            "original_language": "en",
+            "original_title": "Avatar 3",
+            "overview": "The third entry in the Avatar franchise.",
+            "popularity": 18.53,
+            "poster_path": "/eZXoA5BjUxm1fdAKb3lPvbDY2L8.jpg",
+            "release_date": "2025-12-17",
+            "title": "Avatar 3",
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                99,
+                878
+            ],
+            "id": 100287,
+            "original_language": "da",
+            "original_title": "Min Avatar og mig",
+            "overview": "is a creative documentary-fiction film and a film that might expand your sense of reality. It is the story about a man who enters the virtual world Second Life to pursue his personal dreams and ambitions. His journey into cyberspace becomes a magic learning experience, which gradually opens the gates to a much larger reality.",
+            "popularity": 4.205,
+            "poster_path": "/dZCj0jiOoDzAzbQM7ryYFEjkjs7.jpg",
+            "release_date": "2010-11-10",
+            "title": "My Avatar and Me",
+            "video": false,
+            "vote_average": 6.357,
+            "vote_count": 7
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/1T4sqygTH5SYzU5DtmI5K9ep2eP.jpg",
+            "genre_ids": [
+                28,
+                12,
+                14,
+                878
+            ],
+            "id": 937315,
+            "original_language": "ja",
+            "original_title": "暴太郎戦隊ドンブラザーズ THE MOVIE 新・初恋ヒーロー",
+            "overview": "",
+            "popularity": 3.45,
+            "poster_path": "/8MacEBNLdMnmroPAx6LNmi6oJaj.jpg",
+            "release_date": "2022-07-22",
+            "title": "Avataro Sentai Donbrothers The Movie: New First Love Hero",
+            "video": false,
+            "vote_average": 7.2,
+            "vote_count": 7
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                28,
+                878,
+                12,
+                14,
+                53
+            ],
+            "id": 216527,
+            "original_language": "en",
+            "original_title": "Avatar 4",
+            "overview": "",
+            "popularity": 12.541,
+            "poster_path": "/xGcd3ob2DWC3TmlVhnJg1RLyTGi.jpg",
+            "release_date": "2029-12-20",
+            "title": "Avatar 4",
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                99
+            ],
+            "id": 829860,
+            "original_language": "zh",
+            "original_title": "Hunan, l'autre monde d'Avatar",
+            "overview": "How China's magical Zhangjiajie National Park attracted director James Cameron, who came seeking inspiration for a mysterious fictional planet.",
+            "popularity": 0.941,
+            "poster_path": "/aCwF72gto2ADsQK28j7S9tE4xDa.jpg",
+            "release_date": "2015-01-01",
+            "title": "Hunan: The Other World of Avatar",
+            "video": false,
+            "vote_average": 7.2,
+            "vote_count": 2
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/axSaeKvV5xF3zGYwXaSF8rUxaO1.jpg",
+            "genre_ids": [
+                99
+            ],
+            "id": 183392,
+            "original_language": "en",
+            "original_title": "Capturing Avatar",
+            "overview": "Capturing Avatar is a feature length behind-the-scenes documentary about the making of Avatar. It uses footage from the film's development, as well as stock footage from as far back as the production of Titanic in 1995. Also included are numerous interviews with cast, artists, and other crew members. The documentary was released as a bonus feature on the extended collector's edition of Avatar.",
+            "popularity": 12.491,
+            "poster_path": "/26SMEXJl3978dn2svWBSqHbLl5U.jpg",
+            "release_date": "2010-11-16",
+            "title": "Capturing Avatar",
+            "video": false,
+            "vote_average": 7.4,
+            "vote_count": 72
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                28,
+                12,
+                878
+            ],
+            "id": 393209,
+            "original_language": "en",
+            "original_title": "Avatar 5",
+            "overview": "",
+            "popularity": 13.329,
+            "poster_path": "/vAvLQOyFoire5x8AmRNfvgkvrMZ.jpg",
+            "release_date": "2031-12-18",
+            "title": "Avatar 5",
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/gO81IsgrhwUS6aChXCjnjFKUS3S.jpg",
+            "genre_ids": [
+                27
+            ],
+            "id": 282908,
+            "original_language": "ja",
+            "original_title": "アバター",
+            "overview": "Michiko lost her dad in a car accident when she was 10 years old. After the car accident, Michiko has lived with her mother Kyoko. Michiko, now in her 2nd year of high school, gets a cell phone from her mother as a birthday present. Michiko is so excited to have her very first cell phone. Soon afterwards, she is forced into joining social networking site \"AvaQ\" by classmate, and queen of the classroom, Taeko.",
+            "popularity": 1.948,
+            "poster_path": "/xEAhV18F5Ej78qL0EneyPqa2a20.jpg",
+            "release_date": "2011-04-30",
+            "title": "Avatar",
+            "video": false,
+            "vote_average": 5.875,
+            "vote_count": 12
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                99
+            ],
+            "id": 287003,
+            "original_language": "en",
+            "original_title": "Avatar: Scene Deconstruction",
+            "overview": "The deconstruction of the Avatar scenes and sets",
+            "popularity": 5.462,
+            "poster_path": "/uCreCQFReeF0RiIXkQypRYHwikx.jpg",
+            "release_date": "2009-12-18",
+            "title": "Avatar: Scene Deconstruction",
+            "video": false,
+            "vote_average": 6.709,
+            "vote_count": 43
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/wEjFjWu5yiHk6U5YV9kSnwdWwNO.jpg",
+            "genre_ids": [
+                53,
+                14,
+                27
+            ],
+            "id": 677528,
+            "original_language": "kn",
+            "original_title": "ಅವತಾರ ಪುರುಷ: Part 1",
+            "overview": "When a son of an Ayurveda scholar goes missing, he blames his sister and cuts all ties with her. When the latter's daughter decides to set things right with a devious plan, there seems to be more trouble waiting for the family.",
+            "popularity": 4.892,
+            "poster_path": "/gQ29E9Qy6z5ExsxnpgUTHfpZFO3.jpg",
+            "release_date": "2022-05-06",
+            "title": "Avatara Purusha: Part 1",
+            "video": false,
+            "vote_average": 5.455,
+            "vote_count": 11
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                99
+            ],
+            "id": 278698,
+            "original_language": "en",
+            "original_title": "Avatar Spirits",
+            "overview": "Bryan Konietzko and Michael Dante DiMartino, co-creators of the hit television series, Avatar: The Last Airbender, reflect on the creation of the masterful series.",
+            "popularity": 6.33,
+            "poster_path": "/oBWVyOdntLJd5bBpE0wkpN6B6vy.jpg",
+            "release_date": "2010-06-22",
+            "title": "Avatar Spirits",
+            "video": false,
+            "vote_average": 7.944,
+            "vote_count": 27
+        }
+    ],
+    "total_pages": 4,
+    "total_results": 70
+}
