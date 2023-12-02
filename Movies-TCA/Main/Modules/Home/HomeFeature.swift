@@ -12,18 +12,30 @@ struct HomeFeature: Reducer {
     
     struct State: Equatable {
         var selectedTab: Tab = .discover
-        var tabItem = TabItemFeature.State()
+        var discoverTabItem = TabItemFeature.State()
+        var searchTabItem = TabItemFeature.State()
+        var watchlistTabItem = TabItemFeature.State()
     }
     
     enum Action: Equatable {
         case onFirstAppear
         case onTabSelection(Tab)
         
-        case tabItem(TabItemFeature.Action)
+        case discoverTabItem(TabItemFeature.Action)
+        case searchTabItem(TabItemFeature.Action)
+        case watchlistTabItem(TabItemFeature.Action)
     }
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.tabItem, action: /Action.tabItem) {
+        Scope(state: \.discoverTabItem, action: /Action.discoverTabItem) {
+            TabItemFeature()
+        }
+        
+        Scope(state: \.searchTabItem, action: /Action.searchTabItem) {
+            TabItemFeature()
+        }
+        
+        Scope(state: \.watchlistTabItem, action: /Action.watchlistTabItem) {
             TabItemFeature()
         }
         
@@ -36,7 +48,7 @@ struct HomeFeature: Reducer {
                 state.selectedTab = tab
                 return .none
                 
-            case .tabItem:
+            case .discoverTabItem, .searchTabItem, .watchlistTabItem:
                 return .none
             }
         }

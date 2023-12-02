@@ -45,7 +45,7 @@ struct RootFeature: Reducer {
                 state.isLoading = false
                 
                 if let genres = response.genres, genres.isNotEmpty {
-                    return .send(.home(.tabItem(.setGenres(IdentifiedArray(uniqueElements: genres)))))
+                    return .send(.home(.searchTabItem(.setGenres(IdentifiedArray(uniqueElements: genres)))))
                 } else {
                     return .send(.genresResponse(.unknownError))
                 }
