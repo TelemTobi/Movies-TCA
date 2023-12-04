@@ -25,7 +25,7 @@ struct SearchView: View {
             .navigationTitle("Search")
             .searchable(
                 text: viewStore.$searchInput,
-                prompt: "Find movie marvels! What's your genre?"
+                prompt: "Seek movie magic. What's your vibe?"
             )
             .animation(.easeInOut, value: viewStore.isLoading)
             .onFirstAppear {
@@ -45,7 +45,7 @@ extension SearchView {
             List {
                 Group {
                     if viewStore.isSearchActive {
-                        ResultsView(movies: viewStore.results)
+                        ResultsView()
                             .listRowInsets(.zero)
                         
                     } else {
@@ -99,12 +99,18 @@ extension SearchView {
     
     private struct ResultsView: View {
         
-        let movies: IdentifiedArrayOf<Movie>
-        
         @EnvironmentObject private var viewStore: ViewStoreOf<SearchFeature>
         
         var body: some View {
-            /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Hello, world!@*/Text("Hello, world!")/*@END_MENU_TOKEN@*/
+            ForEach(viewStore.results) { movie in
+                Button(
+                    action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/,
+                    label: { MovieListItem(movie: movie) }
+                )
+                .padding()
+                .frame(height: 200)
+                .buttonStyle(.plain)
+            }
         }
     }
 }

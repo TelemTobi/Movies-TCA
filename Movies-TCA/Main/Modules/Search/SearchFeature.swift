@@ -45,6 +45,7 @@ struct SearchFeature: Reducer {
                 return .none
                 
             case let .onGenreTap(genre):
+                state.searchInput = genre.name ?? .empty
                 state.isLoading = true
                 
                 return .run { send in
