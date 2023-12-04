@@ -11,7 +11,7 @@ enum TmdbEndpoint {
     case listGenres
     case listMovies(type: MoviesList.ListType)
     case searchMovies(query: String)
-    case discoverMovies(genre: Int)
+    case discoverMovies(genreId: Int)
 }
 
 extension TmdbEndpoint: Endpoint {
@@ -49,8 +49,8 @@ extension TmdbEndpoint: Endpoint {
         case .searchMovies(let query):
             .requestParameters(["query": query])
             
-        case .discoverMovies(let genre):
-            .requestParameters(["with_genres": genre.description])
+        case .discoverMovies(let genreId):
+            .requestParameters(["with_genres": genreId.description])
         }
     }
     

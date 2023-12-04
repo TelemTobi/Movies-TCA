@@ -63,7 +63,11 @@ struct TabItemView: View {
                 CaseLet(
                     /TabItemFeature.Path.State.moviesList,
                     action: TabItemFeature.Path.Action.moviesList,
-                    then: MoviesListView.init(store:)
+                    then: { moviesListStore in
+                        MoviesListView.init(store: moviesListStore)
+                            .navigationBarTitleDisplayMode(.inline)
+                            .navigationTitle()
+                    }
                 )
             }
         }

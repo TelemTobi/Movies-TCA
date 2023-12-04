@@ -31,8 +31,6 @@ struct MoviesListView: View {
             }
             .listStyle(.grouped)
             .scrollIndicators(.hidden)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(viewStore.listType.title)
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
             }

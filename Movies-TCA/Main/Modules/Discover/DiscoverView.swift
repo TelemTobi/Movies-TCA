@@ -19,11 +19,8 @@ struct DiscoverView: View {
                     ProgressView()
                 } else {
                     GeometryReader { geometry in
-                        FeedView(
-                            movies: viewStore.movies,
-                            geometry: geometry
-                        )
-                        .environmentObject(viewStore)
+                        ContentView(geometry: geometry)
+                            .environmentObject(viewStore)
                     }
                 }
             }
@@ -38,17 +35,16 @@ struct DiscoverView: View {
 
 extension DiscoverView {
     
-    private struct FeedView: View {
+    private struct ContentView: View {
 
         @EnvironmentObject private var viewStore: ViewStoreOf<DiscoverFeature>
         
-        let movies: [MoviesList.ListType: IdentifiedArrayOf<Movie>]
         let geometry: GeometryProxy
         
         var body: some View {
             List {
                 ForEach(MoviesList.ListType.allCases, id: \.self) { listType in
-                    if let movies = movies[listType] {
+                    if let movies = viewStore.movies[listType] {
                         SectionView(
                             listType: listType,
                             movies: movies,

@@ -26,6 +26,16 @@ struct TmdbClient {
     func fetchMovies(ofType type: MoviesList.ListType) async -> Result<MoviesList, TmdbError> {
         await networkManager.request(.listMovies(type: type))
     }
+    
+    @Sendable
+    func searchMovies(query: String) async -> Result<MoviesList, TmdbError> {
+        await networkManager.request(.searchMovies(query: query))
+    }
+    
+    @Sendable
+    func discoverMovies(by genreId: Int) async -> Result<MoviesList, TmdbError> {
+        await networkManager.request(.discoverMovies(genreId: genreId))
+    }
 }
 
 extension TmdbClient {
