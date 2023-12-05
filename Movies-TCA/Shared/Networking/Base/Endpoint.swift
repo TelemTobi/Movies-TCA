@@ -22,7 +22,7 @@ protocol Endpoint {
     /// The type of HTTP task to be performed.
     var task: HTTPTask { get }
 
-    /// The headers to be used in the request.
+    /// The headers to be used in the request. Default is `nil`.
     var headers: [String: String]? { get }
     
     /// Provides stub data for use in testing. Default is `nil`.
@@ -36,6 +36,8 @@ protocol Endpoint {
 }
 
 extension Endpoint {
+    
+    var headers: [String: String]? { nil }
     
     var sampleData: Data? { nil }
     

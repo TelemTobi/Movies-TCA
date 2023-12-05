@@ -18,21 +18,15 @@ struct SearchView: View {
                 if viewStore.isLoading {
                     ProgressView()
                 } else {
-                    List {
-                        SuggestionsView(genres: viewStore.genres.elements)
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
-                            .listSectionSeparator(.hidden, edges: .top)
-                    }
-                    .listStyle(.grouped)
-                    .scrollIndicators(.hidden)
-                    .searchable(
-                        text: viewStore.$searchInput,
-                        prompt: "Find movie marvels! What's your genre?"
-                    )
+                    ContentView()
+                        .environmentObject(viewStore)
                 }
             }
             .navigationTitle("Search")
+            .searchable(
+                text: viewStore.$searchInput,
+                prompt: "Seek movie magic. What's your vibe?"
+            )
             .animation(.easeInOut, value: viewStore.isLoading)
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
@@ -43,20 +37,51 @@ struct SearchView: View {
 
 extension SearchView {
     
+    private struct ContentView: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<SearchFeature>
+        
+        var body: some View {
+            List {
+                Group {
+                    if viewStore.isSearchActive {
+                        ResultsView()
+                            .listRowInsets(.zero)
+                        
+                    } else {
+                        SuggestionsView(genres: viewStore.genres.elements)
+                            .listRowSeparator(.hidden)
+                    }
+                }
+                .listRowBackground(Color.clear)
+                .listSectionSeparator(.hidden, edges: .top)
+            }
+            .listStyle(.grouped)
+            .scrollIndicators(.hidden)
+        }
+    }
+    
     private struct SuggestionsView: View {
         
         let genres: [Genre]
         @State private var didFirstAppear = false
         
+        @EnvironmentObject private var viewStore: ViewStoreOf<SearchFeature>
+        
         var body: some View {
             let delays = Array(0..<genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()
             
             TagCloudsView(tags: genres.compactMap(\.name)) { index, genre in
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                    Text(genre)
-                        .font(.footnote)
-                        .fontWeight(.medium)
-                }
+                Button(
+                    action: {
+                        viewStore.send(.onGenreTap(genres[index]))
+                    },
+                    label: {
+                        Text(genre)
+                            .font(.footnote)
+                            .fontWeight(.medium)
+                    }
+                )
                 .buttonStyle(TagButtonStyle())
                 .opacity(didFirstAppear ? 1 : 0)
                 .scaleEffect(didFirstAppear ? 1 : 0.7)
@@ -68,6 +93,23 @@ extension SearchView {
             }
             .onFirstAppear {
                 withAnimation { didFirstAppear = true }
+            }
+        }
+    }
+    
+    private struct ResultsView: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<SearchFeature>
+        
+        var body: some View {
+            ForEach(viewStore.results) { movie in
+                Button(
+                    action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/,
+                    label: { MovieListItem(movie: movie) }
+                )
+                .padding()
+                .frame(height: 200)
+                .buttonStyle(.plain)
             }
         }
     }

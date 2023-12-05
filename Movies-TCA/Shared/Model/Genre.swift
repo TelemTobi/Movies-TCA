@@ -13,6 +13,6 @@ struct GenresResponse: Decodable, JsonResolver, Equatable {
 
 struct Genre: Decodable, Equatable, Identifiable {
     
-    let id: Int?
+    let id: Int
     let name: String?
 }

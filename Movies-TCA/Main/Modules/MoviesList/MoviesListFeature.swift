@@ -11,13 +11,15 @@ import ComposableArchitecture
 struct MoviesListFeature: Reducer {
     
     struct State: Equatable {
-        let listType: MoviesList.ListType
-        let movies: IdentifiedArrayOf<Movie>
+        var listType: MoviesList.ListType?
+        var movies: IdentifiedArrayOf<Movie>
     }
     
     enum Action: Equatable {
         case onFirstAppear
     }
+    
+    @Dependency(\.tmdbClient) var tmdbClient
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
