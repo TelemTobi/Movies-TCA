@@ -46,6 +46,7 @@ struct SearchFeature: Reducer {
                 state.isLoading = state.isSearchActive
                 
                 guard state.isSearchActive else {
+                    state.results = []
                     return .none
                 }
 
