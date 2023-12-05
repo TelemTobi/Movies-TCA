@@ -25,7 +25,7 @@ struct SearchView: View {
             .navigationTitle("Search")
             .searchable(
                 text: viewStore.$searchInput,
-                prompt: "Seek movie magic. What's your vibe?"
+                prompt: "Explore movies"
             )
             .animation(.easeInOut, value: viewStore.isLoading)
             .onFirstAppear {
