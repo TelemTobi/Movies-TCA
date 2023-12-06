@@ -19,6 +19,8 @@
 		7D77E62A2B13B71900B308A6 /* MoviesListFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E6292B13B71900B308A6 /* MoviesListFeature.swift */; };
 		7D77E62E2B15BCB500B308A6 /* TagCloudsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E62D2B15BCB500B308A6 /* TagCloudsView.swift */; };
 		7D77E6322B16551700B308A6 /* TagButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E6312B16551700B308A6 /* TagButtonStyle.swift */; };
+		7DA4DEEC2B20483100D8E292 /* WatchlistFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEEB2B20483100D8E292 /* WatchlistFeature.swift */; };
+		7DA4DEEE2B20483D00D8E292 /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEED2B20483D00D8E292 /* WatchlistView.swift */; };
 		7DC8D1562B1B75DF00193A64 /* SearchMoviesStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DC8D1552B1B75DF00193A64 /* SearchMoviesStub.json */; };
 		7DC8D1582B1B78CF00193A64 /* DiscoverMoviesStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DC8D1572B1B78CF00193A64 /* DiscoverMoviesStub.json */; };
 		7DC8D15A2B1B793D00193A64 /* MoviesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC8D1592B1B793D00193A64 /* MoviesList.swift */; };
@@ -88,6 +90,8 @@
 		7D77E6292B13B71900B308A6 /* MoviesListFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListFeature.swift; sourceTree = "<group>"; };
 		7D77E62D2B15BCB500B308A6 /* TagCloudsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCloudsView.swift; sourceTree = "<group>"; };
 		7D77E6312B16551700B308A6 /* TagButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButtonStyle.swift; sourceTree = "<group>"; };
+		7DA4DEEB2B20483100D8E292 /* WatchlistFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistFeature.swift; sourceTree = "<group>"; };
+		7DA4DEED2B20483D00D8E292 /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
 		7DC8D1552B1B75DF00193A64 /* SearchMoviesStub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SearchMoviesStub.json; sourceTree = "<group>"; };
 		7DC8D1572B1B78CF00193A64 /* DiscoverMoviesStub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DiscoverMoviesStub.json; sourceTree = "<group>"; };
 		7DC8D1592B1B793D00193A64 /* MoviesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesList.swift; sourceTree = "<group>"; };
@@ -216,6 +220,15 @@
 				7D77E6312B16551700B308A6 /* TagButtonStyle.swift */,
 			);
 			path = "Button Styles";
+			sourceTree = "<group>";
+		};
+		7DA4DEEA2B20480900D8E292 /* Watchlist */ = {
+			isa = PBXGroup;
+			children = (
+				7DA4DEEB2B20483100D8E292 /* WatchlistFeature.swift */,
+				7DA4DEED2B20483D00D8E292 /* WatchlistView.swift */,
+			);
+			path = Watchlist;
 			sourceTree = "<group>";
 		};
 		7DD6D9612AF943B7004828AB = {
@@ -397,6 +410,7 @@
 				7D77E6212B13B20800B308A6 /* TabItem */,
 				7DE17DD72AFFDE3B005F4848 /* Discover */,
 				7DDA64752B109525008BF425 /* Search */,
+				7DA4DEEA2B20480900D8E292 /* Watchlist */,
 				7D77E6262B13B6F300B308A6 /* MoviesList */,
 				7D77E6172B113F3900B308A6 /* Movie */,
 				7D513F7A2B17220D0040F913 /* Preferences */,
@@ -606,6 +620,7 @@
 				7D77E6282B13B70C00B308A6 /* MoviesListView.swift in Sources */,
 				7D513F842B1A41C10040F913 /* TagTextStyle.swift in Sources */,
 				7DE17DF72B01F96A005F4848 /* Collection+Extension.swift in Sources */,
+				7DA4DEEE2B20483D00D8E292 /* WatchlistView.swift in Sources */,
 				7D77E6192B113F4E00B308A6 /* MovieView.swift in Sources */,
 				7D77E6252B13B22300B308A6 /* TabItemView.swift in Sources */,
 				7DE17E022B041357005F4848 /* Config.swift in Sources */,
@@ -632,6 +647,7 @@
 				7DDA64422B094C8B008BF425 /* HTTPMethod.swift in Sources */,
 				7DDA644F2B0AB02C008BF425 /* Data+Extension.swift in Sources */,
 				7DE17DDB2AFFDE56005F4848 /* DiscoverFeature.swift in Sources */,
+				7DA4DEEC2B20483100D8E292 /* WatchlistFeature.swift in Sources */,
 				7DE17E102B06861C005F4848 /* Errorable.swift in Sources */,
 				7DDA64362B079863008BF425 /* TmdbEndpoint.swift in Sources */,
 				7DDA64772B10959C008BF425 /* SearchFeature.swift in Sources */,
