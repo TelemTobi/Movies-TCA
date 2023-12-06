@@ -104,7 +104,7 @@ extension SearchView {
         var body: some View {
             ForEach(viewStore.results) { movie in
                 Button(
-                    action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/,
+                    action: { viewStore.send(.onMovieTap(movie)) },
                     label: { MovieListItem(movie: movie) }
                 )
                 .padding()
