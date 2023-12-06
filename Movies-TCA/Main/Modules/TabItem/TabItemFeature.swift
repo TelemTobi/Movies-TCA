@@ -14,6 +14,7 @@ struct TabItemFeature: Reducer {
         var path = StackState<Path.State>()
         var discover = DiscoverFeature.State()
         var search = SearchFeature.State()
+        var watchlist = WatchlistFeature.State()
         
         @PresentationState var presentedMovie: MovieFeature.State?
         @PresentationState var preferences: PreferencesFeature.State?
@@ -23,6 +24,7 @@ struct TabItemFeature: Reducer {
         case path(StackAction<Path.State, Path.Action>)
         case discover(DiscoverFeature.Action)
         case search(SearchFeature.Action)
+        case watchlist(WatchlistFeature.Action)
         
         case presentedMovie(PresentationAction<MovieFeature.Action>)
         case preferences(PresentationAction<PreferencesFeature.Action>)
@@ -55,6 +57,10 @@ struct TabItemFeature: Reducer {
 
         Scope(state: \.search, action: /Action.search) {
             SearchFeature()
+        }
+        
+        Scope(state: \.watchlist, action: /Action.watchlist) {
+            WatchlistFeature()
         }
         
         Reduce { state, action in

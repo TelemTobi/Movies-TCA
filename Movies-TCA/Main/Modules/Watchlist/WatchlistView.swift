@@ -6,16 +6,33 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct WatchlistView: View {
     
+    let store: StoreOf<WatchlistFeature>
+    
     var body: some View {
-        Text("WIP")
-            .foregroundStyle(.secondary)
-            .navigationTitle("Watchlist")
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            List {
+                Text("WIP")
+                    .foregroundStyle(.secondary)
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+            }
+            .listStyle(.grouped)
+        }
+        .navigationTitle("Watchlist")
     }
 }
 
 #Preview {
-    WatchlistView()
+    NavigationStack {
+        WatchlistView(
+            store: Store(
+                initialState: WatchlistFeature.State(),
+                reducer: { WatchlistFeature() }
+            )
+        )
+    }
 }
