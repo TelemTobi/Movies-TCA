@@ -34,7 +34,12 @@ struct TabItemView: View {
                     )
                     
                 case .watchlist:
-                    Text("Watchlist")
+                    WatchlistView(
+                        store: store.scope(
+                            state: \.watchlist,
+                            action: { .watchlist($0) }
+                        )
+                    )
                 }
             }
             .toolbar(content: toolbarContent)
