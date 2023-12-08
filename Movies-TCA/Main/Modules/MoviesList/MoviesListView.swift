@@ -18,7 +18,7 @@ struct MoviesListView: View {
             List {
                 ForEach(viewStore.movies) { movie in
                     Button(
-                        action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/,
+                        action: { viewStore.send(.onMovieTap(movie)) },
                         label: { MovieListItem(movie: movie) }
                     )
                     .padding()
@@ -31,6 +31,8 @@ struct MoviesListView: View {
             }
             .listStyle(.grouped)
             .scrollIndicators(.hidden)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(viewStore.listType?.title ?? "")
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
             }

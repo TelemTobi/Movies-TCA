@@ -109,7 +109,6 @@ struct SearchFeature: Reducer {
             // MARK: Handled in parent feature
             case .onMovieTap:
                 return .none
-                
             }
         }
     }
