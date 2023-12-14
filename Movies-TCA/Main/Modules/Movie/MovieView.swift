@@ -16,6 +16,9 @@ struct MovieView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
                 .navigationTitle(viewStore.movie.title ?? .empty)
+                .onFirstAppear {
+                    viewStore.send(.onFirstAppear)
+                }
         }
     }
 }

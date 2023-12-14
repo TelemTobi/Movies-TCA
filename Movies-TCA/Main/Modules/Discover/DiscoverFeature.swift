@@ -55,11 +55,10 @@ struct DiscoverFeature: Reducer {
             case let .moviesListLoaded(type, .success(response)):
                 if let movies = response.results {
                     state.movies[type] = .init(uniqueElements: movies)
+                    return .none
                 } else {
                     return .send(.moviesListLoaded(type: type, .unknownError))
                 }
-                
-                return .none
                 
             case let .moviesListLoaded(_, .failure(error)):
                 customDump(error) // TODO: Handle error

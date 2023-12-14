@@ -12,11 +12,9 @@ protocol MovieDetailsJsonResolver: JsonResolver {}
 extension MovieDetailsJsonResolver {
     
     static func resolve(_ data: Data) throws -> Data {
-        guard let movie = try? data.parse(type: Movie.self, using: .tmdbDateDecodingStrategy, .useDefaultKeys),
-              var jsonDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-        else { return data }
+        guard var jsonDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return data }
         
-        jsonDictionary["Movie"] = movie
+        jsonDictionary["Movie"] = jsonDictionary
         jsonDictionary["relatedMovies"] = jsonDictionary["recommendations"] ?? jsonDictionary["similar"]
         return try JSONSerialization.data(withJSONObject: jsonDictionary)
     }

@@ -527,10 +527,10 @@
 				7DE17DF62B01F96A005F4848 /* Collection+Extension.swift */,
 				7DDA644E2B0AB02C008BF425 /* Data+Extension.swift */,
 				7DDA64532B0DD407008BF425 /* Date+Extension.swift */,
+				7D513F802B1A3D810040F913 /* Numeric+Extension.swift */,
 				7DDA643F2B094635008BF425 /* Result+Extension.swift */,
 				7DE17E032B0413A1005F4848 /* String+Extension.swift */,
 				7DDA644C2B0AB023008BF425 /* URLRequest+Extension.swift */,
-				7D513F802B1A3D810040F913 /* Numeric+Extension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
