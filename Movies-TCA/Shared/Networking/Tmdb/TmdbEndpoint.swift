@@ -12,6 +12,7 @@ enum TmdbEndpoint {
     case listMovies(type: MoviesList.ListType)
     case searchMovies(query: String)
     case discoverMovies(genreId: Int)
+    case movieDetails(id: Int)
 }
 
 extension TmdbEndpoint: Endpoint {
@@ -26,6 +27,7 @@ extension TmdbEndpoint: Endpoint {
         case .listMovies(let type): "/movie/\(type.rawValue.snakeCased)"
         case .searchMovies: "/search/movie"
         case .discoverMovies: "/discover/movie"
+        case .movieDetails(let id): "/movie/\(id)"
         }
     }
     
@@ -35,6 +37,7 @@ extension TmdbEndpoint: Endpoint {
         case .listMovies: .get
         case .searchMovies: .get
         case .discoverMovies: .get
+        case .movieDetails: .get
         }
     }
     
@@ -51,6 +54,9 @@ extension TmdbEndpoint: Endpoint {
             
         case .discoverMovies(let genreId):
             .requestParameters(["with_genres": genreId.description])
+            
+        case .movieDetails:
+                .requestParameters(["append_to_response": "credits,recommendations,similar"])
         }
     }
     
@@ -77,6 +83,9 @@ extension TmdbEndpoint: Endpoint {
             
         case .discoverMovies:
             Mock.discoverMovies.dataEncoded
+            
+        case .movieDetails:
+            Mock.movieDetails.dataEncoded
         }
     }
     #endif

@@ -17,6 +17,7 @@ extension MovieDetailsJsonResolver {
         else { return data }
         
         jsonDictionary["Movie"] = movie
+        jsonDictionary["relatedMovies"] = jsonDictionary["recommendations"] ?? jsonDictionary["similar"]
         return try JSONSerialization.data(withJSONObject: jsonDictionary)
     }
 }

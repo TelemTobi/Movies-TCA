@@ -20,12 +20,12 @@
 		7D77E62E2B15BCB500B308A6 /* TagCloudsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E62D2B15BCB500B308A6 /* TagCloudsView.swift */; };
 		7D77E6322B16551700B308A6 /* TagButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E6312B16551700B308A6 /* TagButtonStyle.swift */; };
 		7D810E3E2B2B9967004A67AB /* MovieDetailsJsonResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D810E3D2B2B9967004A67AB /* MovieDetailsJsonResolver.swift */; };
+		7D810E402B2B9CA7004A67AB /* MovieDetailsStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D810E3F2B2B9CA7004A67AB /* MovieDetailsStub.json */; };
 		7DA4DEEC2B20483100D8E292 /* WatchlistFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEEB2B20483100D8E292 /* WatchlistFeature.swift */; };
 		7DA4DEEE2B20483D00D8E292 /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEED2B20483D00D8E292 /* WatchlistView.swift */; };
 		7DA4DEF02B28F30F00D8E292 /* Credits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEEF2B28F30F00D8E292 /* Credits.swift */; };
 		7DA4DEF22B28F35C00D8E292 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEF12B28F35C00D8E292 /* Actor.swift */; };
 		7DA4DEF42B28F39F00D8E292 /* CrewMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEF32B28F39F00D8E292 /* CrewMember.swift */; };
-		7DA4DEFB2B28F78F00D8E292 /* RelatedMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEFA2B28F78F00D8E292 /* RelatedMovies.swift */; };
 		7DA4DEFD2B28F7D000D8E292 /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEFC2B28F7D000D8E292 /* MovieDetails.swift */; };
 		7DC8D1562B1B75DF00193A64 /* SearchMoviesStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DC8D1552B1B75DF00193A64 /* SearchMoviesStub.json */; };
 		7DC8D1582B1B78CF00193A64 /* DiscoverMoviesStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DC8D1572B1B78CF00193A64 /* DiscoverMoviesStub.json */; };
@@ -97,12 +97,12 @@
 		7D77E62D2B15BCB500B308A6 /* TagCloudsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCloudsView.swift; sourceTree = "<group>"; };
 		7D77E6312B16551700B308A6 /* TagButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButtonStyle.swift; sourceTree = "<group>"; };
 		7D810E3D2B2B9967004A67AB /* MovieDetailsJsonResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsJsonResolver.swift; sourceTree = "<group>"; };
+		7D810E3F2B2B9CA7004A67AB /* MovieDetailsStub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MovieDetailsStub.json; sourceTree = "<group>"; };
 		7DA4DEEB2B20483100D8E292 /* WatchlistFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistFeature.swift; sourceTree = "<group>"; };
 		7DA4DEED2B20483D00D8E292 /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
 		7DA4DEEF2B28F30F00D8E292 /* Credits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credits.swift; sourceTree = "<group>"; };
 		7DA4DEF12B28F35C00D8E292 /* Actor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		7DA4DEF32B28F39F00D8E292 /* CrewMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewMember.swift; sourceTree = "<group>"; };
-		7DA4DEFA2B28F78F00D8E292 /* RelatedMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedMovies.swift; sourceTree = "<group>"; };
 		7DA4DEFC2B28F7D000D8E292 /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 		7DC8D1552B1B75DF00193A64 /* SearchMoviesStub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SearchMoviesStub.json; sourceTree = "<group>"; };
 		7DC8D1572B1B78CF00193A64 /* DiscoverMoviesStub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DiscoverMoviesStub.json; sourceTree = "<group>"; };
@@ -251,22 +251,13 @@
 			path = Watchlist;
 			sourceTree = "<group>";
 		};
-		7DA4DEF82B28F71B00D8E292 /* Credits */ = {
-			isa = PBXGroup;
-			children = (
-				7DA4DEF12B28F35C00D8E292 /* Actor.swift */,
-				7DA4DEEF2B28F30F00D8E292 /* Credits.swift */,
-				7DA4DEF32B28F39F00D8E292 /* CrewMember.swift */,
-			);
-			path = Credits;
-			sourceTree = "<group>";
-		};
 		7DA4DEF92B28F77600D8E292 /* Movie Details */ = {
 			isa = PBXGroup;
 			children = (
 				7DA4DEFC2B28F7D000D8E292 /* MovieDetails.swift */,
-				7DA4DEFA2B28F78F00D8E292 /* RelatedMovies.swift */,
-				7DA4DEF82B28F71B00D8E292 /* Credits */,
+				7DA4DEF12B28F35C00D8E292 /* Actor.swift */,
+				7DA4DEEF2B28F30F00D8E292 /* Credits.swift */,
+				7DA4DEF32B28F39F00D8E292 /* CrewMember.swift */,
 			);
 			path = "Movie Details";
 			sourceTree = "<group>";
@@ -350,6 +341,7 @@
 				7DDA64662B0E8D1A008BF425 /* UpcomingMoviesStub.json */,
 				7DC8D1552B1B75DF00193A64 /* SearchMoviesStub.json */,
 				7DC8D1572B1B78CF00193A64 /* DiscoverMoviesStub.json */,
+				7D810E3F2B2B9CA7004A67AB /* MovieDetailsStub.json */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -632,6 +624,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DE17E082B0413CB005F4848 /* Debug.xcconfig in Resources */,
+				7D810E402B2B9CA7004A67AB /* MovieDetailsStub.json in Resources */,
 				7DDA64652B0E8D0F008BF425 /* NowPlayingMoviesStub.json in Resources */,
 				7DDA64692B0E8D3B008BF425 /* TopRatedMoviesStub.json in Resources */,
 				7DDA64672B0E8D1A008BF425 /* UpcomingMoviesStub.json in Resources */,
@@ -701,7 +694,6 @@
 				7DDA64452B094DA8008BF425 /* HTTPTask.swift in Sources */,
 				7DE17E002B0410B0005F4848 /* RootFeature.swift in Sources */,
 				7DA4DEF42B28F39F00D8E292 /* CrewMember.swift in Sources */,
-				7DA4DEFB2B28F78F00D8E292 /* RelatedMovies.swift in Sources */,
 				7D77E61B2B113F5800B308A6 /* MovieFeature.swift in Sources */,
 				7DDA64382B0798C1008BF425 /* TmdbAuthenticator.swift in Sources */,
 				7DDA64792B1095A6008BF425 /* SearchView.swift in Sources */,

@@ -10,5 +10,5 @@ import Foundation
 struct MovieDetails: Decodable, Equatable, MovieDetailsJsonResolver {
     let movie: Movie?
     let credits: Credits?
-    let relatedMovies: RelatedMovies?
+    let relatedMovies: MoviesList?
 }
