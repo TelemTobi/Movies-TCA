@@ -11,8 +11,7 @@ import ComposableArchitecture
 struct MovieFeature: Reducer {
     
     struct State: Equatable {
-        var movie: Movie
-        var movieDetails: MovieDetails?
+        var movieDetails: MovieDetails
     }
     
     enum Action: Equatable {
@@ -32,7 +31,7 @@ struct MovieFeature: Reducer {
                 return .send(.loadExtendedDetails)
                 
             case .loadExtendedDetails:
-                guard let movieId = state.movie.id else { return .none }
+                guard let movieId = state.movieDetails.movie?.id else { return .none }
                 
                 return .run { send in
                     let result = await tmdbClient.movieDetails(movieId)

@@ -15,7 +15,7 @@ struct MovieView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-                .navigationTitle(viewStore.movie.title ?? .empty)
+                .navigationTitle(viewStore.movieDetails.movie?.title ?? .empty)
                 .onFirstAppear {
                     viewStore.send(.onFirstAppear)
                 }
@@ -26,7 +26,7 @@ struct MovieView: View {
 #Preview {
     MovieView(
         store: Store(
-            initialState: MovieFeature.State(movie: .mock),
+            initialState: MovieFeature.State(movieDetails: .init(movie: .mock)),
             reducer: { MovieFeature() }
         )
     )

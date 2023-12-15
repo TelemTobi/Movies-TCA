@@ -69,7 +69,7 @@ struct TabItemFeature: Reducer {
                 return .none
                 
             case let .discover(.onMovieTap(movie)), let .search(.onMovieTap(movie)):
-                state.presentedMovie = MovieFeature.State(movie: movie)
+                state.presentedMovie = MovieFeature.State(movieDetails: .init(movie: movie))
                 return .none
                 
             case let .discover(.onMoviesListTap(listType, movies)):
