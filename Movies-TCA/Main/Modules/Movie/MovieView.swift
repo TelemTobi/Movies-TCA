@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import SDWebImageSwiftUI
 
 struct MovieView: View {
     
@@ -16,12 +17,17 @@ struct MovieView: View {
     @State private var headerTextColor: Color = .white
     @EnvironmentObject var statusBarConfigurator: StatusBarConfigurator
     
-//    private var navigationBarVisibilityThreshold = 0.85
+    private var navigationBarVisibilityThreshold: CGFloat = 0.85
+    
+    init(store: StoreOf<MovieFeature>) {
+        self.store = store
+    }
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             ScrollView(showsIndicators: false) {
-                /*@START_MENU_TOKEN@*/Text("Placeholder")/*@END_MENU_TOKEN@*/
+                HeaderView(headerOffScreenPercentage: $headerOffScreenPercentage)
+                    .environmentObject(viewStore)
             }
 //            .navigationTitle(viewStore.movieDetails.movie?.title ?? .empty)
             .onFirstAppear {
@@ -35,8 +41,25 @@ extension MovieView {
     
     private struct HeaderView: View {
         
+        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
+        
+        @Binding var headerOffScreenPercentage: CGFloat
+        
         var body: some View {
-            Text("Hello")
+            GeometryReader { geometry in
+                ZStack(alignment: .bottom){
+                    
+                    StretchyHeader(
+                        height: geometry.size.width * 1.4,
+                        headerOffScreenOffset: $headerOffScreenPercentage,
+                        header: {
+                            WebImage(url: viewStore.movieDetails.movie?.posterUrl)
+                                .resizable()
+                                .scaledToFill()
+                        }
+                    )
+                }
+            }
         }
     }
 }
