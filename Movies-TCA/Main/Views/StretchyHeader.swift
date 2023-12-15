@@ -76,28 +76,29 @@ fileprivate struct BottomClipShape: Shape {
 struct StretchyHeader_Previews: PreviewProvider {
     
     static var previews: some View {
-        
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                StretchyHeader(height: (UIWindow.main?.screen.bounds.size.height ?? 0) / 3) {
-                    WebImage(url: URL(string: "https://image.tmdb.org/t/p/original/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg"))
-                        .centerCropped()
-                } headerOffScreenPercentageClosure: { offScreenPercentage in
-                    // Do some animation with `offScreenPercentage`
-                }
-                
-                ForEach(0 ..< 5) { item in
-                    Text(Movie.mock.title!)
-                        .foregroundColor(.primary)
-                        .font(.title).bold()
-                        .padding(.top, 20)
-                        .padding(.horizontal)
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    StretchyHeader(height: geometry.size.width * 1.4) {
+                        WebImage(url: URL(string: "https://image.tmdb.org/t/p/original/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg"))
+                            .centerCropped()
+                    } headerOffScreenPercentageClosure: { offScreenPercentage in
+                        // Do some animation with `offScreenPercentage`
+                    }
                     
-                    Text(Movie.mock.overview!)
-                        .foregroundColor(.primary)
-                        .font(.callout)
-                        .padding(.top, 10)
-                        .padding(.horizontal)
+                    ForEach(0 ..< 5) { item in
+                        Text(Movie.mock.title!)
+                            .foregroundColor(.primary)
+                            .font(.title).bold()
+                            .padding(.top, 20)
+                            .padding(.horizontal)
+                        
+                        Text(Movie.mock.overview!)
+                            .foregroundColor(.primary)
+                            .font(.callout)
+                            .padding(.top, 10)
+                            .padding(.horizontal)
+                    }
                 }
             }
         }
