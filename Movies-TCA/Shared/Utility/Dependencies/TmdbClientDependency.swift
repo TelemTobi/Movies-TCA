@@ -13,6 +13,7 @@ struct TmdbClientDependency {
     var fetchMovies: @Sendable (MoviesList.ListType) async -> Result<MoviesList, TmdbError>
     var searchMovies: @Sendable (String) async -> Result<MoviesList, TmdbError>
     var discoverMovies: @Sendable (Int) async -> Result<MoviesList, TmdbError>
+    var movieDetails: @Sendable (Int) async -> Result<MovieDetails, TmdbError>
 }
 
 extension TmdbClientDependency: DependencyKey {
@@ -22,7 +23,8 @@ extension TmdbClientDependency: DependencyKey {
             fetchGenres: TmdbClient.live.fetchGenres,
             fetchMovies: TmdbClient.live.fetchMovies,
             searchMovies: TmdbClient.live.searchMovies,
-            discoverMovies: TmdbClient.live.discoverMovies
+            discoverMovies: TmdbClient.live.discoverMovies,
+            movieDetails: TmdbClient.live.movieDetails
         )
     }
     
@@ -31,7 +33,8 @@ extension TmdbClientDependency: DependencyKey {
             fetchGenres: TmdbClient.test.fetchGenres,
             fetchMovies: TmdbClient.test.fetchMovies,
             searchMovies: TmdbClient.test.searchMovies,
-            discoverMovies: TmdbClient.test.discoverMovies
+            discoverMovies: TmdbClient.test.discoverMovies,
+            movieDetails: TmdbClient.test.movieDetails
         )
     }
     
@@ -40,7 +43,8 @@ extension TmdbClientDependency: DependencyKey {
             fetchGenres: TmdbClient.test.fetchGenres,
             fetchMovies: TmdbClient.test.fetchMovies,
             searchMovies: TmdbClient.test.searchMovies,
-            discoverMovies: TmdbClient.test.discoverMovies
+            discoverMovies: TmdbClient.test.discoverMovies,
+            movieDetails: TmdbClient.test.movieDetails
         )
     }
 }

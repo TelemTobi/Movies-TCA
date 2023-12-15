@@ -13,6 +13,10 @@ extension String {
     static let notAvailable = "N/A"
     static let dotSeparator = " · "
     
+    var url: URL? {
+        URL(string: self)
+    }
+    
     var boolValue: Bool {
         (self as NSString).boolValue
     }

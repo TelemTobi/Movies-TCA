@@ -72,7 +72,6 @@ struct SearchFeature: Reducer {
                     return .none
                 }
                 
-                print("👀 " + query)
                 if let genre = state.genres.first(where: { $0.name == query}) {
                     return .run { send in
                         let discoverResult = await tmdbClient.discoverMovies(genre.id)
