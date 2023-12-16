@@ -19,6 +19,14 @@ struct MovieView: View {
     
     private var navigationBarVisibilityThreshold: CGFloat = 0.85
     
+    private var isHeaderShowing: Bool {
+        headerOffScreenPercentage < navigationBarVisibilityThreshold
+    }
+    
+    private var navigationTitleOpacity: CGFloat {
+        headerOffScreenPercentage.percentageInside(range: navigationBarVisibilityThreshold...navigationBarVisibilityThreshold + 0.02)
+    }
+    
     init(store: StoreOf<MovieFeature>) {
         self.store = store
     }
@@ -30,15 +38,30 @@ struct MovieView: View {
                     navigationBarVisibilityThreshold: navigationBarVisibilityThreshold,
                     headerOffScreenPercentage: $headerOffScreenPercentage
                 )
+                
+//                LazyVStack(spacing: 10) {
+//                    Color.white.frame(height: 500)
+//                }
             }
             .environmentObject(viewStore)
             .listStyle(.plain)
             .ignoresSafeArea(edges: .top)
             .navigationBarTitleDisplayMode(.inline)
             .animation(.easeInOut, value: viewStore.movieDetails)
-            
+//            .prepareStatusBarConfigurator(statusBarConfigurator)
+            .toolbarBackground(isHeaderShowing ? .hidden : .visible, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(viewStore.movieDetails.movie.title ?? .empty)
+                        .font(.rounded(.headline))
+                        .opacity(navigationTitleOpacity)
+                }
+            }
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
+            }
+            .onChange(of: isHeaderShowing) { _, _ in
+                statusBarConfigurator.statusBarStyle = isHeaderShowing ? .lightContent : .default
             }
         }
     }
