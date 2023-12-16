@@ -21,7 +21,6 @@
 		7D77E6322B16551700B308A6 /* TagButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E6312B16551700B308A6 /* TagButtonStyle.swift */; };
 		7D810E3E2B2B9967004A67AB /* MovieDetailsJsonResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D810E3D2B2B9967004A67AB /* MovieDetailsJsonResolver.swift */; };
 		7D810E402B2B9CA7004A67AB /* MovieDetailsStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D810E3F2B2B9CA7004A67AB /* MovieDetailsStub.json */; };
-		7D810E442B2CF413004A67AB /* StatusBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D810E432B2CF413004A67AB /* StatusBarStyle.swift */; };
 		7D810E462B2CF456004A67AB /* ViewLifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D810E452B2CF456004A67AB /* ViewLifeCycle.swift */; };
 		7DA4DEEC2B20483100D8E292 /* WatchlistFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEEB2B20483100D8E292 /* WatchlistFeature.swift */; };
 		7DA4DEEE2B20483D00D8E292 /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEED2B20483D00D8E292 /* WatchlistView.swift */; };
@@ -106,7 +105,6 @@
 		7D77E6312B16551700B308A6 /* TagButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButtonStyle.swift; sourceTree = "<group>"; };
 		7D810E3D2B2B9967004A67AB /* MovieDetailsJsonResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsJsonResolver.swift; sourceTree = "<group>"; };
 		7D810E3F2B2B9CA7004A67AB /* MovieDetailsStub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MovieDetailsStub.json; sourceTree = "<group>"; };
-		7D810E432B2CF413004A67AB /* StatusBarStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarStyle.swift; sourceTree = "<group>"; };
 		7D810E452B2CF456004A67AB /* ViewLifeCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLifeCycle.swift; sourceTree = "<group>"; };
 		7DA4DEEB2B20483100D8E292 /* WatchlistFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistFeature.swift; sourceTree = "<group>"; };
 		7DA4DEED2B20483D00D8E292 /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
@@ -490,7 +488,6 @@
 			children = (
 				7DE17DD32AFE0BC1005F4848 /* OnFirstAppear.swift */,
 				7DB688B02B2CF6E80007D98E /* ScrollViewOffset.swift */,
-				7D810E432B2CF413004A67AB /* StatusBarStyle.swift */,
 				7D810E452B2CF456004A67AB /* ViewLifeCycle.swift */,
 			);
 			path = Modifiers;
@@ -692,7 +689,6 @@
 				7D77E6192B113F4E00B308A6 /* MovieView.swift in Sources */,
 				7D77E6252B13B22300B308A6 /* TabItemView.swift in Sources */,
 				7DB688AF2B2CF6930007D98E /* StretchyHeader.swift in Sources */,
-				7D810E442B2CF413004A67AB /* StatusBarStyle.swift in Sources */,
 				7DE17E022B041357005F4848 /* Config.swift in Sources */,
 				7DDA646D2B0FC15D008BF425 /* MoviesCollectionView.swift in Sources */,
 				7D810E462B2CF456004A67AB /* ViewLifeCycle.swift in Sources */,
