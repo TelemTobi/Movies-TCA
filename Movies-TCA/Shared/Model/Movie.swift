@@ -21,7 +21,8 @@ struct Movie: Decodable, Equatable, Identifiable {
     let voteCount: Int?
     let hasTrailer: Bool?
     let isAdult: Bool?
-    let genreIds: [Int]?
+    let runtime: Int?
+    let genres: [Genre]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -36,12 +37,18 @@ struct Movie: Decodable, Equatable, Identifiable {
         case voteCount = "vote_count"
         case hasTrailer = "video"
         case isAdult = "adult"
-        case genreIds = "genre_ids"
+        case runtime = "runtime"
+        case genres = "genres"
     }
     
     var voteAverageFormatted: String {
         guard let voteAverage else { return .notAvailable }
         return (voteAverage / 10).asPercentage
+    }
+    
+    var voteCountFormatted: String {
+        guard let voteCount else { return .notAvailable }
+        return "\(voteCount.abbreviation) votes"
     }
     
     var posterUrl: URL? {

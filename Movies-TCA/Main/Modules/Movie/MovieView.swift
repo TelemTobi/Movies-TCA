@@ -26,10 +26,17 @@ struct MovieView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             ScrollView(showsIndicators: false) {
-                HeaderView(headerOffScreenPercentage: $headerOffScreenPercentage)
-                    .environmentObject(viewStore)
+                HeaderView(
+                    navigationBarVisibilityThreshold: navigationBarVisibilityThreshold,
+                    headerOffScreenPercentage: $headerOffScreenPercentage
+                )
             }
-//            .navigationTitle(viewStore.movieDetails.movie?.title ?? .empty)
+            .environmentObject(viewStore)
+            .listStyle(.plain)
+            .ignoresSafeArea(edges: .top)
+            .navigationBarTitleDisplayMode(.inline)
+            .animation(.easeInOut, value: viewStore.movieDetails)
+            
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
             }
@@ -43,21 +50,102 @@ extension MovieView {
         
         @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
         
+        let navigationBarVisibilityThreshold: CGFloat
         @Binding var headerOffScreenPercentage: CGFloat
+        
+        private var movie: Movie {
+            viewStore.movieDetails.movie
+        }
+        
+        private var headerOpacity: CGFloat {
+            headerOffScreenPercentage
+                .percentageInside(range: 0.35...(navigationBarVisibilityThreshold + 0.01))
+        }
+        
+        private var bulletPoints: String {
+            [movie.genres?.first?.name ?? .notAvailable,
+             movie.releaseDate?.year.description ?? .notAvailable,
+             movie.runtime?.durationInHoursAndMinutesShortFormat ?? .notAvailable
+            ].joined(separator: .dotSeparator)
+        }
+        
+        private var votesBulletPoints: String {
+            [movie.voteAverageFormatted,
+             movie.voteCountFormatted
+            ].joined(separator: .dotSeparator)
+        }
         
         var body: some View {
             GeometryReader { geometry in
-                ZStack(alignment: .bottom){
-                    
+                ZStack(alignment: .bottom) {
                     StretchyHeader(
                         height: geometry.size.width * 1.4,
                         headerOffScreenOffset: $headerOffScreenPercentage,
                         header: {
-                            WebImage(url: viewStore.movieDetails.movie?.posterUrl)
+                            WebImage(url: viewStore.movieDetails.movie.posterUrl)
                                 .resizable()
                                 .scaledToFill()
                         }
                     )
+                    
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(movie.title ?? .empty)
+                            .foregroundStyle(.white)
+                            .font(.rounded(.title, weight: .bold))
+                        
+                        Text(bulletPoints)
+                            .foregroundStyle(.white.opacity(0.50))
+                            .font(.caption.bold())
+                            .padding(.top, 5)
+                        
+                        Text(movie.overview ?? .notAvailable)
+                            .lineLimit(3)
+                            .foregroundStyle(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.top, 10)
+                        
+                        Label(
+                            title: {
+                                Text(votesBulletPoints)
+                                    .foregroundStyle(.white.opacity(0.5))
+                                    .font(.caption2)
+                                    .fontWeight(.heavy)
+                            },
+                            icon: {
+                                Image("TMDBLogo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 18)
+                            }
+                        )
+                        .padding(.top, 10)
+                    }
+                    .padding()
+                    .padding(.top, 50)
+                    .background {
+                        LinearGradient(
+                            colors: [.clear, .black.opacity(0.35)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    }
+                    .background(.ultraThinMaterial)
+                    .environment(\.colorScheme, .light)
+                    .mask {
+                        LinearGradient(
+                            stops: [
+                                .init(color: .clear, location: 0),
+                                .init(color: .clear, location: 0.1),
+                                .init(color: .white, location: 0.25)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    }
+                }
+                .overlay {
+                    Color.primary.colorInvert()
+                        .opacity(headerOpacity)
                 }
             }
         }
