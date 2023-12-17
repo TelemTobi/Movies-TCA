@@ -20,16 +20,14 @@ struct Movie: Decodable, Equatable, Identifiable {
     let voteAverage: Float?
     let voteCount: Int?
     let hasTrailer: Bool?
-    let isAdult: Bool?
     let runtime: Int?
+    let tagline: String?
+    let isAdult: Bool?
     let genres: [Genre]?
     
     enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case overview
+        case id, title, overview, runtime, tagline, popularity
         case language = "original_language"
-        case popularity
         case posterPath = "poster_path"
         case backdropPath = "backdrop_path"
         case releaseDate = "release_date"
@@ -37,7 +35,6 @@ struct Movie: Decodable, Equatable, Identifiable {
         case voteCount = "vote_count"
         case hasTrailer = "video"
         case isAdult = "adult"
-        case runtime = "runtime"
         case genres = "genres"
     }
     
