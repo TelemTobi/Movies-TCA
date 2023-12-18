@@ -129,7 +129,6 @@ extension MovieView {
                     Text(movie.overview ?? .notAvailable)
                         .lineLimit(3)
                         .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
                         .padding(.top, 10)
                     
                     Label(
@@ -150,7 +149,7 @@ extension MovieView {
                 }
                 .padding()
                 .padding(.top, 50)
-                .frame(width: geometry.size.width)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .background {
                     LinearGradient(
                         colors: [.clear, .black.opacity(0.35)],
