@@ -73,13 +73,11 @@ fileprivate struct BottomClipShape: Shape {
 
 // MARK: - Preview
 
-struct StretchyHeader_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        
+#Preview {
+    GeometryReader { geometry in
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                StretchyHeader(height: (UIWindow.main?.screen.bounds.size.height ?? 0) / 3) {
+                StretchyHeader(height: geometry.size.width * 1.4) {
                     WebImage(url: URL(string: "https://image.tmdb.org/t/p/original/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg"))
                         .centerCropped()
                 } headerOffScreenPercentageClosure: { offScreenPercentage in
