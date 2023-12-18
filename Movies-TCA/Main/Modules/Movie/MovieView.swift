@@ -59,7 +59,7 @@ struct MovieView: View {
                 }
             }
             .onFirstAppear {
-//                viewStore.send(.onFirstAppear)
+                viewStore.send(.onFirstAppear)
             }
         }
     }
@@ -70,10 +70,11 @@ extension MovieView {
     private struct HeaderView: View {
         
         @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
+        @Binding var headerOffScreenPercentage: CGFloat
+        @State private var isSheetPresented: Bool = false
         
         let geometry: GeometryProxy
         let navigationBarVisibilityThreshold: CGFloat
-        @Binding var headerOffScreenPercentage: CGFloat
         
         init(geometry: GeometryProxy, _ navigationBarVisibilityThreshold: CGFloat, _ headerOffScreenPercentage: Binding<CGFloat>) {
             self.geometry = geometry
@@ -125,36 +126,11 @@ extension MovieView {
                         .font(.caption.bold())
                         .padding(.top, 5)
                     
-//                    Text(movie.overview ?? .notAvailable)
-//                        .lineLimit(3)
-//                        .foregroundStyle(.white)
-//                        .frame(maxWidth: .infinity)
-//                        .padding(.top, 10)
-                    
-                    ExpandableText(
-                        movie.overview ?? .notAvailable,
-                        lineLimit: 3,
-                        font: Font.callout.uiFont,
-                        expandMethod: .sheet(title: movie.title ?? .notAvailable),
-                        content: {
-                            if let tagline = movie.tagline {
-                                Text("\"\(tagline)\"")
-                                    .font(.rounded(.title, weight: .bold))
-                                    .foregroundColor(.secondary)
-                                    .multilineTextAlignment(.center)
-                                    .padding(.bottom, 10)
-                                    .padding(.horizontal)
-                            }
-                            
-                            Text(movie.overview ?? .notAvailable)
-                                .padding(.horizontal)
-                                .foregroundColor(.primary)
-                                .multilineTextAlignment(.center)
-                        }
-                    )
-                    .frame(maxWidth: geometry.size.width, alignment: .leading)
-                    .padding(.top, 10)
-                    .foregroundStyle(.white)
+                    Text(movie.overview ?? .notAvailable)
+                        .lineLimit(3)
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, 10)
                     
                     Label(
                         title: {
@@ -172,9 +148,9 @@ extension MovieView {
                     )
                     .padding(.top, 10)
                 }
-//                .frame(width: geometry.size.width)
                 .padding()
                 .padding(.top, 50)
+                .frame(width: geometry.size.width)
                 .background {
                     LinearGradient(
                         colors: [.clear, .black.opacity(0.35)],
@@ -193,6 +169,29 @@ extension MovieView {
                         ],
                         startPoint: .top,
                         endPoint: .bottom
+                    )
+                }
+                .onTapGesture { isSheetPresented = true }
+                .sheet(isPresented: $isSheetPresented) {
+                    DynamicSheet(
+                        title: movie.title ?? .notAvailable,
+                        content: {
+                            VStack {
+                                if let tagline = movie.tagline {
+                                    Text("\"\(tagline)\"")
+                                        .font(.rounded(.title, weight: .bold))
+                                        .foregroundColor(.secondary)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.bottom, 10)
+                                        .padding(.horizontal)
+                                }
+
+                                Text(movie.overview ?? .notAvailable)
+                                    .padding(.horizontal)
+                                    .foregroundColor(.primary)
+                                    .multilineTextAlignment(.center)
+                            }
+                        }
                     )
                 }
             }

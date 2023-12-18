@@ -33,8 +33,8 @@
 		7DB688B32B2CF7130007D98E /* Comparable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB688B22B2CF7130007D98E /* Comparable+Extension.swift */; };
 		7DB688B92B2CF8240007D98E /* WebImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB688B82B2CF8240007D98E /* WebImage+Extension.swift */; };
 		7DB688BB2B2D7D670007D98E /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB688BA2B2D7D670007D98E /* Int+Extension.swift */; };
-		7DB688BD2B2E18080007D98E /* ExpandableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB688BC2B2E18080007D98E /* ExpandableText.swift */; };
 		7DB688BF2B2E190A0007D98E /* DynamicSheetHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB688BE2B2E190A0007D98E /* DynamicSheetHeight.swift */; };
+		7DB688C12B3032550007D98E /* DynamicSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB688C02B3032550007D98E /* DynamicSheet.swift */; };
 		7DC8D1562B1B75DF00193A64 /* SearchMoviesStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DC8D1552B1B75DF00193A64 /* SearchMoviesStub.json */; };
 		7DC8D1582B1B78CF00193A64 /* DiscoverMoviesStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DC8D1572B1B78CF00193A64 /* DiscoverMoviesStub.json */; };
 		7DC8D15A2B1B793D00193A64 /* MoviesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC8D1592B1B793D00193A64 /* MoviesList.swift */; };
@@ -118,8 +118,8 @@
 		7DB688B22B2CF7130007D98E /* Comparable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+Extension.swift"; sourceTree = "<group>"; };
 		7DB688B82B2CF8240007D98E /* WebImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WebImage+Extension.swift"; sourceTree = "<group>"; };
 		7DB688BA2B2D7D670007D98E /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
-		7DB688BC2B2E18080007D98E /* ExpandableText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableText.swift; sourceTree = "<group>"; };
 		7DB688BE2B2E190A0007D98E /* DynamicSheetHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicSheetHeight.swift; sourceTree = "<group>"; };
+		7DB688C02B3032550007D98E /* DynamicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicSheet.swift; sourceTree = "<group>"; };
 		7DC8D1552B1B75DF00193A64 /* SearchMoviesStub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SearchMoviesStub.json; sourceTree = "<group>"; };
 		7DC8D1572B1B78CF00193A64 /* DiscoverMoviesStub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DiscoverMoviesStub.json; sourceTree = "<group>"; };
 		7DC8D1592B1B793D00193A64 /* MoviesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesList.swift; sourceTree = "<group>"; };
@@ -352,7 +352,7 @@
 				7D77E62D2B15BCB500B308A6 /* TagCloudsView.swift */,
 				7DC8D15B2B1E3BB800193A64 /* MovieListItem.swift */,
 				7DB688AE2B2CF6930007D98E /* StretchyHeader.swift */,
-				7DB688BC2B2E18080007D98E /* ExpandableText.swift */,
+				7DB688C02B3032550007D98E /* DynamicSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -717,7 +717,6 @@
 				7DD6D9702AF943B7004828AB /* HomeView.swift in Sources */,
 				7D77E62A2B13B71900B308A6 /* MoviesListFeature.swift in Sources */,
 				7DDA643C2B07A8E2008BF425 /* JsonResolver.swift in Sources */,
-				7DB688BD2B2E18080007D98E /* ExpandableText.swift in Sources */,
 				7DE17E0E2B053C4E005F4848 /* TmdbClient.swift in Sources */,
 				7DDA64422B094C8B008BF425 /* HTTPMethod.swift in Sources */,
 				7DDA644F2B0AB02C008BF425 /* Data+Extension.swift in Sources */,
@@ -739,6 +738,7 @@
 				7DDA64792B1095A6008BF425 /* SearchView.swift in Sources */,
 				7DD6D96E2AF943B7004828AB /* MoviesApp.swift in Sources */,
 				7DDA64572B0E7DB8008BF425 /* MoviesPagerView.swift in Sources */,
+				7DB688C12B3032550007D98E /* DynamicSheet.swift in Sources */,
 				7DDA644D2B0AB023008BF425 /* URLRequest+Extension.swift in Sources */,
 				7D513F7C2B17221A0040F913 /* PreferencesFeature.swift in Sources */,
 				7DE17DFE2B0410A7005F4848 /* RootView.swift in Sources */,
