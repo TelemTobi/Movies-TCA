@@ -7,56 +7,54 @@
 
 import SwiftUI
 
-extension MovieView {
+struct CastMembersView: View {
     
-    struct CastMembersView: View {
+    @State var castMembers: [CastMember]
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack(spacing: 20) {
+                
+                ForEach(castMembers.prefix(10)) { member in
+                    NavigationLink {
+                        Text(member.name ?? .notAvailable)
+                    } label: {
+                        ItemView(member: member)
+                    }
+                    .buttonStyle(.plain)
+                    .transition(.slide.combined(with: .opacity))
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+    
+    private struct ItemView: View {
         
-        @State var castMembers: [CastMember]
+        var member: CastMember
+        private let size: CGFloat = 110
         
         var body: some View {
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 20) {
-                    
-                    ForEach(castMembers.prefix(10)) { member in
-                        NavigationLink {
-                            Text(member.name ?? .notAvailable)
-                        } label: {
-                            ItemView(member: member)
-                        }
-                        .buttonStyle(.plain)
-                        .transition(.slide.combined(with: .opacity))
-                    }
-                }
+            VStack {
+                CircularPersonImage(person: member, size: size)
+                
+                Text(member.name ?? .empty)
+                    .foregroundColor(.primary)
+                    .font(.subheadline)
+                    .frame(maxWidth: size)
+                    .lineLimit(1)
+                
+                Text(member.character ?? .empty)
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+                    .frame(maxWidth: size)
+                    .lineLimit(2)
             }
-        }
-        
-        private struct ItemView: View {
-            
-            var member: CastMember
-            private let size: CGFloat = 110
-            
-            var body: some View {
-                VStack {
-                    CircularPersonImage(person: member, size: size)
-                    
-                    Text(member.name ?? .empty)
-                        .foregroundColor(.primary)
-                        .font(.subheadline)
-                        .frame(maxWidth: size)
-                        .lineLimit(1)
-                    
-                    Text(member.character ?? .empty)
-                        .foregroundColor(.secondary)
-                        .font(.subheadline)
-                        .frame(maxWidth: size)
-                        .lineLimit(2)
-                }
-                .multilineTextAlignment(.center)
-            }
+            .multilineTextAlignment(.center)
         }
     }
 }
 
 #Preview {
-    MovieView.CastMembersView(castMembers: MovieDetails.mock.credits?.cast ?? [])
+    CastMembersView(castMembers: MovieDetails.mock.credits?.cast ?? [])
 }
