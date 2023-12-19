@@ -12,3 +12,18 @@ struct MovieDetails: Decodable, Equatable, MovieDetailsJsonResolver {
     var credits: Credits?
     var relatedMovies: MoviesList?
 }
+
+extension MovieDetails {
+    
+    static var mock: MovieDetails {
+        let movie = try? MovieDetails.self
+            .resolve(Mock.movieDetails.dataEncoded)
+            .parse(type: MovieDetails.self, using: .tmdbDateDecodingStrategy)
+        
+        guard let movie else {
+            fatalError("Movies mock decoding error")
+        }
+        
+        return movie
+    }
+}

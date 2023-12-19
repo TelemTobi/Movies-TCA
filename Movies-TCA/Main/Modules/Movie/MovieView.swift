@@ -41,6 +41,7 @@ struct MovieView: View {
                     )
                     
                     LazyVStack(spacing: 10) {
+                        CastSection()
                         Color.primary.colorInvert().frame(height: 800)
                     }
                 }
@@ -197,6 +198,30 @@ extension MovieView {
             .overlay {
                 Color.primary.colorInvert()
                     .opacity(headerOpacity)
+            }
+        }
+    }
+    
+    private struct CastSection: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
+        
+        var body: some View {
+            if let cast = viewStore.state.movieDetails.credits?.cast, cast.isNotEmpty {
+                Section {
+                    CastMembersView(castMembers: cast)
+                } header: {
+                    SectionHeader(title: "Cast", action: "See All") {
+                        // TODO: See all tap
+                    }
+                }
+                
+                Divider()
+                    .padding(.vertical, 10)
+                    .padding(.horizontal)
+                
+            } else {
+                EmptyView()
             }
         }
     }

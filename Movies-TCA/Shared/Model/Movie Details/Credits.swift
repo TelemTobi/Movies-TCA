@@ -9,6 +9,6 @@ import Foundation
 
 struct Credits: Decodable, Equatable {
     
-    let cast: [Actor]?
+    let cast: [CastMember]?
     let crew: [CrewMember]?
 }
