@@ -21,7 +21,7 @@ extension MovieDetails {
             .parse(type: MovieDetails.self, using: .tmdbDateDecodingStrategy)
         
         guard let movie else {
-            fatalError("Movies mock decoding error")
+            fatalError("MovieDetails mock decoding error")
         }
         
         return movie

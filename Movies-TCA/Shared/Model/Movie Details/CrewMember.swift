@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CrewMember: Decodable, Equatable {
+struct CrewMember: Person, Decodable, Equatable {
     
     let id: Int?
     let name: String?
@@ -20,5 +20,10 @@ struct CrewMember: Decodable, Equatable {
         case id, name, department, job
         case profilePath = "profile_path"
         case isAdult = "adult"
+    }
+    
+    var imageUrl: URL? {
+        guard let profilePath else { return nil }
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/original/" + profilePath)
     }
 }

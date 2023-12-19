@@ -33,4 +33,21 @@ extension String {
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .capitalized
     }
+    
+    var initials: String {
+        let words = self.components(separatedBy: " ")
+        
+        guard words.count >= 2 else { return .empty }
+        
+        let firstLastName = Array(words.prefix(1) + words.suffix(1))
+        
+        var initials = ""
+        
+        for name in firstLastName {
+            if let firstLetter = name.first {
+                initials += String(firstLetter)
+            }
+        }
+        return initials.uppercased()
+    }
 }
