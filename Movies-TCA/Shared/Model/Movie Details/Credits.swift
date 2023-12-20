@@ -9,6 +9,10 @@ import Foundation
 
 struct Credits: Decodable, Equatable {
     
-    let cast: [Actor]?
+    let cast: [CastMember]?
     let crew: [CrewMember]?
+    
+    var director: CrewMember? {
+        crew?.first(where: { $0.job == "Director" })
+    }
 }

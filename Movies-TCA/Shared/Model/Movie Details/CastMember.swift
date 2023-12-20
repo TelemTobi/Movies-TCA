@@ -1,5 +1,5 @@
 //
-//  CrewMember.swift
+//  Actor.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 12/12/2023.
@@ -7,19 +7,20 @@
 
 import Foundation
 
-struct CrewMember: Person, Decodable, Equatable {
+struct CastMember: Person, Decodable, Equatable, Identifiable {
     
     let id: Int?
     let name: String?
     let profilePath: String?
     let isAdult: Bool?
     let department: String?
-    let job: String?
+    let character: String?
     
     enum CodingKeys: String, CodingKey {
-        case id, name, department, job
+        case id, name, character
         case profilePath = "profile_path"
         case isAdult = "adult"
+        case department = "known_for_department"
     }
     
     var imageUrl: URL? {
@@ -28,12 +29,12 @@ struct CrewMember: Person, Decodable, Equatable {
     }
 }
 
-extension CrewMember {
+extension CastMember {
     
-    static var mock: CrewMember {
-        guard let crewMember = MovieDetails.mock.credits?.crew?.randomElement() else {
-            fatalError("CrewMember mock decoding error")
+    static var mock: CastMember {
+        guard let castMember = MovieDetails.mock.credits?.cast?.randomElement() else {
+            fatalError("CastMember mock decoding error")
         }
-        return crewMember
+        return castMember
     }
 }

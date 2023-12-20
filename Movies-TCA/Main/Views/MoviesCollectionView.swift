@@ -74,5 +74,5 @@ struct MoviesCollectionView: View {
 }
 
 #Preview {
-    MoviesCollectionView(movies: [], onMovieTap: { _ in })
+    MoviesCollectionView(movies: [.mock, .mock, .mock], onMovieTap: { _ in })
 }
