@@ -44,6 +44,7 @@ struct MovieView: View {
                     LazyVStack(spacing: 10) {
                         CastSection()
                         DirectorSection()
+                        RelatedMoviesSection()
                         Color.primary.colorInvert().frame(height: 800)
                     }
                 }
@@ -117,6 +118,34 @@ extension MovieView {
                     SectionHeader(title: "Directed By", action: "See All") {
                         // TODO: See All tap
                     }
+                }
+                .padding(.horizontal)
+                
+                Divider()
+                    .padding(.vertical, 10)
+                    .padding(.horizontal)
+                
+            } else {
+                EmptyView()
+            }
+        }
+    }
+    
+    private struct RelatedMoviesSection: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
+        
+        var body: some View {
+            if let relatedMovies = viewStore.state.movieDetails.relatedMovies?.results {
+                Section {
+                    MoviesCollectionView(
+                        movies: .init(uniqueElements: relatedMovies),
+                        onMovieTap: { movie in
+                            // TODO: Movie Tap
+                        }
+                    )
+                } header: {
+                    SectionHeader(title: "Related")
                 }
                 .padding(.horizontal)
                 
