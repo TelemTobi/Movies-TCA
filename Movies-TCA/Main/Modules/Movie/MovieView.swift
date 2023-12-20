@@ -43,6 +43,7 @@ struct MovieView: View {
                     
                     LazyVStack(spacing: 10) {
                         CastSection()
+                        DirectorSection()
                         Color.primary.colorInvert().frame(height: 800)
                     }
                 }
@@ -76,13 +77,48 @@ extension MovieView {
         var body: some View {
             if let cast = viewStore.state.movieDetails.credits?.cast, cast.isNotEmpty {
                 Section {
-                    CastMembersView(castMembers: cast)
+                    CastMembersView(
+                        castMembers: cast,
+                        didTapCastMember: { member in
+                            // TODO: Cast member tap
+                        }
+                    )
                 } header: {
                     SectionHeader(title: "Cast", action: "See All") {
-                        // TODO: See all tap
+                        // TODO: See All tap
                     }
                     .padding(.horizontal)
                 }
+                
+                Divider()
+                    .padding(.vertical, 10)
+                    .padding(.horizontal)
+                
+            } else {
+                EmptyView()
+            }
+        }
+    }
+    
+    private struct DirectorSection: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
+        
+        var body: some View {
+            if let director = viewStore.state.movieDetails.credits?.director {
+                Section {
+                    DirectorView(
+                        director: director,
+                        didTapDirector: { director in
+                            // TODO: Director tap
+                        }
+                    )
+                } header: {
+                    SectionHeader(title: "Directed By", action: "See All") {
+                        // TODO: See All tap
+                    }
+                }
+                .padding(.horizontal)
                 
                 Divider()
                     .padding(.vertical, 10)

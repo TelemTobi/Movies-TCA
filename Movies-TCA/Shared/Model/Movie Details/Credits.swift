@@ -11,4 +11,8 @@ struct Credits: Decodable, Equatable {
     
     let cast: [CastMember]?
     let crew: [CrewMember]?
+    
+    var director: CrewMember? {
+        crew?.first(where: { $0.job == "Director" })
+    }
 }

@@ -10,14 +10,15 @@ import SwiftUI
 struct CastMembersView: View {
     
     @State var castMembers: [CastMember]
+    let didTapCastMember: (CastMember) -> Void
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 20) {
                 
                 ForEach(castMembers.prefix(10)) { member in
-                    NavigationLink {
-                        Text(member.name ?? .notAvailable)
+                    Button {
+                        didTapCastMember(member)
                     } label: {
                         ItemView(member: member)
                     }
@@ -56,5 +57,8 @@ struct CastMembersView: View {
 }
 
 #Preview {
-    CastMembersView(castMembers: MovieDetails.mock.credits?.cast ?? [])
+    CastMembersView(
+        castMembers: MovieDetails.mock.credits?.cast ?? [],
+        didTapCastMember: { _ in }
+    )
 }
