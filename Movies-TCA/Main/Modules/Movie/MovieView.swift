@@ -45,8 +45,8 @@ struct MovieView: View {
                         CastSection()
                         DirectorSection()
                         RelatedMoviesSection()
-                        Color.primary.colorInvert().frame(height: 800)
                     }
+                    .padding(.vertical, 5)
                 }
                 .environmentObject(viewStore)
                 .listStyle(.plain)
@@ -136,7 +136,7 @@ extension MovieView {
         @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
         
         var body: some View {
-            if let relatedMovies = viewStore.state.movieDetails.relatedMovies?.results {
+            if let relatedMovies = viewStore.state.movieDetails.relatedMovies?.results, relatedMovies.isNotEmpty {
                 Section {
                     MoviesCollectionView(
                         movies: .init(uniqueElements: relatedMovies),
@@ -144,10 +144,11 @@ extension MovieView {
                             // TODO: Movie Tap
                         }
                     )
+                    .frame(height: 280)
                 } header: {
                     SectionHeader(title: "Related")
+                        .padding(.horizontal)
                 }
-                .padding(.horizontal)
                 
                 Divider()
                     .padding(.vertical, 10)
