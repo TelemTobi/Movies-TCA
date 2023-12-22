@@ -45,6 +45,7 @@ struct MovieView: View {
                         CastSection()
                         DirectorSection()
                         RelatedMoviesSection()
+                        InformationSection()
                     }
                     .padding(.vertical, 5)
                 }
@@ -157,6 +158,23 @@ extension MovieView {
             } else {
                 EmptyView()
             }
+        }
+    }
+    
+    private struct InformationSection: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
+        
+        var body: some View {
+            Section {
+                ForEach(viewStore.movieDetails.movie.infoDictionary.sorted(by: <), id: \.key) { key, value in
+                    VerticalKeyValueView(key: key, value: value)
+                        .transition(.slide.combined(with: .opacity))
+                }
+            } header: {
+                SectionHeader(title: "Information")
+            }
+            .padding(.horizontal)
         }
     }
 }
