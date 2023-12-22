@@ -48,16 +48,6 @@ struct MovieListItem: View {
                         .foregroundStyle(.secondary)
                     
                     Spacer(minLength: 2)
-                    
-                    HStack(spacing: 5) {
-                        Spacer()
-                        
-                        Image(systemName: "heart.circle.fill")
-                            .foregroundStyle(.pink)
-                        Text(movie.voteAverageFormatted)
-                    }
-                    .font(.footnote)
-                    .padding(.horizontal, 5)
                 }
             }
         }
@@ -66,4 +56,5 @@ struct MovieListItem: View {
 
 #Preview {
     MovieListItem(movie: .mock)
+//        .previewLayout(.sizeThatFits)
 }

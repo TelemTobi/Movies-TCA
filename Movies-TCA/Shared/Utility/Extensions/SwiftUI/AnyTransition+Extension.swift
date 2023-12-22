@@ -10,6 +10,6 @@ import SwiftUI
 extension AnyTransition {
     
     static var slideAndFade: AnyTransition {
-        .slideAndFade
+        .slide.combined(with: .opacity)
     }
 }
