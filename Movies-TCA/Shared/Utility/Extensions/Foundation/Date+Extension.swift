@@ -9,6 +9,10 @@ import Foundation
 
 extension Date {
     
+    enum DateFormat: String {
+        case dMMMyyyy = "d MMM yyyy"
+    }
+    
     var day: Int {
         Calendar.current.component(.day, from: self)
     }
@@ -19,6 +23,13 @@ extension Date {
     
     var year: Int {
         Calendar.current.component(.year, from: self)
+    }
+    
+    func description(withFormat format: DateFormat, locale: Locale.SupportedLocale) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format.rawValue
+        dateFormatter.locale = locale.locale
+        return dateFormatter.string(from: self)
     }
 }
 
