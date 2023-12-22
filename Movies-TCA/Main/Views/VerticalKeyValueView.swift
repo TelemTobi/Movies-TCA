@@ -24,7 +24,7 @@ struct VerticalKeyValueView: View {
                 .foregroundColor(.primary)
                 .font(.headline)
         }
-        .transition(.slide.combined(with: .opacity))
+        .transition(.slideAndFade)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

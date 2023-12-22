@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7D003EF72B35659800E03E50 /* VerticalKeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D003EF62B35659800E03E50 /* VerticalKeyValueView.swift */; };
+		7D003EF92B35676000E03E50 /* AnyTransition+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D003EF82B35676000E03E50 /* AnyTransition+Extension.swift */; };
 		7D513F7C2B17221A0040F913 /* PreferencesFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F7B2B17221A0040F913 /* PreferencesFeature.swift */; };
 		7D513F7E2B1722210040F913 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F7D2B1722210040F913 /* PreferencesView.swift */; };
 		7D513F812B1A3D810040F913 /* Numeric+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F802B1A3D810040F913 /* Numeric+Extension.swift */; };
@@ -101,6 +102,7 @@
 
 /* Begin PBXFileReference section */
 		7D003EF62B35659800E03E50 /* VerticalKeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalKeyValueView.swift; sourceTree = "<group>"; };
+		7D003EF82B35676000E03E50 /* AnyTransition+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyTransition+Extension.swift"; sourceTree = "<group>"; };
 		7D513F7B2B17221A0040F913 /* PreferencesFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesFeature.swift; sourceTree = "<group>"; };
 		7D513F7D2B1722210040F913 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		7D513F802B1A3D810040F913 /* Numeric+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Numeric+Extension.swift"; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 			children = (
 				7DDA64702B0FC31D008BF425 /* EdgeInsets+Extension.swift */,
 				7DDA64732B0FC434008BF425 /* Font+Extension.swift */,
+				7D003EF82B35676000E03E50 /* AnyTransition+Extension.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -757,6 +760,7 @@
 				7DB688CD2B32C1330007D98E /* DirectorView.swift in Sources */,
 				7DDA644F2B0AB02C008BF425 /* Data+Extension.swift in Sources */,
 				7DE17DDB2AFFDE56005F4848 /* DiscoverFeature.swift in Sources */,
+				7D003EF92B35676000E03E50 /* AnyTransition+Extension.swift in Sources */,
 				7DB688B12B2CF6E80007D98E /* ScrollViewOffset.swift in Sources */,
 				7DA4DEEC2B20483100D8E292 /* WatchlistFeature.swift in Sources */,
 				7DE17E102B06861C005F4848 /* Errorable.swift in Sources */,

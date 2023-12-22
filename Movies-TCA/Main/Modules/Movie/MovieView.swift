@@ -169,7 +169,7 @@ extension MovieView {
             Section {
                 ForEach(viewStore.movieDetails.movie.infoDictionary.sorted(by: <), id: \.key) { key, value in
                     VerticalKeyValueView(key: key, value: value)
-                        .transition(.slide.combined(with: .opacity))
+                        .transition(.slideAndFade)
                 }
             } header: {
                 SectionHeader(title: "Information")
