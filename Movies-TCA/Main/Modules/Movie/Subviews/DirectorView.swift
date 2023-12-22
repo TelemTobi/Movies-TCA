@@ -36,7 +36,7 @@ struct DirectorView: View {
                     .foregroundColor(.secondary)
                     .padding(.trailing, 5)
             }
-            .transition(.slide.combined(with: .opacity))
+            .transition(.slideAndFade)
         }
         .buttonStyle(.bordered)
         .frame(maxWidth: .infinity, alignment: .leading)

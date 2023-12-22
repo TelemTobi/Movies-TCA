@@ -9,33 +9,54 @@ import Foundation
 
 struct Movie: Decodable, Equatable, Identifiable {
     
+    let genreIds: [Int]?
+    let adult: Bool?
+    let backdropPath: String?
+    let budget: Int?
+    let genres: [Genre]?
+    let homepage: String?
     let id: Int?
-    let title: String?
+    let imdbId: String?
+    let originalLanguage: String?
+    let originalTitle: String?
     let overview: String?
-    let language: String?
     let popularity: Float?
     let posterPath: String?
-    let backdropPath: String?
+    let productionCountries: [ProductionCountry]?
     let releaseDate: Date?
+    let revenue: Int?
+    let runtime: Int?
+    let status: String?
+    let tagline: String?
+    let title: String?
+    let video: Bool?
     let voteAverage: Float?
     let voteCount: Int?
-    let hasTrailer: Bool?
-    let runtime: Int?
-    let tagline: String?
-    let isAdult: Bool?
-    let genres: [Genre]?
     
     enum CodingKeys: String, CodingKey {
-        case id, title, overview, runtime, tagline, popularity
-        case language = "original_language"
-        case posterPath = "poster_path"
+        case genreIds = "genre_ids"
+        case adult
         case backdropPath = "backdrop_path"
+        case budget
+        case genres
+        case homepage
+        case id
+        case imdbId = "imdb_id"
+        case originalLanguage = "original_language"
+        case originalTitle = "original_title"
+        case overview
+        case popularity
+        case posterPath = "poster_path"
+        case productionCountries = "production_countries"
         case releaseDate = "release_date"
+        case revenue
+        case runtime
+        case status
+        case tagline
+        case title
+        case video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
-        case hasTrailer = "video"
-        case isAdult = "adult"
-        case genres = "genres"
     }
     
     var voteAverageFormatted: String {
@@ -61,6 +82,19 @@ struct Movie: Decodable, Equatable, Identifiable {
     var backdropUrl: URL? {
         guard let backdropPath else { return nil }
         return .init(string: Config.TmdbApi.photoBaseUrl + "/w780/" + backdropPath)
+    }
+    
+    var infoDictionary: [String: String] {
+        [
+            "RELEASE DATE": releaseDate?.description(withFormat: .dMMMyyyy, locale: .english),
+            "RUNTIME": runtime?.durationInHoursAndMinutesLongFormat,
+            "GENRES": genres?.compactMap { $0.name }.joined(separator: ", "),
+            "STATUS": status,
+            "BUDGET": budget?.currencyFormatted(),
+            "REVENUE": revenue?.currencyFormatted(),
+            "ORIGINAL TITLE": originalTitle,
+            "COUNTRY": productionCountries?.first?.name
+        ].compactMapValues { $0 }
     }
 }
 

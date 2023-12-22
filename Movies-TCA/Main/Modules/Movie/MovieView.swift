@@ -44,8 +44,10 @@ struct MovieView: View {
                     LazyVStack(spacing: 10) {
                         CastSection()
                         DirectorSection()
-                        Color.primary.colorInvert().frame(height: 800)
+                        RelatedMoviesSection()
+                        InformationSection()
                     }
+                    .padding(.vertical, 5)
                 }
                 .environmentObject(viewStore)
                 .listStyle(.plain)
@@ -127,6 +129,52 @@ extension MovieView {
             } else {
                 EmptyView()
             }
+        }
+    }
+    
+    private struct RelatedMoviesSection: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
+        
+        var body: some View {
+            if let relatedMovies = viewStore.state.movieDetails.relatedMovies?.results, relatedMovies.isNotEmpty {
+                Section {
+                    MoviesCollectionView(
+                        movies: .init(uniqueElements: relatedMovies),
+                        onMovieTap: { movie in
+                            // TODO: Movie Tap
+                        }
+                    )
+                    .frame(height: 280)
+                } header: {
+                    SectionHeader(title: "Related")
+                        .padding(.horizontal)
+                }
+                
+                Divider()
+                    .padding(.vertical, 10)
+                    .padding(.horizontal)
+                
+            } else {
+                EmptyView()
+            }
+        }
+    }
+    
+    private struct InformationSection: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
+        
+        var body: some View {
+            Section {
+                ForEach(viewStore.movieDetails.movie.infoDictionary.sorted(by: <), id: \.key) { key, value in
+                    VerticalKeyValueView(key: key, value: value)
+                        .transition(.slideAndFade)
+                }
+            } header: {
+                SectionHeader(title: "Information")
+            }
+            .padding(.horizontal)
         }
     }
 }

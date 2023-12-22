@@ -23,7 +23,7 @@ struct CastMembersView: View {
                         ItemView(member: member)
                     }
                     .buttonStyle(.plain)
-                    .transition(.slide.combined(with: .opacity))
+                    .transition(.slideAndFade)
                 }
             }
             .padding(.horizontal)

@@ -16,6 +16,15 @@ extension Numeric {
         return formatter.string(from: Double(truncating: self as! NSNumber) as NSNumber) ?? ""
     }
     
+    func currencyFormatted(locale: Locale = .current, currencyCode: String? = "USD") -> String {
+        let formatter = NumberFormatter()
+        formatter.locale = locale
+        formatter.numberStyle = .currency
+        formatter.currencyCode = currencyCode
+        formatter.maximumFractionDigits = self is Int ? 0 : 2
+        return formatter.string(from: self as! NSNumber) ?? "\(self)"
+    }
+    
     var abbreviation: String {
         let num = Double(truncating: self as! NSNumber)
         let sign = ((num < 0) ? "-" : "" )
