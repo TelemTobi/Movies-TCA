@@ -16,8 +16,7 @@ struct TabItemFeature: Reducer {
         var search = SearchFeature.State()
         var watchlist = WatchlistFeature.State()
         
-        @PresentationState var presentedMovie: MovieFeature.State?
-        @PresentationState var preferences: PreferencesFeature.State?
+        @PresentationState var destination: Destination.State?
     }
     
     enum Action: Equatable {
@@ -25,10 +24,9 @@ struct TabItemFeature: Reducer {
         case discover(DiscoverFeature.Action)
         case search(SearchFeature.Action)
         case watchlist(WatchlistFeature.Action)
-        
-        case presentedMovie(PresentationAction<MovieFeature.Action>)
-        case preferences(PresentationAction<PreferencesFeature.Action>)
 
+        case destination(PresentationAction<Destination.Action>)
+        
         case setGenres(IdentifiedArrayOf<Genre>)
         case onPreferencesTap
     }
@@ -46,6 +44,25 @@ struct TabItemFeature: Reducer {
         var body: some ReducerOf<Self> {
             Scope(state: /State.moviesList, action: /Action.moviesList) {
                 MoviesListFeature()
+            }
+        }
+    }
+    
+    struct Destination: Reducer {
+        
+        enum State: Equatable {
+            case presentedMovie(MovieFeature.State)
+            case preferences(PreferencesFeature.State)
+        }
+        
+        enum Action: Equatable {
+            case presentedMovie(MovieFeature.Action)
+            case preferences(PreferencesFeature.Action)
+        }
+        
+        var body: some ReducerOf<Self> {
+            Scope(state: /State.presentedMovie, action: /Action.presentedMovie) {
+                MovieFeature()
             }
         }
     }
@@ -69,7 +86,7 @@ struct TabItemFeature: Reducer {
                 return .none
                 
             case let .discover(.onMovieTap(movie)), let .search(.onMovieTap(movie)):
-                state.presentedMovie = MovieFeature.State(movieDetails: .init(movie: movie))
+                state.destination = .presentedMovie(MovieFeature.State(movieDetails: .init(movie: movie)))
                 return .none
                 
             case let .discover(.onMoviesListTap(listType, movies)):
@@ -82,21 +99,18 @@ struct TabItemFeature: Reducer {
                 return .none
                 
             case .onPreferencesTap:
-                state.preferences = PreferencesFeature.State()
+                state.destination = .preferences(PreferencesFeature.State())
                 return .none
                 
-            case .discover, .search, .presentedMovie, .preferences:
+            case .discover, .search, .destination:
                 return .none
             }
         }
         .forEach(\.path, action: /Action.path) {
             Path()
         }
-        .ifLet(\.$presentedMovie, action: /Action.presentedMovie) {
-            MovieFeature()
-        }
-        .ifLet(\.$preferences, action: /Action.preferences) {
-            PreferencesFeature()
+        .ifLet(\.$destination, action: /Action.destination) {
+            Destination()
         }
     }
 }
