@@ -45,18 +45,22 @@ struct TabItemView: View {
             .toolbar(content: toolbarContent)
             .fullScreenCover(
                 store: store.scope(
-                    state: \.$presentedMovie,
-                    action: { .presentedMovie($0) }
+                    state: \.$destination,
+                    action: { .destination($0) }
                 ),
+                state: /TabItemFeature.Destination.State.presentedMovie,
+                action: TabItemFeature.Destination.Action.presentedMovie,
                 content: { movieStore in
                     MovieSheet(store: movieStore)
                 }
             )
             .sheet(
                 store: store.scope(
-                    state: \.$preferences,
-                    action: { .preferences($0) }
+                    state: \.$destination,
+                    action: { .destination($0) }
                 ),
+                state: /TabItemFeature.Destination.State.preferences,
+                action: TabItemFeature.Destination.Action.preferences,
                 content: { preferencesStore in
                     PreferencesSheet(store: preferencesStore)
                 }
