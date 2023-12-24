@@ -335,8 +335,13 @@
 			isa = PBXGroup;
 			children = (
 				7DE17E092B0415B6005F4848 /* Info.plist */,
-				7DE17DC72AFE049D005F4848 /* Main */,
-				7DE17DC82AFE04A6005F4848 /* Shared */,
+				7DE17DC92AFE04BD005F4848 /* App */,
+				7DE17DDC2B00B064005F4848 /* Models */,
+				7DE17DCE2AFE0528005F4848 /* Modules */,
+				7DE17DCC2AFE04FD005F4848 /* Networking */,
+				7DE17DCD2AFE050D005F4848 /* Support */,
+				7DE17DCB2AFE04F0005F4848 /* Utility */,
+				7DDA64552B0E7DA4008BF425 /* Views */,
 			);
 			path = "Movies-TCA";
 			sourceTree = "<group>";
@@ -420,27 +425,6 @@
 				7DDA64782B1095A6008BF425 /* SearchView.swift */,
 			);
 			path = Search;
-			sourceTree = "<group>";
-		};
-		7DE17DC72AFE049D005F4848 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				7DE17DC92AFE04BD005F4848 /* App */,
-				7DE17DCE2AFE0528005F4848 /* Modules */,
-				7DDA64552B0E7DA4008BF425 /* Views */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
-		7DE17DC82AFE04A6005F4848 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				7DE17DDC2B00B064005F4848 /* Model */,
-				7DE17DCC2AFE04FD005F4848 /* Networking */,
-				7DE17DCD2AFE050D005F4848 /* Support */,
-				7DE17DCB2AFE04F0005F4848 /* Utility */,
-			);
-			path = Shared;
 			sourceTree = "<group>";
 		};
 		7DE17DC92AFE04BD005F4848 /* App */ = {
@@ -554,7 +538,7 @@
 			path = Discover;
 			sourceTree = "<group>";
 		};
-		7DE17DDC2B00B064005F4848 /* Model */ = {
+		7DE17DDC2B00B064005F4848 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				7DA4DEF92B28F77600D8E292 /* Movie Details */,
@@ -563,7 +547,7 @@
 				7DC8D1592B1B793D00193A64 /* MoviesList.swift */,
 				7D7D83022B35637E00819A01 /* ProductionCountry.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		7DE17DE82B01470B005F4848 /* Splash */ = {
