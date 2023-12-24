@@ -380,14 +380,14 @@
 		7DDA64552B0E7DA4008BF425 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7DB688C72B32160A0007D98E /* CircularPersonImage.swift */,
+				7DB688C02B3032550007D98E /* DynamicSheet.swift */,
+				7DC8D15B2B1E3BB800193A64 /* MovieListItem.swift */,
 				7DDA646C2B0FC15D008BF425 /* MoviesCollectionView.swift */,
 				7DDA64562B0E7DB8008BF425 /* MoviesPagerView.swift */,
 				7DDA646E2B0FC2C1008BF425 /* SectionHeader.swift */,
-				7D77E62D2B15BCB500B308A6 /* TagCloudsView.swift */,
-				7DC8D15B2B1E3BB800193A64 /* MovieListItem.swift */,
 				7DB688AE2B2CF6930007D98E /* StretchyHeader.swift */,
-				7DB688C02B3032550007D98E /* DynamicSheet.swift */,
-				7DB688C72B32160A0007D98E /* CircularPersonImage.swift */,
+				7D77E62D2B15BCB500B308A6 /* TagCloudsView.swift */,
 				7D003EF62B35659800E03E50 /* VerticalKeyValueView.swift */,
 			);
 			path = Views;
@@ -411,9 +411,9 @@
 		7DDA64722B0FC328008BF425 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				7D003EF82B35676000E03E50 /* AnyTransition+Extension.swift */,
 				7DDA64702B0FC31D008BF425 /* EdgeInsets+Extension.swift */,
 				7DDA64732B0FC434008BF425 /* Font+Extension.swift */,
-				7D003EF82B35676000E03E50 /* AnyTransition+Extension.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -505,9 +505,9 @@
 		7DE17DD02AFE0553005F4848 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				7DB688BE2B2E190A0007D98E /* DynamicSheetHeight.swift */,
 				7DE17DD32AFE0BC1005F4848 /* OnFirstAppear.swift */,
 				7DB688B02B2CF6E80007D98E /* ScrollViewOffset.swift */,
-				7DB688BE2B2E190A0007D98E /* DynamicSheetHeight.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -541,11 +541,11 @@
 		7DE17DDC2B00B064005F4848 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7DA4DEF92B28F77600D8E292 /* Movie Details */,
 				7DE17DEF2B01F6A2005F4848 /* Genre.swift */,
 				7DE17DDD2B00B073005F4848 /* Movie.swift */,
 				7DC8D1592B1B793D00193A64 /* MoviesList.swift */,
 				7D7D83022B35637E00819A01 /* ProductionCountry.swift */,
+				7DA4DEF92B28F77600D8E292 /* Movie Details */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -576,12 +576,12 @@
 				7DDA644E2B0AB02C008BF425 /* Data+Extension.swift */,
 				7DDA64532B0DD407008BF425 /* Date+Extension.swift */,
 				7DB688BA2B2D7D670007D98E /* Int+Extension.swift */,
+				7D7D83002B355FCC00819A01 /* Locale+Extension.swift */,
 				7D513F802B1A3D810040F913 /* Numeric+Extension.swift */,
 				7DB688AC2B2CF4FF0007D98E /* ProcessInfo+Extension.swift */,
 				7DDA643F2B094635008BF425 /* Result+Extension.swift */,
 				7DE17E032B0413A1005F4848 /* String+Extension.swift */,
 				7DDA644C2B0AB023008BF425 /* URLRequest+Extension.swift */,
-				7D7D83002B355FCC00819A01 /* Locale+Extension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
