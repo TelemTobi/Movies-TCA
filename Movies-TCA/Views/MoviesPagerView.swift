@@ -100,5 +100,9 @@ struct MoviesPagerView: View {
 }
 
 #Preview {
-    MoviesPagerView(movies: [], onMovieTap: { _ in })
+    MoviesPagerView(
+        movies: .init(uniqueElements: MoviesList.mock.results ?? []),
+        onMovieTap: { _ in }
+    )
+    .frame(height: 260)
 }
