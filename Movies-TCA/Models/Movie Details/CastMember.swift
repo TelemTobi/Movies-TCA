@@ -28,13 +28,3 @@ struct CastMember: Person, Decodable, Equatable, Identifiable {
         return .init(string: Config.TmdbApi.photoBaseUrl + "/original/" + profilePath)
     }
 }
-
-extension CastMember {
-    
-    static var mock: CastMember {
-        guard let castMember = MovieDetails.mock.credits?.cast?.randomElement() else {
-            fatalError("CastMember mock decoding error")
-        }
-        return castMember
-    }
-}

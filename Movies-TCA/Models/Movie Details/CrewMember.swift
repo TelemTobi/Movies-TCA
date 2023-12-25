@@ -27,13 +27,3 @@ struct CrewMember: Person, Decodable, Equatable {
         return .init(string: Config.TmdbApi.photoBaseUrl + "/original/" + profilePath)
     }
 }
-
-extension CrewMember {
-    
-    static var mock: CrewMember {
-        guard let crewMember = MovieDetails.mock.credits?.crew?.randomElement() else {
-            fatalError("CrewMember mock decoding error")
-        }
-        return crewMember
-    }
-}
