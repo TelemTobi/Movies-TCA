@@ -105,6 +105,16 @@
 		7DE17E1F2B068C60005F4848 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E1E2B068C60005F4848 /* Endpoint.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7D783B282B3F2719004BEEAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7DD6D9622AF943B7004828AB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DD6D9692AF943B7004828AB;
+			remoteInfo = "Movies-TCA";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		7D003EF62B35659800E03E50 /* VerticalKeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalKeyValueView.swift; sourceTree = "<group>"; };
 		7D003EF82B35676000E03E50 /* AnyTransition+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyTransition+Extension.swift"; sourceTree = "<group>"; };
@@ -125,6 +135,7 @@
 		7D783B1A2B3A14D9004BEEAD /* CastMember+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CastMember+Preview.swift"; sourceTree = "<group>"; };
 		7D783B1C2B3A14F5004BEEAD /* CrewMember+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CrewMember+Preview.swift"; sourceTree = "<group>"; };
 		7D783B1E2B3A1538004BEEAD /* MoviesList+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesList+Preview.swift"; sourceTree = "<group>"; };
+		7D783B242B3F2719004BEEAD /* Movies-TCA-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Movies-TCA-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D7D83002B355FCC00819A01 /* Locale+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+Extension.swift"; sourceTree = "<group>"; };
 		7D7D83022B35637E00819A01 /* ProductionCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionCountry.swift; sourceTree = "<group>"; };
 		7D810E3D2B2B9967004A67AB /* MovieDetailsJsonResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsJsonResolver.swift; sourceTree = "<group>"; };
@@ -205,6 +216,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7D783B212B3F2719004BEEAD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7DD6D9672AF943B7004828AB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -279,6 +297,13 @@
 			path = "Button Styles";
 			sourceTree = "<group>";
 		};
+		7D783B252B3F2719004BEEAD /* Movies-TCA-Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Movies-TCA-Tests";
+			sourceTree = "<group>";
+		};
 		7D810E3C2B2B9945004A67AB /* JsonResolvers */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				7DD6D96C2AF943B7004828AB /* Movies-TCA */,
+				7D783B252B3F2719004BEEAD /* Movies-TCA-Tests */,
 				7DD6D96B2AF943B7004828AB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -337,6 +363,7 @@
 			isa = PBXGroup;
 			children = (
 				7DD6D96A2AF943B7004828AB /* Movies-TCA.app */,
+				7D783B242B3F2719004BEEAD /* Movies-TCA-Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -626,6 +653,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7D783B232B3F2719004BEEAD /* Movies-TCA-Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D783B2A2B3F2719004BEEAD /* Build configuration list for PBXNativeTarget "Movies-TCA-Tests" */;
+			buildPhases = (
+				7D783B202B3F2719004BEEAD /* Sources */,
+				7D783B212B3F2719004BEEAD /* Frameworks */,
+				7D783B222B3F2719004BEEAD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7D783B292B3F2719004BEEAD /* PBXTargetDependency */,
+			);
+			name = "Movies-TCA-Tests";
+			productName = "Movies-TCA-Tests";
+			productReference = 7D783B242B3F2719004BEEAD /* Movies-TCA-Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7DD6D9692AF943B7004828AB /* Movies-TCA */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7DD6D9782AF943B8004828AB /* Build configuration list for PBXNativeTarget "Movies-TCA" */;
@@ -657,6 +702,10 @@
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					7D783B232B3F2719004BEEAD = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 7DD6D9692AF943B7004828AB;
+					};
 					7DD6D9692AF943B7004828AB = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -680,11 +729,19 @@
 			projectRoot = "";
 			targets = (
 				7DD6D9692AF943B7004828AB /* Movies-TCA */,
+				7D783B232B3F2719004BEEAD /* Movies-TCA-Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7D783B222B3F2719004BEEAD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7DD6D9682AF943B7004828AB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -707,6 +764,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7D783B202B3F2719004BEEAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7DD6D9662AF943B7004828AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -798,7 +862,51 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7D783B292B3F2719004BEEAD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DD6D9692AF943B7004828AB /* Movies-TCA */;
+			targetProxy = 7D783B282B3F2719004BEEAD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		7D783B2B2B3F2719004BEEAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 765F9357QN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tt.Movies-TCA-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Movies-TCA.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Movies-TCA";
+			};
+			name = Debug;
+		};
+		7D783B2C2B3F2719004BEEAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 765F9357QN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tt.Movies-TCA-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Movies-TCA.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Movies-TCA";
+			};
+			name = Release;
+		};
 		7DD6D9762AF943B8004828AB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7DE17E062B0413CB005F4848 /* Debug.xcconfig */;
@@ -989,6 +1097,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7D783B2A2B3F2719004BEEAD /* Build configuration list for PBXNativeTarget "Movies-TCA-Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D783B2B2B3F2719004BEEAD /* Debug */,
+				7D783B2C2B3F2719004BEEAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7DD6D9652AF943B7004828AB /* Build configuration list for PBXProject "Movies-TCA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
