@@ -74,5 +74,9 @@ struct MoviesCollectionView: View {
 }
 
 #Preview {
-    MoviesCollectionView(movies: [.mock, .mock, .mock], onMovieTap: { _ in })
+    MoviesCollectionView(
+        movies: .init(uniqueElements: MoviesList.mock.results ?? []),
+        onMovieTap: { _ in }
+    )
+    .frame(height: 280)
 }
