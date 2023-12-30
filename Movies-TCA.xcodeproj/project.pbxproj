@@ -26,6 +26,8 @@
 		7D783B1B2B3A14D9004BEEAD /* CastMember+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D783B1A2B3A14D9004BEEAD /* CastMember+Preview.swift */; };
 		7D783B1D2B3A14F5004BEEAD /* CrewMember+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D783B1C2B3A14F5004BEEAD /* CrewMember+Preview.swift */; };
 		7D783B1F2B3A1538004BEEAD /* MoviesList+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D783B1E2B3A1538004BEEAD /* MoviesList+Preview.swift */; };
+		7D783B2E2B3F2775004BEEAD /* RootTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D783B2D2B3F2775004BEEAD /* RootTests.swift */; };
+		7D783B302B3F2F17004BEEAD /* Genres+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D783B2F2B3F2F17004BEEAD /* Genres+Preview.swift */; };
 		7D7D83012B355FCC00819A01 /* Locale+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D83002B355FCC00819A01 /* Locale+Extension.swift */; };
 		7D7D83032B35637E00819A01 /* ProductionCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D83022B35637E00819A01 /* ProductionCountry.swift */; };
 		7D810E3E2B2B9967004A67AB /* MovieDetailsJsonResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D810E3D2B2B9967004A67AB /* MovieDetailsJsonResolver.swift */; };
@@ -136,6 +138,8 @@
 		7D783B1C2B3A14F5004BEEAD /* CrewMember+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CrewMember+Preview.swift"; sourceTree = "<group>"; };
 		7D783B1E2B3A1538004BEEAD /* MoviesList+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesList+Preview.swift"; sourceTree = "<group>"; };
 		7D783B242B3F2719004BEEAD /* Movies-TCA-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Movies-TCA-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D783B2D2B3F2775004BEEAD /* RootTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTests.swift; sourceTree = "<group>"; };
+		7D783B2F2B3F2F17004BEEAD /* Genres+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Genres+Preview.swift"; sourceTree = "<group>"; };
 		7D7D83002B355FCC00819A01 /* Locale+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+Extension.swift"; sourceTree = "<group>"; };
 		7D7D83022B35637E00819A01 /* ProductionCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionCountry.swift; sourceTree = "<group>"; };
 		7D810E3D2B2B9967004A67AB /* MovieDetailsJsonResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsJsonResolver.swift; sourceTree = "<group>"; };
@@ -300,6 +304,7 @@
 		7D783B252B3F2719004BEEAD /* Movies-TCA-Tests */ = {
 			isa = PBXGroup;
 			children = (
+				7D783B2D2B3F2775004BEEAD /* RootTests.swift */,
 			);
 			path = "Movies-TCA-Tests";
 			sourceTree = "<group>";
@@ -387,11 +392,12 @@
 			isa = PBXGroup;
 			children = (
 				7DD6D9742AF943B8004828AB /* Preview Assets.xcassets */,
-				7D783B162B3A14A2004BEEAD /* Movie+Preview.swift */,
-				7D783B1E2B3A1538004BEEAD /* MoviesList+Preview.swift */,
-				7D783B182B3A14C1004BEEAD /* MovieDetails+Preview.swift */,
 				7D783B1A2B3A14D9004BEEAD /* CastMember+Preview.swift */,
 				7D783B1C2B3A14F5004BEEAD /* CrewMember+Preview.swift */,
+				7D783B2F2B3F2F17004BEEAD /* Genres+Preview.swift */,
+				7D783B162B3A14A2004BEEAD /* Movie+Preview.swift */,
+				7D783B182B3A14C1004BEEAD /* MovieDetails+Preview.swift */,
+				7D783B1E2B3A1538004BEEAD /* MoviesList+Preview.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -704,6 +710,7 @@
 				TargetAttributes = {
 					7D783B232B3F2719004BEEAD = {
 						CreatedOnToolsVersion = 15.0;
+						LastSwiftMigration = 1500;
 						TestTargetID = 7DD6D9692AF943B7004828AB;
 					};
 					7DD6D9692AF943B7004828AB = {
@@ -768,6 +775,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D783B2E2B3F2775004BEEAD /* RootTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,6 +808,7 @@
 				7DB688BF2B2E190A0007D98E /* DynamicSheetHeight.swift in Sources */,
 				7DE17E142B068B72005F4848 /* NetworkManager.swift in Sources */,
 				7DDA64712B0FC31D008BF425 /* EdgeInsets+Extension.swift in Sources */,
+				7D783B302B3F2F17004BEEAD /* Genres+Preview.swift in Sources */,
 				7D77E6322B16551700B308A6 /* TagButtonStyle.swift in Sources */,
 				7DDA64592B0E8780008BF425 /* Constants.swift in Sources */,
 				7DE17E042B0413A1005F4848 /* String+Extension.swift in Sources */,
@@ -875,6 +884,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 765F9357QN;
@@ -883,6 +893,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tt.Movies-TCA-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Movies-TCA.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Movies-TCA";
@@ -893,6 +904,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 765F9357QN;
