@@ -18,31 +18,28 @@ struct HomeView: View {
             WithViewStore(store, observe: \.selectedTab) { viewStore in
                 TabView(selection: viewStore.binding(send: HomeFeature.Action.onTabSelection)) {
                     
-                    TabItemView(
-                        type: .discover,
+                    DiscoverView(
                         store: store.scope(
-                            state: \.discoverTabItem,
-                            action: { .discoverTabItem($0) }
+                            state: \.discover,
+                            action: { .discover($0) }
                         )
                     )
                     .tabItem { Label("Discover", systemImage: "globe") }
                     .tag(HomeFeature.Tab.discover)
                     
-                    TabItemView(
-                        type: .search,
+                    SearchView(
                         store: store.scope(
-                            state: \.searchTabItem,
-                            action: { .searchTabItem($0) }
+                            state: \.search,
+                            action: { .search($0) }
                         )
                     )
                     .tabItem { Label("Search", systemImage: "magnifyingglass") }
                     .tag(HomeFeature.Tab.search)
                     
-                    TabItemView(
-                        type: .watchlist,
+                    WatchlistView(
                         store: store.scope(
-                            state: \.watchlistTabItem,
-                            action: { .watchlistTabItem($0) }
+                            state: \.watchlist,
+                            action: { .watchlist($0) }
                         )
                     )
                     .tabItem { Label("Watchlist", systemImage: "popcorn") }

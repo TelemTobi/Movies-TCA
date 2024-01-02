@@ -15,9 +15,9 @@ struct HomeFeature: Reducer {
         @PresentationState var destination: Destination.State?
         
         var selectedTab: Tab = .discover
-        var discoverTabItem = TabItemFeature.State()
-        var searchTabItem = TabItemFeature.State()
-        var watchlistTabItem = TabItemFeature.State()
+        var discover = DiscoverFeature.State()
+        var search = SearchFeature.State()
+        var watchlist = WatchlistFeature.State()
         
     }
     
@@ -28,12 +28,11 @@ struct HomeFeature: Reducer {
         case onFirstAppear
         case onTabSelection(Tab)
         case onPreferencesTap
+        case setGenres(IdentifiedArrayOf<Genre>)
         
-        case discoverTabItem(TabItemFeature.Action)
-        case searchTabItem(TabItemFeature.Action)
-        case watchlistTabItem(TabItemFeature.Action)
-        
-        
+        case discover(DiscoverFeature.Action)
+        case search(SearchFeature.Action)
+        case watchlist(WatchlistFeature.Action)        
     }
     
     struct Path: Reducer {
@@ -73,16 +72,16 @@ struct HomeFeature: Reducer {
     }
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.discoverTabItem, action: /Action.discoverTabItem) {
-            TabItemFeature()
+        Scope(state: \.discover, action: /Action.discover) {
+            DiscoverFeature()
+        }
+
+        Scope(state: \.search, action: /Action.search) {
+            SearchFeature()
         }
         
-        Scope(state: \.searchTabItem, action: /Action.searchTabItem) {
-            TabItemFeature()
-        }
-        
-        Scope(state: \.watchlistTabItem, action: /Action.watchlistTabItem) {
-            TabItemFeature()
+        Scope(state: \.watchlist, action: /Action.watchlist) {
+            WatchlistFeature()
         }
         
         Reduce { state, action in
@@ -98,7 +97,20 @@ struct HomeFeature: Reducer {
                 state.destination = .preferences(PreferencesFeature.State())
                 return .none
                 
-            case .path, .destination, .discoverTabItem, .searchTabItem, .watchlistTabItem:
+            case let .setGenres(genres):
+                state.search.genres = genres
+                return .none
+                
+            case let .discover(.onMovieTap(movie)), let .search(.onMovieTap(movie)):
+                state.destination = .presentedMovie(MovieFeature.State(movieDetails: .init(movie: movie)))
+                return .none
+                
+            case let .discover(.onMoviesListTap(listType, movies)):
+                let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
+                state.path.append(.moviesList(moviesListState))
+                return .none
+                
+            case .path, .destination, .discover, .search, .watchlist:
                 return .none
             }
         }
