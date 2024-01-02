@@ -11,60 +11,17 @@ import ComposableArchitecture
 struct TabItemFeature: Reducer {
     
     struct State: Equatable {
-        var path = StackState<Path.State>()
         var discover = DiscoverFeature.State()
         var search = SearchFeature.State()
         var watchlist = WatchlistFeature.State()
-        
-        @PresentationState var destination: Destination.State?
     }
     
     enum Action: Equatable {
-        case path(StackAction<Path.State, Path.Action>)
         case discover(DiscoverFeature.Action)
         case search(SearchFeature.Action)
         case watchlist(WatchlistFeature.Action)
 
-        case destination(PresentationAction<Destination.Action>)
-        
         case setGenres(IdentifiedArrayOf<Genre>)
-        case onPreferencesTap
-    }
-    
-    struct Path: Reducer {
-        
-        enum State: Equatable {
-            case moviesList(MoviesListFeature.State)
-        }
-        
-        enum Action: Equatable {
-            case moviesList(MoviesListFeature.Action)
-        }
-        
-        var body: some ReducerOf<Self> {
-            Scope(state: /State.moviesList, action: /Action.moviesList) {
-                MoviesListFeature()
-            }
-        }
-    }
-    
-    struct Destination: Reducer {
-        
-        enum State: Equatable {
-            case presentedMovie(MovieFeature.State)
-            case preferences(PreferencesFeature.State)
-        }
-        
-        enum Action: Equatable {
-            case presentedMovie(MovieFeature.Action)
-            case preferences(PreferencesFeature.Action)
-        }
-        
-        var body: some ReducerOf<Self> {
-            Scope(state: /State.presentedMovie, action: /Action.presentedMovie) {
-                MovieFeature()
-            }
-        }
     }
     
     var body: some ReducerOf<Self> {
@@ -82,35 +39,23 @@ struct TabItemFeature: Reducer {
         
         Reduce { state, action in
             switch action {
-            case .path:
-                return .none
                 
             case let .discover(.onMovieTap(movie)), let .search(.onMovieTap(movie)):
-                state.destination = .presentedMovie(MovieFeature.State(movieDetails: .init(movie: movie)))
+//                state.destination = .presentedMovie(MovieFeature.State(movieDetails: .init(movie: movie)))
                 return .none
                 
             case let .discover(.onMoviesListTap(listType, movies)):
-                let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
-                state.path.append(.moviesList(moviesListState))
+//                let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
+//                state.path.append(.moviesList(moviesListState))
                 return .none
                 
             case let .setGenres(genres):
                 state.search.genres = genres
                 return .none
                 
-            case .onPreferencesTap:
-                state.destination = .preferences(PreferencesFeature.State())
-                return .none
-                
-            case .discover, .search, .destination:
+            case .discover, .search:
                 return .none
             }
-        }
-        .forEach(\.path, action: /Action.path) {
-            Path()
-        }
-        .ifLet(\.$destination, action: /Action.destination) {
-            Destination()
         }
     }
 }
