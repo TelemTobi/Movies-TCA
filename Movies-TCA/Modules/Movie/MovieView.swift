@@ -142,7 +142,7 @@ extension MovieView {
                     MoviesCollectionView(
                         movies: .init(uniqueElements: relatedMovies),
                         onMovieTap: { movie in
-                            // TODO: Movie Tap
+                            viewStore.send(.onRelatedMovieTap(movie))
                         }
                     )
                     .frame(height: 280)

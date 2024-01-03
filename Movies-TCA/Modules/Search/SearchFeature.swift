@@ -24,8 +24,10 @@ struct SearchFeature: Reducer {
     
     enum Action: Equatable, BindableAction {
         case onFirstAppear
+        case onPreferencesTap
         case onMovieTap(_ movie: Movie)
         case onGenreTap(_ genre: Genre)
+        
         case searchMovies(_ query: String)
         case searchResponse(Result<MoviesList, TmdbError>)
         
@@ -106,7 +108,7 @@ struct SearchFeature: Reducer {
                 return .none
                 
             // MARK: Handled in parent feature
-            case .onMovieTap:
+            case .onPreferencesTap, .onMovieTap:
                 return .none
             }
         }

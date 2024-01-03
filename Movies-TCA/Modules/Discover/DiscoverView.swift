@@ -13,21 +13,46 @@ struct DiscoverView: View {
     let store: StoreOf<DiscoverFeature>
     
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            ZStack {
-                if viewStore.isLoading {
-                    ProgressView()
-                } else {
-                    GeometryReader { geometry in
-                        ContentView(geometry: geometry)
-                            .environmentObject(viewStore)
+        NavigationStackStore(store.scope(state: \.path, action: { .path($0) })) {
+            WithViewStore(store, observe: { $0 }) { viewStore in
+                ZStack {
+                    if viewStore.isLoading {
+                        ProgressView()
+                    } else {
+                        GeometryReader { geometry in
+                            ContentView(geometry: geometry)
+                                .environmentObject(viewStore)
+                        }
                     }
                 }
+                .navigationTitle("Discover")
+                .animation(.easeInOut, value: viewStore.isLoading)
+                .onFirstAppear {
+                    viewStore.send(.onFirstAppear)
+                }
             }
-            .navigationTitle("Discover")
-            .animation(.easeInOut, value: viewStore.isLoading)
-            .onFirstAppear {
-                viewStore.send(.onFirstAppear)
+            .toolbar(content: toolbarContent)
+            
+        } destination: { state in
+            switch state {
+            case .moviesList:
+                CaseLet(
+                    /DiscoverFeature.Path.State.moviesList,
+                    action: DiscoverFeature.Path.Action.moviesList,
+                    then: MoviesListView.init(store:)
+                )
+            }
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                store.send(.onPreferencesTap)
+            } label: {
+                Image(systemName: "gear")
+                    .foregroundColor(.accentColor)
             }
         }
     }

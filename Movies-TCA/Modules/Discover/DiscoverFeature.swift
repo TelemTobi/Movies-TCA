@@ -11,18 +11,41 @@ import ComposableArchitecture
 struct DiscoverFeature: Reducer {
     
     struct State: Equatable {
+        var path = StackState<Path.State>()
+        
         var isLoading = true
         var movies: [MoviesList.ListType: IdentifiedArrayOf<Movie>] = [:]
     }
     
     enum Action: Equatable {
+        case path(StackAction<Path.State, Path.Action>)
+        
         case onFirstAppear
+        case onPreferencesTap
+        case onMovieTap(_ movie: Movie)
+        case onMoviesListTap(_ listType: MoviesList.ListType, _ movies: IdentifiedArrayOf<Movie>)
+        
         case loadMovies
         case moviesListLoaded(type: MoviesList.ListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
         
-        case onMovieTap(_ movie: Movie)
-        case onMoviesListTap(_ listType: MoviesList.ListType, _ movies: IdentifiedArrayOf<Movie>)
+    }
+    
+    struct Path: Reducer {
+        
+        enum State: Equatable {
+            case moviesList(MoviesListFeature.State)
+        }
+        
+        enum Action: Equatable {
+            case moviesList(MoviesListFeature.Action)
+        }
+        
+        var body: some ReducerOf<Self> {
+            Scope(state: /State.moviesList, action: /Action.moviesList) {
+                MoviesListFeature()
+            }
+        }
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
@@ -68,10 +91,21 @@ struct DiscoverFeature: Reducer {
                 state.isLoading = false
                 return .none
                 
+            case let .onMoviesListTap(listType, movies):
+                let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
+                state.path.append(.moviesList(moviesListState))
+                return .none
+                
+            case .path:
+                return .none
+                
             // MARK: Handled in parent feature
-            case .onMovieTap, .onMoviesListTap:
+            case .onPreferencesTap, .onMovieTap:
                 return .none
             }
+        }
+        .forEach(\.path, action: /Action.path) {
+            Path()
         }
     }
 }
