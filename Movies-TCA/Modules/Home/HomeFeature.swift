@@ -11,7 +11,6 @@ import ComposableArchitecture
 struct HomeFeature: Reducer {
     
     struct State: Equatable {
-        var path = StackState<Path.State>()
         @PresentationState var destination: Destination.State?
         
         var selectedTab: Tab = .discover
@@ -22,7 +21,6 @@ struct HomeFeature: Reducer {
     }
     
     enum Action: Equatable {
-        case path(StackAction<Path.State, Path.Action>)
         case destination(PresentationAction<Destination.Action>)
         
         case onFirstAppear
@@ -33,23 +31,6 @@ struct HomeFeature: Reducer {
         case discover(DiscoverFeature.Action)
         case search(SearchFeature.Action)
         case watchlist(WatchlistFeature.Action)        
-    }
-    
-    struct Path: Reducer {
-        
-        enum State: Equatable {
-            case moviesList(MoviesListFeature.State)
-        }
-        
-        enum Action: Equatable {
-            case moviesList(MoviesListFeature.Action)
-        }
-        
-        var body: some ReducerOf<Self> {
-            Scope(state: /State.moviesList, action: /Action.moviesList) {
-                MoviesListFeature()
-            }
-        }
     }
     
     struct Destination: Reducer {
@@ -105,17 +86,9 @@ struct HomeFeature: Reducer {
                 state.destination = .presentedMovie(MovieFeature.State(movieDetails: .init(movie: movie)))
                 return .none
                 
-            case let .discover(.onMoviesListTap(listType, movies)):
-                let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
-                state.path.append(.moviesList(moviesListState))
-                return .none
-                
-            case .path, .destination, .discover, .search, .watchlist:
+            case .destination, .discover, .search, .watchlist:
                 return .none
             }
-        }
-        .forEach(\.path, action: /Action.path) {
-            Path()
         }
         .ifLet(\.$destination, action: /Action.destination) {
             Destination()

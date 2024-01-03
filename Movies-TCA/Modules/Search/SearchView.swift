@@ -13,23 +13,25 @@ struct SearchView: View {
     let store: StoreOf<SearchFeature>
     
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            ZStack {
-                if viewStore.isLoading {
-                    ProgressView()
-                } else {
-                    ContentView()
-                        .environmentObject(viewStore)
+        NavigationStack {
+            WithViewStore(store, observe: { $0 }) { viewStore in
+                ZStack {
+                    if viewStore.isLoading {
+                        ProgressView()
+                    } else {
+                        ContentView()
+                            .environmentObject(viewStore)
+                    }
                 }
-            }
-            .navigationTitle("Search")
-            .searchable(
-                text: viewStore.$searchInput,
-                prompt: "Explore movies"
-            )
-            .animation(.easeInOut, value: viewStore.isLoading)
-            .onFirstAppear {
-                viewStore.send(.onFirstAppear)
+                .navigationTitle("Search")
+                .searchable(
+                    text: viewStore.$searchInput,
+                    prompt: "Explore movies"
+                )
+                .animation(.easeInOut, value: viewStore.isLoading)
+                .onFirstAppear {
+                    viewStore.send(.onFirstAppear)
+                }
             }
         }
     }

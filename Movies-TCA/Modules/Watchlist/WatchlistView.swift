@@ -13,16 +13,18 @@ struct WatchlistView: View {
     let store: StoreOf<WatchlistFeature>
     
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            List {
-                Text("WIP")
-                    .foregroundStyle(.secondary)
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
+        NavigationStack {
+            WithViewStore(store, observe: { $0 }) { viewStore in
+                List {
+                    Text("WIP")
+                        .foregroundStyle(.secondary)
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                }
+                .listStyle(.grouped)
             }
-            .listStyle(.grouped)
+            .navigationTitle("Watchlist")
         }
-        .navigationTitle("Watchlist")
     }
 }
 
