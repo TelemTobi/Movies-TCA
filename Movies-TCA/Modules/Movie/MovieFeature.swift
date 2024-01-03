@@ -16,9 +16,11 @@ struct MovieFeature: Reducer {
     
     enum Action: Equatable {
         case onFirstAppear
+        case onCloseButtonTap
+        case onRelatedMovieTap(_ movie: Movie)
+        
         case loadExtendedDetails
         case movieDetailsLoaded(Result<MovieDetails, TmdbError>)
-        case onCloseButtonTap
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
@@ -49,6 +51,9 @@ struct MovieFeature: Reducer {
                 
             case .onCloseButtonTap:
                 return .run { _ in await self.dismiss() }
+                
+            case .onRelatedMovieTap:
+                return .none // TODO: ⚠️
             }
         }
     }

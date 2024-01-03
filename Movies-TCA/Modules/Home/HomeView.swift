@@ -51,8 +51,8 @@ struct HomeView: View {
                     state: \.$destination,
                     action: { .destination($0) }
                 ),
-                state: /HomeFeature.Destination.State.presentedMovie,
-                action: HomeFeature.Destination.Action.presentedMovie,
+                state: /HomeFeature.Destination.State.movie,
+                action: HomeFeature.Destination.Action.movie,
                 content: { movieStore in
                     MovieSheet(store: movieStore)
                 }

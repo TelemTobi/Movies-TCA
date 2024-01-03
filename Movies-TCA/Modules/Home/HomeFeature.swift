@@ -28,23 +28,23 @@ struct HomeFeature: Reducer {
         
         case discover(DiscoverFeature.Action)
         case search(SearchFeature.Action)
-        case watchlist(WatchlistFeature.Action)        
+        case watchlist(WatchlistFeature.Action)
     }
     
     struct Destination: Reducer {
         
         enum State: Equatable {
-            case presentedMovie(MovieFeature.State)
+            case movie(MovieFeature.State)
             case preferences(PreferencesFeature.State)
         }
         
         enum Action: Equatable {
-            case presentedMovie(MovieFeature.Action)
+            case movie(MovieFeature.Action)
             case preferences(PreferencesFeature.Action)
         }
         
         var body: some ReducerOf<Self> {
-            Scope(state: /State.presentedMovie, action: /Action.presentedMovie) {
+            Scope(state: /State.movie, action: /Action.movie) {
                 MovieFeature()
             }
         }
@@ -54,7 +54,7 @@ struct HomeFeature: Reducer {
         Scope(state: \.discover, action: /Action.discover) {
             DiscoverFeature()
         }
-
+        
         Scope(state: \.search, action: /Action.search) {
             SearchFeature()
         }
@@ -72,7 +72,9 @@ struct HomeFeature: Reducer {
                 state.selectedTab = tab
                 return .none
                 
-            case .discover(.onPreferencesTap), .search(.onPreferencesTap), .watchlist(.onPreferencesTap):
+            case .discover(.onPreferencesTap),
+                 .search(.onPreferencesTap),
+                 .watchlist(.onPreferencesTap):
                 state.destination = .preferences(PreferencesFeature.State())
                 return .none
                 
@@ -80,8 +82,10 @@ struct HomeFeature: Reducer {
                 state.search.genres = genres
                 return .none
                 
-            case let .discover(.onMovieTap(movie)), let .search(.onMovieTap(movie)):
-                state.destination = .presentedMovie(MovieFeature.State(movieDetails: .init(movie: movie)))
+            case let .discover(.onMovieTap(movie)),
+                 let .search(.onMovieTap(movie)),
+                 let .watchlist(.onMovieTap(movie)):
+                state.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
                 return .none
                 
             case .destination, .discover, .search, .watchlist:
