@@ -43,8 +43,6 @@ struct HomeView: View {
                 .tabItem { Label("Watchlist", systemImage: "popcorn") }
                 .tag(HomeFeature.Tab.watchlist)
             }
-            .toolbar(content: toolbarContent)
-            .navigationTitle(viewStore.state.title)
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
             }
@@ -70,18 +68,6 @@ struct HomeView: View {
                     PreferencesSheet(store: preferencesStore)
                 }
             )
-        }
-    }
-    
-    @ToolbarContentBuilder
-    private func toolbarContent() -> some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                store.send(.onPreferencesTap)
-            } label: {
-                Image(systemName: "gear")
-                    .foregroundColor(.accentColor)
-            }
         }
     }
     

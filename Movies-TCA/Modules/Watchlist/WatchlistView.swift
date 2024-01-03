@@ -24,6 +24,19 @@ struct WatchlistView: View {
                 .listStyle(.grouped)
             }
             .navigationTitle("Watchlist")
+            .toolbar(content: toolbarContent)
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                store.send(.onPreferencesTap)
+            } label: {
+                Image(systemName: "gear")
+                    .foregroundColor(.accentColor)
+            }
         }
     }
 }

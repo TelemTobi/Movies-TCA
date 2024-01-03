@@ -31,6 +31,8 @@ struct DiscoverView: View {
                     viewStore.send(.onFirstAppear)
                 }
             }
+            .toolbar(content: toolbarContent)
+            
         } destination: { state in
             switch state {
             case .moviesList:
@@ -39,6 +41,18 @@ struct DiscoverView: View {
                     action: DiscoverFeature.Path.Action.moviesList,
                     then: MoviesListView.init(store:)
                 )
+            }
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                store.send(.onPreferencesTap)
+            } label: {
+                Image(systemName: "gear")
+                    .foregroundColor(.accentColor)
             }
         }
     }

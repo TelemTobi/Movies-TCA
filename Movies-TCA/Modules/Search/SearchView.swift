@@ -24,14 +24,27 @@ struct SearchView: View {
                     }
                 }
                 .navigationTitle("Search")
+                .toolbar(content: toolbarContent)
+                .animation(.easeInOut, value: viewStore.isLoading)
                 .searchable(
                     text: viewStore.$searchInput,
                     prompt: "Explore movies"
                 )
-                .animation(.easeInOut, value: viewStore.isLoading)
                 .onFirstAppear {
                     viewStore.send(.onFirstAppear)
                 }
+            }
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                store.send(.onPreferencesTap)
+            } label: {
+                Image(systemName: "gear")
+                    .foregroundColor(.accentColor)
             }
         }
     }

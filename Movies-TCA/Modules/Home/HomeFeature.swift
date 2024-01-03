@@ -17,7 +17,6 @@ struct HomeFeature: Reducer {
         var discover = DiscoverFeature.State()
         var search = SearchFeature.State()
         var watchlist = WatchlistFeature.State()
-        
     }
     
     enum Action: Equatable {
@@ -25,7 +24,6 @@ struct HomeFeature: Reducer {
         
         case onFirstAppear
         case onTabSelection(Tab)
-        case onPreferencesTap
         case setGenres(IdentifiedArrayOf<Genre>)
         
         case discover(DiscoverFeature.Action)
@@ -74,7 +72,7 @@ struct HomeFeature: Reducer {
                 state.selectedTab = tab
                 return .none
                 
-            case .onPreferencesTap:
+            case .discover(.onPreferencesTap), .search(.onPreferencesTap), .watchlist(.onPreferencesTap):
                 state.destination = .preferences(PreferencesFeature.State())
                 return .none
                 

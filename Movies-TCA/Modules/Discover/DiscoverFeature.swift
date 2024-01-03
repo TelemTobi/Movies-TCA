@@ -21,12 +21,14 @@ struct DiscoverFeature: Reducer {
         case path(StackAction<Path.State, Path.Action>)
         
         case onFirstAppear
+        case onPreferencesTap
+        case onMovieTap(_ movie: Movie)
+        case onMoviesListTap(_ listType: MoviesList.ListType, _ movies: IdentifiedArrayOf<Movie>)
+        
         case loadMovies
         case moviesListLoaded(type: MoviesList.ListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
         
-        case onMovieTap(_ movie: Movie)
-        case onMoviesListTap(_ listType: MoviesList.ListType, _ movies: IdentifiedArrayOf<Movie>)
     }
     
     struct Path: Reducer {
@@ -98,7 +100,7 @@ struct DiscoverFeature: Reducer {
                 return .none
                 
             // MARK: Handled in parent feature
-            case .onMovieTap:
+            case .onPreferencesTap, .onMovieTap:
                 return .none
             }
         }

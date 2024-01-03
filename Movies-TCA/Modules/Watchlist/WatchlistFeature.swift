@@ -15,13 +15,17 @@ struct WatchlistFeature: Reducer {
     }
     
     enum Action: Equatable {
-        
+        case onPreferencesTap
+        case onMovieTap(_ movie: Movie)
     }
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
                 
+            // MARK: Handled in parent feature
+            case .onPreferencesTap, .onMovieTap:
+                return .none
             }
         }
     }
