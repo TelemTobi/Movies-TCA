@@ -73,7 +73,7 @@ struct HomeView: View {
     
     @MainActor
     private func MovieSheet(store: StoreOf<MovieFeature>) -> some View {
-        NavigationStack {
+        NavigationStackStore(self.store.scope(state: \.moviePath, action: { .moviePath($0) })) {
             MovieView(store: store)
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -82,6 +82,15 @@ struct HomeView: View {
                         }
                     }
                 }
+        } destination: { state in
+            switch state {
+            case .relatedMovie:
+                CaseLet(
+                    /HomeFeature.MoviePath.State.relatedMovie,
+                    action: HomeFeature.MoviePath.Action.relatedMovie,
+                    then: MovieView.init(store:)
+                )
+            }
         }
     }
     

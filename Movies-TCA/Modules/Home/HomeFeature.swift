@@ -12,6 +12,7 @@ struct HomeFeature: Reducer {
     
     struct State: Equatable {
         @PresentationState var destination: Destination.State?
+        var moviePath = StackState<MoviePath.State>()
         
         var selectedTab: Tab = .discover
         var discover = DiscoverFeature.State()
@@ -21,6 +22,7 @@ struct HomeFeature: Reducer {
     
     enum Action: Equatable {
         case destination(PresentationAction<Destination.Action>)
+        case moviePath(StackAction<MoviePath.State, MoviePath.Action>)
         
         case onFirstAppear
         case onTabSelection(Tab)
@@ -45,6 +47,23 @@ struct HomeFeature: Reducer {
         
         var body: some ReducerOf<Self> {
             Scope(state: /State.movie, action: /Action.movie) {
+                MovieFeature()
+            }
+        }
+    }
+    
+    struct MoviePath: Reducer {
+        
+        enum State: Equatable {
+            case relatedMovie(MovieFeature.State)
+        }
+        
+        enum Action: Equatable {
+            case relatedMovie(MovieFeature.Action)
+        }
+        
+        var body: some ReducerOf<Self> {
+            Scope(state: /State.relatedMovie, action: /Action.relatedMovie) {
                 MovieFeature()
             }
         }
@@ -88,12 +107,20 @@ struct HomeFeature: Reducer {
                 state.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
                 return .none
                 
-            case .destination, .discover, .search, .watchlist:
+            case let .destination(.presented(.movie(.onRelatedMovieTap(movie)))):
+                let movieState = MovieFeature.State(movieDetails: .init(movie: movie))
+                state.moviePath.append(.relatedMovie(movieState))
+                return .none
+                
+            case .destination, .moviePath, .discover, .search, .watchlist:
                 return .none
             }
         }
         .ifLet(\.$destination, action: /Action.destination) {
             Destination()
+        }
+        .forEach(\.moviePath, action: /Action.moviePath) {
+            MoviePath()
         }
     }
 }
