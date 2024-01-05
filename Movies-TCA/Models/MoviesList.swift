@@ -21,14 +21,14 @@ struct MoviesList: Decodable, JsonResolver, Equatable {
     }
     
     enum ListType: String, CaseIterable {
-        case nowPlaying, popular, topRated, upcoming
+        case nowPlaying, popular, upcoming, topRated
         
         var title: String {
             return switch self {
                 case .nowPlaying: "Now Playing"
                 case .popular: "Popular"
-                case .topRated: "Top Rated"
                 case .upcoming: "Upcoming"
+                case .topRated: "Top Rated"
             }
         }
     }

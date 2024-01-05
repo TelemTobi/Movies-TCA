@@ -43,8 +43,8 @@ final class RootTests: XCTestCase {
         
         let genres = IdentifiedArray(uniqueElements: mockResponse.genres ?? [])
         
-        await store.receive(.home(.searchTabItem(.setGenres(genres)))) {
-            $0.home.searchTabItem.search.genres = genres
+        await store.receive(.home(.setGenres(genres))) {
+            $0.home.search.genres = genres
         }
     }
     

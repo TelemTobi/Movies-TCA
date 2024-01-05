@@ -42,4 +42,72 @@ final class HomeTests: XCTestCase {
             $0.selectedTab = .watchlist
         }
     }
+    
+    func testSetGenres() async {
+        let genres = IdentifiedArray(uniqueElements: GenresResponse.mock.genres ?? [])
+        
+        await store.send(.setGenres(genres)) {
+            $0.search.genres = genres
+        }
+    }
+    
+    func testOnPreferencesTap() async {
+        await store.send(.discover(.onPreferencesTap)) {
+            $0.destination = .preferences(PreferencesFeature.State())
+        }
+        
+        await store.send(.destination(.dismiss)) {
+            $0.destination = nil
+        }
+        
+        await store.send(.search(.onPreferencesTap)) {
+            $0.destination = .preferences(PreferencesFeature.State())
+        }
+        
+        await store.send(.destination(.dismiss)) {
+            $0.destination = nil
+        }
+        
+        await store.send(.watchlist(.onPreferencesTap)) {
+            $0.destination = .preferences(PreferencesFeature.State())
+        }
+    }
+    
+    func testOnMovieTap() async {
+        let movie = Movie.mock
+        
+        await store.send(.discover(.onMovieTap(movie))) {
+            $0.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
+        }
+        
+        await store.send(.destination(.dismiss)) {
+            $0.destination = nil
+        }
+        
+        await store.send(.search(.onMovieTap(movie))) {
+            $0.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
+        }
+        
+        await store.send(.destination(.dismiss)) {
+            $0.destination = nil
+        }
+        
+        await store.send(.watchlist(.onMovieTap(movie))) {
+            $0.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
+        }
+    }
+    
+    func testOnRelatedMovieTap() async {
+        let movie = Movie.mock
+        
+        await store.send(.discover(.onMovieTap(movie))) {
+            $0.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
+        }
+        
+        let relatedMovie = Movie.mock
+        
+        await store.send(.destination(.presented(.movie(.onRelatedMovieTap(relatedMovie))))) {
+            $0.moviePath[id: 0] = .relatedMovie(MovieFeature.State(movieDetails: .init(movie: relatedMovie)))
+        }
+    }
 }
