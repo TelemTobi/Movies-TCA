@@ -91,14 +91,14 @@ struct HomeFeature: Reducer {
                 state.selectedTab = tab
                 return .none
                 
+            case let .setGenres(genres):
+                state.search.genres = genres
+                return .none
+                
             case .discover(.onPreferencesTap),
                  .search(.onPreferencesTap),
                  .watchlist(.onPreferencesTap):
                 state.destination = .preferences(PreferencesFeature.State())
-                return .none
-                
-            case let .setGenres(genres):
-                state.search.genres = genres
                 return .none
                 
             case let .discover(.onMovieTap(movie)),
