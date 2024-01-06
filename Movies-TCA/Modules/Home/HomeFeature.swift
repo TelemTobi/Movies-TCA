@@ -102,6 +102,7 @@ struct HomeFeature: Reducer {
             case .discover(.onPreferencesTap),
                  .search(.onPreferencesTap),
                  .watchlist(.onPreferencesTap):
+                
                 state.destination = .preferences(PreferencesFeature.State())
                 return .none
                 
@@ -109,22 +110,22 @@ struct HomeFeature: Reducer {
                  let .search(.onMovieTap(movie)),
                  let .watchlist(.onMovieTap(movie)),
                  let .discover(.path(.element(_, action: .moviesList(.onMovieTap(movie))))):
+                
+                state.moviePath.removeAll()
                 state.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
                 return .none
                 
             case let .destination(.presented(.movie(.onRelatedMovieTap(movie)))),
                  let .moviePath(.element(_, action: .relatedMovie(.onRelatedMovieTap(movie)))):
+                
                 let movieState = MovieFeature.State(movieDetails: .init(movie: movie))
                 state.moviePath.append(.relatedMovie(movieState))
                 return .none
                 
             case .destination(.presented(.movie(.onCloseButtonTap))),
                  .moviePath(.element(_, action: .relatedMovie(.onCloseButtonTap))):
-                state.destination = nil
                 
-                // TODO: Find a better solution for clearing the whole stack ⚠️
-                state.moviePath.removeAll()
-                return .none
+                return .send(.destination(.dismiss))
                 
             case .destination, .moviePath, .discover, .search, .watchlist:
                 return .none
