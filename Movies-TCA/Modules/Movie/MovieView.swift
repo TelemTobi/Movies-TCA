@@ -30,6 +30,8 @@ struct MovieView: View {
         self.store = store
     }
     
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             GeometryReader { geometry in
@@ -61,6 +63,12 @@ struct MovieView: View {
                     Text(viewStore.movieDetails.movie.title ?? .empty)
                         .font(.rounded(.headline))
                         .opacity(navigationTitleOpacity)
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Close", systemImage: "xmark") {
+                        viewStore.send(.onCloseButtonTap)
+                    }
                 }
             }
             .onFirstAppear {

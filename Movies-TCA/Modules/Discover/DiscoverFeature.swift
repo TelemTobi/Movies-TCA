@@ -61,16 +61,14 @@ struct DiscoverFeature: Reducer {
                 
                 return .run { send in
                     async let nowPlayingResult = tmdbClient.fetchMovies(.nowPlaying)
-                    await send(.moviesListLoaded(type: .nowPlaying, nowPlayingResult))
-                    
                     async let popularResult = tmdbClient.fetchMovies(.popular)
-                    await send(.moviesListLoaded(type: .popular, popularResult))
-                    
-                    async let topRatedResult = tmdbClient.fetchMovies(.topRated)
-                    await send(.moviesListLoaded(type: .topRated, topRatedResult))
-                    
                     async let upcomingResult = tmdbClient.fetchMovies(.upcoming)
+                    async let topRatedResult = tmdbClient.fetchMovies(.topRated)
+
+                    await send(.moviesListLoaded(type: .nowPlaying, nowPlayingResult))
+                    await send(.moviesListLoaded(type: .popular, popularResult))
                     await send(.moviesListLoaded(type: .upcoming, upcomingResult))
+                    await send(.moviesListLoaded(type: .topRated, topRatedResult))
                     
                     await send(.loadingCompleted)
                 }

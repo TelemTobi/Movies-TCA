@@ -75,13 +75,6 @@ struct HomeView: View {
     private func MovieSheet(store: StoreOf<MovieFeature>) -> some View {
         NavigationStackStore(self.store.scope(state: \.moviePath, action: { .moviePath($0) })) {
             MovieView(store: store)
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Close", systemImage: "xmark") {
-                            store.send(.onCloseButtonTap)
-                        }
-                    }
-                }
         } destination: { state in
             switch state {
             case .relatedMovie:

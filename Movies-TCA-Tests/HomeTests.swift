@@ -76,6 +76,7 @@ final class HomeTests: XCTestCase {
     func testOnMovieTap() async {
         let movie = Movie.mock
         
+        // Discover Feature
         await store.send(.discover(.onMovieTap(movie))) {
             $0.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
         }
@@ -84,6 +85,7 @@ final class HomeTests: XCTestCase {
             $0.destination = nil
         }
         
+        // Search Feature
         await store.send(.search(.onMovieTap(movie))) {
             $0.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
         }
@@ -92,6 +94,7 @@ final class HomeTests: XCTestCase {
             $0.destination = nil
         }
         
+        // Watchlist Feature
         await store.send(.watchlist(.onMovieTap(movie))) {
             $0.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
         }
