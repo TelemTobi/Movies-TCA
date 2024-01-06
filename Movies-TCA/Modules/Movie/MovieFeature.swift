@@ -41,7 +41,6 @@ struct MovieFeature: Reducer {
                 }
                 
             case let .movieDetailsLoaded(.success(response)):
-                customDump(response)
                 state.movieDetails = response
                 return .none
                 

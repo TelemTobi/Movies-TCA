@@ -103,7 +103,8 @@ struct HomeFeature: Reducer {
                 
             case let .discover(.onMovieTap(movie)),
                  let .search(.onMovieTap(movie)),
-                 let .watchlist(.onMovieTap(movie)):
+                 let .watchlist(.onMovieTap(movie)),
+                 let .discover(.path(.element(_, action: .moviesList(.onMovieTap(movie))))):
                 state.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
                 return .none
                 
