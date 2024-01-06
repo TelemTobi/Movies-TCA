@@ -48,11 +48,9 @@ struct MovieFeature: Reducer {
                 customDump(error) // TODO: Handle error
                 return .none
                 
-            case .onCloseButtonTap:
-                return .run { _ in await self.dismiss() }
-                
-            case .onRelatedMovieTap:
-                return .none // TODO: ⚠️
+            // MARK: Handled in parent feature
+            case .onCloseButtonTap, .onRelatedMovieTap:
+                return .none
             }
         }
     }

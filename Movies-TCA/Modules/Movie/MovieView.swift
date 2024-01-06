@@ -62,6 +62,12 @@ struct MovieView: View {
                         .font(.rounded(.headline))
                         .opacity(navigationTitleOpacity)
                 }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Close", systemImage: "xmark") {
+                        viewStore.send(.onCloseButtonTap)
+                    }
+                }
             }
             .onFirstAppear {
                 viewStore.send(.onFirstAppear)
