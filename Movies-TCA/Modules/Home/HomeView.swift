@@ -22,7 +22,7 @@ struct HomeView: View {
                         action: { .discover($0) }
                     )
                 )
-                .tabItem { Label("Discover", systemImage: "globe") }
+                .tabItem { Label("Discovery", systemImage: "globe") }
                 .tag(HomeFeature.Tab.discover)
                 
                 SearchView(

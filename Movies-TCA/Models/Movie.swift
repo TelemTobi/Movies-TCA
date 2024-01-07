@@ -86,7 +86,7 @@ struct Movie: Decodable, Equatable, Identifiable {
     
     var infoDictionary: [String: String] {
         [
-            "RELEASE DATE": releaseDate?.description(withFormat: .dMMMyyyy, locale: .english),
+            "RELEASE DATE": releaseDate?.description(withFormat: .dMMMyyyy),
             "RUNTIME": runtime?.durationInHoursAndMinutesLongFormat,
             "GENRES": genres?.compactMap { $0.name }.joined(separator: ", "),
             "STATUS": status,

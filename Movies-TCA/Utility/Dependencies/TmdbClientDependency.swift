@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct TmdbClientDependency {
     var fetchGenres: @Sendable () async -> Result<GenresResponse, TmdbError>
-    var fetchMovies: @Sendable (MoviesList.ListType) async -> Result<MoviesList, TmdbError>
+    var fetchMovies: @Sendable (MoviesListType) async -> Result<MoviesList, TmdbError>
     var searchMovies: @Sendable (String) async -> Result<MoviesList, TmdbError>
     var discoverMovies: @Sendable (Int) async -> Result<MoviesList, TmdbError>
     var movieDetails: @Sendable (Int) async -> Result<MovieDetails, TmdbError>

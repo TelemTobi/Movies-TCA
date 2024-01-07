@@ -43,10 +43,17 @@ enum Config {
         
         case english = "en"
         case hebrew = "he"
-        case spanish = "es"
+        
+        var locale: Locale {
+            return switch self {
+            case .english: Locale(identifier: "en_US")
+            case .hebrew: Locale(identifier: "he_IS")
+            }
+        }
         
         static var current: Language {
-            Language(rawValue: Locale.current.identifier) ?? .english
+            let currentLocale = Locale.current.identifier.split(separator: "_").first?.lowercased() ?? ""
+            return Language(rawValue: currentLocale) ?? .english
         }
     }
 }

@@ -14,7 +14,7 @@ struct DiscoverFeature: Reducer {
         var path = StackState<Path.State>()
         
         var isLoading = true
-        var movies: [MoviesList.ListType: IdentifiedArrayOf<Movie>] = [:]
+        var movies: [MoviesListType: IdentifiedArrayOf<Movie>] = [:]
     }
     
     enum Action: Equatable {
@@ -23,10 +23,10 @@ struct DiscoverFeature: Reducer {
         case onFirstAppear
         case onPreferencesTap
         case onMovieTap(_ movie: Movie)
-        case onMoviesListTap(_ listType: MoviesList.ListType, _ movies: IdentifiedArrayOf<Movie>)
+        case onMoviesListTap(_ listType: MoviesListType, _ movies: IdentifiedArrayOf<Movie>)
         
         case loadMovies
-        case moviesListLoaded(type: MoviesList.ListType, Result<MoviesList, TmdbError>)
+        case moviesListLoaded(type: MoviesListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
         
     }

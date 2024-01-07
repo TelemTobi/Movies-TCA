@@ -25,7 +25,7 @@ struct DiscoverView: View {
                         }
                     }
                 }
-                .navigationTitle("Discover")
+                .navigationTitle("Discovery")
                 .animation(.easeInOut, value: viewStore.isLoading)
                 .onFirstAppear {
                     viewStore.send(.onFirstAppear)
@@ -68,7 +68,7 @@ extension DiscoverView {
         
         var body: some View {
             List {
-                ForEach(MoviesList.ListType.allCases, id: \.self) { listType in
+                ForEach(MoviesListType.allCases, id: \.self) { listType in
                     if let movies = viewStore.movies[listType] {
                         SectionView(
                             listType: listType,
@@ -92,7 +92,7 @@ extension DiscoverView {
         
         @EnvironmentObject private var viewStore: ViewStoreOf<DiscoverFeature>
         
-        let listType: MoviesList.ListType
+        let listType: MoviesListType
         let movies: IdentifiedArrayOf<Movie>
         let geometry: GeometryProxy
         
