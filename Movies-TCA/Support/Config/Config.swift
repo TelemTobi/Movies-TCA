@@ -45,7 +45,7 @@ enum Config {
         case hebrew = "he"
         case spanish = "es"
         
-        var current: Language {
+        static var current: Language {
             Language(rawValue: Locale.current.identifier) ?? .english
         }
     }
