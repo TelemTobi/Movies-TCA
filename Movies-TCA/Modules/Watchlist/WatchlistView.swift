@@ -16,8 +16,7 @@ struct WatchlistView: View {
         NavigationStack {
             WithViewStore(store, observe: { $0 }) { viewStore in
                 List {
-                    Text("WIP")
-                        .foregroundStyle(.secondary)
+                    Text("")
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                 }

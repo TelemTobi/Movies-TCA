@@ -5,10 +5,40 @@
 
     },
     "\"%@\"" : {
-
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\""
+          }
+        }
+      }
     },
     "%@" : {
-
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
+    },
+    "%@ votes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ votes"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ הצבעות"
+          }
+        }
+      }
     },
     "BUDGET" : {
       "extractionState" : "manual",
@@ -202,6 +232,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "מידע נוסף"
+          }
+        }
+      }
+    },
+    "N/A" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא זמין"
           }
         }
       }
@@ -444,9 +484,6 @@
           }
         }
       }
-    },
-    "WIP" : {
-
     }
   },
   "version" : "1.0"

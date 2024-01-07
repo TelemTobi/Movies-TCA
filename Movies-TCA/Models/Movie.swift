@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Movie: Decodable, Equatable, Identifiable {
     
@@ -64,7 +65,7 @@ struct Movie: Decodable, Equatable, Identifiable {
         return (voteAverage / 10).asPercentage
     }
     
-    var voteCountFormatted: String {
+    var voteCountFormatted: LocalizedStringKey {
         guard let voteCount else { return .notAvailable }
         return "\(voteCount.abbreviation) votes"
     }

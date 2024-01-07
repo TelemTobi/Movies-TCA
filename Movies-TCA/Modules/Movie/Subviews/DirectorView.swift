@@ -32,7 +32,7 @@ struct DirectorView: View {
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Image(systemName: "chevron.right")
+                Image(systemName: "chevron.forward")
                     .foregroundColor(.secondary)
                     .padding(.trailing, 5)
             }

@@ -38,12 +38,6 @@ extension MovieView {
             ].joined(separator: .dotSeparator)
         }
         
-        private var votesBulletPoints: String {
-            [movie.voteAverageFormatted,
-             movie.voteCountFormatted
-            ].joined(separator: .dotSeparator)
-        }
-        
         var body: some View {
             ZStack(alignment: .bottom) {
                 StretchyHeader(
@@ -73,10 +67,14 @@ extension MovieView {
                     
                     Label(
                         title: {
-                            Text(votesBulletPoints)
-                                .foregroundStyle(.white.opacity(0.5))
-                                .font(.caption2)
-                                .fontWeight(.heavy)
+                            HStack(spacing: 2) {
+                                Text(movie.voteAverageFormatted)
+                                Text(String.dotSeparator)
+                                Text(movie.voteCountFormatted)
+                            }
+                            .foregroundStyle(.white.opacity(0.5))
+                            .font(.caption2)
+                            .fontWeight(.heavy)
                         },
                         icon: {
                             Image("TMDBLogo")
@@ -116,7 +114,7 @@ extension MovieView {
                         title: movie.title ?? .notAvailable,
                         content: {
                             VStack {
-                                if let tagline = movie.tagline {
+                                if let tagline = movie.tagline, tagline.isNotEmpty {
                                     Text("\"\(tagline)\"")
                                         .font(.rounded(.title, weight: .bold))
                                         .foregroundColor(.secondary)
