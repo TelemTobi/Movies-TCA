@@ -171,18 +171,18 @@
         }
       }
     },
-    "Explore movies" : {
+    "Explore movies here" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Explore movies"
+            "value" : "Explore movies here"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "גלה סרטים"
+            "value" : "גלו סרטים כאן"
           }
         }
       }
