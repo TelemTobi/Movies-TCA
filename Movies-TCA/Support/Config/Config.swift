@@ -38,4 +38,15 @@ enum Config {
             value(for: .tmdbPhotoBaseUrl) ?? ""
         }
     }
+    
+    enum Language: String {
+        
+        case english = "en"
+        case hebrew = "he"
+        case spanish = "es"
+        
+        var current: Language {
+            Language(rawValue: Locale.current.identifier) ?? .english
+        }
+    }
 }
