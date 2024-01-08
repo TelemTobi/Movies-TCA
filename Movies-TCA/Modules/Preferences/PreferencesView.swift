@@ -14,17 +14,48 @@ struct PreferencesView: View {
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-                .navigationTitle("Preferences")
+            List {
+                DeviceSettingsSection()
+            }
+            .environmentObject(viewStore)
+            .navigationTitle("Preferences")
+        }
+    }
+}
+
+extension PreferencesView {
+    
+    private struct DeviceSettingsSection: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<PreferencesFeature>
+        
+        var body: some View {
+            Section("Device Settings") {
+                Button(
+                    action: { viewStore.send(.onLanguageTap) },
+                    label: {
+                        HStack {
+                            Label("Language", systemImage: "globe")
+                            Spacer()
+                            Image(systemName: "chevron.forward")
+                                .foregroundStyle(.secondary)
+                        }
+                        .contentShape(Rectangle())
+                    }
+                )
+                .buttonStyle(.plain)
+            }
         }
     }
 }
 
 #Preview {
-    PreferencesView(
-        store: Store(
-            initialState: PreferencesFeature.State(),
-            reducer: { PreferencesFeature() }
+    NavigationStack {
+        PreferencesView(
+            store: Store(
+                initialState: PreferencesFeature.State(),
+                reducer: { PreferencesFeature() }
+            )
         )
-    )
+    }
 }

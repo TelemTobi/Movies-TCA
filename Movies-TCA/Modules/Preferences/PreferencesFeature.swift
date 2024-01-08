@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import ComposableArchitecture
 
 struct PreferencesFeature: Reducer {
@@ -15,6 +16,7 @@ struct PreferencesFeature: Reducer {
     }
     
     enum Action: Equatable {
+        case onLanguageTap
         case onCloseButtonTap
     }
     
@@ -23,6 +25,13 @@ struct PreferencesFeature: Reducer {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onLanguageTap:
+                DispatchQueue.main.async {
+                    guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                    UIApplication.shared.open(url)
+                }
+                return .none
+                
             case .onCloseButtonTap:
                 return .run { _ in await self.dismiss() }
             }
