@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Movie: Decodable, Equatable, Identifiable {
     
@@ -64,7 +65,7 @@ struct Movie: Decodable, Equatable, Identifiable {
         return (voteAverage / 10).asPercentage
     }
     
-    var voteCountFormatted: String {
+    var voteCountFormatted: LocalizedStringKey {
         guard let voteCount else { return .notAvailable }
         return "\(voteCount.abbreviation) votes"
     }
@@ -86,7 +87,7 @@ struct Movie: Decodable, Equatable, Identifiable {
     
     var infoDictionary: [String: String] {
         [
-            "RELEASE DATE": releaseDate?.description(withFormat: .dMMMyyyy, locale: .english),
+            "RELEASE DATE": releaseDate?.description(withFormat: .dMMMyyyy),
             "RUNTIME": runtime?.durationInHoursAndMinutesLongFormat,
             "GENRES": genres?.compactMap { $0.name }.joined(separator: ", "),
             "STATUS": status,

@@ -38,4 +38,22 @@ enum Config {
             value(for: .tmdbPhotoBaseUrl) ?? ""
         }
     }
+    
+    enum Language: String {
+        
+        case english = "en"
+        case hebrew = "he"
+        
+        var locale: Locale {
+            return switch self {
+            case .english: Locale(identifier: "en_US")
+            case .hebrew: Locale(identifier: "he_IS")
+            }
+        }
+        
+        static var current: Language {
+            let currentLocale = Locale.current.identifier.split(separator: "_").first?.lowercased() ?? ""
+            return Language(rawValue: currentLocale) ?? .english
+        }
+    }
 }

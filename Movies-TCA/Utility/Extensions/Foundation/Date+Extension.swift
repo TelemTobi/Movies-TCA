@@ -25,10 +25,10 @@ extension Date {
         Calendar.current.component(.year, from: self)
     }
     
-    func description(withFormat format: DateFormat, locale: Locale.SupportedLocale) -> String {
+    func description(withFormat format: DateFormat, language: Config.Language = .current) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format.rawValue
-        dateFormatter.locale = locale.locale
+        dateFormatter.locale = language.locale
         return dateFormatter.string(from: self)
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 enum TmdbEndpoint {
     case listGenres
-    case listMovies(type: MoviesList.ListType)
+    case listMovies(type: MoviesListType)
     case searchMovies(query: String)
     case discoverMovies(genreId: Int)
     case movieDetails(id: Int)

@@ -21,5 +21,6 @@ struct TmdbAuthenticator: Authenticating {
     func mapRequest(_ request: inout URLRequest) {
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         request.setValue(Config.TmdbApi.accessToken, forHTTPHeaderField: "Authorization")
+        request.url?.append(queryItems: [URLQueryItem(name: "language", value: Config.Language.current.rawValue)])
     }
 }

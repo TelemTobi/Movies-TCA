@@ -16,7 +16,7 @@ struct VerticalKeyValueView: View {
         
         VStack(alignment: .leading, spacing: 0) {
             
-            Text(key)
+            Text(LocalizedStringKey(key))
                 .foregroundColor(.secondary)
                 .font(.footnote)
             

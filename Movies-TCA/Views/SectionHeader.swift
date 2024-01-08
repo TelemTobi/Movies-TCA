@@ -9,11 +9,11 @@ import SwiftUI
 
 struct SectionHeader: View {
     
-    let title: String
-    let action: String?
+    let title: LocalizedStringKey
+    let action: LocalizedStringKey?
     let onActionTap: EmptyClosure?
     
-    init(title: String, action: String? = nil, onActionTap: EmptyClosure? = nil) {
+    init(title: LocalizedStringKey, action: LocalizedStringKey? = nil, onActionTap: EmptyClosure? = nil) {
         self.title = title
         self.action = action
         self.onActionTap = onActionTap

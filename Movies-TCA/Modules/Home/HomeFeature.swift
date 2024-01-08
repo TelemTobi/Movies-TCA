@@ -147,7 +147,7 @@ extension HomeFeature {
         
         var title: String {
             return switch self {
-            case .discover: "Discover"
+            case .discover: "Discovery"
             case .search: "Search"
             case .watchlist: "Watchlist"
             }

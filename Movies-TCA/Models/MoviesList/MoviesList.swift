@@ -19,17 +19,4 @@ struct MoviesList: Decodable, JsonResolver, Equatable {
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
-    
-    enum ListType: String, CaseIterable {
-        case nowPlaying, popular, upcoming, topRated
-        
-        var title: String {
-            return switch self {
-                case .nowPlaying: "Now Playing"
-                case .popular: "Popular"
-                case .upcoming: "Upcoming"
-                case .topRated: "Top Rated"
-            }
-        }
-    }
 }
