@@ -16,6 +16,8 @@ struct SettingLabelStyle: LabelStyle {
             title: { configuration.title },
             icon: {
                 configuration.icon
+                    .imageScale(.medium)
+                    .frame(width: 24, height: 24)
                     .padding(2)
                     .foregroundStyle(.white)
                     .background(

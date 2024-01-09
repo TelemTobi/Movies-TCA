@@ -22,5 +22,6 @@ struct TmdbAuthenticator: Authenticating {
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         request.setValue(Config.TmdbApi.accessToken, forHTTPHeaderField: "Authorization")
         request.url?.append(queryItems: [URLQueryItem(name: "language", value: Config.Language.current.rawValue)])
+        request.url?.append(queryItems: [URLQueryItem(name: "include_adult", value: Config.UserPreferences.isAdultContentOn.description)])
     }
 }

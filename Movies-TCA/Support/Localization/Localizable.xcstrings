@@ -41,7 +41,20 @@
       }
     },
     "Adult Content" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adult Content"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תוכן למבוגרים"
+          }
+        }
+      }
     },
     "BUDGET" : {
       "extractionState" : "manual",
@@ -241,10 +254,29 @@
       }
     },
     "Language" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שפה"
+          }
+        }
+      }
     },
     "N/A" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "N/A"
+          }
+        },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
@@ -437,6 +469,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "סטטוס"
+          }
+        }
+      }
+    },
+    "Theme Color" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theme Color"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "צבע נושא"
           }
         }
       }
