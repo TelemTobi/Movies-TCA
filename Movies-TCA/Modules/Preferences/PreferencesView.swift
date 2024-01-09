@@ -30,12 +30,13 @@ extension PreferencesView {
         @EnvironmentObject private var viewStore: ViewStoreOf<PreferencesFeature>
         
         var body: some View {
-            Section("Device Settings") {
+            Section {
                 Button(
                     action: { viewStore.send(.onLanguageTap) },
                     label: {
                         HStack {
                             Label("Language", systemImage: "globe")
+                                .labelStyle(SettingLabelStyle(color: .blue))
                             Spacer()
                             Image(systemName: "chevron.forward")
                                 .foregroundStyle(.secondary)
