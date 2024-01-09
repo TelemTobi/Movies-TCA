@@ -56,4 +56,12 @@ enum Config {
             return Language(rawValue: currentLocale) ?? .english
         }
     }
+    
+    enum UserPreferences {
+        
+        static var isAdultContentOn: Bool {
+            get { UserDefaults.standard.bool(forKey: #function) }
+            set { UserDefaults.standard.set(newValue, forKey: #function) }
+        }
+    }
 }

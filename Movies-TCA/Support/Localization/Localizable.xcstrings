@@ -40,6 +40,9 @@
         }
       }
     },
+    "Adult Content" : {
+
+    },
     "BUDGET" : {
       "extractionState" : "manual",
       "localizations" : {

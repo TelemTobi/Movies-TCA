@@ -15,15 +15,35 @@ struct PreferencesView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             List {
+                AppSettingsSection()
                 DeviceSettingsSection()
             }
             .environmentObject(viewStore)
             .navigationTitle("Preferences")
+            .onFirstAppear {
+                viewStore.send(.onFirstAppear)
+            }
         }
     }
 }
 
 extension PreferencesView {
+    
+    private struct AppSettingsSection: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<PreferencesFeature>
+        
+        var body: some View {
+            Section {
+                HStack {
+                    Label("Adult Content", systemImage: "exclamationmark.shield.fill")
+                        .labelStyle(SettingLabelStyle(color: .pink))
+                    Spacer()
+                    Toggle(.empty, isOn: viewStore.binding(get: \.isAdultContentOn, send: PreferencesFeature.Action.onAdultContentToggle))
+                }
+            }
+        }
+    }
     
     private struct DeviceSettingsSection: View {
         
