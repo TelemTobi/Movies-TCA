@@ -35,12 +35,15 @@ extension PreferencesView {
         
         var body: some View {
             Section {
-                HStack {
-                    Label("Adult Content", systemImage: "exclamationmark.shield.fill")
-                        .labelStyle(SettingLabelStyle(color: .pink))
-                    Spacer()
-                    Toggle(.empty, isOn: viewStore.binding(get: \.isAdultContentOn, send: PreferencesFeature.Action.onAdultContentToggle))
-                }
+                Toggle(
+                    "Adult Content",
+                    systemImage: "exclamationmark.shield.fill",
+                    isOn: viewStore.binding(
+                        get: \.isAdultContentOn,
+                        send: PreferencesFeature.Action.onAdultContentToggle
+                    )
+                )
+                .labelStyle(SettingLabelStyle(color: .pink))
             }
         }
     }
@@ -56,15 +59,29 @@ extension PreferencesView {
                     label: {
                         HStack {
                             Label("Language", systemImage: "globe")
-                                .labelStyle(SettingLabelStyle(color: .blue))
                             Spacer()
                             Image(systemName: "chevron.forward")
                                 .foregroundStyle(.secondary)
                         }
                         .contentShape(Rectangle())
+                        .labelStyle(SettingLabelStyle(color: .blue))
                     }
                 )
                 .buttonStyle(.plain)
+                
+                // TODO: ⚠️
+                Picker(
+                    "Color Scheme",
+                    systemImage: "paintpalette",
+                    selection: .constant("System"),
+                    content: {
+                        let colors = ["System", "Light", "Dark"]
+                        ForEach(colors, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                )
+                .labelStyle(SettingLabelStyle(color: .gray))
             }
         }
     }

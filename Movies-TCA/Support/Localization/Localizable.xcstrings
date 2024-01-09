@@ -105,6 +105,22 @@
         }
       }
     },
+    "Color Scheme" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color Scheme"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "סכימת צבעים"
+          }
+        }
+      }
+    },
     "COUNTRY" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -469,22 +485,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "סטטוס"
-          }
-        }
-      }
-    },
-    "Theme Color" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Theme Color"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "צבע נושא"
           }
         }
       }
