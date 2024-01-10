@@ -24,6 +24,7 @@ struct PreferencesView: View {
                 viewStore.send(.onFirstAppear)
             }
         }
+        .adjustPreferredColorScheme()
     }
 }
 
@@ -78,8 +79,8 @@ extension PreferencesView {
                         send: PreferencesFeature.Action.onAppearanceChange
                     ),
                     content: {
-                        ForEach(Config.Appearance.allCases, id: \.self) {
-                            Text(LocalizedStringKey($0.rawValue))
+                        ForEach(Preferences.Appearance.allCases.map { $0.rawValue }, id: \.self) {
+                            Text(LocalizedStringKey($0))
                         }
                     }
                 )

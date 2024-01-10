@@ -12,15 +12,15 @@ import ComposableArchitecture
 struct PreferencesFeature: Reducer {
     
     struct State: Equatable {
-        var isAdultContentOn: Bool = false
-        var appearance: Config.Appearance = .system
+        var isAdultContentOn: Bool = Preferences.standard.isAdultContentOn
+        var appearance: String = Preferences.standard.appearance
     }
     
     enum Action: Equatable {
         case onFirstAppear
         case onAdultContentToggle(Bool)
         case onLanguageTap
-        case onAppearanceChange(Config.Appearance)
+        case onAppearanceChange(String)
         case onCloseButtonTap
     }
     
@@ -30,12 +30,10 @@ struct PreferencesFeature: Reducer {
         Reduce { state, action in
             switch action {
             case .onFirstAppear:
-                state.isAdultContentOn = Config.UserPreferences.isAdultContentOn
-                state.appearance = Config.UserPreferences.appearance
                 return .none
                 
             case let .onAdultContentToggle(isOn):
-                Config.UserPreferences.isAdultContentOn = isOn
+                Preferences.standard.isAdultContentOn = isOn
                 state.isAdultContentOn = isOn
                 return .none
                 
@@ -47,7 +45,7 @@ struct PreferencesFeature: Reducer {
                 return .none
                 
             case let .onAppearanceChange(appearance):
-                Config.UserPreferences.appearance = appearance
+                Preferences.standard.appearance = appearance
                 state.appearance = appearance
                 return .none
                 

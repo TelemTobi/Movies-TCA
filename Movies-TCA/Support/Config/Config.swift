@@ -39,41 +39,4 @@ enum Config {
             value(for: .tmdbPhotoBaseUrl) ?? ""
         }
     }
-    
-    enum Language: String {
-        
-        case english = "en"
-        case hebrew = "he"
-        
-        var locale: Locale {
-            return switch self {
-            case .english: Locale(identifier: "en_US")
-            case .hebrew: Locale(identifier: "he_IS")
-            }
-        }
-        
-        static var current: Language {
-            let currentLocale = Locale.current.identifier.split(separator: "_").first?.lowercased() ?? ""
-            return Language(rawValue: currentLocale) ?? .english
-        }
-    }
-    
-    enum Appearance: String, CaseIterable {
-        case system = "System"
-        case light = "Light"
-        case dark = "Dark"
-    }
-    
-    enum UserPreferences {
-        
-        static var isAdultContentOn: Bool {
-            get { UserDefaults.standard.bool(forKey: #function) }
-            set { UserDefaults.standard.set(newValue, forKey: #function) }
-        }
-        
-        static var appearance: Appearance {
-            get { Appearance(rawValue: UserDefaults.standard.string(forKey: #function) ?? "") ?? .system }
-            set { UserDefaults.standard.set(newValue.rawValue, forKey: #function) }
-        }
-    }
 }
