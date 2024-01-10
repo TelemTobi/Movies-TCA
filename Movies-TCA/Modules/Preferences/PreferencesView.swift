@@ -51,6 +51,7 @@ extension PreferencesView {
     private struct DeviceSettingsSection: View {
         
         @EnvironmentObject private var viewStore: ViewStoreOf<PreferencesFeature>
+        @Environment(\.colorScheme) private var colorScheme
         
         var body: some View {
             Section {
@@ -71,18 +72,20 @@ extension PreferencesView {
                 
                 Picker(
                     "Appearance",
-                    systemImage: "sun.max.fill",
+                    systemImage: colorScheme == .light ? "sun.max.fill" : "moon.fill",
                     selection: viewStore.binding(
-                        get: \.colorScheme,
-                        send: PreferencesFeature.Action.onColorSchemeChange
+                        get: \.appearance,
+                        send: PreferencesFeature.Action.onAppearanceChange
                     ),
                     content: {
-                        ForEach(Config.ColorScheme.allCases, id: \.self) {
+                        ForEach(Config.Appearance.allCases, id: \.self) {
                             Text(LocalizedStringKey($0.rawValue))
                         }
                     }
                 )
-                .labelStyle(SettingLabelStyle(color: .gray))
+                .labelStyle(
+                    SettingLabelStyle(color: colorScheme == .light ? .orange : .purple)
+                )
             }
         }
     }

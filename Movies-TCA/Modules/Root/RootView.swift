@@ -12,6 +12,16 @@ struct RootView: View {
     
     let store: StoreOf<RootFeature>
     
+    @Environment(\.colorScheme) var colorScheme
+    
+    private var preferredColorScheme: ColorScheme {
+        switch Config.UserPreferences.appearance {
+        case .system: colorScheme
+        case .light: ColorScheme.light
+        case .dark: ColorScheme.dark
+        }
+    }
+    
     var body: some View {
         WithViewStore(store, observe: \.isLoading) { viewStore in
             Group {
@@ -30,6 +40,7 @@ struct RootView: View {
                 }
             }
             .animation(.easeInOut, value: viewStore.state)
+            .preferredColorScheme(preferredColorScheme)
         }
     }
 }

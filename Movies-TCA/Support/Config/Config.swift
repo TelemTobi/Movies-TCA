@@ -58,18 +58,10 @@ enum Config {
         }
     }
     
-    enum ColorScheme: String, CaseIterable {
+    enum Appearance: String, CaseIterable {
         case system = "System"
         case light = "Light"
         case dark = "Dark"
-        
-//        var value: SwiftUI.ColorScheme {
-//            return switch self {
-//            case .system: .default
-//            case .light: .light
-//            case .dark: .dark
-//            }
-//        }
     }
     
     enum UserPreferences {
@@ -79,8 +71,8 @@ enum Config {
             set { UserDefaults.standard.set(newValue, forKey: #function) }
         }
         
-        static var colorScheme: ColorScheme {
-            get { ColorScheme(rawValue: UserDefaults.standard.string(forKey: #function) ?? "") ?? .system }
+        static var appearance: Appearance {
+            get { Appearance(rawValue: UserDefaults.standard.string(forKey: #function) ?? "") ?? .system }
             set { UserDefaults.standard.set(newValue.rawValue, forKey: #function) }
         }
     }
