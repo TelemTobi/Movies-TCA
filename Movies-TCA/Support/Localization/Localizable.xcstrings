@@ -40,6 +40,38 @@
         }
       }
     },
+    "Adult Content" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adult Content"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תוכן למבוגרים"
+          }
+        }
+      }
+    },
+    "Appearance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearance"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נראות"
+          }
+        }
+      }
+    },
     "BUDGET" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -102,6 +134,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "מדינה"
+          }
+        }
+      }
+    },
+    "Dark" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כהה"
           }
         }
       }
@@ -205,6 +254,7 @@
       }
     },
     "Hello, World!" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -236,8 +286,47 @@
         }
       }
     },
+    "Language" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שפה"
+          }
+        }
+      }
+    },
+    "Light" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בהיר"
+          }
+        }
+      }
+    },
     "N/A" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "N/A"
+          }
+        },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
@@ -430,6 +519,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "סטטוס"
+          }
+        }
+      }
+    },
+    "System" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מערכת"
           }
         }
       }

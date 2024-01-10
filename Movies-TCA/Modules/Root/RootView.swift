@@ -30,6 +30,7 @@ struct RootView: View {
                 }
             }
             .animation(.easeInOut, value: viewStore.state)
+            .adjustPreferredColorScheme()
         }
     }
 }
