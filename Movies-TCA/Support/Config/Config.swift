@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum Config {
     
@@ -57,11 +58,30 @@ enum Config {
         }
     }
     
+    enum ColorScheme: String, CaseIterable {
+        case system = "System"
+        case light = "Light"
+        case dark = "Dark"
+        
+//        var value: SwiftUI.ColorScheme {
+//            return switch self {
+//            case .system: .default
+//            case .light: .light
+//            case .dark: .dark
+//            }
+//        }
+    }
+    
     enum UserPreferences {
         
         static var isAdultContentOn: Bool {
             get { UserDefaults.standard.bool(forKey: #function) }
             set { UserDefaults.standard.set(newValue, forKey: #function) }
+        }
+        
+        static var colorScheme: ColorScheme {
+            get { ColorScheme(rawValue: UserDefaults.standard.string(forKey: #function) ?? "") ?? .system }
+            set { UserDefaults.standard.set(newValue.rawValue, forKey: #function) }
         }
     }
 }

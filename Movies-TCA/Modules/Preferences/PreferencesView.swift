@@ -69,15 +69,16 @@ extension PreferencesView {
                 )
                 .buttonStyle(.plain)
                 
-                // TODO: ⚠️
                 Picker(
-                    "Color Scheme",
-                    systemImage: "paintpalette",
-                    selection: .constant("System"),
+                    "Appearance",
+                    systemImage: "sun.max.fill",
+                    selection: viewStore.binding(
+                        get: \.colorScheme,
+                        send: PreferencesFeature.Action.onColorSchemeChange
+                    ),
                     content: {
-                        let colors = ["System", "Light", "Dark"]
-                        ForEach(colors, id: \.self) {
-                            Text($0)
+                        ForEach(Config.ColorScheme.allCases, id: \.self) {
+                            Text(LocalizedStringKey($0.rawValue))
                         }
                     }
                 )

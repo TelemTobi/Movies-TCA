@@ -13,12 +13,14 @@ struct PreferencesFeature: Reducer {
     
     struct State: Equatable {
         var isAdultContentOn: Bool = false
+        var colorScheme: Config.ColorScheme = .system
     }
     
     enum Action: Equatable {
         case onFirstAppear
         case onAdultContentToggle(Bool)
         case onLanguageTap
+        case onColorSchemeChange(Config.ColorScheme)
         case onCloseButtonTap
     }
     
@@ -29,6 +31,7 @@ struct PreferencesFeature: Reducer {
             switch action {
             case .onFirstAppear:
                 state.isAdultContentOn = Config.UserPreferences.isAdultContentOn
+                state.colorScheme = Config.UserPreferences.colorScheme
                 return .none
                 
             case let .onAdultContentToggle(isOn):
@@ -41,6 +44,11 @@ struct PreferencesFeature: Reducer {
                     guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
                     UIApplication.shared.open(url)
                 }
+                return .none
+                
+            case let .onColorSchemeChange(scheme):
+                Config.UserPreferences.colorScheme = scheme
+                state.colorScheme = scheme
                 return .none
                 
             case .onCloseButtonTap:

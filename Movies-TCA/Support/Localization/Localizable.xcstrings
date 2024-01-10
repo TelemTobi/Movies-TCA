@@ -56,6 +56,22 @@
         }
       }
     },
+    "Appearance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearance"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נראות"
+          }
+        }
+      }
+    },
     "BUDGET" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -105,22 +121,6 @@
         }
       }
     },
-    "Color Scheme" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Color Scheme"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "סכימת צבעים"
-          }
-        }
-      }
-    },
     "COUNTRY" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -134,6 +134,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "מדינה"
+          }
+        }
+      }
+    },
+    "Dark" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כהה"
           }
         }
       }
@@ -281,6 +298,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "שפה"
+          }
+        }
+      }
+    },
+    "Light" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בהיר"
           }
         }
       }
@@ -485,6 +519,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "סטטוס"
+          }
+        }
+      }
+    },
+    "System" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מערכת"
           }
         }
       }
