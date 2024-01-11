@@ -9,12 +9,11 @@ import SwiftUI
 
 fileprivate struct ColorSchemeAdjust: ViewModifier {
     
-    @Environment(\.colorScheme) var colorScheme
     @Preference(\.appearance) private var appearance
     
     private var preferredColorScheme: ColorScheme {
         switch Preferences.Appearance(rawValue: appearance) {
-        case .system, .none: colorScheme
+        case .system, .none: Preferences.Appearance.systemColorScheme
         case .light: ColorScheme.light
         case .dark: ColorScheme.dark
         }
