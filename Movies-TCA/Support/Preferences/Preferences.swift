@@ -53,12 +53,7 @@ extension Preferences {
         case light = "Light"
         case dark = "Dark"
         
-        static func colorScheme(systemScheme: ColorScheme) -> ColorScheme {
-            return switch Appearance(rawValue: Preferences.standard.appearance) {
-            case .system, .none: systemScheme
-            case .light: .light
-            case .dark: .dark
-            }
-        }
+        @MainActor
+        static var systemColorScheme: ColorScheme = .light
     }
 }
