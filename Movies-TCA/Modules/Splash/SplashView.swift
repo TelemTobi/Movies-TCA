@@ -10,11 +10,15 @@ import SwiftUI
 struct SplashView: View {
     
     var body: some View {
-        VStack {
-            Image(systemName: "sprinkler.and.droplets")
-                .font(.largeTitle)
-            Text("Splashing")
-                .font(.title)
+        GeometryReader { geometry in
+            Image(uiImage: .init(named: "AppIcon")!)
+                .resizable()
+                .scaledToFit()
+                .frame(width: geometry.size.width / 2)
+                .position(
+                    x: geometry.frame(in: .local).midX,
+                    y: geometry.frame(in: .local).midY
+                )
         }
     }
 }
