@@ -14,7 +14,7 @@ struct TagButtonStyle: ButtonStyle {
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
             .foregroundStyle(.white)
-            .background(Color.accentColor)
+            .background(Color.accentColor.gradient)
             .clipShape(Capsule())
             .opacity(configuration.isPressed ? 0.8 : 1.0)
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
