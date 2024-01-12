@@ -15,28 +15,20 @@ struct TmdbClientDependency {
     var discoverMovies: @Sendable (Int) async -> Result<MoviesList, TmdbError>
     var movieDetails: @Sendable (Int) async -> Result<MovieDetails, TmdbError>
 
-    init(client: TmdbClient) {
-        self.fetchGenres = client.fetchGenres
-        self.fetchMovies = client.fetchMovies
-        self.searchMovies = client.searchMovies
-        self.discoverMovies = client.discoverMovies
-        self.movieDetails = client.movieDetails
+    init(tmdbClient: TmdbClient) {
+        self.fetchGenres = tmdbClient.fetchGenres
+        self.fetchMovies = tmdbClient.fetchMovies
+        self.searchMovies = tmdbClient.searchMovies
+        self.discoverMovies = tmdbClient.discoverMovies
+        self.movieDetails = tmdbClient.movieDetails
     }
 }
 
 extension TmdbClientDependency: DependencyKey {
     
-    static var liveValue: TmdbClientDependency {
-        TmdbClientDependency(client: .live)
-    }
-    
-    static var testValue: TmdbClientDependency {
-        TmdbClientDependency(client: .test)
-    }
-    
-    static var previewValue: TmdbClientDependency {
-        TmdbClientDependency(client: .test)
-    }
+    static let liveValue = Self(tmdbClient: .live)
+    static let testValue = Self(tmdbClient: .test)
+    static let previewValue = Self(tmdbClient: .test)
 }
 
 extension DependencyValues {

@@ -62,6 +62,7 @@ struct MovieView: View {
                 ToolbarItem(placement: .principal) {
                     Text(viewStore.movieDetails.movie.title ?? .empty)
                         .font(.rounded(.headline))
+                        .multilineTextAlignment(.center)
                         .opacity(navigationTitleOpacity)
                 }
                 
