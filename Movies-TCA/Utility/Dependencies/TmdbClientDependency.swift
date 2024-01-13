@@ -14,39 +14,21 @@ struct TmdbClientDependency {
     var searchMovies: @Sendable (String) async -> Result<MoviesList, TmdbError>
     var discoverMovies: @Sendable (Int) async -> Result<MoviesList, TmdbError>
     var movieDetails: @Sendable (Int) async -> Result<MovieDetails, TmdbError>
+
+    init(tmdbClient: TmdbClient) {
+        self.fetchGenres = tmdbClient.fetchGenres
+        self.fetchMovies = tmdbClient.fetchMovies
+        self.searchMovies = tmdbClient.searchMovies
+        self.discoverMovies = tmdbClient.discoverMovies
+        self.movieDetails = tmdbClient.movieDetails
+    }
 }
 
 extension TmdbClientDependency: DependencyKey {
     
-    static var liveValue: TmdbClientDependency {
-        TmdbClientDependency(
-            fetchGenres: TmdbClient.live.fetchGenres,
-            fetchMovies: TmdbClient.live.fetchMovies,
-            searchMovies: TmdbClient.live.searchMovies,
-            discoverMovies: TmdbClient.live.discoverMovies,
-            movieDetails: TmdbClient.live.movieDetails
-        )
-    }
-    
-    static var testValue: TmdbClientDependency {
-        TmdbClientDependency(
-            fetchGenres: TmdbClient.test.fetchGenres,
-            fetchMovies: TmdbClient.test.fetchMovies,
-            searchMovies: TmdbClient.test.searchMovies,
-            discoverMovies: TmdbClient.test.discoverMovies,
-            movieDetails: TmdbClient.test.movieDetails
-        )
-    }
-    
-    static var previewValue: TmdbClientDependency {
-        TmdbClientDependency(
-            fetchGenres: TmdbClient.test.fetchGenres,
-            fetchMovies: TmdbClient.test.fetchMovies,
-            searchMovies: TmdbClient.test.searchMovies,
-            discoverMovies: TmdbClient.test.discoverMovies,
-            movieDetails: TmdbClient.test.movieDetails
-        )
-    }
+    static let liveValue = Self(tmdbClient: .live)
+    static let testValue = Self(tmdbClient: .test)
+    static let previewValue = Self(tmdbClient: .test)
 }
 
 extension DependencyValues {

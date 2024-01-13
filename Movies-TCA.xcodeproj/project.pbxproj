@@ -558,9 +558,9 @@
 		7DE17DCD2AFE050D005F4848 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				7D20938B2B4F147B003B2B2C /* Preferences */,
 				7DE17DF42B01F8BA005F4848 /* Config */,
 				7D6875322B4A73F100882EA9 /* Localization */,
+				7D20938B2B4F147B003B2B2C /* Preferences */,
 				7DE17DCA2AFE04E4005F4848 /* Resources */,
 			);
 			path = Support;

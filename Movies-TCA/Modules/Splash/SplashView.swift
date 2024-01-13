@@ -11,7 +11,7 @@ struct SplashView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            Image(uiImage: .init(named: "AppIcon")!)
+            Image(.splashLogo)
                 .resizable()
                 .scaledToFit()
                 .frame(width: geometry.size.width / 2)
