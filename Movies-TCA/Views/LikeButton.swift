@@ -11,6 +11,7 @@ import Pow
 struct LikeButton: View {
     
     @Binding var isLiked: Bool
+    var color: Color = .white
     
     var body: some View {
         Button(
@@ -18,10 +19,9 @@ struct LikeButton: View {
             label: {
                 Image(systemName: "heart.fill")
                     .imageScale(.large)
-                    .foregroundStyle(isLiked ? .red : .white)
+                    .foregroundStyle(isLiked ? .red : color)
             }
         )
-        .padding(10)
         .buttonStyle(.plain)
         .changeEffect(
             .spray(layer: .named(Constants.Layer.like)) {

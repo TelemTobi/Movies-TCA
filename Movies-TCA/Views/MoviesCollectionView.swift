@@ -63,6 +63,7 @@ struct MoviesCollectionView: View {
                         .shadow(radius: 3)
                     
                     LikeButton(isLiked: $movie.isLiked)
+                        .padding(10)
                 }
                 
                 Text(movie.title ?? .empty)

@@ -68,6 +68,7 @@ struct MoviesPagerView: View {
                         .shadow(radius: 3)
                     
                     LikeButton(isLiked: $movie.isLiked)
+                        .padding(10)
                 }
             }
             .contentShape(Rectangle())
