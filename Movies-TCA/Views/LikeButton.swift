@@ -11,7 +11,7 @@ import Pow
 struct LikeButton: View {
     
     @Binding var isLiked: Bool
-    var color: Color = .white
+    var color: Color = .white.opacity(0.8)
     
     var body: some View {
         Button(
