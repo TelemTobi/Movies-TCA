@@ -67,24 +67,7 @@ struct MoviesPagerView: View {
                         .clipShape(.rect(cornerRadius: 10))
                         .shadow(radius: 3)
                     
-                    Button(
-                        action: { movie.isLiked.toggle() },
-                        label: {
-                            Image(systemName: "heart.fill")
-                                .imageScale(.large)
-                                .foregroundStyle(movie.isLiked ? .red : .white)
-                        }
-                    )
-                    .padding(10)
-                    .buttonStyle(.plain)
-                    .changeEffect(
-                        .spray(layer: .named(Constants.Layer.like)) {
-                            Image(systemName: "heart.fill")
-                                .foregroundStyle(.red)
-                        },
-                        value: movie.isLiked,
-                        isEnabled: movie.isLiked
-                    )
+                    LikeButton(isLiked: $movie.isLiked)
                 }
             }
             .contentShape(Rectangle())
