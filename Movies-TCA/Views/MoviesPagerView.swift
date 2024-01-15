@@ -36,7 +36,7 @@ struct MoviesPagerView: View {
     
     private struct ItemView: View {
         
-        let movie: Movie
+        @State var movie: Movie
         let geometry: GeometryProxy
         
         var body: some View {
@@ -44,27 +44,48 @@ struct MoviesPagerView: View {
                 let itemSize = itemGeometry.size
                 let minX = itemGeometry.frame(in: .scrollView).minX * 0.5
                 
-                WebImage(url: movie.backdropUrl ?? movie.thumbnailUrl)
-                    .resizable()
-                    .placeholder {
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(.gray)
-                            .frame(width: itemSize.width, height: itemSize.height)
-                        
-                        Image(systemName: "popcorn")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40)
-                            .foregroundColor(.white)
-                    }
-                    .transition(.fade)
-                    .aspectRatio(contentMode: .fill)
-                    .scaleEffect(1.2)
-                    .offset(x: -minX)
-                    .frame(width: itemSize.width, height: itemSize.height)
-                    .overlay { OverlayView(for: movie) }
-                    .clipShape(.rect(cornerRadius: 10))
-                    .shadow(radius: 3)
+                ZStack(alignment: .topTrailing) {
+                    WebImage(url: movie.backdropUrl ?? movie.thumbnailUrl)
+                        .resizable()
+                        .placeholder {
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundColor(.gray)
+                                .frame(width: itemSize.width, height: itemSize.height)
+                            
+                            Image(systemName: "popcorn")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40)
+                                .foregroundColor(.white)
+                        }
+                        .transition(.fade)
+                        .aspectRatio(contentMode: .fill)
+                        .scaleEffect(1.2)
+                        .offset(x: -minX)
+                        .frame(width: itemSize.width, height: itemSize.height)
+                        .overlay { OverlayView(for: movie) }
+                        .clipShape(.rect(cornerRadius: 10))
+                        .shadow(radius: 3)
+                    
+                    Button(
+                        action: { movie.isLiked.toggle() },
+                        label: {
+                            Image(systemName: "heart.fill")
+                                .imageScale(.large)
+                                .foregroundStyle(movie.isLiked ? .red : .white)
+                        }
+                    )
+                    .padding(10)
+                    .buttonStyle(.plain)
+                    .changeEffect(
+                        .spray(layer: .named(Constants.Layer.like)) {
+                            Image(systemName: "heart.fill")
+                                .foregroundStyle(.red)
+                        },
+                        value: movie.isLiked,
+                        isEnabled: movie.isLiked
+                    )
+                }
             }
             .contentShape(Rectangle())
             .frame(width: geometry.size.width - 32)
