@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import Pow
 
 struct DiscoverView: View {
     
@@ -85,6 +86,7 @@ extension DiscoverView {
             }
             .listStyle(.grouped)
             .scrollIndicators(.hidden)
+            .particleLayer(name: Constants.Layer.like)
         }
     }
 
@@ -106,9 +108,10 @@ extension DiscoverView {
                     .frame(height: geometry.size.width / 1.6)
                     
                 case .popular, .topRated, .upcoming:
-                    MoviesCollectionView(movies: movies) {
-                        viewStore.send(.onMovieTap($0))
-                    }
+                    MoviesCollectionView(
+                        movies: movies,
+                        onMovieTap: { viewStore.send(.onMovieTap($0)) }
+                    )
                     .frame(height: geometry.size.width * 0.7)
                 }
             } header: {
