@@ -48,9 +48,9 @@ struct MovieListItem: View {
                         
                         LikeButton(
                             isLiked: $movie.isLiked,
-                            color: .gray.opacity(0.3)
+                            outlineColor: .gray.opacity(0.3)
                         )
-                        .padding(2)
+                        .padding(.vertical, 2)
                     }
                     
                     Text(movie.overview ?? "")

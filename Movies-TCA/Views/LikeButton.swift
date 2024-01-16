@@ -11,15 +11,23 @@ import Pow
 struct LikeButton: View {
     
     @Binding var isLiked: Bool
-    var color: Color = .white.opacity(0.8)
+    var outlineColor: Color = .white.opacity(0.8)
     
     var body: some View {
         Button(
             action: { isLiked.toggle() },
             label: {
-                Image(systemName: "heart.fill")
-                    .imageScale(.large)
-                    .foregroundStyle(isLiked ? .red : color)
+                ZStack {
+                    Image(systemName: "heart.fill")
+                        .imageScale(.large)
+                        .foregroundStyle(isLiked ? .red : .white.opacity(0.5))
+                    
+                    if !isLiked {
+                        Image(systemName: "heart")
+                            .imageScale(.large)
+                            .foregroundStyle(outlineColor)
+                    }
+                }
             }
         )
         .buttonStyle(.plain)
