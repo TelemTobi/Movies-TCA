@@ -12,7 +12,7 @@ extension MovieView {
     
     struct HeaderView: View {
         
-        let movie: Movie
+        @State var movie: Movie
         @Binding var headerOffScreenPercentage: CGFloat
         @State private var isSheetPresented: Bool = false
         
@@ -20,7 +20,8 @@ extension MovieView {
         let navigationBarVisibilityThreshold: CGFloat
         
         init(movie: Movie, geometry: GeometryProxy, _ navigationBarVisibilityThreshold: CGFloat, _ headerOffScreenPercentage: Binding<CGFloat>) {
-            self.movie = movie
+            
+            self._movie = State(wrappedValue: movie)
             self.geometry = geometry
             self.navigationBarVisibilityThreshold = navigationBarVisibilityThreshold
             self._headerOffScreenPercentage = headerOffScreenPercentage
@@ -51,15 +52,23 @@ extension MovieView {
                 )
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    Text(movie.title ?? .empty)
-                        .foregroundStyle(.white)
-                        .font(.rounded(.title, weight: .bold))
+                    
+                    HStack(alignment: .top) {
+                        Text(movie.title ?? .empty)
+                            .foregroundStyle(.white)
+                            .font(.rounded(.title, weight: .bold))
+                        
+                        Spacer()
+                        
+                        LikeButton(isLiked: $movie.isLiked)
+                        .padding(.vertical, 6)
+                    }
                     
                     Text(bulletPoints)
                         .foregroundStyle(.white.opacity(0.50))
                         .font(.caption.bold())
                         .padding(.top, 5)
-                    
+                        
                     Text(movie.overview ?? .notAvailable)
                         .lineLimit(3)
                         .foregroundStyle(.white)
