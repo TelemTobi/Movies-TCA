@@ -34,6 +34,8 @@ struct Movie: Decodable, Equatable, Identifiable {
     let voteAverage: Float?
     let voteCount: Int?
     
+    var isLiked: Bool = false
+    
     enum CodingKeys: String, CodingKey {
         case genreIds = "genre_ids"
         case adult

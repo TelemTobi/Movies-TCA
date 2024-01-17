@@ -19,4 +19,8 @@ enum Constants {
     enum Stub {
         static let delay: Int = 2
     }
+    
+    enum Layer {
+        static var like: String { #function }
+    }
 }

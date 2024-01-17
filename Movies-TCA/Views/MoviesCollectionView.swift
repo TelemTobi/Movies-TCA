@@ -34,7 +34,7 @@ struct MoviesCollectionView: View {
     
     private struct ItemView: View {
         
-        let movie: Movie
+        @State var movie: Movie
         let geometry: GeometryProxy
         
         var body: some View {
@@ -42,24 +42,29 @@ struct MoviesCollectionView: View {
             let itemHeight = geometry.size.height - 40
             
             VStack(alignment: .leading) {
-                WebImage(url: movie.thumbnailUrl)
-                    .resizable()
-                    .placeholder {
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(.gray)
-                            .frame(width: itemWidth, height: itemHeight)
-                        
-                        Image(systemName: "popcorn")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40)
-                            .foregroundColor(.white)
-                    }
-                    .scaledToFill()
-                    .frame(width: itemWidth, height: itemHeight)
-                    .cornerRadius(10)
-                    .transition(.fade)
-                    .shadow(radius: 3)
+                ZStack(alignment: .topTrailing) {
+                    WebImage(url: movie.thumbnailUrl)
+                        .resizable()
+                        .placeholder {
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundColor(.gray)
+                                .frame(width: itemWidth, height: itemHeight)
+                            
+                            Image(systemName: "popcorn")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40)
+                                .foregroundColor(.white)
+                        }
+                        .scaledToFill()
+                        .frame(width: itemWidth, height: itemHeight)
+                        .cornerRadius(10)
+                        .transition(.fade)
+                        .shadow(radius: 3)
+                    
+                    LikeButton(isLiked: $movie.isLiked)
+                        .padding(10)
+                }
                 
                 Text(movie.title ?? .empty)
                     .lineLimit(1)

@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct MovieListItem: View {
     
-    let movie: Movie
+    @State var movie: Movie
     
     var body: some View {
         GeometryReader { geometry in
@@ -38,10 +38,20 @@ struct MovieListItem: View {
                     .shadow(radius: 3)
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(movie.title ?? "")
-                        .lineLimit(2)
-                        .font(.title2.weight(.bold))
-                        .layoutPriority(1)
+                    HStack(alignment: .top) {
+                        Text(movie.title ?? "")
+                            .lineLimit(2)
+                            .font(.title2.weight(.bold))
+                            .layoutPriority(1)
+                        
+                        Spacer()
+                        
+                        LikeButton(
+                            isLiked: $movie.isLiked,
+                            outlineColor: .gray.opacity(0.3)
+                        )
+                        .padding(.vertical, 2)
+                    }
                     
                     Text(movie.overview ?? "")
                         .font(.callout)
