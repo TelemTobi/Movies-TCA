@@ -39,6 +39,7 @@ struct LikeButton: View {
             value: isLiked,
             isEnabled: isLiked
         )
+        .sensoryFeedback(.selection, trigger: isLiked)
     }
 }
 
