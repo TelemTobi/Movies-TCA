@@ -11,20 +11,26 @@ import ComposableArchitecture
 struct WatchlistFeature: Reducer {
     
     struct State: Equatable {
-        
+        var likedMovies: IdentifiedArrayOf<Movie> = []
     }
     
     enum Action: Equatable {
         case onPreferencesTap
-        case onMovieTap(_ movie: Movie)
+        case onMovieTap(Movie)
+        case onMovieLike(Movie)
+        case setLikedMovies([LikedMovie])
     }
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
                 
+            case let .setLikedMovies(likedMovies):
+                state.likedMovies = .init(uniqueElements: likedMovies.map { $0.toMovie })
+                return .none
+                
             // MARK: Handled in parent feature
-            case .onPreferencesTap, .onMovieTap:
+            case .onPreferencesTap, .onMovieTap, .onMovieLike:
                 return .none
             }
         }

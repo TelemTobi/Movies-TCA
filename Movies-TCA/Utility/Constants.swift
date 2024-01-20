@@ -8,6 +8,7 @@
 import Foundation
 
 typealias EmptyClosure = () -> Void
+typealias MovieClosure = (Movie) -> Void
 
 enum Constants {
     

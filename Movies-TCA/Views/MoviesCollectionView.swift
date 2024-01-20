@@ -12,7 +12,8 @@ import ComposableArchitecture
 struct MoviesCollectionView: View {
     
     let movies: IdentifiedArrayOf<Movie>
-    let onMovieTap: (Movie) -> Void
+    let onMovieTap: MovieClosure
+    var onLikeTap: MovieClosure? = nil
     
     var body: some View {
         GeometryReader { geometry in
@@ -21,7 +22,13 @@ struct MoviesCollectionView: View {
                     ForEach(movies) { movie in
                         Button(
                             action: { onMovieTap(movie) },
-                            label: { ItemView(movie: movie, geometry: geometry) }
+                            label: {
+                                ItemView(
+                                    movie: movie,
+                                    geometry: geometry,
+                                    onLikeTap: onLikeTap
+                                )
+                            }
                         )
                         .buttonStyle(.plain)
                     }
@@ -36,6 +43,7 @@ struct MoviesCollectionView: View {
         
         @State var movie: Movie
         let geometry: GeometryProxy
+        var onLikeTap: MovieClosure? = nil
         
         var body: some View {
             let itemWidth = geometry.size.height / 1.8
@@ -62,8 +70,13 @@ struct MoviesCollectionView: View {
                         .transition(.fade)
                         .shadow(radius: 3)
                     
-                    LikeButton(isLiked: $movie.isLiked)
+                    if let onLikeTap {
+                        LikeButton(
+                            isLiked: $movie.isLiked,
+                            onTap: { onLikeTap(movie) }
+                        )
                         .padding(10)
+                    }
                 }
                 
                 Text(movie.title ?? .empty)
@@ -80,8 +93,9 @@ struct MoviesCollectionView: View {
 
 #Preview {
     MoviesCollectionView(
-        movies: .init(uniqueElements: MoviesList.mock.results ?? []),
-        onMovieTap: { _ in }
+        movies: IdentifiedArray(uniqueElements: MoviesList.mock.results ?? []),
+        onMovieTap: { _ in },
+        onLikeTap: { _ in }
     )
     .frame(height: 280)
 }

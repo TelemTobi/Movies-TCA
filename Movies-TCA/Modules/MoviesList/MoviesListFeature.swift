@@ -17,7 +17,8 @@ struct MoviesListFeature: Reducer {
     
     enum Action: Equatable {
         case onFirstAppear
-        case onMovieTap(_ movie: Movie)
+        case onMovieTap(Movie)
+        case onMovieLike(Movie)
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
@@ -29,7 +30,7 @@ struct MoviesListFeature: Reducer {
                 return .none
                 
             // MARK: Handled in parent feature
-            case .onMovieTap:
+            case .onMovieTap, .onMovieLike:
                 return .none
             }
         }

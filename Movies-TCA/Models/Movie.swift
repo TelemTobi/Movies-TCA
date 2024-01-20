@@ -10,40 +10,40 @@ import SwiftUI
 
 struct Movie: Decodable, Equatable, Identifiable {
     
-    let genreIds: [Int]?
-    let adult: Bool?
-    let backdropPath: String?
-    let budget: Int?
-    let genres: [Genre]?
-    let homepage: String?
-    let id: Int?
-    let imdbId: String?
-    let originalLanguage: String?
-    let originalTitle: String?
-    let overview: String?
-    let popularity: Float?
-    let posterPath: String?
-    let productionCountries: [ProductionCountry]?
-    let releaseDate: Date?
-    let revenue: Int?
-    let runtime: Int?
-    let status: String?
-    let tagline: String?
-    let title: String?
-    let video: Bool?
-    let voteAverage: Float?
-    let voteCount: Int?
+    var id: Int?
+    var genreIds: [Int]?
+    var adult: Bool?
+    var backdropPath: String?
+    var budget: Int?
+    var genres: [Genre]?
+    var homepage: String?
+    var imdbId: String?
+    var originalLanguage: String?
+    var originalTitle: String?
+    var overview: String?
+    var popularity: Float?
+    var posterPath: String?
+    var productionCountries: [ProductionCountry]?
+    var releaseDate: Date?
+    var revenue: Int?
+    var runtime: Int?
+    var status: String?
+    var tagline: String?
+    var title: String?
+    var video: Bool?
+    var voteAverage: Float?
+    var voteCount: Int?
     
     var isLiked: Bool = false
     
     enum CodingKeys: String, CodingKey {
+        case id
         case genreIds = "genre_ids"
         case adult
         case backdropPath = "backdrop_path"
         case budget
         case genres
         case homepage
-        case id
         case imdbId = "imdb_id"
         case originalLanguage = "original_language"
         case originalTitle = "original_title"

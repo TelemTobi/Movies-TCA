@@ -73,6 +73,8 @@ struct HomeFeature: Reducer {
         }
     }
     
+    @Dependency(\.database) private var database
+    
     var body: some ReducerOf<Self> {
         Scope(state: \.discover, action: /Action.discover) {
             DiscoverFeature()
@@ -113,6 +115,25 @@ struct HomeFeature: Reducer {
                 
                 state.moviePath.removeAll()
                 state.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
+                return .none
+                
+            case let .discover(.onMovieLike(movie)),
+                 let .search(.onMovieLike(movie)),
+                 let .watchlist(.onMovieLike(movie)),
+                 let .discover(.path(.element(_, action: .moviesList(.onMovieLike(movie))))),
+                 let .destination(.presented(.movie(.onLikeTap(movie)))),
+                 let .moviePath(.element(_, action: .relatedMovie(.onLikeTap(movie)))):
+                
+                if movie.isLiked {
+                    let likedMovie = LikedMovie(movie)
+                    try? database.context().insert(likedMovie)
+                } else {
+                    let movieId = movie.id
+                    try? database.context().delete(
+                        model: LikedMovie.self,
+                        where: #Predicate { $0.id == movieId }
+                    )
+                }
                 return .none
                 
             case let .destination(.presented(.movie(.onRelatedMovieTap(movie)))),

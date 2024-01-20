@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 import ComposableArchitecture
 
 struct SearchFeature: Reducer {
@@ -25,16 +26,19 @@ struct SearchFeature: Reducer {
     enum Action: Equatable, BindableAction {
         case onFirstAppear
         case onPreferencesTap
-        case onMovieTap(_ movie: Movie)
-        case onGenreTap(_ genre: Genre)
+        case onMovieTap(Movie)
+        case onMovieLike(Movie)
+        case onGenreTap(Genre)
         
         case searchMovies(_ query: String)
         case searchResponse(Result<MoviesList, TmdbError>)
+        case setLikedMovies([LikedMovie])
         
         case binding(BindingAction<State>)
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
+    @Dependency(\.database) var database
     
     var body: some ReducerOf<Self> {
         BindingReducer()
@@ -92,11 +96,12 @@ struct SearchFeature: Reducer {
                 
                 if let movies = response.results {
                     state.results = .init(uniqueElements: movies)
+                    
+                    let likedMovies = try? database.context().fetch(FetchDescriptor<LikedMovie>())
+                    return .send(.setLikedMovies(likedMovies ?? []))
                 } else {
                     return .send(.searchResponse(.unknownError))
                 }
-                
-                return .none
                 
             case let .searchResponse(.failure(error)):
                 state.isLoading = false
@@ -104,11 +109,19 @@ struct SearchFeature: Reducer {
                 customDump(error) // TODO: Handle error
                 return .none
                 
+            case let .setLikedMovies(likedMovies):
+                let likedMovies = IdentifiedArray(uniqueElements: likedMovies)
+                
+                for index in state.results.indices where likedMovies[id: state.results[index].id] != nil {
+                    state.results[index].isLiked = true
+                }
+                return .none
+                
             case .binding(_):
                 return .none
                 
             // MARK: Handled in parent feature
-            case .onPreferencesTap, .onMovieTap:
+            case .onPreferencesTap, .onMovieTap, .onMovieLike:
                 return .none
             }
         }

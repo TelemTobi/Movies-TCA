@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct MovieListItem: View {
     
     @State var movie: Movie
+    var onLikeTap: MovieClosure? = nil
     
     var body: some View {
         GeometryReader { geometry in
@@ -46,11 +47,14 @@ struct MovieListItem: View {
                         
                         Spacer()
                         
-                        LikeButton(
-                            isLiked: $movie.isLiked,
-                            outlineColor: .gray.opacity(0.3)
-                        )
-                        .padding(.vertical, 2)
+                        if let onLikeTap {
+                            LikeButton(
+                                isLiked: $movie.isLiked,
+                                onTap: { onLikeTap(movie) },
+                                outlineColor: .gray.opacity(0.3)
+                            )
+                            .padding(.vertical, 2)
+                        }
                     }
                     
                     Text(movie.overview ?? "")

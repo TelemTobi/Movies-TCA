@@ -7,10 +7,13 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import ComposableArchitecture
 
 extension MovieView {
     
     struct HeaderView: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
         
         @State var movie: Movie
         @Binding var headerOffScreenPercentage: CGFloat
@@ -60,7 +63,10 @@ extension MovieView {
                         
                         Spacer()
                         
-                        LikeButton(isLiked: $movie.isLiked)
+                        LikeButton(
+                            isLiked: $movie.isLiked,
+                            onTap: { viewStore.send(.onLikeTap(movie)) }
+                        )
                         .padding(.vertical, 6)
                     }
                     
