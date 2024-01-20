@@ -24,4 +24,13 @@ class LikedMovie {
         self.overview = movie.overview
         self.posterPath = movie.posterPath
     }
+    
+    var toMovie: Movie {
+        Movie(
+            id: self.id,
+            overview: self.overview,
+            posterPath: self.posterPath,
+            title: self.title
+        )
+    }
 }
