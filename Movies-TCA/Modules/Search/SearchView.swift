@@ -123,7 +123,7 @@ extension SearchView {
                     label: {
                         MovieListItem(
                             movie: movie,
-                            onLikeTap: {  }
+                            onLikeTap: { viewStore.send(.onMovieLike($0)) }
                         )
                     }
                 )

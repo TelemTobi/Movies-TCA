@@ -17,7 +17,8 @@ struct MovieFeature: Reducer {
     enum Action: Equatable {
         case onFirstAppear
         case onCloseButtonTap
-        case onRelatedMovieTap(_ movie: Movie)
+        case onRelatedMovieTap(Movie)
+        case onLikeTap(Movie)
         
         case loadExtendedDetails
         case movieDetailsLoaded(Result<MovieDetails, TmdbError>)
@@ -49,7 +50,7 @@ struct MovieFeature: Reducer {
                 return .none
                 
             // MARK: Handled in parent feature
-            case .onCloseButtonTap, .onRelatedMovieTap:
+            case .onCloseButtonTap, .onRelatedMovieTap, .onLikeTap:
                 return .none
             }
         }

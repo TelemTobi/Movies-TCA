@@ -118,7 +118,11 @@ struct HomeFeature: Reducer {
                 return .none
                 
             case let .discover(.onMovieLike(movie)),
-                 let .search(.onMovieLike(movie)):
+                 let .search(.onMovieLike(movie)),
+                 let .watchlist(.onMovieLike(movie)),
+                 let .discover(.path(.element(_, action: .moviesList(.onMovieLike(movie))))),
+                 let .destination(.presented(.movie(.onLikeTap(movie)))),
+                 let .moviePath(.element(_, action: .relatedMovie(.onLikeTap(movie)))):
                 
                 if movie.isLiked {
                     let likedMovie = LikedMovie(movie)

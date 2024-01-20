@@ -50,6 +50,7 @@ struct MovieListItem: View {
                         if let onLikeTap {
                             LikeButton(
                                 isLiked: $movie.isLiked,
+                                onTap: { onLikeTap(movie) },
                                 outlineColor: .gray.opacity(0.3)
                             )
                             .padding(.vertical, 2)

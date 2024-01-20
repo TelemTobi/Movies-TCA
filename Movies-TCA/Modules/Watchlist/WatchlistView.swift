@@ -21,7 +21,13 @@ struct WatchlistView: View {
                 List(viewStore.likedMovies) { movie in
                     Button(
                         action: { viewStore.send(.onMovieTap(movie)) },
-                        label: { MovieListItem(movie: movie) }
+                        label: {
+                            MovieListItem(
+                                movie: movie,
+                                // TODO: Show alert before disliking
+                                onLikeTap: { viewStore.send(.onMovieLike($0)) }
+                            )
+                        }
                     )
                     .padding()
                     .frame(height: 200)

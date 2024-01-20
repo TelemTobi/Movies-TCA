@@ -17,6 +17,7 @@ struct WatchlistFeature: Reducer {
     enum Action: Equatable {
         case onPreferencesTap
         case onMovieTap(Movie)
+        case onMovieLike(Movie)
         case setLikedMovies([LikedMovie])
     }
     
@@ -29,7 +30,7 @@ struct WatchlistFeature: Reducer {
                 return .none
                 
             // MARK: Handled in parent feature
-            case .onPreferencesTap, .onMovieTap:
+            case .onPreferencesTap, .onMovieTap, .onMovieLike:
                 return .none
             }
         }
