@@ -12,7 +12,7 @@ import SDWebImageSwiftUI
 struct MoviesPagerView: View {
     
     let movies: IdentifiedArrayOf<Movie>
-    let onMovieTap: (Movie) -> Void
+    let onMovieTap: MovieClosure
     
     var body: some View {
         GeometryReader { geometry in

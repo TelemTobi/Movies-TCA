@@ -110,7 +110,8 @@ extension DiscoverView {
                 case .popular, .topRated, .upcoming:
                     MoviesCollectionView(
                         movies: movies,
-                        onMovieTap: { viewStore.send(.onMovieTap($0)) }
+                        onMovieTap: { viewStore.send(.onMovieTap($0)) },
+                        onLikeTap: { viewStore.send(.onMovieLike($0)) }
                     )
                     .frame(height: geometry.size.width * 0.7)
                 }

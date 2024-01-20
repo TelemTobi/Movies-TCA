@@ -6,17 +6,20 @@
 //
 
 import SwiftUI
+import SwiftData
 import ComposableArchitecture
 
 struct WatchlistView: View {
     
     let store: StoreOf<WatchlistFeature>
     
+    @Query var likedMovies: [LikedMovie]
+    
     var body: some View {
         NavigationStack {
             WithViewStore(store, observe: { $0 }) { viewStore in
-                List {
-                    Text("")
+                List(likedMovies) { likedMovie in
+                    Text(likedMovie.title ?? .notAvailable)
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                 }

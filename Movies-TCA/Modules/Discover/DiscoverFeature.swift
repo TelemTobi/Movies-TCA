@@ -22,7 +22,8 @@ struct DiscoverFeature: Reducer {
         
         case onFirstAppear
         case onPreferencesTap
-        case onMovieTap(_ movie: Movie)
+        case onMovieTap(Movie)
+        case onMovieLike(Movie)
         case onMoviesListTap(_ listType: MoviesListType, _ movies: IdentifiedArrayOf<Movie>)
         
         case loadMovies
@@ -98,7 +99,7 @@ struct DiscoverFeature: Reducer {
                 return .none
                 
             // MARK: Handled in parent feature
-            case .onPreferencesTap, .onMovieTap:
+            case .onPreferencesTap, .onMovieTap, .onMovieLike:
                 return .none
             }
         }

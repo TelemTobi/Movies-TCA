@@ -467,8 +467,8 @@
 		7DDA64502B0C7662008BF425 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				7DDA64512B0C79B5008BF425 /* TmdbClientDependency.swift */,
 				7D48B3992B5BB22000A248E3 /* DatabaseDependency.swift */,
+				7DDA64512B0C79B5008BF425 /* TmdbClientDependency.swift */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
