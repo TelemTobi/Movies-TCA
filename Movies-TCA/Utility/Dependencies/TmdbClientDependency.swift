@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ComposableArchitecture
+import Dependencies
 
 struct TmdbClientDependency {
     var fetchGenres: @Sendable () async -> Result<GenresResponse, TmdbError>
