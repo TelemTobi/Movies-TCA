@@ -30,7 +30,8 @@ class LikedMovie {
             id: self.id,
             overview: self.overview,
             posterPath: self.posterPath,
-            title: self.title
+            title: self.title,
+            isLiked: true
         )
     }
 }

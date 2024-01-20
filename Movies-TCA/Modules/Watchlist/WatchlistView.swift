@@ -13,12 +13,12 @@ struct WatchlistView: View {
     
     let store: StoreOf<WatchlistFeature>
     
-    @Query var likedMovies: [LikedMovie]
+    @Query private var likedMovies: [LikedMovie]
     
     var body: some View {
         NavigationStack {
             WithViewStore(store, observe: { $0 }) { viewStore in
-                List(likedMovies.map { $0.toMovie }) { movie in
+                List(viewStore.likedMovies) { movie in
                     Button(
                         action: { viewStore.send(.onMovieTap(movie)) },
                         label: { MovieListItem(movie: movie) }
@@ -32,6 +32,12 @@ struct WatchlistView: View {
                 }
                 .listStyle(.grouped)
                 .scrollIndicators(.hidden)
+                .onFirstAppear {
+                    viewStore.send(.setLikedMovies(likedMovies))
+                }
+                .onChange(of: likedMovies) { _, newValue in
+                    viewStore.send(.setLikedMovies(likedMovies))
+                }
             }
             .navigationTitle("Watchlist")
             .toolbar(content: toolbarContent)

@@ -117,7 +117,9 @@ struct HomeFeature: Reducer {
                 state.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
                 return .none
                 
-            case let .discover(.onMovieLike(movie)):
+            case let .discover(.onMovieLike(movie)),
+                 let .search(.onMovieLike(movie)):
+                
                 if movie.isLiked {
                     let likedMovie = LikedMovie(movie)
                     try? database.context().insert(likedMovie)

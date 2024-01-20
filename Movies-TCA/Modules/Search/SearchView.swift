@@ -120,7 +120,12 @@ extension SearchView {
             ForEach(viewStore.results) { movie in
                 Button(
                     action: { viewStore.send(.onMovieTap(movie)) },
-                    label: { MovieListItem(movie: movie) }
+                    label: {
+                        MovieListItem(
+                            movie: movie,
+                            onLikeTap: {  }
+                        )
+                    }
                 )
                 .padding()
                 .frame(height: 200)

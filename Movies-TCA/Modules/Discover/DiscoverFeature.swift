@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 import ComposableArchitecture
 
 struct DiscoverFeature: Reducer {
@@ -29,7 +30,7 @@ struct DiscoverFeature: Reducer {
         case loadMovies
         case moviesListLoaded(type: MoviesListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
-        
+        case setLikedMovies([LikedMovie])
     }
     
     struct Path: Reducer {
@@ -50,6 +51,7 @@ struct DiscoverFeature: Reducer {
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
+    @Dependency(\.database) var database
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -88,11 +90,24 @@ struct DiscoverFeature: Reducer {
                 
             case .loadingCompleted:
                 state.isLoading = false
-                return .none
+
+                let likedMovies = try? database.context().fetch(FetchDescriptor<LikedMovie>())
+                return .send(.setLikedMovies(likedMovies ?? []))
                 
             case let .onMoviesListTap(listType, movies):
                 let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
                 state.path.append(.moviesList(moviesListState))
+                return .none
+                
+            case let .setLikedMovies(likedMovies):
+                let likedMovies = IdentifiedArray(uniqueElements: likedMovies)
+                
+                for listType in state.movies.keys {
+                    for index in state.movies[listType]!.indices
+                    where likedMovies[id: state.movies[listType]![index].id] != nil {
+                        state.movies[listType]![index].isLiked = true
+                    }
+                }
                 return .none
                 
             case .path:

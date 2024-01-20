@@ -102,9 +102,11 @@ extension DiscoverView {
             Section {
                 switch listType {
                 case .nowPlaying:
-                    MoviesPagerView(movies: movies) {
-                        viewStore.send(.onMovieTap($0))
-                    }
+                    MoviesPagerView(
+                        movies: movies,
+                        onMovieTap: { viewStore.send(.onMovieTap($0)) },
+                        onLikeTap: { viewStore.send(.onMovieLike($0)) }
+                    )
                     .frame(height: geometry.size.width / 1.6)
                     
                 case .popular, .topRated, .upcoming:
