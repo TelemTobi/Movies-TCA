@@ -28,6 +28,7 @@ struct SearchView: View {
                 .animation(.easeInOut, value: viewStore.isLoading)
                 .searchable(
                     text: viewStore.$searchInput,
+                    placement: .navigationBarDrawer(displayMode: .always),
                     prompt: "Explore movies here"
                 )
                 .onFirstAppear {
