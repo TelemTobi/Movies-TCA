@@ -27,6 +27,7 @@ struct WatchlistView: View {
             }
             .navigationTitle("Watchlist")
             .toolbar(content: toolbarContent)
+            .alert(store: store.scope(state: \.$alert, action: { .alert($0) }))
             .onFirstAppear {
                 store.send(.setLikedMovies(likedMovies))
             }
@@ -61,8 +62,9 @@ extension WatchlistView {
                     label: {
                         MovieListItem(
                             movie: movie,
-                            // TODO: Show alert before disliking
-                            onLikeTap: { viewStore.send(.onMovieLike($0)) }
+                            onLikeTap: {
+                                viewStore.send(.onMovieDislike($0))
+                            }
                         )
                     }
                 )

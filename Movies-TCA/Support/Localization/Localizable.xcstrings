@@ -72,6 +72,9 @@
         }
       }
     },
+    "Are you sure?" : {
+
+    },
     "BUDGET" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -88,6 +91,9 @@
           }
         }
       }
+    },
+    "Cancel" : {
+
     },
     "Cast" : {
       "localizations" : {
@@ -438,6 +444,9 @@
         }
       }
     },
+    "Remove" : {
+
+    },
     "REVENUE" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -592,6 +601,9 @@
       }
     },
     "Your watchlist is empty" : {
+
+    },
+    "Your'e about to remove %@ from your watchlist" : {
 
     }
   },
