@@ -18,6 +18,7 @@
 		7D48B39A2B5BB22000A248E3 /* DatabaseDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48B3992B5BB22000A248E3 /* DatabaseDependency.swift */; };
 		7D48B39C2B5C2BE500A248E3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48B39B2B5C2BE500A248E3 /* HomeView.swift */; };
 		7D48B39F2B5D867800A248E3 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48B39E2B5D867800A248E3 /* CloseButton.swift */; };
+		7D48B3A22B5EEF7000A248E3 /* Watchlist+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48B3A12B5EEF7000A248E3 /* Watchlist+Alerts.swift */; };
 		7D513F7C2B17221A0040F913 /* PreferencesFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F7B2B17221A0040F913 /* PreferencesFeature.swift */; };
 		7D513F7E2B1722210040F913 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F7D2B1722210040F913 /* PreferencesView.swift */; };
 		7D513F812B1A3D810040F913 /* Numeric+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F802B1A3D810040F913 /* Numeric+Extension.swift */; };
@@ -140,6 +141,7 @@
 		7D48B3992B5BB22000A248E3 /* DatabaseDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseDependency.swift; sourceTree = "<group>"; };
 		7D48B39B2B5C2BE500A248E3 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7D48B39E2B5D867800A248E3 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		7D48B3A12B5EEF7000A248E3 /* Watchlist+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Watchlist+Alerts.swift"; sourceTree = "<group>"; };
 		7D513F7B2B17221A0040F913 /* PreferencesFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesFeature.swift; sourceTree = "<group>"; };
 		7D513F7D2B1722210040F913 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		7D513F802B1A3D810040F913 /* Numeric+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Numeric+Extension.swift"; sourceTree = "<group>"; };
@@ -294,6 +296,14 @@
 				7D48B39E2B5D867800A248E3 /* CloseButton.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		7D48B3A02B5EEF5F00A248E3 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				7D48B3A12B5EEF7000A248E3 /* Watchlist+Alerts.swift */,
+			);
+			path = Alerts;
 			sourceTree = "<group>";
 		};
 		7D513F7A2B17220D0040F913 /* Preferences */ = {
@@ -557,6 +567,7 @@
 			isa = PBXGroup;
 			children = (
 				7DDA64582B0E8780008BF425 /* Constants.swift */,
+				7D48B3A02B5EEF5F00A248E3 /* Alerts */,
 				7D2093912B4F15A0003B2B2C /* Classes */,
 				7DDA64502B0C7662008BF425 /* Dependencies */,
 				7DE17DCF2AFE0546005F4848 /* Extensions */,
@@ -934,6 +945,7 @@
 				7D783B172B3A14A2004BEEAD /* Movie+Preview.swift in Sources */,
 				7D003EF72B35659800E03E50 /* VerticalKeyValueView.swift in Sources */,
 				7DDA64572B0E7DB8008BF425 /* MoviesPagerView.swift in Sources */,
+				7D48B3A22B5EEF7000A248E3 /* Watchlist+Alerts.swift in Sources */,
 				7DB688C12B3032550007D98E /* DynamicSheet.swift in Sources */,
 				7DDA644D2B0AB023008BF425 /* URLRequest+Extension.swift in Sources */,
 				7D513F7C2B17221A0040F913 /* PreferencesFeature.swift in Sources */,

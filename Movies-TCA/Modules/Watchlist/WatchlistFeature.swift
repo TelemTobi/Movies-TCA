@@ -37,23 +37,7 @@ struct WatchlistFeature: Reducer {
                 return .none
                 
             case let .onMovieDislike(movie):
-                state.alert = AlertState(
-                    title: {
-                        TextState("Are you sure?")
-                    },
-                    actions: {
-                        ButtonState(role: .destructive, action: .confirmDislike(movie)) {
-                            TextState("Remove")
-                        }
-                        
-                        ButtonState(role: .cancel) {
-                            TextState("Cancel")
-                        }
-                    },
-                    message: {
-                        TextState("Your'e about to remove \(movie.title ?? "") from your watchlist")
-                    }
-                )
+                state.alert = .confirmDislike(for: movie)
                 return .none
                 
             case let .alert(.presented(.confirmDislike(movie))):
