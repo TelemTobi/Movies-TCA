@@ -18,35 +18,21 @@ struct WatchlistView: View {
     var body: some View {
         NavigationStack {
             WithViewStore(store, observe: { $0 }) { viewStore in
-                List(viewStore.likedMovies) { movie in
-                    Button(
-                        action: { viewStore.send(.onMovieTap(movie)) },
-                        label: {
-                            MovieListItem(
-                                movie: movie,
-                                // TODO: Show alert before disliking
-                                onLikeTap: { viewStore.send(.onMovieLike($0)) }
-                            )
-                        }
-                    )
-                    .padding()
-                    .frame(height: 200)
-                    .buttonStyle(.plain)
-                    .listRowInsets(.zero)
-                    .listRowBackground(Color.clear)
-                    .listSectionSeparator(.hidden, edges: .top)
-                }
-                .listStyle(.grouped)
-                .scrollIndicators(.hidden)
-                .onFirstAppear {
-                    viewStore.send(.setLikedMovies(likedMovies))
-                }
-                .onChange(of: likedMovies) { _, newValue in
-                    viewStore.send(.setLikedMovies(likedMovies))
+                if viewStore.likedMovies.isEmpty {
+                    EmptyFavoritesView()
+                } else {
+                    ContentView()
+                        .environmentObject(viewStore)
                 }
             }
             .navigationTitle("Watchlist")
             .toolbar(content: toolbarContent)
+            .onFirstAppear {
+                store.send(.setLikedMovies(likedMovies))
+            }
+            .onChange(of: likedMovies) { _, newValue in
+                store.send(.setLikedMovies(likedMovies))
+            }
         }
     }
     
@@ -59,6 +45,47 @@ struct WatchlistView: View {
                 Image(systemName: "gear")
                     .foregroundColor(.accentColor)
             }
+        }
+    }
+}
+
+extension WatchlistView {
+    private struct ContentView: View {
+        
+        @EnvironmentObject private var viewStore: ViewStoreOf<WatchlistFeature>
+        
+        var body: some View {
+            List(viewStore.likedMovies) { movie in
+                Button(
+                    action: { viewStore.send(.onMovieTap(movie)) },
+                    label: {
+                        MovieListItem(
+                            movie: movie,
+                            // TODO: Show alert before disliking
+                            onLikeTap: { viewStore.send(.onMovieLike($0)) }
+                        )
+                    }
+                )
+                .padding()
+                .frame(height: 200)
+                .buttonStyle(.plain)
+                .listRowInsets(.zero)
+                .listRowBackground(Color.clear)
+                .listSectionSeparator(.hidden, edges: .top)
+            }
+            .listStyle(.grouped)
+            .scrollIndicators(.hidden)
+        }
+    }
+    
+    private struct EmptyFavoritesView: View {
+        
+        var body: some View {
+            ContentUnavailableView(
+                "Your watchlist is empty",
+                systemImage: "popcorn",
+                description: Text("Movies you liked will appear here")
+            )
         }
     }
 }

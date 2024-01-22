@@ -319,6 +319,9 @@
         }
       }
     },
+    "Movies you liked will appear here" : {
+
+    },
     "N/A" : {
       "localizations" : {
         "en" : {
@@ -587,6 +590,9 @@
           }
         }
       }
+    },
+    "Your watchlist is empty" : {
+
     }
   },
   "version" : "1.0"
