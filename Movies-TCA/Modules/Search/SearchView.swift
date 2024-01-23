@@ -119,18 +119,13 @@ extension SearchView {
         
         var body: some View {
             ForEach(viewStore.results) { movie in
-                Button(
-                    action: { viewStore.send(.onMovieTap(movie)) },
-                    label: {
-                        MovieListItem(
-                            movie: movie,
-                            onLikeTap: { viewStore.send(.onMovieLike($0)) }
-                        )
-                    }
+                MovieListItem(
+                    movie: movie,
+                    onMovieTap: { viewStore.send(.onMovieTap($0)) },
+                    onLikeTap: { viewStore.send(.onMovieLike($0)) }
                 )
                 .padding()
                 .frame(height: 200)
-                .buttonStyle(.plain)
             }
         }
     }

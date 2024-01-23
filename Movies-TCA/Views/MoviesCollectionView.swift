@@ -20,17 +20,12 @@ struct MoviesCollectionView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 20) {
                     ForEach(movies) { movie in
-                        Button(
-                            action: { onMovieTap(movie) },
-                            label: {
-                                ItemView(
-                                    movie: movie,
-                                    geometry: geometry,
-                                    onLikeTap: onLikeTap
-                                )
-                            }
+                        ItemView(
+                            movie: movie,
+                            geometry: geometry,
+                            onMovieTap: onMovieTap,
+                            onLikeTap: onLikeTap
                         )
-                        .buttonStyle(.plain)
                     }
                 }
                 .padding(.vertical)
@@ -43,50 +38,56 @@ struct MoviesCollectionView: View {
         
         @State var movie: Movie
         let geometry: GeometryProxy
+        let onMovieTap: MovieClosure
         var onLikeTap: MovieClosure? = nil
         
         var body: some View {
             let itemWidth = geometry.size.height / 1.8
             let itemHeight = geometry.size.height - 40
             
-            VStack(alignment: .leading) {
-                ZStack(alignment: .topTrailing) {
-                    WebImage(url: movie.thumbnailUrl)
-                        .resizable()
-                        .placeholder {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.gray)
-                                .frame(width: itemWidth, height: itemHeight)
-                            
-                            Image(systemName: "popcorn")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40)
-                                .foregroundColor(.white)
+            Button {
+                onMovieTap(movie)
+            } label: {
+                VStack(alignment: .leading) {
+                    ZStack(alignment: .topTrailing) {
+                        WebImage(url: movie.thumbnailUrl)
+                            .resizable()
+                            .placeholder {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .foregroundColor(.gray)
+                                    .frame(width: itemWidth, height: itemHeight)
+                                
+                                Image(systemName: "popcorn")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40)
+                                    .foregroundColor(.white)
+                            }
+                            .scaledToFill()
+                            .frame(width: itemWidth, height: itemHeight)
+                            .cornerRadius(10)
+                            .transition(.fade)
+                            .shadow(radius: 3)
+                        
+                        if let onLikeTap {
+                            LikeButton(
+                                isLiked: $movie.isLiked,
+                                onTap: { onLikeTap(movie) }
+                            )
+                            .padding(10)
                         }
-                        .scaledToFill()
-                        .frame(width: itemWidth, height: itemHeight)
-                        .cornerRadius(10)
-                        .transition(.fade)
-                        .shadow(radius: 3)
-                    
-                    if let onLikeTap {
-                        LikeButton(
-                            isLiked: $movie.isLiked,
-                            onTap: { onLikeTap(movie) }
-                        )
-                        .padding(10)
                     }
+                    
+                    Text(movie.title ?? .empty)
+                        .lineLimit(1)
+                        .font(.subheadline)
+                        .padding(.trailing)
+                        .padding(.leading, 4)
+                        .foregroundColor(.primary)
                 }
-                
-                Text(movie.title ?? .empty)
-                    .lineLimit(1)
-                    .font(.subheadline)
-                    .padding(.trailing)
-                    .padding(.leading, 4)
-                    .foregroundColor(.primary)
+                .frame(width: itemWidth)
             }
-            .frame(width: itemWidth)
+            .buttonStyle(.plain)
         }
     }
 }

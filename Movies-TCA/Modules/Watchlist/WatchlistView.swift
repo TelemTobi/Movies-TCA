@@ -57,20 +57,13 @@ extension WatchlistView {
         
         var body: some View {
             List(viewStore.likedMovies) { movie in
-                Button(
-                    action: { viewStore.send(.onMovieTap(movie)) },
-                    label: {
-                        MovieListItem(
-                            movie: movie,
-                            onLikeTap: {
-                                viewStore.send(.onMovieDislike($0))
-                            }
-                        )
-                    }
+                MovieListItem(
+                    movie: movie,
+                    onMovieTap: { viewStore.send(.onMovieTap($0)) },
+                    onLikeTap: { viewStore.send(.onMovieDislike($0)) }
                 )
                 .padding()
                 .frame(height: 200)
-                .buttonStyle(.plain)
                 .listRowInsets(.zero)
                 .listRowBackground(Color.clear)
                 .listSectionSeparator(.hidden, edges: .top)
