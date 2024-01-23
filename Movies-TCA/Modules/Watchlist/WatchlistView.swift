@@ -57,7 +57,7 @@ extension WatchlistView {
         
         var body: some View {
             List(viewStore.likedMovies) { movie in
-                MovieListItem(
+                MovieListButton(
                     movie: movie,
                     onMovieTap: { viewStore.send(.onMovieTap($0)) },
                     onLikeTap: { viewStore.send(.onMovieDislike($0)) }

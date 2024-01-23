@@ -17,7 +17,7 @@ struct MoviesListView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             List {
                 ForEach(viewStore.movies) { movie in
-                    MovieListItem(
+                    MovieListButton(
                         movie: movie,
                         onMovieTap: { viewStore.send(.onMovieTap($0)) },
                         onLikeTap: { viewStore.send(.onMovieLike($0)) }

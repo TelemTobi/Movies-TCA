@@ -1,5 +1,5 @@
 //
-//  MovieListItem.swift
+//  MovieListButton.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 04/12/2023.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct MovieListItem: View {
+struct MovieListButton: View {
     
     @State var movie: Movie
     let onMovieTap: MovieClosure
@@ -75,7 +75,7 @@ struct MovieListItem: View {
 }
 
 #Preview {
-    MovieListItem(
+    MovieListButton(
         movie: .mock,
         onMovieTap: { _ in }
     )
