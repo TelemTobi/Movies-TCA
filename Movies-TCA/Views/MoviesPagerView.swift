@@ -20,17 +20,12 @@ struct MoviesPagerView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 0) {
                     ForEach(movies) { movie in
-                        Button(
-                            action: { onMovieTap(movie) },
-                            label: {
-                                ItemView(
-                                    movie: movie,
-                                    geometry: geometry,
-                                    onLikeTap: onLikeTap
-                                )
-                            }
+                        ItemView(
+                            movie: movie,
+                            geometry: geometry,
+                            onMovieTap: onMovieTap,
+                            onLikeTap: onLikeTap
                         )
-                        .buttonStyle(.plain)
                     }
                 }
                 .scrollTargetLayout()
@@ -45,50 +40,56 @@ struct MoviesPagerView: View {
         
         @State var movie: Movie
         let geometry: GeometryProxy
+        let onMovieTap: MovieClosure
         var onLikeTap: MovieClosure? = nil
         
         var body: some View {
-            GeometryReader { itemGeometry in
-                let itemSize = itemGeometry.size
-                let minX = itemGeometry.frame(in: .scrollView).minX * 0.5
-                
-                ZStack(alignment: .topTrailing) {
-                    WebImage(url: movie.backdropUrl ?? movie.thumbnailUrl)
-                        .resizable()
-                        .placeholder {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.gray)
-                                .frame(width: itemSize.width, height: itemSize.height)
-                            
-                            Image(systemName: "popcorn")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40)
-                                .foregroundColor(.white)
-                        }
-                        .transition(.fade)
-                        .aspectRatio(contentMode: .fill)
-                        .scaleEffect(1.2)
-                        .offset(x: -minX)
-                        .frame(width: itemSize.width, height: itemSize.height)
-                        .overlay { OverlayView(for: movie) }
-                        .clipShape(.rect(cornerRadius: 10))
-                        .shadow(radius: 3)
+            Button {
+                onMovieTap(movie)
+            } label: {
+                GeometryReader { itemGeometry in
+                    let itemSize = itemGeometry.size
+                    let minX = itemGeometry.frame(in: .scrollView).minX * 0.5
                     
-                    if let onLikeTap {
-                        LikeButton(
-                            isLiked: $movie.isLiked,
-                            onTap: { onLikeTap(movie) }
-                        )
-                        .padding(10)
+                    ZStack(alignment: .topTrailing) {
+                        WebImage(url: movie.backdropUrl ?? movie.thumbnailUrl)
+                            .resizable()
+                            .placeholder {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .foregroundColor(.gray)
+                                    .frame(width: itemSize.width, height: itemSize.height)
+                                
+                                Image(systemName: "popcorn")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40)
+                                    .foregroundColor(.white)
+                            }
+                            .transition(.fade)
+                            .aspectRatio(contentMode: .fill)
+                            .scaleEffect(1.2)
+                            .offset(x: -minX)
+                            .frame(width: itemSize.width, height: itemSize.height)
+                            .overlay { OverlayView(for: movie) }
+                            .clipShape(.rect(cornerRadius: 10))
+                            .shadow(radius: 3)
+                        
+                        if let onLikeTap {
+                            LikeButton(
+                                isLiked: $movie.isLiked,
+                                onTap: { onLikeTap(movie) }
+                            )
+                            .padding(10)
+                        }
                     }
                 }
+                .contentShape(Rectangle())
+                .frame(width: geometry.size.width - 32)
+                .scrollTransition(.interactive, axis: .horizontal) { view, phase in
+                    view.scaleEffect(phase.isIdentity ? 1 : 0.95)
+                }
             }
-            .contentShape(Rectangle())
-            .frame(width: geometry.size.width - 32)
-            .scrollTransition(.interactive, axis: .horizontal) { view, phase in
-                view.scaleEffect(phase.isIdentity ? 1 : 0.95)
-            }
+            .buttonStyle(.plain)
         }
         
         private func OverlayView(for movie: Movie) -> some View {

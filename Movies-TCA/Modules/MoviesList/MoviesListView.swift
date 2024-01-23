@@ -17,18 +17,13 @@ struct MoviesListView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             List {
                 ForEach(viewStore.movies) { movie in
-                    Button(
-                        action: { viewStore.send(.onMovieTap(movie)) },
-                        label: {
-                            MovieListItem(
-                                movie: movie,
-                                onLikeTap: { viewStore.send(.onMovieLike($0)) }
-                            )
-                        }
+                    MovieListButton(
+                        movie: movie,
+                        onMovieTap: { viewStore.send(.onMovieTap($0)) },
+                        onLikeTap: { viewStore.send(.onMovieLike($0)) }
                     )
                     .padding()
                     .frame(height: 200)
-                    .buttonStyle(.plain)
                 }
                 .listRowInsets(.zero)
                 .listRowBackground(Color.clear)

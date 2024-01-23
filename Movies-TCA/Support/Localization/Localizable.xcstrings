@@ -6,9 +6,15 @@
     },
     "\"%@\"" : {
       "localizations" : {
-        "he" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "\"%@\""
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "\"%@\""
           }
         }
@@ -16,6 +22,12 @@
     },
     "%@" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
@@ -72,6 +84,22 @@
         }
       }
     },
+    "Are you sure?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure?"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "את/ה בטוח/ה?"
+          }
+        }
+      }
+    },
     "BUDGET" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -85,6 +113,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "תקציב"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ביטול"
           }
         }
       }
@@ -319,6 +363,22 @@
         }
       }
     },
+    "Movies you liked will appear here" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Movies you liked will appear here"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "סרטים שאהבת יופיעו כאן"
+          }
+        }
+      }
+    },
     "N/A" : {
       "localizations" : {
         "en" : {
@@ -431,6 +491,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "תאריך הוצאה"
+          }
+        }
+      }
+    },
+    "Remove" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הסרה"
           }
         }
       }
@@ -584,6 +660,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "רשימת צפייה"
+          }
+        }
+      }
+    },
+    "Your watchlist is empty" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your watchlist is empty"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "רשימת הצפייה שלך ריקה"
+          }
+        }
+      }
+    },
+    "Your'e about to remove %@ from your watchlist" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your'e about to remove %@ from your watchlist"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "את/ה עומד/ת למחוק את %@ מרשימת הצפייה שלך"
           }
         }
       }
