@@ -126,9 +126,7 @@ extension MovieView {
                         }
                     )
                 } header: {
-                    SectionHeader(title: "Directed By", action: "See All") {
-                        // TODO: See All tap
-                    }
+                    SectionHeader(title: "Directed By")
                 }
                 .padding(.horizontal)
                 

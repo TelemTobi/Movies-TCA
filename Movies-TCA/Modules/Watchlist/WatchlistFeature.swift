@@ -37,7 +37,7 @@ struct WatchlistFeature: Reducer {
                 return .none
                 
             case let .onMovieDislike(movie):
-                state.alert = .confirmDislike(for: movie)
+                state.alert = .dislikeConfirmation(for: movie)
                 return .none
                 
             case let .alert(.presented(.confirmDislike(movie))):

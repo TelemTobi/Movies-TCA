@@ -10,7 +10,7 @@ import SwiftUINavigationCore
 
 extension AlertState where Action == WatchlistFeature.Action.Alert {
     
-    static func confirmDislike(for movie: Movie) -> Self {
+    static func dislikeConfirmation(for movie: Movie) -> Self {
         Self(
             title: {
                 TextState("Are you sure?")
