@@ -364,7 +364,20 @@
       }
     },
     "More" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "עוד"
+          }
+        }
+      }
     },
     "Movies you liked will appear here" : {
       "localizations" : {
