@@ -1,0 +1,47 @@
+//
+//  TruncableText.swift
+//  Movies-TCA
+//
+//  Created by Telem Tobi on 24/01/2024.
+//
+
+import SwiftUI
+
+struct TruncableText: View {
+    
+    let text: String
+    let truncationUpdate: (Bool) -> Void
+    
+    @State private var intrinsicSize: CGSize = .zero
+    @State private var truncatedSize: CGSize = .zero
+    
+    init(_ text: String, truncationUpdate: @escaping (Bool) -> Void) {
+        self.text = text
+        self.truncationUpdate = truncationUpdate
+    }
+    
+    var body: some View {
+        Text(text)
+            .readSize { size in
+                truncatedSize = size
+                truncationUpdate(truncatedSize != intrinsicSize)
+            }
+            .background(
+                Text(text)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .hidden()
+                    .readSize { size in
+                        intrinsicSize = size
+                        truncationUpdate(truncatedSize != intrinsicSize)
+                    }
+            )
+    }
+}
+
+#Preview {
+    let text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    
+    return TruncableText(text, truncationUpdate: { _ in })
+        .lineLimit(3)
+        .padding()
+}

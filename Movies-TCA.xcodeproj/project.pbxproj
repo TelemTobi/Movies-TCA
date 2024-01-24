@@ -117,6 +117,8 @@
 		7DE17E102B06861C005F4848 /* Errorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E0F2B06861C005F4848 /* Errorable.swift */; };
 		7DE17E142B068B72005F4848 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E132B068B72005F4848 /* NetworkManager.swift */; };
 		7DE17E1F2B068C60005F4848 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E1E2B068C60005F4848 /* Endpoint.swift */; };
+		7DED6C4D2B61ABA80085C777 /* TruncableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED6C4C2B61ABA80085C777 /* TruncableText.swift */; };
+		7DED6C4F2B61AE5D0085C777 /* ViewSizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED6C4E2B61AE5D0085C777 /* ViewSizeReader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +242,8 @@
 		7DE17E0F2B06861C005F4848 /* Errorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errorable.swift; sourceTree = "<group>"; };
 		7DE17E132B068B72005F4848 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		7DE17E1E2B068C60005F4848 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		7DED6C4C2B61ABA80085C777 /* TruncableText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruncableText.swift; sourceTree = "<group>"; };
+		7DED6C4E2B61AE5D0085C777 /* ViewSizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -506,6 +510,7 @@
 				7DB688AE2B2CF6930007D98E /* StretchyHeader.swift */,
 				7D77E62D2B15BCB500B308A6 /* TagCloudsView.swift */,
 				7D003EF62B35659800E03E50 /* VerticalKeyValueView.swift */,
+				7DED6C4C2B61ABA80085C777 /* TruncableText.swift */,
 				7D48B39D2B5D866800A248E3 /* Buttons */,
 			);
 			path = Views;
@@ -631,6 +636,7 @@
 				7DE17DD32AFE0BC1005F4848 /* OnFirstAppear.swift */,
 				7DB688B02B2CF6E80007D98E /* ScrollViewOffset.swift */,
 				7DD570962B4F2DAB00042F88 /* ColorSchemeAdjust.swift */,
+				7DED6C4E2B61AE5D0085C777 /* ViewSizeReader.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -926,6 +932,7 @@
 				7DA4DEEC2B20483100D8E292 /* WatchlistFeature.swift in Sources */,
 				7DE17E102B06861C005F4848 /* Errorable.swift in Sources */,
 				7D6875372B4B29E900882EA9 /* MoviesListType.swift in Sources */,
+				7DED6C4D2B61ABA80085C777 /* TruncableText.swift in Sources */,
 				7DDA64362B079863008BF425 /* TmdbEndpoint.swift in Sources */,
 				7D48B39C2B5C2BE500A248E3 /* HomeView.swift in Sources */,
 				7DDA64772B10959C008BF425 /* SearchFeature.swift in Sources */,
@@ -942,6 +949,7 @@
 				7DB688AD2B2CF4FF0007D98E /* ProcessInfo+Extension.swift in Sources */,
 				7DDA64792B1095A6008BF425 /* SearchView.swift in Sources */,
 				7DD6D96E2AF943B7004828AB /* MoviesApp.swift in Sources */,
+				7DED6C4F2B61AE5D0085C777 /* ViewSizeReader.swift in Sources */,
 				7D783B172B3A14A2004BEEAD /* Movie+Preview.swift in Sources */,
 				7D003EF72B35659800E03E50 /* VerticalKeyValueView.swift in Sources */,
 				7DDA64572B0E7DB8008BF425 /* MoviesPagerView.swift in Sources */,
