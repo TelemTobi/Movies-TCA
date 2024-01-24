@@ -10,18 +10,21 @@ import SwiftUI
 struct TruncableText: View {
     
     let text: String
+    let lineLimit: Int
     let truncationUpdate: (Bool) -> Void
     
     @State private var intrinsicSize: CGSize = .zero
     @State private var truncatedSize: CGSize = .zero
     
-    init(_ text: String, truncationUpdate: @escaping (Bool) -> Void) {
+    init(_ text: String, lineLimit: Int, truncationUpdate: @escaping (Bool) -> Void) {
         self.text = text
+        self.lineLimit = lineLimit
         self.truncationUpdate = truncationUpdate
     }
     
     var body: some View {
         Text(text)
+            .lineLimit(lineLimit)
             .readSize { size in
                 truncatedSize = size
                 truncationUpdate(truncatedSize != intrinsicSize)
@@ -41,7 +44,7 @@ struct TruncableText: View {
 #Preview {
     let text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     
-    return TruncableText(text, truncationUpdate: { _ in })
+    return TruncableText(text, lineLimit: 3, truncationUpdate: { _ in })
         .lineLimit(3)
         .padding()
 }

@@ -17,7 +17,9 @@ extension MovieView {
         
         @State var movie: Movie
         @Binding var headerOffScreenPercentage: CGFloat
-        @State private var isSheetPresented: Bool = false
+        
+        @State private var isOverviewTruncated: Bool = false
+        @State private var isOverviewSheetPresented: Bool = false
         
         let geometry: GeometryProxy
         let navigationBarVisibilityThreshold: CGFloat
@@ -74,11 +76,26 @@ extension MovieView {
                         .foregroundStyle(.white.opacity(0.50))
                         .font(.caption.bold())
                         .padding(.top, 5)
-                        
-                    Text(movie.overview ?? .notAvailable)
-                        .lineLimit(3)
+                    
+                    HStack(alignment: .bottom, spacing: 0) {
+                        TruncableText(
+                            movie.overview ?? .notAvailable,
+                            lineLimit: 3,
+                            truncationUpdate: { isTruncated in
+                                isOverviewTruncated = isTruncated
+                            }
+                        )
                         .foregroundStyle(.white)
-                        .padding(.top, 10)
+                        
+                        Spacer(minLength: 0)
+                        
+                        if isOverviewTruncated {
+                            Button("More") {
+                                isOverviewSheetPresented = true
+                            }
+                        }
+                    }
+                    .padding(.top, 10)
                     
                     Label(
                         title: {
@@ -123,26 +140,11 @@ extension MovieView {
                         endPoint: .bottom
                     )
                 }
-                .onTapGesture { isSheetPresented = true }
-                .sheet(isPresented: $isSheetPresented) {
+                .sheet(isPresented: $isOverviewSheetPresented) {
                     DynamicSheet(
                         title: movie.title ?? .notAvailable,
                         content: {
-                            VStack {
-                                if let tagline = movie.tagline, tagline.isNotEmpty {
-                                    Text("\"\(tagline)\"")
-                                        .font(.rounded(.title, weight: .bold))
-                                        .foregroundColor(.secondary)
-                                        .multilineTextAlignment(.center)
-                                        .padding(.bottom, 10)
-                                        .padding(.horizontal)
-                                }
-                                
-                                Text(movie.overview ?? .notAvailable)
-                                    .padding(.horizontal)
-                                    .foregroundColor(.primary)
-                                    .multilineTextAlignment(.center)
-                            }
+                            OverviewSheetContent()
                         }
                     )
                 }
@@ -150,6 +152,24 @@ extension MovieView {
             .overlay {
                 Color.primary.colorInvert()
                     .opacity(headerOpacity)
+            }
+        }
+        
+        private func OverviewSheetContent() -> some View {
+            VStack {
+                if let tagline = movie.tagline, tagline.isNotEmpty {
+                    Text("\"\(tagline)\"")
+                        .font(.rounded(.title, weight: .bold))
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom, 10)
+                        .padding(.horizontal)
+                }
+                
+                Text(movie.overview ?? .notAvailable)
+                    .padding(.horizontal)
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.center)
             }
         }
     }
