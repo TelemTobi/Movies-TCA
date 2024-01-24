@@ -502,16 +502,11 @@
 			isa = PBXGroup;
 			children = (
 				7DB688C72B32160A0007D98E /* CircularPersonImage.swift */,
-				7DB688C02B3032550007D98E /* DynamicSheet.swift */,
 				7DC8D15B2B1E3BB800193A64 /* MovieListButton.swift */,
 				7DDA646C2B0FC15D008BF425 /* MoviesCollectionView.swift */,
 				7DDA64562B0E7DB8008BF425 /* MoviesPagerView.swift */,
-				7DDA646E2B0FC2C1008BF425 /* SectionHeader.swift */,
-				7DB688AE2B2CF6930007D98E /* StretchyHeader.swift */,
-				7D77E62D2B15BCB500B308A6 /* TagCloudsView.swift */,
-				7D003EF62B35659800E03E50 /* VerticalKeyValueView.swift */,
-				7DED6C4C2B61ABA80085C777 /* TruncableText.swift */,
 				7D48B39D2B5D866800A248E3 /* Buttons */,
+				7DED6C512B61AF580085C777 /* Reusables */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -735,6 +730,19 @@
 				7DDA645D2B0E8C6D008BF425 /* Mocks */,
 			);
 			path = Tmdb;
+			sourceTree = "<group>";
+		};
+		7DED6C512B61AF580085C777 /* Reusables */ = {
+			isa = PBXGroup;
+			children = (
+				7DB688C02B3032550007D98E /* DynamicSheet.swift */,
+				7DDA646E2B0FC2C1008BF425 /* SectionHeader.swift */,
+				7DB688AE2B2CF6930007D98E /* StretchyHeader.swift */,
+				7D77E62D2B15BCB500B308A6 /* TagCloudsView.swift */,
+				7DED6C4C2B61ABA80085C777 /* TruncableText.swift */,
+				7D003EF62B35659800E03E50 /* VerticalKeyValueView.swift */,
+			);
+			path = Reusables;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
