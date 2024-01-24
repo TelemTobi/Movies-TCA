@@ -56,7 +56,7 @@ struct MovieView: View {
             }
             .ignoresSafeArea(edges: .top)
             .navigationBarTitleDisplayMode(.inline)
-            .animation(.easeInOut, value: viewStore.movieDetails)
+            .animation(.snappy(duration: 0.5), value: viewStore.movieDetails)
             .toolbarBackground(isHeaderShowing ? .hidden : .visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -87,28 +87,25 @@ extension MovieView {
         @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
         
         var body: some View {
-            if let cast = viewStore.state.movieDetails.credits?.cast, cast.isNotEmpty {
-                Section {
+            Section {
+                if let cast = viewStore.state.movieDetails.credits?.cast, cast.isNotEmpty {
                     CastMembersView(
                         castMembers: cast,
                         didTapCastMember: { member in
                             // TODO: Cast member tap
                         }
                     )
-                } header: {
-                    SectionHeader(title: "Cast", action: "See All") {
-                        // TODO: See All tap
-                    }
-                    .padding(.horizontal)
                 }
-                
-                Divider()
-                    .padding(.vertical, 10)
-                    .padding(.horizontal)
-                
-            } else {
-                EmptyView()
+            } header: {
+                SectionHeader(title: "Cast", action: "See All") {
+                    // TODO: See All tap
+                }
+                .padding(.horizontal)
             }
+            
+            Divider()
+                .padding(.vertical, 10)
+                .padding(.horizontal)
         }
     }
     
@@ -117,26 +114,23 @@ extension MovieView {
         @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
         
         var body: some View {
-            if let director = viewStore.state.movieDetails.credits?.director {
-                Section {
+            Section {
+                if let director = viewStore.state.movieDetails.credits?.director {
                     DirectorView(
                         director: director,
                         didTapDirector: { director in
                             // TODO: Director tap
                         }
                     )
-                } header: {
-                    SectionHeader(title: "Directed By")
                 }
-                .padding(.horizontal)
-                
-                Divider()
-                    .padding(.vertical, 10)
-                    .padding(.horizontal)
-                
-            } else {
-                EmptyView()
+            } header: {
+                SectionHeader(title: "Directed By")
             }
+            .padding(.horizontal)
+            
+            Divider()
+                .padding(.vertical, 10)
+                .padding(.horizontal)
         }
     }
     
