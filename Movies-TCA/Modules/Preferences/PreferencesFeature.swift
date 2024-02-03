@@ -9,8 +9,10 @@ import Foundation
 import UIKit
 import ComposableArchitecture
 
-struct PreferencesFeature: Reducer {
+@Reducer
+struct PreferencesFeature {
     
+    @ObservableState
     struct State: Equatable {
         var isAdultContentOn: Bool = Preferences.standard.isAdultContentOn
         var appearance: String = Preferences.standard.appearance

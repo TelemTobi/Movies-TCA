@@ -8,10 +8,12 @@
 import Foundation
 import ComposableArchitecture
 
-struct HomeFeature: Reducer {
+@Reducer
+struct HomeFeature {
     
+    @ObservableState
     struct State: Equatable {
-        @PresentationState var destination: Destination.State?
+        @Presents var destination: Destination.State?
         var moviePath = StackState<MoviePath.State>()
         
         var selectedTab: Tab = .discover
@@ -33,8 +35,10 @@ struct HomeFeature: Reducer {
         case watchlist(WatchlistFeature.Action)
     }
     
-    struct Destination: Reducer {
+    @Reducer
+    struct Destination {
         
+        @ObservableState
         enum State: Equatable {
             case movie(MovieFeature.State)
             case preferences(PreferencesFeature.State)
@@ -46,18 +50,20 @@ struct HomeFeature: Reducer {
         }
         
         var body: some ReducerOf<Self> {
-            Scope(state: /State.movie, action: /Action.movie) {
+            Scope(state: \.movie, action: \.movie) {
                 MovieFeature()
             }
             
-            Scope(state: /State.preferences, action: /Action.preferences) {
+            Scope(state: \.preferences, action: \.preferences) {
                 PreferencesFeature()
             }
         }
     }
     
-    struct MoviePath: Reducer {
+    @Reducer
+    struct MoviePath {
         
+        @ObservableState
         enum State: Equatable {
             case relatedMovie(MovieFeature.State)
         }
@@ -67,7 +73,7 @@ struct HomeFeature: Reducer {
         }
         
         var body: some ReducerOf<Self> {
-            Scope(state: /State.relatedMovie, action: /Action.relatedMovie) {
+            Scope(state: \.relatedMovie, action: \.relatedMovie) {
                 MovieFeature()
             }
         }
@@ -76,15 +82,15 @@ struct HomeFeature: Reducer {
     @Dependency(\.database) private var database
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.discover, action: /Action.discover) {
+        Scope(state: \.discover, action: \.discover) {
             DiscoverFeature()
         }
         
-        Scope(state: \.search, action: /Action.search) {
+        Scope(state: \.search, action: \.search) {
             SearchFeature()
         }
         
-        Scope(state: \.watchlist, action: /Action.watchlist) {
+        Scope(state: \.watchlist, action: \.watchlist) {
             WatchlistFeature()
         }
         
@@ -152,10 +158,10 @@ struct HomeFeature: Reducer {
                 return .none
             }
         }
-        .ifLet(\.$destination, action: /Action.destination) {
+        .ifLet(\.$destination, action: \.destination) {
             Destination()
         }
-        .forEach(\.moviePath, action: /Action.moviePath) {
+        .forEach(\.moviePath, action: \.moviePath) {
             MoviePath()
         }
     }

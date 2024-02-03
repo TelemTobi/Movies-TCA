@@ -28,7 +28,7 @@ struct RootFeature {
     @Dependency(\.tmdbClient) var tmdbClient
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.home, action: /Action.home) {
+        Scope(state: \.home, action: \.home) {
             HomeFeature()
         }
         
