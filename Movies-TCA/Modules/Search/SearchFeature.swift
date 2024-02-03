@@ -9,54 +9,52 @@ import Foundation
 import SwiftData
 import ComposableArchitecture
 
-struct SearchFeature: Reducer {
+@Reducer
+struct SearchFeature {
     
+    @ObservableState
     struct State: Equatable {
         var isLoading = false
         var genres: IdentifiedArrayOf<Genre> = []
         var results: IdentifiedArrayOf<Movie> = []
 
-        @BindingState var searchInput: String = ""
+        var searchInput: String = .empty
         
         var isSearchActive: Bool {
             searchInput.count > 2
         }
     }
     
-    enum Action: Equatable, BindableAction {
+    enum Action: Equatable {
         case onFirstAppear
+        case onInputChange(String)
         case onPreferencesTap
         case onMovieTap(Movie)
         case onMovieLike(Movie)
         case onGenreTap(Genre)
         
-        case searchMovies(_ query: String)
+        case searchMovies(String)
         case searchResponse(Result<MoviesList, TmdbError>)
         case setLikedMovies([LikedMovie])
-        
-        case binding(BindingAction<State>)
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
     @Dependency(\.database) var database
     
     var body: some ReducerOf<Self> {
-        BindingReducer()
-        
         Reduce { state, action in
             switch action {
             case .onFirstAppear:
                 return .none
                 
-            case .binding(\.$searchInput):
+            case let .onInputChange(input):
+                state.searchInput = input
                 state.isLoading = state.isSearchActive
                 
                 guard state.isSearchActive else {
                     state.results = []
                     return .none
                 }
-
-                let input = state.searchInput
                 
                 return .run { send in
                     try? await Task.sleep(until: .now + .seconds(1))
@@ -115,9 +113,6 @@ struct SearchFeature: Reducer {
                 for index in state.results.indices where likedMovies[id: state.results[index].id] != nil {
                     state.results[index].isLiked = true
                 }
-                return .none
-                
-            case .binding(_):
                 return .none
                 
             // MARK: Handled in parent feature

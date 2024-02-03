@@ -10,30 +10,29 @@ import ComposableArchitecture
 
 struct SearchView: View {
     
-    let store: StoreOf<SearchFeature>
+    @Bindable var store: StoreOf<SearchFeature>
+    
+    @State private var didFirstAppear: Bool = false
     
     var body: some View {
         NavigationStack {
-            WithViewStore(store, observe: { $0 }) { viewStore in
-                ZStack {
-                    if viewStore.isLoading {
-                        ProgressView()
-                    } else {
-                        ContentView()
-                            .environmentObject(viewStore)
-                    }
+            ZStack {
+                if store.isLoading {
+                    ProgressView()
+                } else {
+                    ContentView()
                 }
-                .navigationTitle("Search")
-                .toolbar(content: toolbarContent)
-                .animation(.easeInOut, value: viewStore.isLoading)
-                .searchable(
-                    text: viewStore.$searchInput,
-                    placement: .navigationBarDrawer(displayMode: .always),
-                    prompt: "Explore movies here"
-                )
-                .onFirstAppear {
-                    viewStore.send(.onFirstAppear)
-                }
+            }
+            .navigationTitle("Search")
+            .toolbar(content: toolbarContent)
+            .animation(.easeInOut, value: store.isLoading)
+            .searchable(
+                text: $store.searchInput.sending(\.onInputChange),
+                placement: .navigationBarDrawer(displayMode: .always),
+                prompt: "Explore movies here"
+            )
+            .onFirstAppear {
+                store.send(.onFirstAppear)
             }
         }
     }
@@ -41,92 +40,75 @@ struct SearchView: View {
     @ToolbarContentBuilder
     private func toolbarContent() -> some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                store.send(.onPreferencesTap)
-            } label: {
-                Image(systemName: "gear")
-                    .foregroundColor(.accentColor)
-            }
-        }
-    }
-}
-
-extension SearchView {
-    
-    private struct ContentView: View {
-        
-        @EnvironmentObject private var viewStore: ViewStoreOf<SearchFeature>
-        
-        var body: some View {
-            List {
-                Group {
-                    if viewStore.isSearchActive {
-                        ResultsView()
-                            .listRowInsets(.zero)
-                        
-                    } else {
-                        SuggestionsView(genres: viewStore.genres.elements)
-                            .listRowSeparator(.hidden)
-                    }
+            Button(
+                action: { store.send(.onPreferencesTap) },
+                label: {
+                    Image(systemName: "gear")
+                        .foregroundColor(.accentColor)
                 }
-                .listRowBackground(Color.clear)
-                .listSectionSeparator(.hidden, edges: .top)
-            }
-            .listStyle(.grouped)
-            .scrollIndicators(.hidden)
+            )
         }
     }
     
-    private struct SuggestionsView: View {
-        
-        let genres: [Genre]
-        @State private var didFirstAppear = false
-        
-        @EnvironmentObject private var viewStore: ViewStoreOf<SearchFeature>
-        
-        var body: some View {
-            let delays = Array(0..<genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()
-            
-            TagCloudsView(tags: genres.compactMap(\.name)) { index, genre in
-                Button(
-                    action: {
-                        viewStore.send(.onGenreTap(genres[index]))
-                    },
-                    label: {
-                        Text(genre)
-                            .font(.footnote)
-                            .fontWeight(.medium)
-                    }
-                )
-                .buttonStyle(TagButtonStyle())
-                .opacity(didFirstAppear ? 1 : 0)
-                .scaleEffect(didFirstAppear ? 1 : 0.7)
-                .rotationEffect(.degrees(didFirstAppear ? 0 : 10))
-                .animation(
-                    .easeInOut(duration: 0.25).delay(delays[index]),
-                    value: didFirstAppear
-                )
+    @ViewBuilder @MainActor
+    private func ContentView() -> some View {
+        List {
+            Group {
+                if store.isSearchActive {
+                    ResultsView()
+                        .listRowInsets(.zero)
+                    
+                } else {
+                    SuggestionsView(genres: store.genres.elements)
+                        .listRowSeparator(.hidden)
+                }
             }
-            .onFirstAppear {
-                withAnimation { didFirstAppear = true }
-            }
+            .listRowBackground(Color.clear)
+            .listSectionSeparator(.hidden, edges: .top)
+        }
+        .listStyle(.grouped)
+        .scrollIndicators(.hidden)
+    }
+    
+    @ViewBuilder @MainActor
+    private func SuggestionsView(genres: [Genre]) -> some View {
+        let delays = Array(0..<genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()
+        
+        TagCloudsView(tags: genres.compactMap(\.name)) { index, genre in
+            Button(
+                action: {
+                    store.send(.onGenreTap(genres[index]))
+                },
+                label: {
+                    Text(genre)
+                        .font(.footnote)
+                        .fontWeight(.medium)
+                }
+            )
+            .buttonStyle(TagButtonStyle())
+            .opacity(didFirstAppear ? 1 : 0)
+            .scaleEffect(didFirstAppear ? 1 : 0.7)
+            .rotationEffect(.degrees(didFirstAppear ? 0 : 10))
+            .animation(
+                .easeInOut(duration: 0.25).delay(delays[index]),
+                value: didFirstAppear
+            )
+        }
+        .onFirstAppear {
+            withAnimation { didFirstAppear = true }
         }
     }
     
-    private struct ResultsView: View {
-        
-        @EnvironmentObject private var viewStore: ViewStoreOf<SearchFeature>
-        
-        var body: some View {
-            ForEach(viewStore.results) { movie in
-                MovieListButton(
-                    movie: movie,
-                    onMovieTap: { viewStore.send(.onMovieTap($0)) },
-                    onLikeTap: { viewStore.send(.onMovieLike($0)) }
-                )
-                .padding()
-                .frame(height: 200)
-            }
+    @ViewBuilder @MainActor
+    private func ResultsView() -> some View {
+        ForEach(store.results) { movie in
+            MovieListButton(
+                movie: movie,
+                onMovieTap: { store.send(.onMovieTap($0)) },
+                onLikeTap: { store.send(.onMovieLike($0)) }
+            )
+            .padding()
+            .frame(height: 200)
         }
     }
 }
