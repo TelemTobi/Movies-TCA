@@ -8,11 +8,13 @@
 import Foundation
 import ComposableArchitecture
 
-struct WatchlistFeature: Reducer {
+@Reducer
+struct WatchlistFeature {
     
+    @ObservableState
     struct State: Equatable {
         var likedMovies: IdentifiedArrayOf<Movie> = []
-        @PresentationState var alert: AlertState<Action.Alert>?
+        @Presents var alert: AlertState<Action.Alert>?
     }
     
     enum Action: Equatable {
@@ -51,6 +53,6 @@ struct WatchlistFeature: Reducer {
                 return .none
             }
         }
-        .ifLet(\.$alert, action: /Action.alert)
+        .ifLet(\.$alert, action: \.alert)
     }
 }
