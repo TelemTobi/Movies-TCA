@@ -15,27 +15,22 @@ struct RootView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        WithViewStore(store, observe: \.isLoading) { viewStore in
-            Group {
-                if viewStore.state {
-                    SplashView()
-                        .onFirstAppear {
-                            viewStore.send(.onFirstAppear)
-                        }
-                } else {
-                    HomeView(
-                        store: store.scope(
-                            state: \.home,
-                            action: { .home($0) }
-                        )
-                    )
-                }
+        Group {
+            if store.isLoading {
+                SplashView()
+                    .onFirstAppear {
+                        store.send(.onFirstAppear)
+                    }
+            } else {
+                HomeView(
+                    store: store.scope(state: \.home, action: \.home)
+                )
             }
-            .animation(.easeInOut, value: viewStore.state)
-            .adjustPreferredColorScheme()
-            .onFirstAppear {
-                Preferences.Appearance.systemColorScheme = colorScheme
-            }
+        }
+        .animation(.easeInOut, value: store.isLoading)
+        .adjustPreferredColorScheme()
+        .onFirstAppear {
+            Preferences.Appearance.systemColorScheme = colorScheme
         }
     }
 }

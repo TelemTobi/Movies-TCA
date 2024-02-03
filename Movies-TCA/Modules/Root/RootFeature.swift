@@ -8,8 +8,10 @@
 import Foundation
 import ComposableArchitecture
 
-struct RootFeature: Reducer {
+@Reducer
+struct RootFeature {
     
+    @ObservableState
     struct State: Equatable {
         var isLoading = true
         
