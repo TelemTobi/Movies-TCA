@@ -8,11 +8,13 @@
 import Foundation
 import ComposableArchitecture
 
-struct MoviesListFeature: Reducer {
+@Reducer
+struct MoviesListFeature {
     
+    @ObservableState
     struct State: Equatable {
         var listType: MoviesListType?
-        var movies: IdentifiedArrayOf<Movie>
+        let movies: IdentifiedArrayOf<Movie>
     }
     
     enum Action: Equatable {
