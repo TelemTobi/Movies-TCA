@@ -9,8 +9,10 @@ import Foundation
 import SwiftData
 import ComposableArchitecture
 
-struct DiscoverFeature: Reducer {
+@Reducer
+struct DiscoverFeature {
     
+    @ObservableState
     struct State: Equatable {
         var path = StackState<Path.State>()
         
@@ -25,16 +27,18 @@ struct DiscoverFeature: Reducer {
         case onPreferencesTap
         case onMovieTap(Movie)
         case onMovieLike(Movie)
-        case onMoviesListTap(_ listType: MoviesListType, _ movies: IdentifiedArrayOf<Movie>)
+        case onMoviesListTap(MoviesListType, IdentifiedArrayOf<Movie>)
         
         case loadMovies
-        case moviesListLoaded(type: MoviesListType, Result<MoviesList, TmdbError>)
+        case moviesListLoaded(MoviesListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
         case setLikedMovies([LikedMovie])
     }
-    
-    struct Path: Reducer {
+
+    @Reducer
+    struct Path {
         
+        @ObservableState
         enum State: Equatable {
             case moviesList(MoviesListFeature.State)
         }
@@ -44,7 +48,7 @@ struct DiscoverFeature: Reducer {
         }
         
         var body: some ReducerOf<Self> {
-            Scope(state: /State.moviesList, action: /Action.moviesList) {
+            Scope(state: \.moviesList, action: \.moviesList) {
                 MoviesListFeature()
             }
         }
@@ -68,10 +72,10 @@ struct DiscoverFeature: Reducer {
                     async let upcomingResult = tmdbClient.fetchMovies(.upcoming)
                     async let topRatedResult = tmdbClient.fetchMovies(.topRated)
 
-                    await send(.moviesListLoaded(type: .nowPlaying, nowPlayingResult))
-                    await send(.moviesListLoaded(type: .popular, popularResult))
-                    await send(.moviesListLoaded(type: .upcoming, upcomingResult))
-                    await send(.moviesListLoaded(type: .topRated, topRatedResult))
+                    await send(.moviesListLoaded(.nowPlaying, nowPlayingResult))
+                    await send(.moviesListLoaded(.popular, popularResult))
+                    await send(.moviesListLoaded(.upcoming, upcomingResult))
+                    await send(.moviesListLoaded(.topRated, topRatedResult))
                     
                     await send(.loadingCompleted)
                 }
@@ -81,7 +85,7 @@ struct DiscoverFeature: Reducer {
                     state.movies[type] = .init(uniqueElements: movies)
                     return .none
                 } else {
-                    return .send(.moviesListLoaded(type: type, .unknownError))
+                    return .send(.moviesListLoaded(type, .unknownError))
                 }
                 
             case let .moviesListLoaded(_, .failure(error)):
@@ -118,7 +122,7 @@ struct DiscoverFeature: Reducer {
                 return .none
             }
         }
-        .forEach(\.path, action: /Action.path) {
+        .forEach(\.path, action: \.path) {
             Path()
         }
     }

@@ -8,8 +8,10 @@
 import Foundation
 import ComposableArchitecture
 
-struct RootFeature: Reducer {
+@Reducer
+struct RootFeature {
     
+    @ObservableState
     struct State: Equatable {
         var isLoading = true
         
@@ -26,7 +28,7 @@ struct RootFeature: Reducer {
     @Dependency(\.tmdbClient) var tmdbClient
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.home, action: /Action.home) {
+        Scope(state: \.home, action: \.home) {
             HomeFeature()
         }
         

@@ -11,23 +11,22 @@ import ComposableArchitecture
 
 struct WatchlistView: View {
     
-    let store: StoreOf<WatchlistFeature>
+    @Bindable var store: StoreOf<WatchlistFeature>
     
     @Query private var likedMovies: [LikedMovie]
     
     var body: some View {
         NavigationStack {
-            WithViewStore(store, observe: { $0 }) { viewStore in
-                if viewStore.likedMovies.isEmpty {
+            Group {
+                if store.likedMovies.isEmpty {
                     EmptyFavoritesView()
                 } else {
                     ContentView()
-                        .environmentObject(viewStore)
                 }
             }
             .navigationTitle("Watchlist")
             .toolbar(content: toolbarContent)
-            .alert(store: store.scope(state: \.$alert, action: { .alert($0) }))
+            .alert($store.scope(state: \.alert, action: \.alert))
             .onFirstAppear {
                 store.send(.setLikedMovies(likedMovies))
             }
@@ -40,48 +39,41 @@ struct WatchlistView: View {
     @ToolbarContentBuilder
     private func toolbarContent() -> some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                store.send(.onPreferencesTap)
-            } label: {
-                Image(systemName: "gear")
-                    .foregroundColor(.accentColor)
-            }
-        }
-    }
-}
-
-extension WatchlistView {
-    private struct ContentView: View {
-        
-        @EnvironmentObject private var viewStore: ViewStoreOf<WatchlistFeature>
-        
-        var body: some View {
-            List(viewStore.likedMovies) { movie in
-                MovieListButton(
-                    movie: movie,
-                    onMovieTap: { viewStore.send(.onMovieTap($0)) },
-                    onLikeTap: { viewStore.send(.onMovieDislike($0)) }
-                )
-                .padding()
-                .frame(height: 200)
-                .listRowInsets(.zero)
-                .listRowBackground(Color.clear)
-                .listSectionSeparator(.hidden, edges: .top)
-            }
-            .listStyle(.grouped)
-            .scrollIndicators(.hidden)
+            Button(
+                action: { store.send(.onPreferencesTap) },
+                label: {
+                    Image(systemName: "gear")
+                        .foregroundColor(.accentColor)
+                }
+            )
         }
     }
     
-    private struct EmptyFavoritesView: View {
-        
-        var body: some View {
-            ContentUnavailableView(
-                "Your watchlist is empty",
-                systemImage: "popcorn",
-                description: Text("Movies you liked will appear here")
+    @ViewBuilder @MainActor
+    private func ContentView() -> some View {
+        List(store.likedMovies) { movie in
+            MovieListButton(
+                movie: movie,
+                onMovieTap: { store.send(.onMovieTap($0)) },
+                onLikeTap: { store.send(.onMovieDislike($0)) }
             )
+            .padding()
+            .frame(height: 200)
+            .listRowInsets(.zero)
+            .listRowBackground(Color.clear)
+            .listSectionSeparator(.hidden, edges: .top)
         }
+        .listStyle(.grouped)
+        .scrollIndicators(.hidden)
+    }
+    
+    @ViewBuilder @MainActor
+    private func EmptyFavoritesView() -> some View {
+        ContentUnavailableView(
+            "Your watchlist is empty",
+            systemImage: "popcorn",
+            description: Text("Movies you liked will appear here")
+        )
     }
 }
 

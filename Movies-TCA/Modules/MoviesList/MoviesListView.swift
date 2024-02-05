@@ -14,28 +14,26 @@ struct MoviesListView: View {
     let store: StoreOf<MoviesListFeature>
     
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            List {
-                ForEach(viewStore.movies) { movie in
-                    MovieListButton(
-                        movie: movie,
-                        onMovieTap: { viewStore.send(.onMovieTap($0)) },
-                        onLikeTap: { viewStore.send(.onMovieLike($0)) }
-                    )
-                    .padding()
-                    .frame(height: 200)
-                }
-                .listRowInsets(.zero)
-                .listRowBackground(Color.clear)
-                .listSectionSeparator(.hidden, edges: .top)
+        List {
+            ForEach(store.movies) { movie in
+                MovieListButton(
+                    movie: movie,
+                    onMovieTap: { store.send(.onMovieTap($0)) },
+                    onLikeTap: { store.send(.onMovieLike($0)) }
+                )
+                .padding()
+                .frame(height: 200)
             }
-            .listStyle(.grouped)
-            .scrollIndicators(.hidden)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(viewStore.listType?.title ?? "")
-            .onFirstAppear {
-                viewStore.send(.onFirstAppear)
-            }
+            .listRowInsets(.zero)
+            .listRowBackground(Color.clear)
+            .listSectionSeparator(.hidden, edges: .top)
+        }
+        .listStyle(.grouped)
+        .scrollIndicators(.hidden)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(store.listType?.title ?? "")
+        .onFirstAppear {
+            store.send(.onFirstAppear)
         }
     }
 }

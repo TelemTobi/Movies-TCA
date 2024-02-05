@@ -8,10 +8,16 @@
 import Foundation
 import ComposableArchitecture
 
-struct MovieFeature: Reducer {
+@Reducer
+struct MovieFeature {
     
+    @ObservableState
     struct State: Equatable {
         var movieDetails: MovieDetails
+        
+        init(movieDetails: MovieDetails) {
+            self.movieDetails = movieDetails
+        }
     }
     
     enum Action: Equatable {
