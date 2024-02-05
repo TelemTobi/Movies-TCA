@@ -13,23 +13,23 @@ extension MovieView {
     
     struct HeaderView: View {
         
-        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
-        
-        @State var movie: Movie
-        @Binding var headerOffScreenPercentage: CGFloat
+        @State private var movie: Movie
+        @Binding private var headerOffScreenPercentage: CGFloat
         
         @State private var isOverviewTruncated: Bool = false
         @State private var isOverviewSheetPresented: Bool = false
         
-        let geometry: GeometryProxy
-        let navigationBarVisibilityThreshold: CGFloat
+        private let geometry: GeometryProxy
+        private let navigationBarVisibilityThreshold: CGFloat
+        private let onMovieLike: MovieClosure?
         
-        init(movie: Movie, geometry: GeometryProxy, _ navigationBarVisibilityThreshold: CGFloat, _ headerOffScreenPercentage: Binding<CGFloat>) {
+        init(movie: Movie, geometry: GeometryProxy, _ navigationBarVisibilityThreshold: CGFloat, _ headerOffScreenPercentage: Binding<CGFloat>, onMovieLike: MovieClosure?) {
             
             self._movie = State(wrappedValue: movie)
             self.geometry = geometry
             self.navigationBarVisibilityThreshold = navigationBarVisibilityThreshold
             self._headerOffScreenPercentage = headerOffScreenPercentage
+            self.onMovieLike = onMovieLike
         }
         
         private var headerOpacity: CGFloat {
@@ -67,7 +67,7 @@ extension MovieView {
                         
                         LikeButton(
                             isLiked: $movie.isLiked,
-                            onTap: { viewStore.send(.onLikeTap(movie)) }
+                            onTap: { onMovieLike?(movie) }
                         )
                         .padding(.vertical, 6)
                     }
@@ -184,7 +184,8 @@ extension MovieView {
                 movie: .mock,
                 geometry: geometry,
                 0.85,
-                $headerOffScreenPercentage
+                $headerOffScreenPercentage,
+                onMovieLike: nil
             )
         }
     }

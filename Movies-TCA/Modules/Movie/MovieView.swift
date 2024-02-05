@@ -15,6 +15,8 @@ struct MovieView: View {
     
     @State private var headerOffScreenPercentage: CGFloat = 0
     @State private var headerTextColor: Color = .white
+    @State private var isOverviewTruncated: Bool = false
+    @State private var isOverviewSheetPresented: Bool = false
     
     private var navigationBarVisibilityThreshold: CGFloat = 0.85
     
@@ -33,151 +35,130 @@ struct MovieView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            GeometryReader { geometry in
-                ScrollView(showsIndicators: false) {
-                    HeaderView(
-                        movie: viewStore.movieDetails.movie,
-                        geometry: geometry,
-                        navigationBarVisibilityThreshold,
-                        $headerOffScreenPercentage
-                    )
-                    
-                    LazyVStack(spacing: 10) {
-                        CastSection()
-                        DirectorSection()
-                        RelatedMoviesSection()
-                        InformationSection()
+        GeometryReader { geometry in
+            ScrollView(showsIndicators: false) {
+                HeaderView(
+                    movie: store.movieDetails.movie,
+                    geometry: geometry,
+                    navigationBarVisibilityThreshold,
+                    $headerOffScreenPercentage,
+                    onMovieLike: { store.send(.onLikeTap($0))}
+                )
+                
+                LazyVStack(spacing: 10) {
+                    CastSection()
+                    DirectorSection()
+                    RelatedMoviesSection()
+                    InformationSection()
+                }
+                .padding(.vertical, 5)
+            }
+            .listStyle(.plain)
+        }
+        .ignoresSafeArea(edges: .top)
+        .navigationBarTitleDisplayMode(.inline)
+        .animation(.snappy(duration: 0.5), value: store.movieDetails)
+        .toolbarBackground(isHeaderShowing ? .hidden : .visible, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(store.movieDetails.movie.title ?? .empty)
+                    .font(.rounded(.headline))
+                    .multilineTextAlignment(.center)
+                    .opacity(navigationTitleOpacity)
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                CloseButton(
+                    backgroundOpacity: 1 - navigationTitleOpacity,
+                    action: { store.send(.onCloseButtonTap) }
+                )
+            }
+        }
+        .onFirstAppear {
+            store.send(.onFirstAppear)
+        }
+    }
+    
+    @ViewBuilder @MainActor
+    private func CastSection() -> some View {
+        Section {
+            if let cast = store.state.movieDetails.credits?.cast, cast.isNotEmpty {
+                CastMembersView(
+                    castMembers: cast,
+                    didTapCastMember: { member in
+                        // TODO: Cast member tap
                     }
-                    .padding(.vertical, 5)
-                }
-                .environmentObject(viewStore)
-                .listStyle(.plain)
+                )
             }
-            .ignoresSafeArea(edges: .top)
-            .navigationBarTitleDisplayMode(.inline)
-            .animation(.snappy(duration: 0.5), value: viewStore.movieDetails)
-            .toolbarBackground(isHeaderShowing ? .hidden : .visible, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(viewStore.movieDetails.movie.title ?? .empty)
-                        .font(.rounded(.headline))
-                        .multilineTextAlignment(.center)
-                        .opacity(navigationTitleOpacity)
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    CloseButton(
-                        backgroundOpacity: 1 - navigationTitleOpacity,
-                        action: { viewStore.send(.onCloseButtonTap) }
-                    )
-                }
-            }
-            .onFirstAppear {
-                viewStore.send(.onFirstAppear)
-            }
-        }
-    }
-}
-
-extension MovieView {
-    
-    private struct CastSection: View {
-        
-        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
-        
-        var body: some View {
-            Section {
-                if let cast = viewStore.state.movieDetails.credits?.cast, cast.isNotEmpty {
-                    CastMembersView(
-                        castMembers: cast,
-                        didTapCastMember: { member in
-                            // TODO: Cast member tap
-                        }
-                    )
-                }
-            } header: {
-                SectionHeader(title: "Cast", action: "See All") {
-                    // TODO: See All tap
-                }
-                .padding(.horizontal)
-            }
-            
-            Divider()
-                .padding(.vertical, 10)
-                .padding(.horizontal)
-        }
-    }
-    
-    private struct DirectorSection: View {
-        
-        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
-        
-        var body: some View {
-            Section {
-                if let director = viewStore.state.movieDetails.credits?.director {
-                    DirectorView(
-                        director: director,
-                        didTapDirector: { director in
-                            // TODO: Director tap
-                        }
-                    )
-                }
-            } header: {
-                SectionHeader(title: "Directed By")
+        } header: {
+            SectionHeader(title: "Cast", action: "See All") {
+                // TODO: See All tap
             }
             .padding(.horizontal)
-            
-            Divider()
-                .padding(.vertical, 10)
-                .padding(.horizontal)
         }
+        
+        Divider()
+            .padding(.vertical, 10)
+            .padding(.horizontal)
     }
     
-    private struct RelatedMoviesSection: View {
+    @ViewBuilder @MainActor
+    private func DirectorSection() -> some View {
+        Section {
+            if let director = store.state.movieDetails.credits?.director {
+                DirectorView(
+                    director: director,
+                    didTapDirector: { director in
+                        // TODO: Director tap
+                    }
+                )
+            }
+        } header: {
+            SectionHeader(title: "Directed By")
+        }
+        .padding(.horizontal)
         
-        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
-        
-        var body: some View {
-            if let relatedMovies = viewStore.state.movieDetails.relatedMovies?.results, relatedMovies.isNotEmpty {
-                Section {
-                    MoviesCollectionView(
-                        movies: .init(uniqueElements: relatedMovies),
-                        onMovieTap: { movie in
-                            viewStore.send(.onRelatedMovieTap(movie))
-                        }
-                    )
-                    .frame(height: 280)
-                } header: {
-                    SectionHeader(title: "Related")
-                        .padding(.horizontal)
-                }
-                
-                Divider()
-                    .padding(.vertical, 10)
+        Divider()
+            .padding(.vertical, 10)
+            .padding(.horizontal)
+    }
+    
+    @ViewBuilder @MainActor
+    private func RelatedMoviesSection() -> some View {
+        if let relatedMovies = store.state.movieDetails.relatedMovies?.results, relatedMovies.isNotEmpty {
+            Section {
+                MoviesCollectionView(
+                    movies: .init(uniqueElements: relatedMovies),
+                    onMovieTap: { movie in
+                        store.send(.onRelatedMovieTap(movie))
+                    }
+                )
+                .frame(height: 280)
+            } header: {
+                SectionHeader(title: "Related")
                     .padding(.horizontal)
-                
-            } else {
-                EmptyView()
             }
+            
+            Divider()
+                .padding(.vertical, 10)
+                .padding(.horizontal)
+            
+        } else {
+            EmptyView()
         }
     }
     
-    private struct InformationSection: View {
-        
-        @EnvironmentObject private var viewStore: ViewStoreOf<MovieFeature>
-        
-        var body: some View {
-            Section {
-                ForEach(viewStore.movieDetails.movie.infoDictionary.sorted(by: <), id: \.key) { key, value in
-                    VerticalKeyValueView(key: key, value: value)
-                        .transition(.slideAndFade)
-                }
-            } header: {
-                SectionHeader(title: "Information")
+    @ViewBuilder @MainActor
+    private func InformationSection() -> some View {
+        Section {
+            ForEach(store.movieDetails.movie.infoDictionary.sorted(by: <), id: \.key) { key, value in
+                VerticalKeyValueView(key: key, value: value)
+                    .transition(.slideAndFade)
             }
-            .padding(.horizontal)
+        } header: {
+            SectionHeader(title: "Information")
         }
+        .padding(.horizontal)
     }
 }
 
