@@ -30,11 +30,9 @@ struct DiscoverView: View {
             }
             
         } destination: { store in
-            switch store.state {
-            case .moviesList:
-                if let store = store.scope(state: \.moviesList, action: \.moviesList) {
-                    MoviesListView(store: store)
-                }
+            switch store.case {
+            case let .moviesList(store):
+                MoviesListView(store: store)
             }
         }
     }

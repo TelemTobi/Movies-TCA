@@ -34,25 +34,6 @@ struct DiscoverFeature {
         case loadingCompleted
         case setLikedMovies([LikedMovie])
     }
-
-    @Reducer
-    struct Path {
-        
-        @ObservableState
-        enum State: Equatable {
-            case moviesList(MoviesListFeature.State)
-        }
-        
-        enum Action: Equatable {
-            case moviesList(MoviesListFeature.Action)
-        }
-        
-        var body: some ReducerOf<Self> {
-            Scope(state: \.moviesList, action: \.moviesList) {
-                MoviesListFeature()
-            }
-        }
-    }
     
     @Dependency(\.tmdbClient) var tmdbClient
     @Dependency(\.database) var database
@@ -122,8 +103,14 @@ struct DiscoverFeature {
                 return .none
             }
         }
-        .forEach(\.path, action: \.path) {
-            Path()
-        }
+        .forEach(\.path, action: \.path)
+    }
+}
+
+extension DiscoverFeature {
+    
+    @Reducer(state: .equatable, action: .equatable)
+    enum Path {
+        case moviesList(MoviesListFeature)
     }
 }
