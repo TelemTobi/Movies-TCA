@@ -60,13 +60,10 @@ struct HomeView: View {
     private func MovieSheet(store: StoreOf<MovieFeature>) -> some View {
         NavigationStack(path: $store.scope(state: \.moviePath, action: \.moviePath)) {
             MovieView(store: store)
-            
         } destination: { store in
-            switch store.state {
-            case .relatedMovie:
-                if let store = store.scope(state: \.relatedMovie, action: \.relatedMovie) {
-                    MovieView(store: store)
-                }
+            switch store.case {
+            case let .relatedMovie(store):
+                MovieView(store: store)
             }
         }
     }

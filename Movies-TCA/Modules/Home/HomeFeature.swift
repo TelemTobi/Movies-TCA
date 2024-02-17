@@ -35,64 +35,14 @@ struct HomeFeature {
         case watchlist(WatchlistFeature.Action)
     }
     
-    @Reducer
-    struct Destination {
-        
-        @ObservableState
-        enum State: Equatable {
-            case movie(MovieFeature.State)
-            case preferences(PreferencesFeature.State)
-        }
-        
-        enum Action: Equatable {
-            case movie(MovieFeature.Action)
-            case preferences(PreferencesFeature.Action)
-        }
-        
-        var body: some ReducerOf<Self> {
-            Scope(state: \.movie, action: \.movie) {
-                MovieFeature()
-            }
-            
-            Scope(state: \.preferences, action: \.preferences) {
-                PreferencesFeature()
-            }
-        }
-    }
-    
-    @Reducer
-    struct MoviePath {
-        
-        @ObservableState
-        enum State: Equatable {
-            case relatedMovie(MovieFeature.State)
-        }
-        
-        enum Action: Equatable {
-            case relatedMovie(MovieFeature.Action)
-        }
-        
-        var body: some ReducerOf<Self> {
-            Scope(state: \.relatedMovie, action: \.relatedMovie) {
-                MovieFeature()
-            }
-        }
-    }
-    
     @Dependency(\.database) private var database
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.discover, action: \.discover) {
-            DiscoverFeature()
-        }
+        Scope(state: \.discover, action: \.discover, child: DiscoverFeature.init)
         
-        Scope(state: \.search, action: \.search) {
-            SearchFeature()
-        }
+        Scope(state: \.search, action: \.search, child: SearchFeature.init)
         
-        Scope(state: \.watchlist, action: \.watchlist) {
-            WatchlistFeature()
-        }
+        Scope(state: \.watchlist, action: \.watchlist, child: WatchlistFeature.init)
         
         Reduce { state, action in
             switch action {
@@ -158,12 +108,22 @@ struct HomeFeature {
                 return .none
             }
         }
-        .ifLet(\.$destination, action: \.destination) {
-            Destination()
-        }
-        .forEach(\.moviePath, action: \.moviePath) {
-            MoviePath()
-        }
+        .ifLet(\.$destination, action: \.destination)
+        .forEach(\.moviePath, action: \.moviePath)
+    }
+}
+
+extension HomeFeature {
+    
+    @Reducer(state: .equatable, action: .equatable)
+    enum Destination {
+        case movie(MovieFeature)
+        case preferences(PreferencesFeature)
+    }
+    
+    @Reducer(state: .equatable, action: .equatable)
+    enum MoviePath {
+        case relatedMovie(MovieFeature)
     }
 }
 
