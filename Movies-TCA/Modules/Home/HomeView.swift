@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 
+@ViewAction(for: HomeFeature.self)
 struct HomeView: View {
     
     @Bindable var store: StoreOf<HomeFeature>
@@ -32,9 +33,6 @@ struct HomeView: View {
             )
             .tabItem { Label("Watchlist", systemImage: "popcorn") }
             .tag(HomeFeature.Tab.watchlist)
-        }
-        .onFirstAppear {
-            store.send(.onFirstAppear)
         }
         .fullScreenCover(
             item: $store.scope(

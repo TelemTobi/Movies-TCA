@@ -22,14 +22,15 @@ struct HomeFeature {
         var watchlist = WatchlistFeature.State()
     }
     
-    enum Action: Equatable {
-        case destination(PresentationAction<Destination.Action>)
-        case moviePath(StackAction<MoviePath.State, MoviePath.Action>)
-        
-        case onFirstAppear
+    enum Action: ViewAction, Equatable {
+        enum View: Equatable {
+        }
+
+        case view(View)
         case onTabSelection(Tab)
         case setGenres(IdentifiedArrayOf<Genre>)
-        
+        case destination(PresentationAction<Destination.Action>)
+        case moviePath(StackAction<MoviePath.State, MoviePath.Action>)
         case discover(DiscoverFeature.Action)
         case search(SearchFeature.Action)
         case watchlist(WatchlistFeature.Action)
@@ -46,9 +47,6 @@ struct HomeFeature {
         
         Reduce { state, action in
             switch action {
-            case .onFirstAppear:
-                return .none
-                
             case let .onTabSelection(tab):
                 state.selectedTab = tab
                 return .none
