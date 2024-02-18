@@ -17,12 +17,16 @@ struct WatchlistFeature {
         @Presents var alert: AlertState<Action.Alert>?
     }
     
-    enum Action: Equatable {
-        case onPreferencesTap
-        case onMovieTap(Movie)
-        case onMovieLike(Movie)
-        case setLikedMovies([LikedMovie])
-        case onMovieDislike(Movie)
+    enum Action: ViewAction, Equatable {
+        enum View: Equatable {
+            case setLikedMovies([LikedMovie])
+            case onPreferencesTap
+            case onMovieTap(Movie)
+            case onMovieLike(Movie)
+            case onMovieDislike(Movie)
+        }
+        
+        case view(View)
         case alert(PresentationAction<Alert>)
         
         enum Alert: Equatable {
@@ -34,22 +38,22 @@ struct WatchlistFeature {
         Reduce { state, action in
             switch action {
                 
-            case let .setLikedMovies(likedMovies):
+            case let .view(.setLikedMovies(likedMovies)):
                 state.likedMovies = .init(uniqueElements: likedMovies.map { $0.toMovie })
                 return .none
                 
-            case let .onMovieDislike(movie):
+            case let .view(.onMovieDislike(movie)):
                 state.alert = .dislikeConfirmation(for: movie)
                 return .none
                 
             case let .alert(.presented(.confirmDislike(movie))):
-                return .send(.onMovieLike(movie))
+                return .send(.view(.onMovieLike(movie)))
                 
             case .alert:
                 return .none
                 
             // MARK: Handled in parent feature
-            case .onPreferencesTap, .onMovieTap, .onMovieLike:
+            case .view(.onPreferencesTap), .view(.onMovieTap), .view(.onMovieLike):
                 return .none
             }
         }
