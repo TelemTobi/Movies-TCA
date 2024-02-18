@@ -55,14 +55,14 @@ struct HomeFeature {
                 state.search.genres = genres
                 return .none
                 
-            case .discover(.onPreferencesTap),
+            case .discover(.view(.onPreferencesTap)),
                  .search(.onPreferencesTap),
                  .watchlist(.onPreferencesTap):
                 
                 state.destination = .preferences(PreferencesFeature.State())
                 return .none
                 
-            case let .discover(.onMovieTap(movie)),
+            case let .discover(.view(.onMovieTap(movie))),
                  let .search(.onMovieTap(movie)),
                  let .watchlist(.onMovieTap(movie)),
                  let .discover(.path(.element(_, action: .moviesList(.onMovieTap(movie))))):
@@ -71,7 +71,7 @@ struct HomeFeature {
                 state.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
                 return .none
                 
-            case let .discover(.onMovieLike(movie)),
+            case let .discover(.view(.onMovieLike(movie))),
                  let .search(.onMovieLike(movie)),
                  let .watchlist(.onMovieLike(movie)),
                  let .discover(.path(.element(_, action: .moviesList(.onMovieLike(movie))))),
