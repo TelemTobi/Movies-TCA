@@ -56,14 +56,14 @@ struct HomeFeature {
                 return .none
                 
             case .discover(.view(.onPreferencesTap)),
-                 .search(.onPreferencesTap),
+                 .search(.view(.onPreferencesTap)),
                  .watchlist(.onPreferencesTap):
                 
                 state.destination = .preferences(PreferencesFeature.State())
                 return .none
                 
             case let .discover(.view(.onMovieTap(movie))),
-                 let .search(.onMovieTap(movie)),
+                 let .search(.view(.onMovieTap(movie))),
                  let .watchlist(.onMovieTap(movie)),
                  let .discover(.path(.element(_, action: .moviesList(.onMovieTap(movie))))):
                 
@@ -72,7 +72,7 @@ struct HomeFeature {
                 return .none
                 
             case let .discover(.view(.onMovieLike(movie))),
-                 let .search(.onMovieLike(movie)),
+                 let .search(.view(.onMovieLike(movie))),
                  let .watchlist(.onMovieLike(movie)),
                  let .discover(.path(.element(_, action: .moviesList(.onMovieLike(movie))))),
                  let .destination(.presented(.movie(.onLikeTap(movie)))),
