@@ -17,10 +17,14 @@ struct MoviesListFeature {
         let movies: IdentifiedArrayOf<Movie>
     }
     
-    enum Action: Equatable {
-        case onFirstAppear
-        case onMovieTap(Movie)
-        case onMovieLike(Movie)
+    enum Action: ViewAction, Equatable {
+        enum View: Equatable {
+            case onFirstAppear
+            case onMovieTap(Movie)
+            case onMovieLike(Movie)
+        }
+        
+        case view(View)
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
@@ -28,11 +32,11 @@ struct MoviesListFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .onFirstAppear:
+            case .view(.onFirstAppear):
                 return .none
                 
             // MARK: Handled in parent feature
-            case .onMovieTap, .onMovieLike:
+            case .view(.onMovieTap), .view(.onMovieLike):
                 return .none
             }
         }

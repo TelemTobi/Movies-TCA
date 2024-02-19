@@ -64,8 +64,8 @@ struct HomeFeature {
                 
             case let .discover(.view(.onMovieTap(movie))),
                  let .search(.view(.onMovieTap(movie))),
-                let .watchlist(.view(.onMovieTap(movie))),
-                 let .discover(.path(.element(_, action: .moviesList(.onMovieTap(movie))))):
+                 let .watchlist(.view(.onMovieTap(movie))),
+                let .discover(.path(.element(_, action: .moviesList(.view(.onMovieTap(movie)))))):
                 
                 state.moviePath.removeAll()
                 state.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
@@ -74,7 +74,7 @@ struct HomeFeature {
             case let .discover(.view(.onMovieLike(movie))),
                  let .search(.view(.onMovieLike(movie))),
                  let .watchlist(.view(.onMovieLike(movie))),
-                 let .discover(.path(.element(_, action: .moviesList(.onMovieLike(movie))))),
+                let .discover(.path(.element(_, action: .moviesList(.view(.onMovieLike(movie)))))),
                  let .destination(.presented(.movie(.onLikeTap(movie)))),
                  let .moviePath(.element(_, action: .relatedMovie(.onLikeTap(movie)))):
                 
