@@ -74,9 +74,9 @@ struct HomeFeature {
             case let .discover(.view(.onMovieLike(movie))),
                  let .search(.view(.onMovieLike(movie))),
                  let .watchlist(.view(.onMovieLike(movie))),
-                let .discover(.path(.element(_, action: .moviesList(.view(.onMovieLike(movie)))))),
-                 let .destination(.presented(.movie(.onLikeTap(movie)))),
-                 let .moviePath(.element(_, action: .relatedMovie(.onLikeTap(movie)))):
+                 let .discover(.path(.element(_, action: .moviesList(.view(.onMovieLike(movie)))))),
+                 let .destination(.presented(.movie(.view(.onLikeTap(movie))))),
+                 let .moviePath(.element(_, action: .relatedMovie(.view(.onLikeTap(movie))))):
                 
                 if movie.isLiked {
                     let likedMovie = LikedMovie(movie)
@@ -90,15 +90,15 @@ struct HomeFeature {
                 }
                 return .none
                 
-            case let .destination(.presented(.movie(.onRelatedMovieTap(movie)))),
-                 let .moviePath(.element(_, action: .relatedMovie(.onRelatedMovieTap(movie)))):
+            case let .destination(.presented(.movie(.view(.onRelatedMovieTap(movie))))),
+                 let .moviePath(.element(_, action: .relatedMovie(.view(.onRelatedMovieTap(movie))))):
                 
                 let movieState = MovieFeature.State(movieDetails: .init(movie: movie))
                 state.moviePath.append(.relatedMovie(movieState))
                 return .none
                 
-            case .destination(.presented(.movie(.onCloseButtonTap))),
-                 .moviePath(.element(_, action: .relatedMovie(.onCloseButtonTap))):
+            case .destination(.presented(.movie(.view(.onCloseButtonTap)))),
+                 .moviePath(.element(_, action: .relatedMovie(.view(.onCloseButtonTap)))):
                 
                 return .send(.destination(.dismiss))
                 

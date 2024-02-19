@@ -20,12 +20,15 @@ struct MovieFeature {
         }
     }
     
-    enum Action: Equatable {
-        case onFirstAppear
-        case onCloseButtonTap
-        case onRelatedMovieTap(Movie)
-        case onLikeTap(Movie)
+    enum Action: ViewAction, Equatable {
+        enum View: Equatable {
+            case onFirstAppear
+            case onCloseButtonTap
+            case onRelatedMovieTap(Movie)
+            case onLikeTap(Movie)
+        }
         
+        case view(View)
         case loadExtendedDetails
         case movieDetailsLoaded(Result<MovieDetails, TmdbError>)
     }
@@ -36,7 +39,7 @@ struct MovieFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .onFirstAppear:
+            case .view(.onFirstAppear):
                 return .send(.loadExtendedDetails)
                 
             case .loadExtendedDetails:
@@ -56,7 +59,7 @@ struct MovieFeature {
                 return .none
                 
             // MARK: Handled in parent feature
-            case .onCloseButtonTap, .onRelatedMovieTap, .onLikeTap:
+            case .view(.onCloseButtonTap), .view(.onRelatedMovieTap), .view(.onLikeTap):
                 return .none
             }
         }
