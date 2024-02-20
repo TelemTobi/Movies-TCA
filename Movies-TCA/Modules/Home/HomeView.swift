@@ -73,7 +73,7 @@ struct HomeView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Close", systemImage: "xmark") {
-                            store.send(.onCloseButtonTap)
+                            store.send(.view(.onCloseButtonTap))
                         }
                     }
                 }

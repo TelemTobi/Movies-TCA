@@ -18,12 +18,16 @@ struct PreferencesFeature {
         var appearance: String = Preferences.standard.appearance
     }
     
-    enum Action: Equatable {
-        case onFirstAppear
+    enum Action: ViewAction, Equatable {
+        enum View: Equatable {
+            case onFirstAppear
+            case onLanguageTap
+            case onCloseButtonTap
+        }
+        
+        case view(View)
         case onAdultContentToggle(Bool)
-        case onLanguageTap
         case onAppearanceChange(String)
-        case onCloseButtonTap
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -31,28 +35,28 @@ struct PreferencesFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .onFirstAppear:
+            case .view(.onFirstAppear):
                 return .none
                 
-            case let .onAdultContentToggle(isOn):
-                Preferences.standard.isAdultContentOn = isOn
-                state.isAdultContentOn = isOn
-                return .none
-                
-            case .onLanguageTap:
+            case .view(.onLanguageTap):
                 DispatchQueue.main.async {
                     guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
                     UIApplication.shared.open(url)
                 }
                 return .none
                 
+            case .view(.onCloseButtonTap):
+                return .run { _ in await self.dismiss() }
+                
+            case let .onAdultContentToggle(isOn):
+                Preferences.standard.isAdultContentOn = isOn
+                state.isAdultContentOn = isOn
+                return .none
+                
             case let .onAppearanceChange(appearance):
                 Preferences.standard.appearance = appearance
                 state.appearance = appearance
                 return .none
-                
-            case .onCloseButtonTap:
-                return .run { _ in await self.dismiss() }
             }
         }
     }
