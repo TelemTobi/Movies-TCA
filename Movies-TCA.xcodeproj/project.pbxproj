@@ -647,8 +647,8 @@
 		7DE17DD22AFE05F9005F4848 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				7D48B39B2B5C2BE500A248E3 /* HomeView.swift */,
 				7DE17DD52AFFB980005F4848 /* HomeFeature.swift */,
+				7D48B39B2B5C2BE500A248E3 /* HomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1265,7 +1265,7 @@
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 1.7.2;
+				minimumVersion = 1.8.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

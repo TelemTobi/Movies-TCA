@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import SDWebImageSwiftUI
 
+@ViewAction(for: MovieFeature.self)
 struct MovieView: View {
     
     let store: StoreOf<MovieFeature>
@@ -42,7 +43,7 @@ struct MovieView: View {
                     geometry: geometry,
                     navigationBarVisibilityThreshold,
                     $headerOffScreenPercentage,
-                    onMovieLike: { store.send(.onLikeTap($0))}
+                    onMovieLike: { send(.onLikeTap($0))}
                 )
                 
                 LazyVStack(spacing: 10) {
@@ -59,6 +60,7 @@ struct MovieView: View {
         .navigationBarTitleDisplayMode(.inline)
         .animation(.snappy(duration: 0.5), value: store.movieDetails)
         .toolbarBackground(isHeaderShowing ? .hidden : .visible, for: .navigationBar)
+        .onFirstAppear { send(.onFirstAppear) }
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(store.movieDetails.movie.title ?? .empty)
@@ -70,12 +72,9 @@ struct MovieView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 CloseButton(
                     backgroundOpacity: 1 - navigationTitleOpacity,
-                    action: { store.send(.onCloseButtonTap) }
+                    action: { send(.onCloseButtonTap) }
                 )
             }
-        }
-        .onFirstAppear {
-            store.send(.onFirstAppear)
         }
     }
     
@@ -129,9 +128,7 @@ struct MovieView: View {
             Section {
                 MoviesCollectionView(
                     movies: .init(uniqueElements: relatedMovies),
-                    onMovieTap: { movie in
-                        store.send(.onRelatedMovieTap(movie))
-                    }
+                    onMovieTap: { send(.onRelatedMovieTap($0)) }
                 )
                 .frame(height: 280)
             } header: {

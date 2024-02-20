@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import Pow
 
+@ViewAction(for: DiscoverFeature.self)
 struct DiscoverView: View {
     
     @Bindable var store: StoreOf<DiscoverFeature>
@@ -26,15 +27,13 @@ struct DiscoverView: View {
             .animation(.easeInOut, value: store.isLoading)
             .toolbar(content: toolbarContent)
             .onFirstAppear {
-                store.send(.onFirstAppear)
+                send(.onFirstAppear)
             }
             
         } destination: { store in
-            switch store.state {
-            case .moviesList:
-                if let store = store.scope(state: \.moviesList, action: \.moviesList) {
-                    MoviesListView(store: store)
-                }
+            switch store.case {
+            case let .moviesList(store):
+                MoviesListView(store: store)
             }
         }
     }
@@ -43,7 +42,7 @@ struct DiscoverView: View {
     private func toolbarContent() -> some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(
-                action: { store.send(.onPreferencesTap) },
+                action: { send(.onPreferencesTap) },
                 label: {
                     Image(systemName: "gear")
                         .foregroundColor(.accentColor)
@@ -77,16 +76,16 @@ struct DiscoverView: View {
             case .nowPlaying:
                 MoviesPagerView(
                     movies: movies,
-                    onMovieTap: { store.send(.onMovieTap($0)) },
-                    onLikeTap: { store.send(.onMovieLike($0)) }
+                    onMovieTap: { send(.onMovieTap($0)) },
+                    onLikeTap: { send(.onMovieLike($0)) }
                 )
                 .frame(height: 240)
                 
             case .popular, .topRated, .upcoming:
                 MoviesCollectionView(
                     movies: movies,
-                    onMovieTap: { store.send(.onMovieTap($0)) },
-                    onLikeTap: { store.send(.onMovieLike($0)) }
+                    onMovieTap: { send(.onMovieTap($0)) },
+                    onLikeTap: { send(.onMovieLike($0)) }
                 )
                 .frame(height: 280)
             }
@@ -96,7 +95,7 @@ struct DiscoverView: View {
                     title: listType.title,
                     action: "See All",
                     onActionTap: {
-                        store.send(.onMoviesListTap(listType, movies))
+                        send(.onMoviesListTap(listType, movies))
                     }
                 )
                 .padding(.horizontal)

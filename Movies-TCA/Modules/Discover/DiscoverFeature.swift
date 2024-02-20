@@ -20,38 +20,21 @@ struct DiscoverFeature {
         var movies: [MoviesListType: IdentifiedArrayOf<Movie>] = [:]
     }
     
-    enum Action: Equatable {
+    enum Action: ViewAction, Equatable {
+        enum View: Equatable {
+            case onFirstAppear
+            case onPreferencesTap
+            case onMovieTap(Movie)
+            case onMovieLike(Movie)
+            case onMoviesListTap(MoviesListType, IdentifiedArrayOf<Movie>)
+        }
+        
+        case view(View)
         case path(StackAction<Path.State, Path.Action>)
-        
-        case onFirstAppear
-        case onPreferencesTap
-        case onMovieTap(Movie)
-        case onMovieLike(Movie)
-        case onMoviesListTap(MoviesListType, IdentifiedArrayOf<Movie>)
-        
         case loadMovies
         case moviesListLoaded(MoviesListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
         case setLikedMovies([LikedMovie])
-    }
-
-    @Reducer
-    struct Path {
-        
-        @ObservableState
-        enum State: Equatable {
-            case moviesList(MoviesListFeature.State)
-        }
-        
-        enum Action: Equatable {
-            case moviesList(MoviesListFeature.Action)
-        }
-        
-        var body: some ReducerOf<Self> {
-            Scope(state: \.moviesList, action: \.moviesList) {
-                MoviesListFeature()
-            }
-        }
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
@@ -60,8 +43,13 @@ struct DiscoverFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .onFirstAppear:
+            case .view(.onFirstAppear):
                 return .send(.loadMovies)
+                
+            case let .view(.onMoviesListTap(listType, movies)):
+                let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
+                state.path.append(.moviesList(moviesListState))
+                return .none
                 
             case .loadMovies:
                 state.isLoading = true
@@ -98,11 +86,6 @@ struct DiscoverFeature {
                 let likedMovies = try? database.context().fetch(FetchDescriptor<LikedMovie>())
                 return .send(.setLikedMovies(likedMovies ?? []))
                 
-            case let .onMoviesListTap(listType, movies):
-                let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
-                state.path.append(.moviesList(moviesListState))
-                return .none
-                
             case let .setLikedMovies(likedMovies):
                 let likedMovies = IdentifiedArray(uniqueElements: likedMovies)
                 
@@ -118,12 +101,18 @@ struct DiscoverFeature {
                 return .none
                 
             // MARK: Handled in parent feature
-            case .onPreferencesTap, .onMovieTap, .onMovieLike:
+            case .view(.onPreferencesTap), .view(.onMovieTap), .view(.onMovieLike):
                 return .none
             }
         }
-        .forEach(\.path, action: \.path) {
-            Path()
-        }
+        .forEach(\.path, action: \.path)
+    }
+}
+
+extension DiscoverFeature {
+    
+    @Reducer(state: .equatable, action: .equatable)
+    enum Path {
+        case moviesList(MoviesListFeature)
     }
 }

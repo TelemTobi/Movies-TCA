@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 
+@ViewAction(for: SearchFeature.self)
 struct SearchView: View {
     
     @Bindable var store: StoreOf<SearchFeature>
@@ -32,7 +33,7 @@ struct SearchView: View {
                 prompt: "Explore movies here"
             )
             .onFirstAppear {
-                store.send(.onFirstAppear)
+                send(.onFirstAppear)
             }
         }
     }
@@ -41,7 +42,7 @@ struct SearchView: View {
     private func toolbarContent() -> some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(
-                action: { store.send(.onPreferencesTap) },
+                action: { send(.onPreferencesTap) },
                 label: {
                     Image(systemName: "gear")
                         .foregroundColor(.accentColor)
@@ -77,7 +78,7 @@ struct SearchView: View {
         TagCloudsView(tags: genres.compactMap(\.name)) { index, genre in
             Button(
                 action: {
-                    store.send(.onGenreTap(genres[index]))
+                    send(.onGenreTap(genres[index]))
                 },
                 label: {
                     Text(genre)
@@ -104,8 +105,8 @@ struct SearchView: View {
         ForEach(store.results) { movie in
             MovieListButton(
                 movie: movie,
-                onMovieTap: { store.send(.onMovieTap($0)) },
-                onLikeTap: { store.send(.onMovieLike($0)) }
+                onMovieTap: { send(.onMovieTap($0)) },
+                onLikeTap: { send(.onMovieLike($0)) }
             )
             .padding()
             .frame(height: 200)

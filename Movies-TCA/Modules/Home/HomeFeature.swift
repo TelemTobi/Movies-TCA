@@ -22,83 +22,31 @@ struct HomeFeature {
         var watchlist = WatchlistFeature.State()
     }
     
-    enum Action: Equatable {
-        case destination(PresentationAction<Destination.Action>)
-        case moviePath(StackAction<MoviePath.State, MoviePath.Action>)
-        
-        case onFirstAppear
+    enum Action: ViewAction, Equatable {
+        enum View: Equatable {
+        }
+
+        case view(View)
         case onTabSelection(Tab)
         case setGenres(IdentifiedArrayOf<Genre>)
-        
+        case destination(PresentationAction<Destination.Action>)
+        case moviePath(StackAction<MoviePath.State, MoviePath.Action>)
         case discover(DiscoverFeature.Action)
         case search(SearchFeature.Action)
         case watchlist(WatchlistFeature.Action)
     }
     
-    @Reducer
-    struct Destination {
-        
-        @ObservableState
-        enum State: Equatable {
-            case movie(MovieFeature.State)
-            case preferences(PreferencesFeature.State)
-        }
-        
-        enum Action: Equatable {
-            case movie(MovieFeature.Action)
-            case preferences(PreferencesFeature.Action)
-        }
-        
-        var body: some ReducerOf<Self> {
-            Scope(state: \.movie, action: \.movie) {
-                MovieFeature()
-            }
-            
-            Scope(state: \.preferences, action: \.preferences) {
-                PreferencesFeature()
-            }
-        }
-    }
-    
-    @Reducer
-    struct MoviePath {
-        
-        @ObservableState
-        enum State: Equatable {
-            case relatedMovie(MovieFeature.State)
-        }
-        
-        enum Action: Equatable {
-            case relatedMovie(MovieFeature.Action)
-        }
-        
-        var body: some ReducerOf<Self> {
-            Scope(state: \.relatedMovie, action: \.relatedMovie) {
-                MovieFeature()
-            }
-        }
-    }
-    
     @Dependency(\.database) private var database
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.discover, action: \.discover) {
-            DiscoverFeature()
-        }
+        Scope(state: \.discover, action: \.discover, child: DiscoverFeature.init)
         
-        Scope(state: \.search, action: \.search) {
-            SearchFeature()
-        }
+        Scope(state: \.search, action: \.search, child: SearchFeature.init)
         
-        Scope(state: \.watchlist, action: \.watchlist) {
-            WatchlistFeature()
-        }
+        Scope(state: \.watchlist, action: \.watchlist, child: WatchlistFeature.init)
         
         Reduce { state, action in
             switch action {
-            case .onFirstAppear:
-                return .none
-                
             case let .onTabSelection(tab):
                 state.selectedTab = tab
                 return .none
@@ -107,28 +55,28 @@ struct HomeFeature {
                 state.search.genres = genres
                 return .none
                 
-            case .discover(.onPreferencesTap),
-                 .search(.onPreferencesTap),
-                 .watchlist(.onPreferencesTap):
+            case .discover(.view(.onPreferencesTap)),
+                 .search(.view(.onPreferencesTap)),
+                 .watchlist(.view(.onPreferencesTap)):
                 
                 state.destination = .preferences(PreferencesFeature.State())
                 return .none
                 
-            case let .discover(.onMovieTap(movie)),
-                 let .search(.onMovieTap(movie)),
-                 let .watchlist(.onMovieTap(movie)),
-                 let .discover(.path(.element(_, action: .moviesList(.onMovieTap(movie))))):
+            case let .discover(.view(.onMovieTap(movie))),
+                 let .search(.view(.onMovieTap(movie))),
+                 let .watchlist(.view(.onMovieTap(movie))),
+                let .discover(.path(.element(_, action: .moviesList(.view(.onMovieTap(movie)))))):
                 
                 state.moviePath.removeAll()
                 state.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
                 return .none
                 
-            case let .discover(.onMovieLike(movie)),
-                 let .search(.onMovieLike(movie)),
-                 let .watchlist(.onMovieLike(movie)),
-                 let .discover(.path(.element(_, action: .moviesList(.onMovieLike(movie))))),
-                 let .destination(.presented(.movie(.onLikeTap(movie)))),
-                 let .moviePath(.element(_, action: .relatedMovie(.onLikeTap(movie)))):
+            case let .discover(.view(.onMovieLike(movie))),
+                 let .search(.view(.onMovieLike(movie))),
+                 let .watchlist(.view(.onMovieLike(movie))),
+                 let .discover(.path(.element(_, action: .moviesList(.view(.onMovieLike(movie)))))),
+                 let .destination(.presented(.movie(.view(.onLikeTap(movie))))),
+                 let .moviePath(.element(_, action: .relatedMovie(.view(.onLikeTap(movie))))):
                 
                 if movie.isLiked {
                     let likedMovie = LikedMovie(movie)
@@ -142,15 +90,15 @@ struct HomeFeature {
                 }
                 return .none
                 
-            case let .destination(.presented(.movie(.onRelatedMovieTap(movie)))),
-                 let .moviePath(.element(_, action: .relatedMovie(.onRelatedMovieTap(movie)))):
+            case let .destination(.presented(.movie(.view(.onRelatedMovieTap(movie))))),
+                 let .moviePath(.element(_, action: .relatedMovie(.view(.onRelatedMovieTap(movie))))):
                 
                 let movieState = MovieFeature.State(movieDetails: .init(movie: movie))
                 state.moviePath.append(.relatedMovie(movieState))
                 return .none
                 
-            case .destination(.presented(.movie(.onCloseButtonTap))),
-                 .moviePath(.element(_, action: .relatedMovie(.onCloseButtonTap))):
+            case .destination(.presented(.movie(.view(.onCloseButtonTap)))),
+                 .moviePath(.element(_, action: .relatedMovie(.view(.onCloseButtonTap)))):
                 
                 return .send(.destination(.dismiss))
                 
@@ -158,12 +106,22 @@ struct HomeFeature {
                 return .none
             }
         }
-        .ifLet(\.$destination, action: \.destination) {
-            Destination()
-        }
-        .forEach(\.moviePath, action: \.moviePath) {
-            MoviePath()
-        }
+        .ifLet(\.$destination, action: \.destination)
+        .forEach(\.moviePath, action: \.moviePath)
+    }
+}
+
+extension HomeFeature {
+    
+    @Reducer(state: .equatable, action: .equatable)
+    enum Destination {
+        case movie(MovieFeature)
+        case preferences(PreferencesFeature)
+    }
+    
+    @Reducer(state: .equatable, action: .equatable)
+    enum MoviePath {
+        case relatedMovie(MovieFeature)
     }
 }
 

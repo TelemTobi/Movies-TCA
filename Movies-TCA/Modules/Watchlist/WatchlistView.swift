@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 import ComposableArchitecture
 
+@ViewAction(for: WatchlistFeature.self)
 struct WatchlistView: View {
     
     @Bindable var store: StoreOf<WatchlistFeature>
@@ -28,10 +29,10 @@ struct WatchlistView: View {
             .toolbar(content: toolbarContent)
             .alert($store.scope(state: \.alert, action: \.alert))
             .onFirstAppear {
-                store.send(.setLikedMovies(likedMovies))
+                send(.setLikedMovies(likedMovies))
             }
             .onChange(of: likedMovies) { _, newValue in
-                store.send(.setLikedMovies(likedMovies))
+                send(.setLikedMovies(likedMovies))
             }
         }
     }
@@ -40,7 +41,7 @@ struct WatchlistView: View {
     private func toolbarContent() -> some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(
-                action: { store.send(.onPreferencesTap) },
+                action: { send(.onPreferencesTap) },
                 label: {
                     Image(systemName: "gear")
                         .foregroundColor(.accentColor)
@@ -54,8 +55,8 @@ struct WatchlistView: View {
         List(store.likedMovies) { movie in
             MovieListButton(
                 movie: movie,
-                onMovieTap: { store.send(.onMovieTap($0)) },
-                onLikeTap: { store.send(.onMovieDislike($0)) }
+                onMovieTap: { send(.onMovieTap($0)) },
+                onLikeTap: { send(.onMovieDislike($0)) }
             )
             .padding()
             .frame(height: 200)

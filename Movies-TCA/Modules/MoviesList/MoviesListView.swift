@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import SDWebImageSwiftUI
 
+@ViewAction(for: MoviesListFeature.self)
 struct MoviesListView: View {
     
     let store: StoreOf<MoviesListFeature>
@@ -18,8 +19,8 @@ struct MoviesListView: View {
             ForEach(store.movies) { movie in
                 MovieListButton(
                     movie: movie,
-                    onMovieTap: { store.send(.onMovieTap($0)) },
-                    onLikeTap: { store.send(.onMovieLike($0)) }
+                    onMovieTap: { send(.onMovieTap($0)) },
+                    onLikeTap: { send(.onMovieLike($0)) }
                 )
                 .padding()
                 .frame(height: 200)
@@ -32,9 +33,7 @@ struct MoviesListView: View {
         .scrollIndicators(.hidden)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(store.listType?.title ?? "")
-        .onFirstAppear {
-            store.send(.onFirstAppear)
-        }
+        .onFirstAppear { send(.onFirstAppear) }
     }
 }
 

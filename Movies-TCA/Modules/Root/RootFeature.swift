@@ -18,8 +18,12 @@ struct RootFeature {
         var home = HomeFeature.State()
     }
     
-    enum Action: Equatable {
-        case onFirstAppear
+    enum Action: ViewAction, Equatable {
+        enum View {
+            case onFirstAppear
+        }
+        
+        case view(View)
         case loadGenres
         case genresResponse(Result<GenresResponse, TmdbError>)
         case home(HomeFeature.Action)
@@ -28,13 +32,11 @@ struct RootFeature {
     @Dependency(\.tmdbClient) var tmdbClient
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.home, action: \.home) {
-            HomeFeature()
-        }
+        Scope(state: \.home, action: \.home, child: HomeFeature.init)
         
         Reduce { state, action in
             switch action {
-            case .onFirstAppear:
+            case .view(.onFirstAppear):
                 return .send(.loadGenres)
                 
             case .loadGenres:
@@ -59,7 +61,7 @@ struct RootFeature {
                 return .none
                 
                 
-            case .home:
+            case .home, .view:
                 return .none
             }
         }

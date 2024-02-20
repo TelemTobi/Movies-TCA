@@ -25,14 +25,17 @@ struct SearchFeature {
         }
     }
     
-    enum Action: Equatable {
-        case onFirstAppear
-        case onInputChange(String)
-        case onPreferencesTap
-        case onMovieTap(Movie)
-        case onMovieLike(Movie)
-        case onGenreTap(Genre)
+    enum Action: ViewAction, Equatable {
+        enum View: Equatable {
+            case onFirstAppear
+            case onPreferencesTap
+            case onMovieTap(Movie)
+            case onMovieLike(Movie)
+            case onGenreTap(Genre)
+        }
         
+        case view(View)
+        case onInputChange(String)
         case searchMovies(String)
         case searchResponse(Result<MoviesList, TmdbError>)
         case setLikedMovies([LikedMovie])
@@ -44,7 +47,7 @@ struct SearchFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .onFirstAppear:
+            case .view(.onFirstAppear):
                 return .none
                 
             case let .onInputChange(input):
@@ -61,7 +64,7 @@ struct SearchFeature {
                     await send(.searchMovies(input))
                 }
                 
-            case let .onGenreTap(genre):
+            case let .view(.onGenreTap(genre)):
                 guard let genreName = genre.name else {
                     return .none
                 }
@@ -116,7 +119,7 @@ struct SearchFeature {
                 return .none
                 
             // MARK: Handled in parent feature
-            case .onPreferencesTap, .onMovieTap, .onMovieLike:
+            case .view(.onPreferencesTap), .view(.onMovieTap), .view(.onMovieLike):
                 return .none
             }
         }

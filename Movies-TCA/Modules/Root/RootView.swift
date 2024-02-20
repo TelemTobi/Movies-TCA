@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 
+@ViewAction(for: RootFeature.self)
 struct RootView: View {
     
     let store: StoreOf<RootFeature>
@@ -18,9 +19,7 @@ struct RootView: View {
         Group {
             if store.isLoading {
                 SplashView()
-                    .onFirstAppear {
-                        store.send(.onFirstAppear)
-                    }
+                    .onFirstAppear { send(.onFirstAppear) }
             } else {
                 HomeView(
                     store: store.scope(state: \.home, action: \.home)
