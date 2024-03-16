@@ -46,6 +46,7 @@
 		7D8F6FED2B9593EE006F6B86 /* RootNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8F6FEC2B9593EE006F6B86 /* RootNavigatorView.swift */; };
 		7D8F6FEF2B95948F006F6B86 /* AppDataDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8F6FEE2B95948F006F6B86 /* AppDataDependency.swift */; };
 		7D8F6FF12B9594BD006F6B86 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8F6FF02B9594BD006F6B86 /* AppData.swift */; };
+		7D8F6FF42B9597FB006F6B86 /* SplashFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8F6FF32B9597FB006F6B86 /* SplashFeature.swift */; };
 		7DA4DEEC2B20483100D8E292 /* WatchlistFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEEB2B20483100D8E292 /* WatchlistFeature.swift */; };
 		7DA4DEEE2B20483D00D8E292 /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEED2B20483D00D8E292 /* WatchlistView.swift */; };
 		7DA4DEF02B28F30F00D8E292 /* Credits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA4DEEF2B28F30F00D8E292 /* Credits.swift */; };
@@ -174,6 +175,7 @@
 		7D8F6FEC2B9593EE006F6B86 /* RootNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigatorView.swift; sourceTree = "<group>"; };
 		7D8F6FEE2B95948F006F6B86 /* AppDataDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataDependency.swift; sourceTree = "<group>"; };
 		7D8F6FF02B9594BD006F6B86 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		7D8F6FF32B9597FB006F6B86 /* SplashFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashFeature.swift; sourceTree = "<group>"; };
 		7DA4DEEB2B20483100D8E292 /* WatchlistFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistFeature.swift; sourceTree = "<group>"; };
 		7DA4DEED2B20483D00D8E292 /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
 		7DA4DEEF2B28F30F00D8E292 /* Credits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credits.swift; sourceTree = "<group>"; };
@@ -701,6 +703,7 @@
 		7DE17DE82B01470B005F4848 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				7D8F6FF32B9597FB006F6B86 /* SplashFeature.swift */,
 				7DE17DE92B014719005F4848 /* SplashView.swift */,
 			);
 			path = Splash;
@@ -923,6 +926,7 @@
 				7DE17DD42AFE0BC1005F4848 /* OnFirstAppear.swift in Sources */,
 				7D48B39A2B5BB22000A248E3 /* DatabaseDependency.swift in Sources */,
 				7DA4DEFD2B28F7D000D8E292 /* MovieDetails.swift in Sources */,
+				7D8F6FF42B9597FB006F6B86 /* SplashFeature.swift in Sources */,
 				7D513F7E2B1722210040F913 /* PreferencesView.swift in Sources */,
 				7D48B39F2B5D867800A248E3 /* CloseButton.swift in Sources */,
 				7DE17E1F2B068C60005F4848 /* Endpoint.swift in Sources */,
