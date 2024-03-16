@@ -18,16 +18,56 @@ struct SplashFeature {
     
     enum Action: ViewAction {
         enum View {
+            case onAppear
+        }
+        
+        enum Navigation {
+            case splashCompleted
         }
         
         case view(View)
+        case navigation(Navigation)
+        case loadGenres
+        case genresResponse(Result<GenresResponse, TmdbError>)
     }
+    
+    @Dependency(\.appData) private var appData
+    @Dependency(\.tmdbClient) private var tmdbClient
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case let .view(viewAction):
+                return reduceViewAction(&state, viewAction)
                 
+            case .loadGenres:
+                return .run { send in
+                    let genresResult = await tmdbClient.fetchGenres()
+                    await send(.genresResponse(genresResult))
+                }
+                
+            case let .genresResponse(.success(result)):
+                guard let genres = result.genres, genres.isNotEmpty else {
+                    return .send(.genresResponse(.unknownError))
+                }
+                
+                appData.genres = genres
+                return .send(.navigation(.splashCompleted))
+                
+            case let .genresResponse(.failure(error)):
+                customDump(error) // TODO: Handle error
+                return .none
+                
+            case .navigation:
+                return .none
             }
+        }
+    }
+    
+    private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
+        switch action {
+        case .onAppear:
+            return .send(.loadGenres)
         }
     }
 }

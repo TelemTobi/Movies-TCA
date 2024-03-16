@@ -24,6 +24,7 @@ struct SplashView: View {
                     y: geometry.frame(in: .local).midY
                 )
         }
+        .onAppear { send(.onAppear) }
     }
 }
 

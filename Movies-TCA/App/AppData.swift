@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AppData {
+class AppData {
  
     var genres: [Genre] = []
 }

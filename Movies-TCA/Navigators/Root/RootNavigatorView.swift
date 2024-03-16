@@ -12,16 +12,21 @@ extension RootNavigator {
     
     struct ContentView: View {
         
-        @Bindable var store: StoreOf<RootNavigator>
+        let store: StoreOf<RootNavigator>
         
         var body: some View {
             Group {
-                switch store.scope(state: \.destination, action: \.destination).case {
+                switch store.destination {
                 case .splash:
-                    SplashView()
+                    if let store = store.scope(state: \.destination.splash, action: \.destination.splash) {
+                        SplashView(store: store)
+                    }
                     
-                case let .home(store):
-                    HomeView(store: store)
+                    
+                case .home:
+                    if let store = store.scope(state: \.destination.home, action: \.destination.home) {
+                        HomeView(store: store)
+                    }
                 }
             }
             .animation(.easeInOut, value: store.destination)
