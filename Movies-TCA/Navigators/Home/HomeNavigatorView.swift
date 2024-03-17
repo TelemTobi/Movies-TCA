@@ -16,7 +16,7 @@ extension HomeNavigator {
         
         var body: some View {
             TabView(selection: $store.selectedTab.sending(\.onTabSelection)) {
-                DiscoverView(
+                DiscoverNavigator.ContentView(
                     store: store.scope(state: \.discover, action: \.discover)
                 )
                 .tabItem { Label("Discovery", systemImage: "globe") }
@@ -33,46 +33,6 @@ extension HomeNavigator {
                 )
                 .tabItem { Label("Watchlist", systemImage: "popcorn") }
                 .tag(HomeNavigator.Tab.watchlist)
-            }
-            .fullScreenCover(
-                item: $store.scope(state: \.destination, action: \.destination), 
-                content: { store in
-                    switch store.case {
-                    case let .movie(store):
-                        MovieSheet(store: store)
-                        
-                    case let .preferences(store):
-                        PreferencesSheet(store: store)
-                    }
-                }
-            )
-        }
-        
-        @MainActor
-        private func MovieSheet(store: StoreOf<MovieFeature>) -> some View {
-            NavigationStack {
-                //        NavigationStack(path: $store.scope(state: \.moviePath, action: \.moviePath)) {
-                MovieView(store: store)
-                //        } destination: { store in
-                //            switch store.case {
-                //            case let .relatedMovie(store):
-                //                MovieView(store: store)
-                //            }
-                //        }
-            }
-        }
-        
-        @MainActor
-        private func PreferencesSheet(store: StoreOf<PreferencesFeature>) -> some View {
-            NavigationStack {
-                PreferencesView(store: store)
-                    .toolbar {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button("Close", systemImage: "xmark") {
-                                store.send(.view(.onCloseButtonTap))
-                            }
-                        }
-                    }
             }
         }
     }

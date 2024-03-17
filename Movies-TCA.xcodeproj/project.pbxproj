@@ -20,6 +20,8 @@
 		7D48B3A22B5EEF7000A248E3 /* Watchlist+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48B3A12B5EEF7000A248E3 /* Watchlist+Alerts.swift */; };
 		7D4BA7642BA609B700029DB4 /* HomeNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA7632BA609B700029DB4 /* HomeNavigator.swift */; };
 		7D4BA7662BA609C200029DB4 /* HomeNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA7652BA609C200029DB4 /* HomeNavigatorView.swift */; };
+		7D4BA7692BA78B1300029DB4 /* DiscoverNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA7682BA78B1300029DB4 /* DiscoverNavigator.swift */; };
+		7D4BA76B2BA78B1B00029DB4 /* DiscoverNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA76A2BA78B1B00029DB4 /* DiscoverNavigatorView.swift */; };
 		7D513F7C2B17221A0040F913 /* PreferencesFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F7B2B17221A0040F913 /* PreferencesFeature.swift */; };
 		7D513F7E2B1722210040F913 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F7D2B1722210040F913 /* PreferencesView.swift */; };
 		7D513F812B1A3D810040F913 /* Numeric+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F802B1A3D810040F913 /* Numeric+Extension.swift */; };
@@ -148,6 +150,8 @@
 		7D48B3A12B5EEF7000A248E3 /* Watchlist+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Watchlist+Alerts.swift"; sourceTree = "<group>"; };
 		7D4BA7632BA609B700029DB4 /* HomeNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigator.swift; sourceTree = "<group>"; };
 		7D4BA7652BA609C200029DB4 /* HomeNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigatorView.swift; sourceTree = "<group>"; };
+		7D4BA7682BA78B1300029DB4 /* DiscoverNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverNavigator.swift; sourceTree = "<group>"; };
+		7D4BA76A2BA78B1B00029DB4 /* DiscoverNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverNavigatorView.swift; sourceTree = "<group>"; };
 		7D513F7B2B17221A0040F913 /* PreferencesFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesFeature.swift; sourceTree = "<group>"; };
 		7D513F7D2B1722210040F913 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		7D513F802B1A3D810040F913 /* Numeric+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Numeric+Extension.swift"; sourceTree = "<group>"; };
@@ -323,6 +327,15 @@
 				7D4BA7652BA609C200029DB4 /* HomeNavigatorView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		7D4BA7672BA78AEB00029DB4 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				7D4BA7682BA78B1300029DB4 /* DiscoverNavigator.swift */,
+				7D4BA76A2BA78B1B00029DB4 /* DiscoverNavigatorView.swift */,
+			);
+			path = Discover;
 			sourceTree = "<group>";
 		};
 		7D513F7A2B17220D0040F913 /* Preferences */ = {
@@ -577,6 +590,7 @@
 			children = (
 				7D8F6FF22B95957D006F6B86 /* Root */,
 				7D4BA7622BA609A700029DB4 /* Home */,
+				7D4BA7672BA78AEB00029DB4 /* Discover */,
 			);
 			path = Navigators;
 			sourceTree = "<group>";
@@ -900,6 +914,7 @@
 				7D783B1B2B3A14D9004BEEAD /* CastMember+Preview.swift in Sources */,
 				7D513F812B1A3D810040F913 /* Numeric+Extension.swift in Sources */,
 				7D783B1F2B3A1538004BEEAD /* MoviesList+Preview.swift in Sources */,
+				7D4BA76B2BA78B1B00029DB4 /* DiscoverNavigatorView.swift in Sources */,
 				7DDA643A2B0799B1008BF425 /* Authenticating.swift in Sources */,
 				7DC8D15C2B1E3BB800193A64 /* MovieListButton.swift in Sources */,
 				7D20938D2B4F1490003B2B2C /* UserDefault.swift in Sources */,
@@ -968,6 +983,7 @@
 				7DE17DEA2B014719005F4848 /* SplashView.swift in Sources */,
 				7DDA64452B094DA8008BF425 /* HTTPTask.swift in Sources */,
 				7DA4DEF42B28F39F00D8E292 /* CrewMember.swift in Sources */,
+				7D4BA7692BA78B1300029DB4 /* DiscoverNavigator.swift in Sources */,
 				7D783B1D2B3A14F5004BEEAD /* CrewMember+Preview.swift in Sources */,
 				7DB688C62B3212EF0007D98E /* MovieHeaderView.swift in Sources */,
 				7D77E61B2B113F5800B308A6 /* MovieFeature.swift in Sources */,

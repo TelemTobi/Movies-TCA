@@ -15,25 +15,21 @@ struct HomeNavigator {
     struct State: Equatable {
         var selectedTab: Tab = .discover
         
-        var discover = DiscoverFeature.State()
+        var discover = DiscoverNavigator.State()
         var search = SearchFeature.State()
         var watchlist = WatchlistFeature.State()
-        
-        @Presents var destination: Destination.State?
     }
     
     enum Action {
         case onTabSelection(Tab)
         
-        case discover(DiscoverFeature.Action)
+        case discover(DiscoverNavigator.Action)
         case search(SearchFeature.Action)
         case watchlist(WatchlistFeature.Action)
-        
-        case destination(PresentationAction<Destination.Action>)
     }
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.discover, action: \.discover, child: DiscoverFeature.init)
+        Scope(state: \.discover, action: \.discover, child: DiscoverNavigator.init)
         
         Scope(state: \.search, action: \.search, child: SearchFeature.init)
         
@@ -45,28 +41,10 @@ struct HomeNavigator {
                 state.selectedTab = tab
                 return .none
                 
-            case let .discover(.navigation(.presentMovie(movie))):
-                state.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
-                return .none
-                
-            case .discover(.navigation(.presentPreferences)):
-                state.destination = .preferences(PreferencesFeature.State())
-                return .none
-                
-            case .discover, .search, .watchlist, .destination:
+            case .discover, .search, .watchlist:
                 return .none
             }
         }
-        .ifLet(\.$destination, action: \.destination)
-    }
-}
-
-extension HomeNavigator {
-    
-    @Reducer(state: .equatable)
-    enum Destination {
-        case movie(MovieFeature)
-        case preferences(PreferencesFeature)
     }
 }
 

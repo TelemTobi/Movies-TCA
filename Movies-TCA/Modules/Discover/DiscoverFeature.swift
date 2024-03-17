@@ -14,8 +14,6 @@ struct DiscoverFeature {
     
     @ObservableState
     struct State: Equatable {
-//        var path = StackState<Path.State>()
-        
         var isLoading = true
         var movies: [MoviesListType: IdentifiedArrayOf<Movie>] = [:]
     }
@@ -32,11 +30,11 @@ struct DiscoverFeature {
         enum Navigation: Equatable {
             case presentMovie(Movie)
             case presentPreferences
+            case pushMoviesList(MoviesListType, IdentifiedArrayOf<Movie>)
         }
         
         case view(View)
         case navigation(Navigation)
-//        case path(StackAction<Path.State, Path.Action>)
         case loadMovies
         case moviesListLoaded(MoviesListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
@@ -100,11 +98,8 @@ struct DiscoverFeature {
                 
             case .navigation:
                 return .none
-//            case .path:
-//                return .none
             }
         }
-//        .forEach(\.path, action: \.path)
     }
     
     private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
@@ -119,9 +114,7 @@ struct DiscoverFeature {
             return .send(.navigation(.presentPreferences))
             
         case let .onMoviesListTap(listType, movies):
-//            let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
-//            state.path.append(.moviesList(moviesListState))
-            return .none
+            return .send(.navigation(.pushMoviesList(listType, movies)))
             
         case let .onMovieLike(movie):
             // TODO: Extract to a UseCase ⚠️
@@ -139,11 +132,3 @@ struct DiscoverFeature {
         }
     }
 }
-
-//extension DiscoverFeature {
-//    
-//    @Reducer(state: .equatable, action: .equatable)
-//    enum Path {
-//        case moviesList(MoviesListFeature)
-//    }
-//}

@@ -16,7 +16,6 @@ struct DiscoverView: View {
     
     var body: some View {
 //        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-        NavigationStack {
             ZStack {
                 if store.isLoading {
                     ProgressView()
@@ -36,7 +35,6 @@ struct DiscoverView: View {
 //            case let .moviesList(store):
 //                MoviesListView(store: store)
 //            }
-        }
     }
     
     @ToolbarContentBuilder
