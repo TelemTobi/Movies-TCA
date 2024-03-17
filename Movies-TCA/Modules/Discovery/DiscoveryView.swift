@@ -1,5 +1,5 @@
 //
-//  DiscoverView.swift
+//  DiscoveryView.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 11/11/2023.
@@ -9,32 +9,25 @@ import SwiftUI
 import ComposableArchitecture
 import Pow
 
-@ViewAction(for: DiscoverFeature.self)
-struct DiscoverView: View {
+@ViewAction(for: DiscoveryFeature.self)
+struct DiscoveryView: View {
     
-    @Bindable var store: StoreOf<DiscoverFeature>
+    let store: StoreOf<DiscoveryFeature>
     
     var body: some View {
-//        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-            ZStack {
-                if store.isLoading {
-                    ProgressView()
-                } else {
-                    ContentView()
-                }
+        ZStack {
+            if store.isLoading {
+                ProgressView()
+            } else {
+                ContentView()
             }
-            .navigationTitle("Discovery")
-            .animation(.easeInOut, value: store.isLoading)
-            .toolbar(content: toolbarContent)
-            .onFirstAppear {
-                send(.onFirstAppear)
-            }
-//            
-//        } destination: { store in
-//            switch store.case {
-//            case let .moviesList(store):
-//                MoviesListView(store: store)
-//            }
+        }
+        .navigationTitle("Discovery")
+        .animation(.easeInOut, value: store.isLoading)
+        .toolbar(content: toolbarContent)
+        .onFirstAppear {
+            send(.onFirstAppear)
+        }
     }
     
     @ToolbarContentBuilder
@@ -109,10 +102,10 @@ struct DiscoverView: View {
 
 #Preview {
     NavigationStack {
-        DiscoverView(
+        DiscoveryView(
             store: Store(
-                initialState: DiscoverFeature.State(),
-                reducer: { DiscoverFeature() }
+                initialState: DiscoveryFeature.State(),
+                reducer: { DiscoveryFeature() }
             )
         )
     }

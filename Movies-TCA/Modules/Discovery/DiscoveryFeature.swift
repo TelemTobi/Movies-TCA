@@ -1,5 +1,5 @@
 //
-//  DiscoverFeature.swift
+//  DiscoveryFeature.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 11/11/2023.
@@ -10,7 +10,7 @@ import SwiftData
 import ComposableArchitecture
 
 @Reducer
-struct DiscoverFeature {
+struct DiscoveryFeature {
     
     @ObservableState
     struct State: Equatable {

@@ -1,5 +1,5 @@
 //
-//  DiscoverNavigator.swift
+//  DiscoveryNavigator.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 17/03/2024.
@@ -9,23 +9,23 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct DiscoverNavigator {
+struct DiscoveryNavigator {
     
     @ObservableState
     struct State: Equatable {
-        var root = DiscoverFeature.State()
+        var root = DiscoveryFeature.State()
         var path = StackState<Path.State>()
         @Presents var destination: Destination.State?
     }
     
     enum Action {
-        case root(DiscoverFeature.Action)
+        case root(DiscoveryFeature.Action)
         case path(StackAction<Path.State, Path.Action>)
         case destination(PresentationAction<Destination.Action>)
     }
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.root, action: \.root, child: DiscoverFeature.init)
+        Scope(state: \.root, action: \.root, child: DiscoveryFeature.init)
         
         Reduce { state, action in
             switch action {
@@ -51,7 +51,7 @@ struct DiscoverNavigator {
     }
 }
 
-extension DiscoverNavigator {
+extension DiscoveryNavigator {
         
     @Reducer(state: .equatable)
     enum Destination {

@@ -1,5 +1,5 @@
 //
-//  DiscoverNavigatorView.swift
+//  DiscoveryNavigatorView.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 17/03/2024.
@@ -8,17 +8,17 @@
 import SwiftUI
 import ComposableArchitecture
 
-extension DiscoverNavigator {
+extension DiscoveryNavigator {
     
     struct ContentView: View {
         
-        @Bindable var store: StoreOf<DiscoverNavigator>
+        @Bindable var store: StoreOf<DiscoveryNavigator>
         
         var body: some View {
             NavigationStack(
                 path: $store.scope(state: \.path, action: \.path),
                 root: {
-                    DiscoverView(store: store.scope(state: \.root, action: \.root))
+                    DiscoveryView(store: store.scope(state: \.root, action: \.root))
                         .fullScreenCover(
                             item: $store.scope(state: \.destination, action: \.destination),
                             content: { store in
@@ -72,10 +72,10 @@ extension DiscoverNavigator {
 }
 
 #Preview {
-    DiscoverNavigator.ContentView(
+    DiscoveryNavigator.ContentView(
         store: Store(
-            initialState: DiscoverNavigator.State(),
-            reducer: DiscoverNavigator.init
+            initialState: DiscoveryNavigator.State(),
+            reducer: DiscoveryNavigator.init
         )
     )
 }

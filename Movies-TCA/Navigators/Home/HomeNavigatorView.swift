@@ -16,7 +16,7 @@ extension HomeNavigator {
         
         var body: some View {
             TabView(selection: $store.selectedTab.sending(\.onTabSelection)) {
-                DiscoverNavigator.ContentView(
+                DiscoveryNavigator.ContentView(
                     store: store.scope(state: \.discover, action: \.discover)
                 )
                 .tabItem { Label("Discovery", systemImage: "globe") }

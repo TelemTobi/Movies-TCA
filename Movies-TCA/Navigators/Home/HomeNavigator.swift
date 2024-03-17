@@ -15,7 +15,7 @@ struct HomeNavigator {
     struct State: Equatable {
         var selectedTab: Tab = .discover
         
-        var discover = DiscoverNavigator.State()
+        var discover = DiscoveryNavigator.State()
         var search = SearchFeature.State()
         var watchlist = WatchlistFeature.State()
     }
@@ -23,13 +23,13 @@ struct HomeNavigator {
     enum Action {
         case onTabSelection(Tab)
         
-        case discover(DiscoverNavigator.Action)
+        case discover(DiscoveryNavigator.Action)
         case search(SearchFeature.Action)
         case watchlist(WatchlistFeature.Action)
     }
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.discover, action: \.discover, child: DiscoverNavigator.init)
+        Scope(state: \.discover, action: \.discover, child: DiscoveryNavigator.init)
         
         Scope(state: \.search, action: \.search, child: SearchFeature.init)
         
