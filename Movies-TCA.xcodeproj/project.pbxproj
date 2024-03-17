@@ -16,7 +16,6 @@
 		7D2093932B4F15AC003B2B2C /* PublisherObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2093922B4F15AC003B2B2C /* PublisherObservableObject.swift */; };
 		7D48B3982B5B007A00A248E3 /* LikedMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48B3972B5B007A00A248E3 /* LikedMovie.swift */; };
 		7D48B39A2B5BB22000A248E3 /* DatabaseDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48B3992B5BB22000A248E3 /* DatabaseDependency.swift */; };
-		7D48B39C2B5C2BE500A248E3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48B39B2B5C2BE500A248E3 /* HomeView.swift */; };
 		7D48B39F2B5D867800A248E3 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48B39E2B5D867800A248E3 /* CloseButton.swift */; };
 		7D48B3A22B5EEF7000A248E3 /* Watchlist+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48B3A12B5EEF7000A248E3 /* Watchlist+Alerts.swift */; };
 		7D4BA7642BA609B700029DB4 /* HomeNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA7632BA609B700029DB4 /* HomeNavigator.swift */; };
@@ -106,7 +105,6 @@
 		7DDA64792B1095A6008BF425 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA64782B1095A6008BF425 /* SearchView.swift */; };
 		7DE17DC62AFE0325005F4848 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE17DC52AFE0325005F4848 /* ComposableArchitecture */; };
 		7DE17DD42AFE0BC1005F4848 /* OnFirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DD32AFE0BC1005F4848 /* OnFirstAppear.swift */; };
-		7DE17DD62AFFB980005F4848 /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DD52AFFB980005F4848 /* HomeFeature.swift */; };
 		7DE17DD92AFFDE4E005F4848 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DD82AFFDE4E005F4848 /* DiscoverView.swift */; };
 		7DE17DDB2AFFDE56005F4848 /* DiscoverFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DDA2AFFDE56005F4848 /* DiscoverFeature.swift */; };
 		7DE17DDE2B00B073005F4848 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DDD2B00B073005F4848 /* Movie.swift */; };
@@ -146,7 +144,6 @@
 		7D2093922B4F15AC003B2B2C /* PublisherObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherObservableObject.swift; sourceTree = "<group>"; };
 		7D48B3972B5B007A00A248E3 /* LikedMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedMovie.swift; sourceTree = "<group>"; };
 		7D48B3992B5BB22000A248E3 /* DatabaseDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseDependency.swift; sourceTree = "<group>"; };
-		7D48B39B2B5C2BE500A248E3 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7D48B39E2B5D867800A248E3 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		7D48B3A12B5EEF7000A248E3 /* Watchlist+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Watchlist+Alerts.swift"; sourceTree = "<group>"; };
 		7D4BA7632BA609B700029DB4 /* HomeNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigator.swift; sourceTree = "<group>"; };
@@ -235,7 +232,6 @@
 		7DDA64762B10959C008BF425 /* SearchFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFeature.swift; sourceTree = "<group>"; };
 		7DDA64782B1095A6008BF425 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		7DE17DD32AFE0BC1005F4848 /* OnFirstAppear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnFirstAppear.swift; sourceTree = "<group>"; };
-		7DE17DD52AFFB980005F4848 /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
 		7DE17DD82AFFDE4E005F4848 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		7DE17DDA2AFFDE56005F4848 /* DiscoverFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverFeature.swift; sourceTree = "<group>"; };
 		7DE17DDD2B00B073005F4848 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
@@ -642,7 +638,6 @@
 			isa = PBXGroup;
 			children = (
 				7DE17DE82B01470B005F4848 /* Splash */,
-				7DE17DD22AFE05F9005F4848 /* Home */,
 				7DE17DD72AFFDE3B005F4848 /* Discover */,
 				7DDA64752B109525008BF425 /* Search */,
 				7DA4DEEA2B20480900D8E292 /* Watchlist */,
@@ -681,15 +676,6 @@
 				7DB688C92B32173A0007D98E /* Person.swift */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		7DE17DD22AFE05F9005F4848 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				7DE17DD52AFFB980005F4848 /* HomeFeature.swift */,
-				7D48B39B2B5C2BE500A248E3 /* HomeView.swift */,
-			);
-			path = Home;
 			sourceTree = "<group>";
 		};
 		7DE17DD72AFFDE3B005F4848 /* Discover */ = {
@@ -949,7 +935,6 @@
 				7DE17DF02B01F6A2005F4848 /* Genre.swift in Sources */,
 				7D20938F2B4F1539003B2B2C /* Preference.swift in Sources */,
 				7DD570A12B54792200042F88 /* LikeButton.swift in Sources */,
-				7DE17DD62AFFB980005F4848 /* HomeFeature.swift in Sources */,
 				7DE17DFB2B040D25005F4848 /* TmdbError.swift in Sources */,
 				7DDA64402B094635008BF425 /* Result+Extension.swift in Sources */,
 				7D783B192B3A14C1004BEEAD /* MovieDetails+Preview.swift in Sources */,
@@ -977,7 +962,6 @@
 				7D6875372B4B29E900882EA9 /* MoviesListType.swift in Sources */,
 				7DED6C4D2B61ABA80085C777 /* TruncableText.swift in Sources */,
 				7DDA64362B079863008BF425 /* TmdbEndpoint.swift in Sources */,
-				7D48B39C2B5C2BE500A248E3 /* HomeView.swift in Sources */,
 				7DDA64772B10959C008BF425 /* SearchFeature.swift in Sources */,
 				7D8F6FEF2B95948F006F6B86 /* AppDataDependency.swift in Sources */,
 				7DE17DD92AFFDE4E005F4848 /* DiscoverView.swift in Sources */,

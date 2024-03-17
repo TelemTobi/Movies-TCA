@@ -45,6 +45,14 @@ struct HomeNavigator {
                 state.selectedTab = tab
                 return .none
                 
+            case let .discover(.navigation(.presentMovie(movie))):
+                state.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
+                return .none
+                
+            case .discover(.navigation(.presentPreferences)):
+                state.destination = .preferences(PreferencesFeature.State())
+                return .none
+                
             case .discover, .search, .watchlist, .destination:
                 return .none
             }

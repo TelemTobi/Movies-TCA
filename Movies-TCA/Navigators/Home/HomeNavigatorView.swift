@@ -39,13 +39,41 @@ extension HomeNavigator {
                 content: { store in
                     switch store.case {
                     case let .movie(store):
-                        MovieView(store: store)
+                        MovieSheet(store: store)
                         
                     case let .preferences(store):
-                        PreferencesView(store: store)
+                        PreferencesSheet(store: store)
                     }
                 }
             )
+        }
+        
+        @MainActor
+        private func MovieSheet(store: StoreOf<MovieFeature>) -> some View {
+            NavigationStack {
+                //        NavigationStack(path: $store.scope(state: \.moviePath, action: \.moviePath)) {
+                MovieView(store: store)
+                //        } destination: { store in
+                //            switch store.case {
+                //            case let .relatedMovie(store):
+                //                MovieView(store: store)
+                //            }
+                //        }
+            }
+        }
+        
+        @MainActor
+        private func PreferencesSheet(store: StoreOf<PreferencesFeature>) -> some View {
+            NavigationStack {
+                PreferencesView(store: store)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("Close", systemImage: "xmark") {
+                                store.send(.view(.onCloseButtonTap))
+                            }
+                        }
+                    }
+            }
         }
     }
 }
