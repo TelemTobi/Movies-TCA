@@ -15,7 +15,8 @@ struct DiscoverView: View {
     @Bindable var store: StoreOf<DiscoverFeature>
     
     var body: some View {
-        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
+//        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
+        NavigationStack {
             ZStack {
                 if store.isLoading {
                     ProgressView()
@@ -29,12 +30,12 @@ struct DiscoverView: View {
             .onFirstAppear {
                 send(.onFirstAppear)
             }
-            
-        } destination: { store in
-            switch store.case {
-            case let .moviesList(store):
-                MoviesListView(store: store)
-            }
+//            
+//        } destination: { store in
+//            switch store.case {
+//            case let .moviesList(store):
+//                MoviesListView(store: store)
+//            }
         }
     }
     

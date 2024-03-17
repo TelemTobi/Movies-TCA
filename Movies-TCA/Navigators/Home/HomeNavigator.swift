@@ -13,27 +13,42 @@ struct HomeNavigator {
     
     @ObservableState
     struct State: Equatable {
-        var root = HomeFeature.State()
-        var path = StackState<Path.State>()
+        var selectedTab: Tab = .discover
+        
+        var discover = DiscoverFeature.State()
+        var search = SearchFeature.State()
+        var watchlist = WatchlistFeature.State()
+        
         @Presents var destination: Destination.State?
     }
     
     enum Action {
-        case root(HomeFeature.Action)
-        case path(StackAction<Path.State, Path.Action>)
+        case onTabSelection(Tab)
+        
+        case discover(DiscoverFeature.Action)
+        case search(SearchFeature.Action)
+        case watchlist(WatchlistFeature.Action)
+        
         case destination(PresentationAction<Destination.Action>)
     }
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.root, action: \.root, child: HomeFeature.init)
+        Scope(state: \.discover, action: \.discover, child: DiscoverFeature.init)
+        
+        Scope(state: \.search, action: \.search, child: SearchFeature.init)
+        
+        Scope(state: \.watchlist, action: \.watchlist, child: WatchlistFeature.init)
         
         Reduce { state, action in
             switch action {
-            case .root, .path, .destination:
+            case let .onTabSelection(tab):
+                state.selectedTab = tab
+                return .none
+                
+            case .discover, .search, .watchlist, .destination:
                 return .none
             }
         }
-        .forEach(\.path, action: \.path)
         .ifLet(\.$destination, action: \.destination)
     }
 }
@@ -42,11 +57,22 @@ extension HomeNavigator {
     
     @Reducer(state: .equatable)
     enum Destination {
-        
+        case movie(MovieFeature)
+        case preferences(PreferencesFeature)
     }
+}
+
+extension HomeNavigator {
     
-    @Reducer(state: .equatable)
-    enum Path {
+    enum Tab {
+        case discover, search, watchlist
         
+        var title: String {
+            return switch self {
+            case .discover: "Discovery"
+            case .search: "Search"
+            case .watchlist: "Watchlist"
+            }
+        }
     }
 }

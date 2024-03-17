@@ -14,7 +14,7 @@ struct DiscoverFeature {
     
     @ObservableState
     struct State: Equatable {
-        var path = StackState<Path.State>()
+//        var path = StackState<Path.State>()
         
         var isLoading = true
         var movies: [MoviesListType: IdentifiedArrayOf<Movie>] = [:]
@@ -30,7 +30,7 @@ struct DiscoverFeature {
         }
         
         case view(View)
-        case path(StackAction<Path.State, Path.Action>)
+//        case path(StackAction<Path.State, Path.Action>)
         case loadMovies
         case moviesListLoaded(MoviesListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
@@ -47,8 +47,8 @@ struct DiscoverFeature {
                 return .send(.loadMovies)
                 
             case let .view(.onMoviesListTap(listType, movies)):
-                let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
-                state.path.append(.moviesList(moviesListState))
+//                let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
+//                state.path.append(.moviesList(moviesListState))
                 return .none
                 
             case .loadMovies:
@@ -97,22 +97,22 @@ struct DiscoverFeature {
                 }
                 return .none
                 
-            case .path:
-                return .none
+//            case .path:
+//                return .none
                 
             // MARK: Handled in parent feature
             case .view(.onPreferencesTap), .view(.onMovieTap), .view(.onMovieLike):
                 return .none
             }
         }
-        .forEach(\.path, action: \.path)
+//        .forEach(\.path, action: \.path)
     }
 }
 
-extension DiscoverFeature {
-    
-    @Reducer(state: .equatable, action: .equatable)
-    enum Path {
-        case moviesList(MoviesListFeature)
-    }
-}
+//extension DiscoverFeature {
+//    
+//    @Reducer(state: .equatable, action: .equatable)
+//    enum Path {
+//        case moviesList(MoviesListFeature)
+//    }
+//}

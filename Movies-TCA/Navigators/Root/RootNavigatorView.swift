@@ -25,7 +25,7 @@ extension RootNavigator {
                     
                 case .home:
                     if let store = store.scope(state: \.destination.home, action: \.destination.home) {
-                        HomeView(store: store)
+                        HomeNavigator.ContentView(store: store)
                     }
                 }
             }
