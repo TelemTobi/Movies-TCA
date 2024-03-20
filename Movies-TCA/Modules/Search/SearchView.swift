@@ -16,26 +16,21 @@ struct SearchView: View {
     @State private var didFirstAppear: Bool = false
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                if store.isLoading {
-                    ProgressView()
-                } else {
-                    ContentView()
-                }
-            }
-            .navigationTitle("Search")
-            .toolbar(content: toolbarContent)
-            .animation(.easeInOut, value: store.isLoading)
-            .searchable(
-                text: $store.searchInput.sending(\.onInputChange),
-                placement: .navigationBarDrawer(displayMode: .always),
-                prompt: "Explore movies here"
-            )
-            .onFirstAppear {
-                send(.onFirstAppear)
+        ZStack {
+            if store.isLoading {
+                ProgressView()
+            } else {
+                ContentView()
             }
         }
+        .navigationTitle("Search")
+        .toolbar(content: toolbarContent)
+        .animation(.easeInOut, value: store.isLoading)
+        .searchable(
+            text: $store.searchInput.sending(\.onInputChange),
+            placement: .navigationBarDrawer(displayMode: .always),
+            prompt: "Explore movies here"
+        )
     }
     
     @ToolbarContentBuilder

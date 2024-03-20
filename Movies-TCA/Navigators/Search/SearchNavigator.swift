@@ -37,11 +37,6 @@ struct SearchNavigator {
                 state.destination = .preferences(PreferencesFeature.State())
                 return .none
                 
-            case let .root(.navigation(.pushMoviesList(listType, movies))):
-                let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
-                state.path.append(.moviesList(moviesListState))
-                return .none
-                
             case .root, .path, .destination:
                 return .none
             }
