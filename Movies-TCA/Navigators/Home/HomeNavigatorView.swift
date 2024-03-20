@@ -22,7 +22,7 @@ extension HomeNavigator {
                 .tabItem { Label("Discovery", systemImage: "globe") }
                 .tag(HomeNavigator.Tab.discover)
                 
-                SearchView(
+                SearchNavigator.ContentView(
                     store: store.scope(state: \.search, action: \.search)
                 )
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }

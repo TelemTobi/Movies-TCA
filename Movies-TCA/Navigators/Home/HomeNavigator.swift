@@ -16,7 +16,7 @@ struct HomeNavigator {
         var selectedTab: Tab = .discover
         
         var discover = DiscoveryNavigator.State()
-        var search = SearchFeature.State()
+        var search = SearchNavigator.State()
         var watchlist = WatchlistFeature.State()
     }
     
@@ -24,14 +24,14 @@ struct HomeNavigator {
         case onTabSelection(Tab)
         
         case discover(DiscoveryNavigator.Action)
-        case search(SearchFeature.Action)
+        case search(SearchNavigator.Action)
         case watchlist(WatchlistFeature.Action)
     }
     
     var body: some ReducerOf<Self> {
         Scope(state: \.discover, action: \.discover, child: DiscoveryNavigator.init)
         
-        Scope(state: \.search, action: \.search, child: SearchFeature.init)
+        Scope(state: \.search, action: \.search, child: SearchNavigator.init)
         
         Scope(state: \.watchlist, action: \.watchlist, child: WatchlistFeature.init)
         
