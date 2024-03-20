@@ -22,6 +22,8 @@
 		7D4BA7662BA609C200029DB4 /* HomeNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA7652BA609C200029DB4 /* HomeNavigatorView.swift */; };
 		7D4BA7692BA78B1300029DB4 /* DiscoveryNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA7682BA78B1300029DB4 /* DiscoveryNavigator.swift */; };
 		7D4BA76B2BA78B1B00029DB4 /* DiscoveryNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA76A2BA78B1B00029DB4 /* DiscoveryNavigatorView.swift */; };
+		7D4BA76E2BAAC3EC00029DB4 /* SearchNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA76D2BAAC3EC00029DB4 /* SearchNavigator.swift */; };
+		7D4BA7702BAAC3F700029DB4 /* SearchNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA76F2BAAC3F700029DB4 /* SearchNavigatorView.swift */; };
 		7D513F7C2B17221A0040F913 /* PreferencesFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F7B2B17221A0040F913 /* PreferencesFeature.swift */; };
 		7D513F7E2B1722210040F913 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F7D2B1722210040F913 /* PreferencesView.swift */; };
 		7D513F812B1A3D810040F913 /* Numeric+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F802B1A3D810040F913 /* Numeric+Extension.swift */; };
@@ -152,6 +154,8 @@
 		7D4BA7652BA609C200029DB4 /* HomeNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigatorView.swift; sourceTree = "<group>"; };
 		7D4BA7682BA78B1300029DB4 /* DiscoveryNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryNavigator.swift; sourceTree = "<group>"; };
 		7D4BA76A2BA78B1B00029DB4 /* DiscoveryNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryNavigatorView.swift; sourceTree = "<group>"; };
+		7D4BA76D2BAAC3EC00029DB4 /* SearchNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavigator.swift; sourceTree = "<group>"; };
+		7D4BA76F2BAAC3F700029DB4 /* SearchNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavigatorView.swift; sourceTree = "<group>"; };
 		7D513F7B2B17221A0040F913 /* PreferencesFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesFeature.swift; sourceTree = "<group>"; };
 		7D513F7D2B1722210040F913 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		7D513F802B1A3D810040F913 /* Numeric+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Numeric+Extension.swift"; sourceTree = "<group>"; };
@@ -336,6 +340,15 @@
 				7D4BA76A2BA78B1B00029DB4 /* DiscoveryNavigatorView.swift */,
 			);
 			path = Discovery;
+			sourceTree = "<group>";
+		};
+		7D4BA76C2BAAC3DA00029DB4 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7D4BA76D2BAAC3EC00029DB4 /* SearchNavigator.swift */,
+				7D4BA76F2BAAC3F700029DB4 /* SearchNavigatorView.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		7D513F7A2B17220D0040F913 /* Preferences */ = {
@@ -591,6 +604,7 @@
 				7D8F6FF22B95957D006F6B86 /* Root */,
 				7D4BA7622BA609A700029DB4 /* Home */,
 				7D4BA7672BA78AEB00029DB4 /* Discovery */,
+				7D4BA76C2BAAC3DA00029DB4 /* Search */,
 			);
 			path = Navigators;
 			sourceTree = "<group>";
@@ -913,6 +927,7 @@
 				7DA4DEF22B28F35C00D8E292 /* CastMember.swift in Sources */,
 				7D783B1B2B3A14D9004BEEAD /* CastMember+Preview.swift in Sources */,
 				7D513F812B1A3D810040F913 /* Numeric+Extension.swift in Sources */,
+				7D4BA76E2BAAC3EC00029DB4 /* SearchNavigator.swift in Sources */,
 				7D783B1F2B3A1538004BEEAD /* MoviesList+Preview.swift in Sources */,
 				7D4BA76B2BA78B1B00029DB4 /* DiscoveryNavigatorView.swift in Sources */,
 				7DDA643A2B0799B1008BF425 /* Authenticating.swift in Sources */,
@@ -963,6 +978,7 @@
 				7DDA643C2B07A8E2008BF425 /* JsonResolver.swift in Sources */,
 				7DE17E0E2B053C4E005F4848 /* TmdbClient.swift in Sources */,
 				7D20938A2B4F1457003B2B2C /* Preferences.swift in Sources */,
+				7D4BA7702BAAC3F700029DB4 /* SearchNavigatorView.swift in Sources */,
 				7DDA64422B094C8B008BF425 /* HTTPMethod.swift in Sources */,
 				7D2093862B4D0754003B2B2C /* SettingLabelStyle.swift in Sources */,
 				7DB688CD2B32C1330007D98E /* DirectorView.swift in Sources */,
