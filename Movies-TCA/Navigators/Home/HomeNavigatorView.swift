@@ -28,7 +28,7 @@ extension HomeNavigator {
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
                 .tag(HomeNavigator.Tab.search)
                 
-                WatchlistView(
+                WatchlistNavigator.ContentView(
                     store: store.scope(state: \.watchlist, action: \.watchlist)
                 )
                 .tabItem { Label("Watchlist", systemImage: "popcorn") }

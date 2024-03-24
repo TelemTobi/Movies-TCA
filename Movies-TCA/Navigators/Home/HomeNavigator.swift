@@ -17,7 +17,7 @@ struct HomeNavigator {
         
         var discover = DiscoveryNavigator.State()
         var search = SearchNavigator.State()
-        var watchlist = WatchlistFeature.State()
+        var watchlist = WatchlistNavigator.State()
     }
     
     enum Action {
@@ -25,7 +25,7 @@ struct HomeNavigator {
         
         case discover(DiscoveryNavigator.Action)
         case search(SearchNavigator.Action)
-        case watchlist(WatchlistFeature.Action)
+        case watchlist(WatchlistNavigator.Action)
     }
     
     var body: some ReducerOf<Self> {
@@ -33,7 +33,7 @@ struct HomeNavigator {
         
         Scope(state: \.search, action: \.search, child: SearchNavigator.init)
         
-        Scope(state: \.watchlist, action: \.watchlist, child: WatchlistFeature.init)
+        Scope(state: \.watchlist, action: \.watchlist, child: WatchlistNavigator.init)
         
         Reduce { state, action in
             switch action {
