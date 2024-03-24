@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
+@ViewAction(for: SplashFeature.self)
 struct SplashView: View {
+    
+    let store: StoreOf<SplashFeature>
     
     var body: some View {
         GeometryReader { geometry in
@@ -20,9 +24,15 @@ struct SplashView: View {
                     y: geometry.frame(in: .local).midY
                 )
         }
+        .onAppear { send(.onAppear) }
     }
 }
 
 #Preview {
-    SplashView()
+    SplashView(
+        store: Store(
+            initialState: SplashFeature.State(),
+            reducer: SplashFeature.init
+        )
+    )
 }

@@ -76,7 +76,7 @@ final class HomeTests: XCTestCase {
     func testOnMovieTap() async {
         let movie = Movie.mock
         
-        // Discover Feature
+        // Discovery Feature
         await store.send(.discover(.onMovieTap(movie))) {
             $0.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
         }

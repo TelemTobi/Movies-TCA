@@ -19,7 +19,6 @@ struct PreferencesView: View {
             DeviceSettingsSection()
         }
         .navigationTitle("Preferences")
-        .onFirstAppear { send(.onFirstAppear) }
         .adjustPreferredColorScheme()
     }
 }

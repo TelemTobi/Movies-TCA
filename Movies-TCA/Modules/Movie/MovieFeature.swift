@@ -28,19 +28,25 @@ struct MovieFeature {
             case onLikeTap(Movie)
         }
         
+        enum Navigation: Equatable {
+            case pushRelatedMovie(Movie)
+            case dismissFlow
+        }
+        
         case view(View)
+        case navigation(Navigation)
         case loadExtendedDetails
         case movieDetailsLoaded(Result<MovieDetails, TmdbError>)
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
-    @Dependency(\.dismiss) var dismiss
+    @Dependency(\.database) var database
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .view(.onFirstAppear):
-                return .send(.loadExtendedDetails)
+            case let .view(viewAction):
+                return reduceViewAction(&state, viewAction)
                 
             case .loadExtendedDetails:
                 guard let movieId = state.movieDetails.movie.id else { return .none }
@@ -58,10 +64,36 @@ struct MovieFeature {
                 customDump(error) // TODO: Handle error
                 return .none
                 
-            // MARK: Handled in parent feature
-            case .view(.onCloseButtonTap), .view(.onRelatedMovieTap), .view(.onLikeTap):
+            case .navigation:
                 return .none
             }
+        }
+    }
+    
+    private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
+        switch action {
+        case .onFirstAppear:
+            return .send(.loadExtendedDetails)
+            
+        case .onCloseButtonTap:
+            return .send(.navigation(.dismissFlow))
+            
+        case let .onRelatedMovieTap(movie):
+            return .send(.navigation(.pushRelatedMovie(movie)))
+            
+        case let .onLikeTap(movie):
+            // TODO: Extract to a UseCase ⚠️
+            if movie.isLiked {
+                let likedMovie = LikedMovie(movie)
+                try? database.context().insert(likedMovie)
+            } else {
+                let movieId = movie.id
+                try? database.context().delete(
+                    model: LikedMovie.self,
+                    where: #Predicate { $0.id == movieId }
+                )
+            }
+            return .none
         }
     }
 }

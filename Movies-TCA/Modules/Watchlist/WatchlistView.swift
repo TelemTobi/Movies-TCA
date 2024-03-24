@@ -17,23 +17,21 @@ struct WatchlistView: View {
     @Query private var likedMovies: [LikedMovie]
     
     var body: some View {
-        NavigationStack {
-            Group {
-                if store.likedMovies.isEmpty {
-                    EmptyFavoritesView()
-                } else {
-                    ContentView()
-                }
+        Group {
+            if store.likedMovies.isEmpty {
+                EmptyFavoritesView()
+            } else {
+                ContentView()
             }
-            .navigationTitle("Watchlist")
-            .toolbar(content: toolbarContent)
-            .alert($store.scope(state: \.alert, action: \.alert))
-            .onFirstAppear {
-                send(.setLikedMovies(likedMovies))
-            }
-            .onChange(of: likedMovies) { _, newValue in
-                send(.setLikedMovies(likedMovies))
-            }
+        }
+        .navigationTitle("Watchlist")
+        .toolbar(content: toolbarContent)
+        .alert($store.scope(state: \.alert, action: \.alert))
+        .onFirstAppear {
+            send(.setLikedMovies(likedMovies))
+        }
+        .onChange(of: likedMovies) { _, newValue in
+            send(.setLikedMovies(likedMovies))
         }
     }
     

@@ -16,7 +16,7 @@ enum Mock: String {
     case topRatedMovies = "TopRatedMoviesStub"
     case upcomingMovies = "UpcomingMoviesStub"
     case searchMovies = "SearchMoviesStub"
-    case discoverMovies = "DiscoverMoviesStub"
+    case discoverMovies = "DiscoveryMoviesStub"
     case movieDetails = "MovieDetailsStub"
     
     var fileName: String {

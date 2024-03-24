@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class LikedMovie {
+final class LikedMovie: Sendable {
     
     @Attribute(.unique)
     let id: Int?

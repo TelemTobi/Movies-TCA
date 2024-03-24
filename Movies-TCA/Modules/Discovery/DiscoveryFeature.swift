@@ -1,5 +1,5 @@
 //
-//  DiscoverFeature.swift
+//  DiscoveryFeature.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 11/11/2023.
@@ -10,12 +10,10 @@ import SwiftData
 import ComposableArchitecture
 
 @Reducer
-struct DiscoverFeature {
+struct DiscoveryFeature {
     
     @ObservableState
     struct State: Equatable {
-        var path = StackState<Path.State>()
-        
         var isLoading = true
         var movies: [MoviesListType: IdentifiedArrayOf<Movie>] = [:]
     }
@@ -29,8 +27,14 @@ struct DiscoverFeature {
             case onMoviesListTap(MoviesListType, IdentifiedArrayOf<Movie>)
         }
         
+        enum Navigation: Equatable {
+            case presentMovie(Movie)
+            case presentPreferences
+            case pushMoviesList(MoviesListType, IdentifiedArrayOf<Movie>)
+        }
+        
         case view(View)
-        case path(StackAction<Path.State, Path.Action>)
+        case navigation(Navigation)
         case loadMovies
         case moviesListLoaded(MoviesListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
@@ -43,13 +47,8 @@ struct DiscoverFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .view(.onFirstAppear):
-                return .send(.loadMovies)
-                
-            case let .view(.onMoviesListTap(listType, movies)):
-                let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
-                state.path.append(.moviesList(moviesListState))
-                return .none
+            case let .view(viewAction):
+                return reduceViewAction(&state, viewAction)
                 
             case .loadMovies:
                 state.isLoading = true
@@ -97,22 +96,39 @@ struct DiscoverFeature {
                 }
                 return .none
                 
-            case .path:
-                return .none
-                
-            // MARK: Handled in parent feature
-            case .view(.onPreferencesTap), .view(.onMovieTap), .view(.onMovieLike):
+            case .navigation:
                 return .none
             }
         }
-        .forEach(\.path, action: \.path)
     }
-}
-
-extension DiscoverFeature {
     
-    @Reducer(state: .equatable, action: .equatable)
-    enum Path {
-        case moviesList(MoviesListFeature)
+    private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
+        switch action {
+        case .onFirstAppear:
+            return .send(.loadMovies)
+            
+        case let .onMovieTap(movie):
+            return .send(.navigation(.presentMovie(movie)))
+            
+        case .onPreferencesTap:
+            return .send(.navigation(.presentPreferences))
+            
+        case let .onMoviesListTap(listType, movies):
+            return .send(.navigation(.pushMoviesList(listType, movies)))
+            
+        case let .onMovieLike(movie):
+            // TODO: Extract to a UseCase ⚠️
+            if movie.isLiked {
+                let likedMovie = LikedMovie(movie)
+                try? database.context().insert(likedMovie)
+            } else {
+                let movieId = movie.id
+                try? database.context().delete(
+                    model: LikedMovie.self,
+                    where: #Predicate { $0.id == movieId }
+                )
+            }
+            return .none
+        }
     }
 }

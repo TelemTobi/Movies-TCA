@@ -13,6 +13,7 @@ import ComposableArchitecture
 struct MoviesApp: App {
     
     @Dependency(\.database) var database
+    @Environment(\.colorScheme) var colorScheme
     
     var modelContext: ModelContext {
         guard let modelContext = try? self.database.context() else {
@@ -23,13 +24,17 @@ struct MoviesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootView(
+            RootNavigator.ContentView(
                 store: Store(
-                    initialState: RootFeature.State(),
-                    reducer: { RootFeature() }
+                    initialState: RootNavigator.State(),
+                    reducer: RootNavigator.init
                 )
             )
             .modelContext(modelContext)
+            .adjustPreferredColorScheme()
+            .onFirstAppear {
+                Preferences.Appearance.systemColorScheme = colorScheme
+            }
         }
     }
 }
