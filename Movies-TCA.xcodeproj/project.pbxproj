@@ -47,6 +47,8 @@
 		7D7D83032B35637E00819A01 /* ProductionCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D83022B35637E00819A01 /* ProductionCountry.swift */; };
 		7D7FFB672BB049230022C651 /* WatchlistNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB662BB049230022C651 /* WatchlistNavigator.swift */; };
 		7D7FFB692BB049290022C651 /* WatchlistNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB682BB049290022C651 /* WatchlistNavigatorView.swift */; };
+		7D7FFB6C2BB04B910022C651 /* MovieNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB6B2BB04B910022C651 /* MovieNavigator.swift */; };
+		7D7FFB6E2BB04B970022C651 /* MovieNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB6D2BB04B970022C651 /* MovieNavigatorView.swift */; };
 		7D810E3E2B2B9967004A67AB /* MovieDetailsJsonResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D810E3D2B2B9967004A67AB /* MovieDetailsJsonResolver.swift */; };
 		7D810E402B2B9CA7004A67AB /* MovieDetailsStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D810E3F2B2B9CA7004A67AB /* MovieDetailsStub.json */; };
 		7D8F6FEB2B9593E2006F6B86 /* RootNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8F6FEA2B9593E2006F6B86 /* RootNavigator.swift */; };
@@ -182,6 +184,8 @@
 		7D7D83022B35637E00819A01 /* ProductionCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionCountry.swift; sourceTree = "<group>"; };
 		7D7FFB662BB049230022C651 /* WatchlistNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistNavigator.swift; sourceTree = "<group>"; };
 		7D7FFB682BB049290022C651 /* WatchlistNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistNavigatorView.swift; sourceTree = "<group>"; };
+		7D7FFB6B2BB04B910022C651 /* MovieNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieNavigator.swift; sourceTree = "<group>"; };
+		7D7FFB6D2BB04B970022C651 /* MovieNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieNavigatorView.swift; sourceTree = "<group>"; };
 		7D810E3D2B2B9967004A67AB /* MovieDetailsJsonResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsJsonResolver.swift; sourceTree = "<group>"; };
 		7D810E3F2B2B9CA7004A67AB /* MovieDetailsStub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MovieDetailsStub.json; sourceTree = "<group>"; };
 		7D8F6FEA2B9593E2006F6B86 /* RootNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigator.swift; sourceTree = "<group>"; };
@@ -435,6 +439,15 @@
 			path = Watchlist;
 			sourceTree = "<group>";
 		};
+		7D7FFB6A2BB04B820022C651 /* Movie */ = {
+			isa = PBXGroup;
+			children = (
+				7D7FFB6B2BB04B910022C651 /* MovieNavigator.swift */,
+				7D7FFB6D2BB04B970022C651 /* MovieNavigatorView.swift */,
+			);
+			path = Movie;
+			sourceTree = "<group>";
+		};
 		7D810E3C2B2B9945004A67AB /* JsonResolvers */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,6 +632,7 @@
 				7D4BA7672BA78AEB00029DB4 /* Discovery */,
 				7D4BA76C2BAAC3DA00029DB4 /* Search */,
 				7D7FFB652BB048FF0022C651 /* Watchlist */,
+				7D7FFB6A2BB04B820022C651 /* Movie */,
 			);
 			path = Navigators;
 			sourceTree = "<group>";
@@ -946,6 +960,7 @@
 				7D4BA76B2BA78B1B00029DB4 /* DiscoveryNavigatorView.swift in Sources */,
 				7DDA643A2B0799B1008BF425 /* Authenticating.swift in Sources */,
 				7DC8D15C2B1E3BB800193A64 /* MovieListButton.swift in Sources */,
+				7D7FFB6C2BB04B910022C651 /* MovieNavigator.swift in Sources */,
 				7D20938D2B4F1490003B2B2C /* UserDefault.swift in Sources */,
 				7DB688CA2B32173A0007D98E /* Person.swift in Sources */,
 				7DE17DDE2B00B073005F4848 /* Movie.swift in Sources */,
@@ -955,6 +970,7 @@
 				7DE17DF72B01F96A005F4848 /* Collection+Extension.swift in Sources */,
 				7DA4DEEE2B20483D00D8E292 /* WatchlistView.swift in Sources */,
 				7D77E6192B113F4E00B308A6 /* MovieView.swift in Sources */,
+				7D7FFB6E2BB04B970022C651 /* MovieNavigatorView.swift in Sources */,
 				7DB688AF2B2CF6930007D98E /* StretchyHeader.swift in Sources */,
 				7D8F6FEB2B9593E2006F6B86 /* RootNavigator.swift in Sources */,
 				7DE17E022B041357005F4848 /* Config.swift in Sources */,
