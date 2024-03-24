@@ -30,7 +30,7 @@ struct SearchNavigator {
         Reduce { state, action in
             switch action {
             case let .root(.navigation(.presentMovie(movie))):
-                state.destination = .movie(MovieFeature.State(movieDetails: .init(movie: movie)))
+                state.destination = .movie(MovieNavigator.State(movieDetails: .init(movie: movie)))
                 return .none
                 
             case .root(.navigation(.presentPreferences)):
@@ -50,7 +50,7 @@ extension SearchNavigator {
         
     @Reducer(state: .equatable)
     enum Destination {
-        case movie(MovieFeature)
+        case movie(MovieNavigator)
         case preferences(PreferencesFeature)
     }
     

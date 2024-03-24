@@ -24,7 +24,7 @@ extension DiscoveryNavigator {
                             content: { store in
                                 switch store.case {
                                 case let .movie(store):
-                                    MovieSheet(store: store)
+                                    MovieNavigator.ContentView(store: store)
                                     
                                 case let .preferences(store):
                                     PreferencesSheet(store: store)
@@ -39,20 +39,6 @@ extension DiscoveryNavigator {
                     }
                 }
             )
-        }
-        
-        @MainActor
-        private func MovieSheet(store: StoreOf<MovieFeature>) -> some View {
-            // TODO: MovieNavigator ⚠️
-            NavigationStack {
-//        NavigationStack(path: $store.scope(state: \.moviePath, action: \.moviePath)) {
-                MovieView(store: store)
-//        } destination: { store in
-//            switch store.case {
-//            case let .relatedMovie(store):
-//                MovieView(store: store)
-//            }
-            }
         }
         
         @MainActor
