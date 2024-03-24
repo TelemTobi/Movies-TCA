@@ -19,26 +19,51 @@ struct MoviesListFeature {
     
     enum Action: ViewAction, Equatable {
         enum View: Equatable {
-            case onFirstAppear
             case onMovieTap(Movie)
             case onMovieLike(Movie)
         }
         
+        enum Navigation: Equatable {
+            case presentMovie(Movie)
+        }
+        
         case view(View)
+        case navigation(Navigation)
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
+    @Dependency(\.database) var database
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .view(.onFirstAppear):
-                return .none
+            case let .view(viewAction):
+                return reduceViewAction(&state, viewAction)
                 
-            // MARK: Handled in parent feature
-            case .view(.onMovieTap), .view(.onMovieLike):
+            case .navigation:
                 return .none
             }
+        }
+    }
+    
+    private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
+        switch action {
+        case let .onMovieTap(movie):
+            return .send(.navigation(.presentMovie(movie)))
+            
+        case let .onMovieLike(movie):
+            // TODO: Extract to a UseCase ⚠️
+            if movie.isLiked {
+                let likedMovie = LikedMovie(movie)
+                try? database.context().insert(likedMovie)
+            } else {
+                let movieId = movie.id
+                try? database.context().delete(
+                    model: LikedMovie.self,
+                    where: #Predicate { $0.id == movieId }
+                )
+            }
+            return .none
         }
     }
 }
