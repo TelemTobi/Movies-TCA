@@ -33,7 +33,7 @@ struct MovieView: View {
         self.store = store
     }
     
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         GeometryReader { geometry in

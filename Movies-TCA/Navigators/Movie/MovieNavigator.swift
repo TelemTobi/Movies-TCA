@@ -26,7 +26,7 @@ struct MovieNavigator {
         case path(StackAction<Path.State, Path.Action>)
     }
     
-    @Dependency(\.dismiss) private var dismiss
+    @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
         Scope(state: \.root, action: \.root, child: MovieFeature.init)
