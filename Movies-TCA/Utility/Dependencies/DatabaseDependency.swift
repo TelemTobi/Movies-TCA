@@ -10,11 +10,30 @@ import SwiftData
 import Dependencies
 
 struct DatabaseDependency {
-    var context: @Sendable () throws -> ModelContext
+    var getContext: @Sendable () throws -> ModelContext
+    var getLikedMovies: @Sendable () throws -> [LikedMovie]
+    var setMovieLike: @Sendable (Movie) throws -> Void
 }
 
 extension DatabaseDependency: DependencyKey {
-    static let liveValue = Self(context: { appContext })
+    static let liveValue = DatabaseDependency(
+        getContext: { appContext },
+        getLikedMovies: {
+            try appContext.fetch(FetchDescriptor<LikedMovie>())
+        },
+        setMovieLike: { movie in
+            if movie.isLiked {
+                let likedMovie = LikedMovie(movie)
+                appContext.insert(likedMovie)
+            } else {
+                let movieId = movie.id
+                try appContext.delete(
+                    model: LikedMovie.self,
+                    where: #Predicate { $0.id == movieId }
+                )
+            }
+        }
+    )
 }
 
 extension DependencyValues {
