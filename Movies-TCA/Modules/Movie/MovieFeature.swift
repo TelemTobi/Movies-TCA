@@ -82,17 +82,7 @@ struct MovieFeature {
             return .send(.navigation(.pushRelatedMovie(movie)))
             
         case let .onLikeTap(movie):
-            // TODO: Extract to a UseCase ⚠️
-            if movie.isLiked {
-                let likedMovie = LikedMovie(movie)
-                try? database.context().insert(likedMovie)
-            } else {
-                let movieId = movie.id
-                try? database.context().delete(
-                    model: LikedMovie.self,
-                    where: #Predicate { $0.id == movieId }
-                )
-            }
+            try? database.setMovieLike(movie)
             return .none
         }
     }

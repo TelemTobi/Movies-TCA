@@ -16,7 +16,7 @@ struct MoviesApp: App {
     @Environment(\.colorScheme) var colorScheme
     
     var modelContext: ModelContext {
-        guard let modelContext = try? self.database.context() else {
+        guard let modelContext = try? self.database.getContext() else {
             fatalError("Could not find modelContext")
         }
         return modelContext
