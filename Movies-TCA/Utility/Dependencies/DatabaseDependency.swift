@@ -10,7 +10,7 @@ import SwiftData
 import Dependencies
 
 struct DatabaseDependency {
-    var getContext: @Sendable () throws -> ModelContext
+    var getContext: @Sendable () -> ModelContext
     var getLikedMovies: @Sendable () throws -> [LikedMovie]
     var setMovieLike: @Sendable (Movie) throws -> Void
 }

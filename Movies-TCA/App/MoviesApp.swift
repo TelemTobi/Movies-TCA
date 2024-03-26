@@ -15,13 +15,6 @@ struct MoviesApp: App {
     @Dependency(\.database) var database
     @Environment(\.colorScheme) var colorScheme
     
-    var modelContext: ModelContext {
-        guard let modelContext = try? self.database.getContext() else {
-            fatalError("Could not find modelContext")
-        }
-        return modelContext
-    }
-    
     var body: some Scene {
         WindowGroup {
             RootNavigator.ContentView(
@@ -30,7 +23,7 @@ struct MoviesApp: App {
                     reducer: RootNavigator.init
                 )
             )
-            .modelContext(modelContext)
+            .modelContext(database.getContext())
             .adjustPreferredColorScheme()
             .onFirstAppear {
                 Preferences.Appearance.systemColorScheme = colorScheme
