@@ -31,8 +31,8 @@ struct SplashFeature {
         case genresResponse(Result<GenresResponse, TmdbError>)
     }
     
-    @Dependency(\.appData) private var appData
-    @Dependency(\.tmdbClient) private var tmdbClient
+    @Dependency(\.appData) var appData
+    @Dependency(\.tmdbClient) var tmdbClient
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in

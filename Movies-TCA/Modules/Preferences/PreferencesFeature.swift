@@ -29,7 +29,7 @@ struct PreferencesFeature {
         case onAppearanceChange(String)
     }
     
-    @Dependency(\.dismiss) private var dismiss
+    @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in

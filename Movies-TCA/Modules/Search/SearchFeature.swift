@@ -97,7 +97,7 @@ struct SearchFeature {
                 if let movies = response.results {
                     state.results = .init(uniqueElements: movies)
                     
-                    let likedMovies = try? database.context().fetch(FetchDescriptor<LikedMovie>())
+                    let likedMovies = try? database.getLikedMovies()
                     return .send(.setLikedMovies(likedMovies ?? []))
                 } else {
                     return .send(.searchResponse(.unknownError))
@@ -142,17 +142,7 @@ struct SearchFeature {
             return .send(.navigation(.presentPreferences))
             
         case let .onMovieLike(movie):
-            // TODO: Extract to a UseCase ⚠️
-            if movie.isLiked {
-                let likedMovie = LikedMovie(movie)
-                try? database.context().insert(likedMovie)
-            } else {
-                let movieId = movie.id
-                try? database.context().delete(
-                    model: LikedMovie.self,
-                    where: #Predicate { $0.id == movieId }
-                )
-            }
+            try? database.setMovieLike(movie)
             return .none
         }
     }
