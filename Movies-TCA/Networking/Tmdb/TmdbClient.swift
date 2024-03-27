@@ -47,4 +47,5 @@ extension TmdbClient {
     
     static let live = Self(environment: .live)
     static let test = Self(environment: .test)
+    static let preview = Self(environment: .preview)
 }

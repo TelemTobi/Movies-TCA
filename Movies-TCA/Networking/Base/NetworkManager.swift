@@ -65,7 +65,9 @@ struct NetworkManager<E: Endpoint, F: Errorable> {
     
     private func makeStubRequest<T: Decodable & JsonResolver>(_ endpoint: Endpoint) async -> Result<T, F> {
         do {
-            try await Task.sleep(until: .now + .seconds(Constants.Stub.delay))
+            if environment == .preview {
+                try await Task.sleep(until: .now + .seconds(Constants.Stub.delay))
+            }
             
             let model: T = try T
                 .resolve(endpoint.sampleData ?? Data())
