@@ -16,12 +16,12 @@ struct SplashFeature {
         
     }
     
-    enum Action: ViewAction {
-        enum View {
+    enum Action: ViewAction, Equatable {
+        enum View: Equatable {
             case onAppear
         }
         
-        enum Navigation {
+        enum Navigation: Equatable {
             case splashCompleted
         }
         
