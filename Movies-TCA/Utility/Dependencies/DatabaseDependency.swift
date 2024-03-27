@@ -34,6 +34,12 @@ extension DatabaseDependency: DependencyKey {
             }
         }
     )
+    
+    static let testValue = DatabaseDependency(
+        getContext: { appContext },
+        getLikedMovies: { MoviesList.mock.results?.map { LikedMovie($0) } ?? [] },
+        setMovieLike: { _ in }
+    )
 }
 
 extension DependencyValues {

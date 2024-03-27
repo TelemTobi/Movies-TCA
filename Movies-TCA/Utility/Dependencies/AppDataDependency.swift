@@ -10,6 +10,7 @@ import Dependencies
 
 extension AppData: DependencyKey {
     static let liveValue = AppData()
+    static let testValue = AppData()
 }
 
 extension DependencyValues {
