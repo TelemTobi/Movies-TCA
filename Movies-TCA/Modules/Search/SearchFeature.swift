@@ -52,6 +52,7 @@ struct SearchFeature {
     
     @Dependency(\.tmdbClient) var tmdbClient
     @Dependency(\.database) var database
+    @Dependency(\.mainQueue) var mainQueue
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -68,10 +69,8 @@ struct SearchFeature {
                     return .none
                 }
                 
-                return .run { send in
-                    try? await Task.sleep(until: .now + .seconds(1))
-                    await send(.searchMovies(input))
-                }
+                return .send(.searchMovies(input))
+                    .debounce(id: SearchInputDebounceId(), for: .seconds(1), scheduler: mainQueue)
                 
             case let .searchMovies(query):
                 guard query == state.searchInput else {
@@ -146,4 +145,8 @@ struct SearchFeature {
             return .none
         }
     }
+}
+
+extension SearchFeature {
+    struct SearchInputDebounceId: Hashable {}
 }
