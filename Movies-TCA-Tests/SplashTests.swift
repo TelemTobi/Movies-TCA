@@ -12,7 +12,7 @@ import ComposableArchitecture
 @MainActor
 final class SplashTests: XCTestCase {
 
-    var store = TestStoreOf<SplashFeature>(
+    var store = TestStore(
         initialState: SplashFeature.State(),
         reducer: { SplashFeature() }
     )
