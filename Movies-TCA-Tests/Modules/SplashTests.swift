@@ -37,7 +37,7 @@ final class SplashTests: XCTestCase {
         await store.receive(\.genresResponse, .unknownError)
     }
     
-    // MARK: View Actions
+    // MARK: - View Actions
     
     func testOnAppear() async {
         await store.send(.view(.onAppear))

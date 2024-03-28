@@ -34,12 +34,12 @@ final class DiscoveryTests: XCTestCase {
         let nowPlayingResult = await store.dependencies.tmdbClient.fetchMovies(.nowPlaying)
         
         await store.send(.moviesListLoaded(.nowPlaying, nowPlayingResult)) { state in
-            switch nowPlayingResult {
-            case .success(let response):
-                state.movies[.nowPlaying] = .init(uniqueElements: response.results ?? [])
-            case .failure:
+            guard case let .success(response) = nowPlayingResult else {
                 XCTFail("Failed loading mock movies")
+                return
             }
+            
+            state.movies[.nowPlaying] = .init(uniqueElements: response.results ?? [])
         }
         
         // Null Response
@@ -56,7 +56,7 @@ final class DiscoveryTests: XCTestCase {
         await store.receive(\.setLikedMovies)
     }
     
-    // MARK: View Actions
+    // MARK: - View Actions
     
     func testOnFirstAppear() async {
         await store.send(.view(.onFirstAppear))
