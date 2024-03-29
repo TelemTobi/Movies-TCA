@@ -40,12 +40,13 @@ final class WatchlistTests: XCTestCase {
     }
     
     func testOnMovieTap() async {
-        await store.send(.view(.onMovieTap(.mock)))
-        await store.receive(\.navigation)
+        let mockMovie = Movie.mock
+        await store.send(.view(.onMovieTap(mockMovie)))
+        await store.receive(.navigation(.presentMovie(mockMovie)))
     }
     
     func testOnPreferencesTap() async {
         await store.send(.view(.onPreferencesTap))
-        await store.receive(\.navigation)
+        await store.receive(.navigation(.presentPreferences))
     }
 }
