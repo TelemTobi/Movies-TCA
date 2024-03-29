@@ -14,7 +14,7 @@ final class SplashTests: XCTestCase {
 
     var store = TestStore(
         initialState: SplashFeature.State(),
-        reducer: { SplashFeature() }
+        reducer: SplashFeature.init
     )
 
     func testLoadGenres() async {

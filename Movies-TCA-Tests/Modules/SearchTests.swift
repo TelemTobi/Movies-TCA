@@ -14,7 +14,7 @@ final class SearchTests: XCTestCase {
     
     var store = TestStore(
         initialState: SearchFeature.State(),
-        reducer: { SearchFeature() },
+        reducer: SearchFeature.init,
         withDependencies: {
             $0.mainQueue = .immediate
         }

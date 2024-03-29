@@ -14,7 +14,7 @@ final class DiscoveryTests: XCTestCase {
     
     var store = TestStore(
         initialState: DiscoveryFeature.State(),
-        reducer: { DiscoveryFeature() }
+        reducer: DiscoveryFeature.init
     )
     
     func testLoadMovies() async { // TODO: Figure out how to test properly
