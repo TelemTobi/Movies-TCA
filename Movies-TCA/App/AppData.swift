@@ -9,5 +9,9 @@ import Foundation
 
 class AppData {
  
-    var genres: [Genre] = []
+    var genres: [Genre]
+    
+    init(genres: [Genre] = []) {
+        self.genres = genres
+    }
 }

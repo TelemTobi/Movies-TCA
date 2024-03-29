@@ -12,10 +12,7 @@ extension AppData: DependencyKey {
     
     static let liveValue = AppData()
     
-    static let testValue = {
-        let mockGenres = 
-        AppData(genres: [])
-    }()
+    static let testValue = AppData(genres: GenresResponse.mock.genres ?? [])
 }
 
 extension DependencyValues {
