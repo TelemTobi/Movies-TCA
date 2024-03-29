@@ -43,8 +43,8 @@ final class DiscoveryTests: XCTestCase {
         }
         
         // Null Response
-        let moviesList = MoviesList(results: nil, page: nil, totalPages: nil, totalResults: nil)
-        await store.send(.moviesListLoaded(.nowPlaying, .success(moviesList)))
+        let invalidMovieList = MoviesList(results: nil, page: nil, totalPages: nil, totalResults: nil)
+        await store.send(.moviesListLoaded(.nowPlaying, .success(invalidMovieList)))
         await store.receive(\.moviesListLoaded)
     }
     
