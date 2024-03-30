@@ -30,6 +30,7 @@ struct PreferencesFeature {
     }
     
     @Dependency(\.dismiss) var dismiss
+    @Dependency(\.isPresented) var isPresented
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -60,6 +61,8 @@ struct PreferencesFeature {
             return .none
             
         case .onCloseButtonTap:
+            guard isPresented else { return .none }
+            
             return .run { _ in await self.dismiss() }
         }
     }
