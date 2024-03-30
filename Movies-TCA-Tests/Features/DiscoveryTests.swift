@@ -18,34 +18,51 @@ final class DiscoveryTests: XCTestCase {
     )
     
     func testLoadMovies() async { // TODO: Figure out how to test properly
-        store.exhaustivity = .off
         await store.send(.loadMovies)
         
-        await store.receive(\.moviesListLoaded)
-        await store.receive(\.moviesListLoaded)
-        await store.receive(\.moviesListLoaded)
-        await store.receive(\.moviesListLoaded)
-        await store.receive(\.loadingCompleted)
-        store.exhaustivity = .on
+        await testMoviesFetching(ofType: .nowPlaying)
+        await testMoviesFetching(ofType: .popular)
+        await testMoviesFetching(ofType: .upcoming)
+        await testMoviesFetching(ofType: .topRated)
+        
+        await store.receive(\.loadingCompleted) { state in
+            state.isLoading = false
+        }
+    }
+    
+    private func testMoviesFetching(ofType type: MoviesListType) async {
+        let result = await store.dependencies.tmdbClient.fetchMovies(type)
+        
+        guard case let .success(response) = result else {
+            XCTFail("Failed loading mock movies")
+            return
+        }
+        
+        await store.receive(.moviesListLoaded(type, result)) { state in
+            state.movies[type] = .init(uniqueElements: response.results ?? [])
+        }
     }
 
     func testMoviesListLoaded() async {
-        // Success Response
         let nowPlayingResult = await store.dependencies.tmdbClient.fetchMovies(.nowPlaying)
         
+        guard case let .success(response) = nowPlayingResult else {
+            XCTFail("Failed loading mock movies")
+            return
+        }
+        
+        // Success Result
         await store.send(.moviesListLoaded(.nowPlaying, nowPlayingResult)) { state in
-            guard case let .success(response) = nowPlayingResult else {
-                XCTFail("Failed loading mock movies")
-                return
-            }
-            
             state.movies[.nowPlaying] = .init(uniqueElements: response.results ?? [])
         }
         
-        // Null Response
+        // Bad Response
         let invalidMovieList = MoviesList(results: nil, page: nil, totalPages: nil, totalResults: nil)
         await store.send(.moviesListLoaded(.nowPlaying, .success(invalidMovieList)))
-        await store.receive(\.moviesListLoaded)
+        await store.receive(.moviesListLoaded(.nowPlaying, .unknownError))
+        
+        // Failure Result
+        await store.send(.moviesListLoaded(.nowPlaying, .unknownError))
     }
     
     func testLoadingCompleted() async {
