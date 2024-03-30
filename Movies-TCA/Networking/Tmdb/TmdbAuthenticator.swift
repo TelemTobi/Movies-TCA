@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import Dependencies
 
 struct TmdbAuthenticator: Authenticating {
+    
+    @Dependency(\.preferences) var preferences
     
     var authState: AuthState {
         // TODO: Check network connection
@@ -22,6 +25,6 @@ struct TmdbAuthenticator: Authenticating {
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         request.setValue(Config.TmdbApi.accessToken, forHTTPHeaderField: "Authorization")
         request.url?.append(queryItems: [URLQueryItem(name: "language", value: Preferences.Language.current.rawValue)])
-        request.url?.append(queryItems: [URLQueryItem(name: "include_adult", value: Preferences.standard.isAdultContentOn.description)])
+        request.url?.append(queryItems: [URLQueryItem(name: "include_adult", value: preferences.getIsAdultContentOn().description)])
     }
 }

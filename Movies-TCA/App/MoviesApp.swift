@@ -13,7 +13,6 @@ import ComposableArchitecture
 struct MoviesApp: App {
     
     @Dependency(\.database) var database
-    @Environment(\.colorScheme) var colorScheme
     
     var body: some Scene {
         WindowGroup {
@@ -24,10 +23,6 @@ struct MoviesApp: App {
                 )
             )
             .modelContext(database.getContext())
-            .adjustPreferredColorScheme()
-            .onFirstAppear {
-                Preferences.Appearance.systemColorScheme = colorScheme
-            }
         }
     }
 }
