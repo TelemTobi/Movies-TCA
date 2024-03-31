@@ -14,8 +14,14 @@ struct PreferencesFeature {
     
     @ObservableState
     struct State: Equatable {
-        var isAdultContentOn: Bool = Preferences.standard.isAdultContentOn
-        var appearance: String = Preferences.standard.appearance
+        var isAdultContentOn: Bool
+        var appearance: String
+        
+        init() {
+            @Dependency(\.preferences) var preferences
+            isAdultContentOn = preferences.getIsAdultContentOn()
+            appearance = preferences.getAppearance()
+        }
     }
     
     enum Action: ViewAction, Equatable {
@@ -30,6 +36,8 @@ struct PreferencesFeature {
     }
     
     @Dependency(\.dismiss) var dismiss
+    @Dependency(\.isPresented) var isPresented
+    @Dependency(\.preferences) var preferences
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -38,12 +46,12 @@ struct PreferencesFeature {
                 return reduceViewAction(&state, viewAction)
                 
             case let .onAdultContentToggle(isOn):
-                Preferences.standard.isAdultContentOn = isOn
+                preferences.setIsAdultContentOn(isOn)
                 state.isAdultContentOn = isOn
                 return .none
                 
             case let .onAppearanceChange(appearance):
-                Preferences.standard.appearance = appearance
+                preferences.setAppearance(appearance)
                 state.appearance = appearance
                 return .none
             }
@@ -60,6 +68,8 @@ struct PreferencesFeature {
             return .none
             
         case .onCloseButtonTap:
+            guard isPresented else { return .none }
+            
             return .run { _ in await self.dismiss() }
         }
     }

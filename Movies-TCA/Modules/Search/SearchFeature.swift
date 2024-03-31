@@ -29,7 +29,7 @@ struct SearchFeature {
         }
     }
     
-    enum Action: ViewAction, Equatable, Sendable {
+    enum Action: ViewAction, BindableAction, Equatable, Sendable {
         enum View: Equatable {
             case onPreferencesTap
             case onMovieTap(Movie)
@@ -44,6 +44,7 @@ struct SearchFeature {
         
         case view(View)
         case navigation(Navigation)
+        case binding(BindingAction<SearchFeature.State>)
         case onInputChange(String)
         case searchMovies(String)
         case searchResponse(Result<MoviesList, TmdbError>)
@@ -52,8 +53,11 @@ struct SearchFeature {
     
     @Dependency(\.tmdbClient) var tmdbClient
     @Dependency(\.database) var database
+    @Dependency(\.mainQueue) var mainQueue
     
     var body: some ReducerOf<Self> {
+        BindingReducer()
+        
         Reduce { state, action in
             switch action {
             case let .view(viewAction):
@@ -68,16 +72,10 @@ struct SearchFeature {
                     return .none
                 }
                 
-                return .run { send in
-                    try? await Task.sleep(until: .now + .seconds(1))
-                    await send(.searchMovies(input))
-                }
+                return .send(.searchMovies(input))
+                    .debounce(id: SearchInputDebounceId(), for: .seconds(1), scheduler: mainQueue)
                 
             case let .searchMovies(query):
-                guard query == state.searchInput else {
-                    return .none
-                }
-                
                 if let genre = state.genres.first(where: { $0.name == query}) {
                     return .run { send in
                         let discoverResult = await tmdbClient.discoverMovies(genre.id)
@@ -117,7 +115,7 @@ struct SearchFeature {
                 }
                 return .none
                 
-            case .navigation:
+            case .navigation, .binding:
                 return .none
             }
         }
@@ -146,4 +144,8 @@ struct SearchFeature {
             return .none
         }
     }
+}
+
+extension SearchFeature {
+    struct SearchInputDebounceId: Hashable {}
 }

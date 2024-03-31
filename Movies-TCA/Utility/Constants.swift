@@ -15,6 +15,7 @@ enum Constants {
     enum Environment {
         case live
         case test
+        case preview
     }
     
     enum Stub {

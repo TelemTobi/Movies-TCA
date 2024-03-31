@@ -9,7 +9,10 @@ import Foundation
 import Dependencies
 
 extension AppData: DependencyKey {
+    
     static let liveValue = AppData()
+    
+    static let testValue = AppData(genres: GenresResponse.mock.genres ?? [])
 }
 
 extension DependencyValues {
