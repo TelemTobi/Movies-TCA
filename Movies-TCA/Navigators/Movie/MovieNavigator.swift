@@ -27,6 +27,7 @@ struct MovieNavigator {
     }
     
     @Dependency(\.dismiss) var dismiss
+    @Dependency(\.isPresented) var isPresented
     
     var body: some ReducerOf<Self> {
         Scope(state: \.root, action: \.root, child: MovieFeature.init)
@@ -40,6 +41,8 @@ struct MovieNavigator {
                 
             case .root(.navigation(.dismissFlow)),
                  .path(.element(_, action: .relatedMovie(.navigation(.dismissFlow)))):
+                guard isPresented else { return .none }
+                
                 return .run { _ in await dismiss() }
                 
             case .root, .path:
