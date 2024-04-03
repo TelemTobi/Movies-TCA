@@ -78,8 +78,5 @@ extension Preferences {
         case system = "System"
         case light = "Light"
         case dark = "Dark"
-
-        @MainActor
-        static var systemColorScheme: ColorScheme = .light
     }
 }
