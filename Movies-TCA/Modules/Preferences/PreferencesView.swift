@@ -12,6 +12,7 @@ import ComposableArchitecture
 struct PreferencesView: View {
 
     @Bindable var store: StoreOf<PreferencesFeature>
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         List {
@@ -38,7 +39,11 @@ extension PreferencesView {
     
     @ViewBuilder
     private func DeviceSettingsSection() -> some View {
-        @Environment(\.colorScheme) var colorScheme
+        let appeanceImage: String = switch store.appearance {
+        case .light: "sun.max.fill"
+        case .dark: "moon.fill"
+        case .system: colorScheme == .light ? "sun.max.fill" : "moon.fill"
+        }
         
         Section {
             Button(
@@ -58,8 +63,8 @@ extension PreferencesView {
             
             Picker(
                 "Appearance",
-                systemImage: colorScheme == .light ? "sun.max.fill" : "moon.fill",
-                selection: $store.appearance.sending(\.onAppearanceChange),
+                systemImage: appeanceImage,
+                selection: $store.appearance.rawValue.sending(\.onAppearanceChange),
                 content: {
                     ForEach(Preferences.Appearance.allCases.map { $0.rawValue }, id: \.self) {
                         Text(LocalizedStringKey($0))

@@ -19,8 +19,8 @@ struct Preferences {
     let getIsAdultContentOn: () -> Bool
     let setIsAdultContentOn: (Bool) -> Void
     
-    let getAppearance: () -> String
-    let setAppearance: (String) -> Void
+    let getAppearance: () -> Appearance
+    let setAppearance: (Appearance) -> Void
 }
 
 extension Preferences: DependencyKey {
@@ -33,17 +33,17 @@ extension Preferences: DependencyKey {
             UserDefaults.standard.setValue(isOn, forKey: Key.isAdultContentOn)
         },
         getAppearance: {
-            UserDefaults.standard.string(forKey: Key.appearance) ?? Appearance.system.rawValue
+            Appearance(rawValue: UserDefaults.standard.string(forKey: Key.appearance) ?? .empty) ?? .system
         },
         setAppearance: { appearance in
-            UserDefaults.standard.setValue(appearance, forKey: Key.appearance)
+            UserDefaults.standard.setValue(appearance.rawValue, forKey: Key.appearance)
         }
     )
     
     static let testValue = Preferences(
         getIsAdultContentOn: { false },
         setIsAdultContentOn: { _ in },
-        getAppearance: { Appearance.system.rawValue },
+        getAppearance: { .system },
         setAppearance: { _ in }
     )
 }

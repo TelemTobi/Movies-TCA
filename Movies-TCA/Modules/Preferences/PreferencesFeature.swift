@@ -15,7 +15,7 @@ struct PreferencesFeature {
     @ObservableState
     struct State: Equatable {
         var isAdultContentOn: Bool
-        var appearance: String
+        var appearance: Preferences.Appearance
         
         init() {
             @Dependency(\.preferences) var preferences
@@ -51,8 +51,9 @@ struct PreferencesFeature {
                 return .none
                 
             case let .onAppearanceChange(appearance):
-                preferences.setAppearance(appearance)
-                state.appearance = appearance
+                let newAppearance = Preferences.Appearance(rawValue: appearance) ?? .system
+                preferences.setAppearance(newAppearance)
+                state.appearance = newAppearance
                 return .none
             }
         }

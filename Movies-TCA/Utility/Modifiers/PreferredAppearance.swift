@@ -14,13 +14,11 @@ fileprivate struct PreferredAppearanceModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         Group {
-            if getAppearance() == Preferences.Appearance.system.rawValue {
+            if getAppearance() == .system {
                 content
             } else {
                 content
-                    .preferredColorScheme(
-                        getAppearance() == Preferences.Appearance.light.rawValue ? .light : .dark
-                    )
+                    .preferredColorScheme(getAppearance() == .light ? .light : .dark)
             }
         }
     }
