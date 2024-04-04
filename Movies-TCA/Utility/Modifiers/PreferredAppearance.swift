@@ -11,8 +11,11 @@ import Dependencies
 fileprivate struct PreferredAppearanceModifier: ViewModifier {
     
     @Dependency(\.preferences.getAppearance) var getAppearance
+    @AppStorage("appearance") var storedAppearance: String = ""
     
     func body(content: Content) -> some View {
+        let _ = storedAppearance
+        
         Group {
             if getAppearance() == .system {
                 content

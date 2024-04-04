@@ -54,7 +54,11 @@ struct PreferencesFeature {
                 let newAppearance = Preferences.Appearance(rawValue: appearance) ?? .system
                 preferences.setAppearance(newAppearance)
                 state.appearance = newAppearance
-                return .none
+                
+                return .run { _ in
+                    guard isPresented else { return }
+                    await dismiss()
+                }
             }
         }
     }
@@ -69,9 +73,10 @@ struct PreferencesFeature {
             return .none
             
         case .onCloseButtonTap:
-            guard isPresented else { return .none }
-            
-            return .run { _ in await self.dismiss() }
+            return .run { _ in
+                guard isPresented else { return }
+                await dismiss()
+            }
         }
     }
 }
