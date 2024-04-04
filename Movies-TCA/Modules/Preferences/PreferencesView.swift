@@ -45,6 +45,12 @@ extension PreferencesView {
         case .system: colorScheme == .light ? "sun.max.fill" : "moon.fill"
         }
         
+        let appearanceLabelColor: Color =  switch store.appearance {
+        case .light: .orange
+        case .dark: .purple
+        case .system: colorScheme == .light ? .orange : .purple
+        }
+        
         Section {
             Button(
                 action: { send(.onLanguageTap) },
@@ -72,7 +78,7 @@ extension PreferencesView {
                 }
             )
             .labelStyle(
-                SettingLabelStyle(color: colorScheme == .light ? .orange : .purple)
+                SettingLabelStyle(color: appearanceLabelColor)
             )
         }
     }
