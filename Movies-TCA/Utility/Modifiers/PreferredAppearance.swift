@@ -11,7 +11,7 @@ import Dependencies
 fileprivate struct PreferredAppearanceModifier: ViewModifier {
     
     @Dependency(\.preferences.getAppearance) var getAppearance
-    @AppStorage("appearance") var storedAppearance: String = ""
+    @AppStorage(Preferences.Key.appearance) var storedAppearance: String = ""
     
     func body(content: Content) -> some View {
         let _ = storedAppearance
