@@ -25,7 +25,7 @@ final class PreferencesTests: XCTestCase {
     
     func testOnAppearanceChange() async {
         await store.send(.onAppearanceChange("Dark")) { state in
-            state.appearance = "Dark"
+            state.appearance = .dark
         }
     }
     

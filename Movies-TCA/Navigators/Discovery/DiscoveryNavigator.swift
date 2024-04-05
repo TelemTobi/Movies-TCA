@@ -30,7 +30,7 @@ struct DiscoveryNavigator {
         Reduce { state, action in
             switch action {
             case let .root(.navigation(.presentMovie(movie))),
-                 let .path(.element(_, action: .moviesList(.navigation(.presentMovie(movie))))):
+                let .path(.element(_, action: .moviesList(.navigation(.presentMovie(movie))))):
                 state.destination = .movie(MovieNavigator.State(movieDetails: .init(movie: movie)))
                 return .none
                 

@@ -15,7 +15,7 @@ struct PreferencesFeature {
     @ObservableState
     struct State: Equatable {
         var isAdultContentOn: Bool
-        var appearance: String
+        var appearance: Preferences.Appearance
         
         init() {
             @Dependency(\.preferences) var preferences
@@ -51,9 +51,14 @@ struct PreferencesFeature {
                 return .none
                 
             case let .onAppearanceChange(appearance):
-                preferences.setAppearance(appearance)
-                state.appearance = appearance
-                return .none
+                let newAppearance = Preferences.Appearance(rawValue: appearance) ?? .system
+                preferences.setAppearance(newAppearance)
+                state.appearance = newAppearance
+                
+                return .run { _ in
+                    guard isPresented else { return }
+                    await dismiss()
+                }
             }
         }
     }
@@ -68,9 +73,10 @@ struct PreferencesFeature {
             return .none
             
         case .onCloseButtonTap:
-            guard isPresented else { return .none }
-            
-            return .run { _ in await self.dismiss() }
+            return .run { _ in
+                guard isPresented else { return }
+                await dismiss()
+            }
         }
     }
 }
