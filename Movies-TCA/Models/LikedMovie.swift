@@ -12,7 +12,7 @@ import SwiftData
 final class LikedMovie: Sendable {
     
     @Attribute(.unique)
-    let id: Int?
+    let id: Int
     
     let title: String?
     let overview: String?

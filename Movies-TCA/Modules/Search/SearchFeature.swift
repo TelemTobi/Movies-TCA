@@ -33,8 +33,8 @@ struct SearchFeature {
         enum View: Equatable {
             case onPreferencesTap
             case onMovieTap(Movie)
-            case onMovieLike(Movie)
             case onGenreTap(Genre)
+            case onMovieLike(Movie, Bool)
         }
         
         enum Navigation: Equatable {
@@ -139,7 +139,8 @@ struct SearchFeature {
         case .onPreferencesTap:
             return .send(.navigation(.presentPreferences))
             
-        case let .onMovieLike(movie):
+        case let .onMovieLike(movie, isLiked):
+            state.results[id: movie.id]?.isLiked = isLiked
             try? database.setMovieLike(movie)
             return .none
         }

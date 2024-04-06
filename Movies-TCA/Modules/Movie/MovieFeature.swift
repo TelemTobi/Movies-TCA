@@ -25,7 +25,6 @@ struct MovieFeature {
             case onFirstAppear
             case onCloseButtonTap
             case onRelatedMovieTap(Movie)
-            case onLikeTap(Movie)
         }
         
         enum Navigation: Equatable {
@@ -50,7 +49,7 @@ struct MovieFeature {
                 return reduceViewAction(&state, viewAction)
                 
             case .loadExtendedDetails:
-                guard let movieId = state.movieDetails.movie.id else { return .none }
+                let movieId = state.movieDetails.movie.id
                 
                 return .run { send in
                     let result = await tmdbClient.movieDetails(movieId)
@@ -67,6 +66,7 @@ struct MovieFeature {
                 
             case let .setMovieLike(newValue):
                 state.movieDetails.movie.isLiked = newValue
+                try? database.setMovieLike(state.movieDetails.movie)
                 return .none
                 
             case .navigation:
@@ -85,10 +85,6 @@ struct MovieFeature {
             
         case let .onRelatedMovieTap(movie):
             return .send(.navigation(.pushRelatedMovie(movie)))
-            
-        case let .onLikeTap(movie):
-            try? database.setMovieLike(movie)
-            return .none
         }
     }
 }

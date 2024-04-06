@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Movie: Decodable, Equatable, Identifiable {
     
-    var id: Int?
+    let id: Int
     var adult: Bool?
     var backdropPath: String?
     var budget: Int?

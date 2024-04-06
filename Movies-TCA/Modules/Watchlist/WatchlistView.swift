@@ -48,16 +48,22 @@ struct WatchlistView: View {
         }
     }
     
-    @ViewBuilder @MainActor
+    @MainActor
+    @ViewBuilder
     private func ContentView() -> some View {
         List(store.likedMovies) { movie in
-            MovieListButton(
-                movie: movie,
-                onMovieTap: { send(.onMovieTap($0)) },
-                onLikeTap: { send(.onMovieDislike($0)) }
-            )
-            .padding()
-            .frame(height: 200)
+            Button {
+                send(.onMovieTap(movie))
+            } label: {
+                MovieListItem(
+                    movie: movie,
+                    isLiked: .init(
+                        get: { movie.isLiked },
+                        set: { _ in send(.onMovieDislike(movie)) }
+                    )
+                )
+            }
+            .buttonStyle(.plain)
             .listRowInsets(.zero)
             .listRowBackground(Color.clear)
             .listSectionSeparator(.hidden, edges: .top)
@@ -66,7 +72,8 @@ struct WatchlistView: View {
         .scrollIndicators(.hidden)
     }
     
-    @ViewBuilder @MainActor
+    @MainActor
+    @ViewBuilder
     private func EmptyFavoritesView() -> some View {
         ContentUnavailableView(
             "Your watchlist is empty",

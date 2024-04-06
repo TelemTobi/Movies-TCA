@@ -14,13 +14,13 @@ struct MoviesListFeature {
     @ObservableState
     struct State: Equatable {
         var listType: MoviesListType?
-        let movies: IdentifiedArrayOf<Movie>
+        var movies: IdentifiedArrayOf<Movie> = []
     }
     
     enum Action: ViewAction, Equatable {
         enum View: Equatable {
             case onMovieTap(Movie)
-            case onMovieLike(Movie)
+            case onMovieLike(Movie, Bool)
         }
         
         enum Navigation: Equatable {
@@ -51,7 +51,8 @@ struct MoviesListFeature {
         case let .onMovieTap(movie):
             return .send(.navigation(.presentMovie(movie)))
             
-        case let .onMovieLike(movie):
+        case let .onMovieLike(movie, isLiked):
+            state.movies[id: movie.id]?.isLiked = isLiked
             try? database.setMovieLike(movie)
             return .none
         }
