@@ -57,7 +57,9 @@ struct MovieFeature {
                 }
                 
             case let .movieDetailsLoaded(.success(response)):
+                let isLiked = state.movieDetails.movie.isLiked
                 state.movieDetails = response
+                state.movieDetails.movie.isLiked = isLiked
                 return .none
                 
             case let .movieDetailsLoaded(.failure(error)):
