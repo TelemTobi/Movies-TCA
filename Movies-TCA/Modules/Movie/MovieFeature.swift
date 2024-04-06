@@ -37,6 +37,7 @@ struct MovieFeature {
         case navigation(Navigation)
         case loadExtendedDetails
         case movieDetailsLoaded(Result<MovieDetails, TmdbError>)
+        case setMovieLike(Bool)
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
@@ -62,6 +63,10 @@ struct MovieFeature {
                 
             case let .movieDetailsLoaded(.failure(error)):
                 customDump(error) // TODO: Handle error
+                return .none
+                
+            case let .setMovieLike(newValue):
+                state.movieDetails.movie.isLiked = newValue
                 return .none
                 
             case .navigation:
