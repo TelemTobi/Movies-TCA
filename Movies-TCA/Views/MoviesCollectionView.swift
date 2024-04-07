@@ -36,7 +36,7 @@ struct MoviesCollectionView: View {
     
     private struct ItemView: View {
         
-        @State var movie: Movie
+        let movie: Movie
         let geometry: GeometryProxy
         let onMovieTap: MovieClosure
         var onLikeTap: MovieClosure? = nil
@@ -71,8 +71,10 @@ struct MoviesCollectionView: View {
                         
                         if let onLikeTap {
                             LikeButton(
-                                isLiked: $movie.isLiked,
-                                onTap: { onLikeTap(movie) }
+                                isLiked: .init(
+                                    get: { movie.isLiked },
+                                    set: { _ in onLikeTap(movie) } // TODO
+                                )
                             )
                             .padding(10)
                         }
