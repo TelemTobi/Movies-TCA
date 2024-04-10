@@ -117,6 +117,9 @@ struct DiscoveryFeature {
             return .send(.navigation(.pushMoviesList(listType, movies)))
             
         case let .onMovieLike(movie):
+            for listType in state.movies.keys {
+                state.movies[listType]?[id: movie.id]?.isLiked.toggle()
+            }
             try? database.setMovieLike(movie)
             return .none
         }

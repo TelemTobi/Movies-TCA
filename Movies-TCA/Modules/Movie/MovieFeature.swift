@@ -25,7 +25,6 @@ struct MovieFeature {
             case onFirstAppear
             case onCloseButtonTap
             case onRelatedMovieTap(Movie)
-            case onLikeTap(Movie)
         }
         
         enum Navigation: Equatable {
@@ -37,6 +36,7 @@ struct MovieFeature {
         case navigation(Navigation)
         case loadExtendedDetails
         case movieDetailsLoaded(Result<MovieDetails, TmdbError>)
+        case setMovieLike(Bool)
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
@@ -49,7 +49,7 @@ struct MovieFeature {
                 return reduceViewAction(&state, viewAction)
                 
             case .loadExtendedDetails:
-                guard let movieId = state.movieDetails.movie.id else { return .none }
+                let movieId = state.movieDetails.movie.id
                 
                 return .run { send in
                     let result = await tmdbClient.movieDetails(movieId)
@@ -57,11 +57,18 @@ struct MovieFeature {
                 }
                 
             case let .movieDetailsLoaded(.success(response)):
+                let isLiked = state.movieDetails.movie.isLiked
                 state.movieDetails = response
+                state.movieDetails.movie.isLiked = isLiked
                 return .none
                 
             case let .movieDetailsLoaded(.failure(error)):
                 customDump(error) // TODO: Handle error
+                return .none
+                
+            case let .setMovieLike(newValue):
+                state.movieDetails.movie.isLiked = newValue
+                try? database.setMovieLike(state.movieDetails.movie)
                 return .none
                 
             case .navigation:
@@ -80,10 +87,6 @@ struct MovieFeature {
             
         case let .onRelatedMovieTap(movie):
             return .send(.navigation(.pushRelatedMovie(movie)))
-            
-        case let .onLikeTap(movie):
-            try? database.setMovieLike(movie)
-            return .none
         }
     }
 }

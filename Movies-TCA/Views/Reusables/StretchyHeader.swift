@@ -11,8 +11,8 @@ import SwiftUI
 struct StretchyHeader<Header: View>: View {
     
     private let height: CGFloat
-    private let header: Header
-    private let headerOffScreenPercentageClosure: ((CGFloat) -> Void)?
+    private let header: @MainActor () -> Header
+    private let headerOffScreenPercentageClosure: (@MainActor (CGFloat) -> Void)?
     
     @State private var scrollOffset: CGFloat = 0
     @Binding private var offScreenOffset: CGFloat
@@ -28,16 +28,21 @@ struct StretchyHeader<Header: View>: View {
     ///   - headerOffScreenOffset: A binding variable that projects the header off screen offset, 0 means header is fully visible and 1 meand that the header is fully scrolled out of screen.
     ///   - offScreenPercentageClosure: A closure that takes not parameters and returns a value between 0-1 indicating how much of the header is scrolled off screen,
     ///                                    0 means header is fully visible and 1 meand that the header is fully scrolled out of screen.
-    init(height: CGFloat, headerOffScreenOffset: Binding<CGFloat> = .constant(0), @ViewBuilder header: () -> Header, headerOffScreenPercentageClosure: ((CGFloat) -> Void)? = nil) {
+    init(
+        height: CGFloat,
+        headerOffScreenOffset: Binding<CGFloat> = .constant(0),
+        @ViewBuilder header: @MainActor @escaping () -> Header,
+        headerOffScreenPercentageClosure: ((CGFloat) -> Void)? = nil
+    ) {
         self.height = height
-        self.header = header()
+        self.header = header
         self.headerOffScreenPercentageClosure = headerOffScreenPercentageClosure
         self._offScreenOffset = headerOffScreenOffset
     }
     
     var body: some View {
         GeometryReader { geo in
-            header
+            header()
                 .scaleEffect(max(1 - (scrollOffset / geo.frame(in: .global).height), 1), anchor: .bottom)
                 .position(x: geo.frame(in: .local).midX, y: geo.frame(in: .local).midY)
                 .offset(y: max(scrollOffset / 1.25, 0))

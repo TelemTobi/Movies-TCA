@@ -12,7 +12,6 @@ import ComposableArchitecture
 struct SearchView: View {
     
     @Bindable var store: StoreOf<SearchFeature>
-    
     @State private var didFirstAppear: Bool = false
     
     var body: some View {
@@ -46,7 +45,8 @@ struct SearchView: View {
         }
     }
     
-    @ViewBuilder @MainActor
+    @MainActor
+    @ViewBuilder
     private func ContentView() -> some View {
         List {
             Group {
@@ -66,7 +66,8 @@ struct SearchView: View {
         .scrollIndicators(.hidden)
     }
     
-    @ViewBuilder @MainActor
+    @MainActor
+    @ViewBuilder
     private func SuggestionsView(genres: [Genre]) -> some View {
         let delays = Array(0..<genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()
         
@@ -95,16 +96,22 @@ struct SearchView: View {
         }
     }
     
-    @ViewBuilder @MainActor
+    @MainActor
+    @ViewBuilder
     private func ResultsView() -> some View {
         ForEach(store.results) { movie in
-            MovieListButton(
-                movie: movie,
-                onMovieTap: { send(.onMovieTap($0)) },
-                onLikeTap: { send(.onMovieLike($0)) }
-            )
-            .padding()
-            .frame(height: 200)
+            Button {
+                send(.onMovieTap(movie))
+            } label: {
+                MovieListItem(
+                    movie: movie,
+                    isLiked: .init(
+                        get: { movie.isLiked },
+                        set: { send(.onMovieLike(movie, $0)) }
+                    )
+                )
+            }
+            .buttonStyle(.plain)
         }
     }
 }

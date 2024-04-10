@@ -12,14 +12,13 @@ import SDWebImageSwiftUI
 @ViewAction(for: MovieFeature.self)
 struct MovieView: View {
     
-    let store: StoreOf<MovieFeature>
+    @Bindable var store: StoreOf<MovieFeature>
     
-    @State private var headerOffScreenPercentage: CGFloat = 0
-    @State private var headerTextColor: Color = .white
-    @State private var isOverviewTruncated: Bool = false
-    @State private var isOverviewSheetPresented: Bool = false
+    @State var headerOffScreenPercentage: CGFloat = 0
+    @State var isOverviewTruncated: Bool = false
+    @State var isOverviewSheetPresented: Bool = false
     
-    private var navigationBarVisibilityThreshold: CGFloat = 0.85
+    var navigationBarVisibilityThreshold: CGFloat = 0.85
     
     private var isHeaderShowing: Bool {
         headerOffScreenPercentage < navigationBarVisibilityThreshold
@@ -38,13 +37,7 @@ struct MovieView: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView(showsIndicators: false) {
-                HeaderView(
-                    movie: store.movieDetails.movie,
-                    geometry: geometry,
-                    navigationBarVisibilityThreshold,
-                    $headerOffScreenPercentage,
-                    onMovieLike: { send(.onLikeTap($0))}
-                )
+                HeaderView(geometry: geometry)
                 
                 LazyVStack(spacing: 10) {
                     CastSection()

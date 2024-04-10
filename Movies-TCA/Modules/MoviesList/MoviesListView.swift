@@ -17,13 +17,18 @@ struct MoviesListView: View {
     var body: some View {
         List {
             ForEach(store.movies) { movie in
-                MovieListButton(
-                    movie: movie,
-                    onMovieTap: { send(.onMovieTap($0)) },
-                    onLikeTap: { send(.onMovieLike($0)) }
-                )
-                .padding()
-                .frame(height: 200)
+                Button {
+                    send(.onMovieTap(movie))
+                } label: {
+                    MovieListItem(
+                        movie: movie,
+                        isLiked: .init(
+                            get: { movie.isLiked },
+                            set: { send(.onMovieLike(movie, $0)) }
+                        )
+                    )
+                }
+                .buttonStyle(.plain)
             }
             .listRowInsets(.zero)
             .listRowBackground(Color.clear)

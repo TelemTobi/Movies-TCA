@@ -10,8 +10,7 @@ import SwiftUI
 
 struct Movie: Decodable, Equatable, Identifiable {
     
-    var id: Int?
-    var genreIds: [Int]?
+    let id: Int
     var adult: Bool?
     var backdropPath: String?
     var budget: Int?
@@ -38,7 +37,6 @@ struct Movie: Decodable, Equatable, Identifiable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case genreIds = "genre_ids"
         case adult
         case backdropPath = "backdrop_path"
         case budget
