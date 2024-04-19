@@ -20,17 +20,17 @@ final class SearchNavigatorTests: XCTestCase {
     func testPresentMovie() async {
         let mockMovie = Movie.mock
         
-        await store.send(.root(.navigation(.presentMovie(mockMovie)))) { state in
+        await store.send(\.root.navigation.presentMovie, mockMovie) { state in
             state.destination = .movie(MovieNavigator.State(movieDetails: .init(movie: mockMovie)))
         }
         
-        await store.send(.destination(.dismiss)) { state in
+        await store.send(\.destination.dismiss) { state in
             state.destination = nil
         }
     }
     
     func testPresentPreferences() async {
-        await store.send(.root(.navigation(.presentPreferences))) { state in
+        await store.send(\.root.navigation.presentPreferences) { state in
             state.destination = .preferences(PreferencesFeature.State())
         }
     }

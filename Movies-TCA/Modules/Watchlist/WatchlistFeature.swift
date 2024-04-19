@@ -18,6 +18,7 @@ struct WatchlistFeature {
     }
     
     enum Action: ViewAction, Equatable {
+        @CasePathable
         enum View: Equatable {
             case setLikedMovies([LikedMovie])
             case onPreferencesTap
@@ -26,6 +27,7 @@ struct WatchlistFeature {
             case onMovieDislike(Movie)
         }
         
+        @CasePathable
         enum Navigation: Equatable {
             case presentMovie(Movie)
             case presentPreferences

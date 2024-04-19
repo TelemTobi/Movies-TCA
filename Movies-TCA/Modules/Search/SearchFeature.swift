@@ -30,6 +30,7 @@ struct SearchFeature {
     }
     
     enum Action: ViewAction, BindableAction, Equatable, Sendable {
+        @CasePathable
         enum View: Equatable {
             case onPreferencesTap
             case onMovieTap(Movie)
@@ -37,6 +38,7 @@ struct SearchFeature {
             case onMovieLike(Movie, Bool)
         }
         
+        @CasePathable
         enum Navigation: Equatable {
             case presentMovie(Movie)
             case presentPreferences

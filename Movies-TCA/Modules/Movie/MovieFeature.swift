@@ -21,12 +21,14 @@ struct MovieFeature {
     }
     
     enum Action: ViewAction, Equatable {
+        @CasePathable
         enum View: Equatable {
             case onFirstAppear
             case onCloseButtonTap
             case onRelatedMovieTap(Movie)
         }
         
+        @CasePathable
         enum Navigation: Equatable {
             case pushRelatedMovie(Movie)
             case dismissFlow

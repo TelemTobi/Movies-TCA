@@ -20,18 +20,18 @@ final class MovieNavigatorTests: XCTestCase {
     func testPushRelatedMovie() async {
         let mockMovie = Movie.mock
         
-        await store.send(.root(.navigation(.pushRelatedMovie(mockMovie)))) { state in
+        await store.send(\.root.navigation.pushRelatedMovie, mockMovie) { state in
             state.path.append(.relatedMovie(MovieFeature.State(movieDetails: .init(movie: mockMovie))))
         }
         
-        await store.send(.path(.element(id: 0, action: .relatedMovie(.navigation(.pushRelatedMovie(mockMovie)))))) { state in
+        await store.send(\.path[id: 0].relatedMovie.navigation.pushRelatedMovie, mockMovie) { state in
             state.path.append(.relatedMovie(MovieFeature.State(movieDetails: .init(movie: mockMovie))))
         }
         
-        await store.send(.path(.element(id: 1, action: .relatedMovie(.navigation(.dismissFlow)))))
+        await store.send(\.path[id: 1].relatedMovie.navigation.dismissFlow)
     }
     
     func testDismissFlow() async {
-        await store.send(.root(.navigation(.dismissFlow)))
+        await store.send(\.root.navigation.dismissFlow)
     }
 }

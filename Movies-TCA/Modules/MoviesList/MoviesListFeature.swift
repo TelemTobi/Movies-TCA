@@ -23,6 +23,7 @@ struct MoviesListFeature {
             case onMovieLike(Movie, Bool)
         }
         
+        @CasePathable
         enum Navigation: Equatable {
             case presentMovie(Movie)
         }

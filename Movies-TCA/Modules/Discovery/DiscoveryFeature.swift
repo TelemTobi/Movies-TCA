@@ -19,6 +19,7 @@ struct DiscoveryFeature {
     }
     
     enum Action: ViewAction, Equatable {
+        @CasePathable
         enum View: Equatable {
             case onFirstAppear
             case onPreferencesTap
@@ -27,6 +28,7 @@ struct DiscoveryFeature {
             case onMoviesListTap(MoviesListType, IdentifiedArrayOf<Movie>)
         }
         
+        @CasePathable
         enum Navigation: Equatable {
             case presentMovie(Movie)
             case presentPreferences

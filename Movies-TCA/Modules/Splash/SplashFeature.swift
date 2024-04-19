@@ -21,6 +21,7 @@ struct SplashFeature {
             case onAppear
         }
         
+        @CasePathable
         enum Navigation: Equatable {
             case splashCompleted
         }
