@@ -18,6 +18,7 @@ struct MoviesListFeature {
     }
     
     enum Action: ViewAction, Equatable {
+        @CasePathable
         enum View: Equatable {
             case onMovieTap(Movie)
             case onMovieLike(Movie, Bool)

@@ -23,30 +23,30 @@ final class WatchlistTests: XCTestCase {
             state.alert = .dislikeConfirmation(for: mockMovie)
         }
         
-        await store.send(.alert(.presented(.confirmDislike(mockMovie)))) { state in
+        await store.send(\.alert.presented.confirmDislike, mockMovie) { state in
             state.alert = nil
         }
         
-        await store.receive(.view(.onMovieLike(mockMovie)))
+        await store.receive(\.view.onMovieLike, mockMovie)
     }
     
     // MARK: - View Actions
     
     func testSetLikedMovies() async {
         let likedMovies = [LikedMovie(.mock)]
-        await store.send(.view(.setLikedMovies(likedMovies))) { state in
+        await store.send(\.view.setLikedMovies, likedMovies) { state in
             state.likedMovies = .init(uniqueElements: likedMovies.map { $0.toMovie} )
         }
     }
     
     func testOnMovieTap() async {
         let mockMovie = Movie.mock
-        await store.send(.view(.onMovieTap(mockMovie)))
-        await store.receive(.navigation(.presentMovie(mockMovie)))
+        await store.send(\.view.onMovieTap,mockMovie)
+        await store.receive(\.navigation.presentMovie, mockMovie)
     }
     
     func testOnPreferencesTap() async {
-        await store.send(.view(.onPreferencesTap))
-        await store.receive(.navigation(.presentPreferences))
+        await store.send(\.view.onPreferencesTap)
+        await store.receive(\.navigation.presentPreferences)
     }
 }

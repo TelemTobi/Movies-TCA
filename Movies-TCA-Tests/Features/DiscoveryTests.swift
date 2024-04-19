@@ -52,21 +52,21 @@ final class DiscoveryTests: XCTestCase {
         }
         
         // Success Result
-        await store.send(.moviesListLoaded(.nowPlaying, nowPlayingResult)) { state in
+        await store.send(\.moviesListLoaded, (.nowPlaying, nowPlayingResult)) { state in
             state.movies[.nowPlaying] = .init(uniqueElements: response.results ?? [])
         }
         
         // Bad Response
         let invalidMovieList = MoviesList(results: nil, page: nil, totalPages: nil, totalResults: nil)
-        await store.send(.moviesListLoaded(.nowPlaying, .success(invalidMovieList)))
+        await store.send(\.moviesListLoaded, (.nowPlaying, .success(invalidMovieList)))
         await store.receive(.moviesListLoaded(.nowPlaying, .unknownError))
         
         // Failure Result
-        await store.send(.moviesListLoaded(.nowPlaying, .unknownError))
+        await store.send(\.moviesListLoaded, (.nowPlaying, .unknownError))
     }
     
     func testLoadingCompleted() async {
-        await store.send(.loadingCompleted) { state in
+        await store.send(\.loadingCompleted) { state in
             state.isLoading = false
         }
         
@@ -76,24 +76,24 @@ final class DiscoveryTests: XCTestCase {
     // MARK: - View Actions
     
     func testOnFirstAppear() async {
-        await store.send(.view(.onFirstAppear))
+        await store.send(\.view.onFirstAppear)
         await store.receive(\.loadMovies)
     }
     
     func testOnMovieTap() async {
         let mockMovie = Movie.mock
-        await store.send(.view(.onMovieTap(mockMovie)))
-        await store.receive(.navigation(.presentMovie(mockMovie)))
+        await store.send(\.view.onMovieTap, mockMovie)
+        await store.receive(\.navigation.presentMovie, mockMovie)
     }
     
     func testOnPreferencesTap() async {
-        await store.send(.view(.onPreferencesTap))
-        await store.receive(.navigation(.presentPreferences))
+        await store.send(\.view.onPreferencesTap)
+        await store.receive(\.navigation.presentPreferences)
     }
     
     func testOnMoviesListTap() async {
         let moviesList = IdentifiedArrayOf<Movie>(uniqueElements: MoviesList.mock.results ?? [])
-        await store.send(.view(.onMoviesListTap(.nowPlaying, moviesList)))
+        await store.send(\.view.onMoviesListTap, (.nowPlaying, moviesList))
         await store.receive(.navigation(.pushMoviesList(.nowPlaying, moviesList)))
     }
 }

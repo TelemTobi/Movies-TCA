@@ -37,6 +37,7 @@ struct WatchlistFeature {
         case navigation(Navigation)
         case alert(PresentationAction<Alert>)
         
+        @CasePathable
         enum Alert: Equatable {
             case confirmDislike(Movie)
         }

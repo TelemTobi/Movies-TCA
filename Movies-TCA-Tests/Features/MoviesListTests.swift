@@ -24,7 +24,7 @@ final class MoviesListTests: XCTestCase {
     
     func testOnMovieTap() async {
         let mockMovie = Movie.mock
-        await store.send(.view(.onMovieTap(mockMovie)))
-        await store.receive(.navigation(.presentMovie(mockMovie)))
+        await store.send(\.view.onMovieTap, mockMovie)
+        await store.receive(\.navigation.presentMovie, mockMovie)
     }
 }

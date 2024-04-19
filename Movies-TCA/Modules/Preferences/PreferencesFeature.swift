@@ -25,6 +25,7 @@ struct PreferencesFeature {
     }
     
     enum Action: ViewAction, Equatable {
+        @CasePathable
         enum View: Equatable {
             case onLanguageTap
             case onCloseButtonTap

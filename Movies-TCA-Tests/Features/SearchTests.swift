@@ -22,17 +22,17 @@ final class SearchTests: XCTestCase {
     
     func testOnInputChange() async {
         // Short search input
-        await store.send(.onInputChange("Hi")) { state in
+        await store.send(\.onInputChange, "Hi") { state in
             state.searchInput = "Hi"
         }
         
         // Valid search input
-        await store.send(.onInputChange("Hello")) { state in
+        await store.send(\.onInputChange, "Hello") { state in
             state.searchInput = "Hello"
             state.isLoading = true
         }
         
-        await store.receive(.searchMovies("Hello"))
+        await store.receive(\.searchMovies, "Hello")
         
         let searchResult = await store.dependencies.tmdbClient.searchMovies("Hello")
         guard case let .success(response) = searchResult else {
@@ -40,14 +40,14 @@ final class SearchTests: XCTestCase {
             return
         }
         
-        await store.receive(.searchResponse(searchResult)) { state in
+        await store.receive(\.searchResponse, searchResult) { state in
             state.isLoading = false
             state.results = .init(uniqueElements: response.results ?? [])
         }
         await store.receive(\.setLikedMovies)
         
         // Empty search input
-        await store.send(.onInputChange("")) { state in
+        await store.send(\.onInputChange, "") { state in
             state.searchInput = ""
             state.isLoading = false
             state.results = []
@@ -61,10 +61,9 @@ final class SearchTests: XCTestCase {
             XCTFail("Failed loading mock movies")
             return
         }
-        
-        await store.send(.binding(.set(\.isLoading, true))) { $0.isLoading = true }
-        await store.send(.searchMovies("Action"))
-        await store.receive(.searchResponse(genreResult)) { state in
+        await store.send(\.binding.isLoading, true) { $0.isLoading = true }
+        await store.send(\.searchMovies, "Action")
+        await store.receive(\.searchResponse, genreResult) { state in
             state.isLoading = false
             state.results = .init(uniqueElements: response.results ?? [])
         }
@@ -79,9 +78,9 @@ final class SearchTests: XCTestCase {
         }
         
         // Success result
-        await store.send(.binding(.set(\.isLoading, true))) { $0.isLoading = true }
-        await store.send(.searchMovies("Test"))
-        await store.receive(.searchResponse(searchResult)) { state in
+        await store.send(\.binding.isLoading, true) { $0.isLoading = true }
+        await store.send(\.searchMovies, "Test")
+        await store.receive(\.searchResponse, searchResult) { state in
             state.isLoading = false
             state.results = .init(uniqueElements: response.results ?? [])
         }
@@ -89,8 +88,8 @@ final class SearchTests: XCTestCase {
         await store.receive(\.setLikedMovies)
         
         // Failure result
-        await store.send(.binding(.set(\.isLoading, true))) { $0.isLoading = true }
-        await store.send(.searchResponse(.unknownError)) { state in
+        await store.send(\.binding.isLoading, true) { $0.isLoading = true }
+        await store.send(\.searchResponse, .unknownError) { state in
             state.isLoading = false
         }
     }
@@ -104,22 +103,22 @@ final class SearchTests: XCTestCase {
         
         // Valid genre
         let genre = Genre.mock
-        await store.send(.view(.onGenreTap(genre))) { state in
+        await store.send(\.view.onGenreTap, genre) { state in
             state.searchInput = genre.name ?? .empty
             state.isLoading = true
         }
         
-        await store.receive(.searchMovies(genre.name ?? .empty))
+        await store.receive(\.searchMovies, genre.name ?? .empty)
     }
     
     func testOnMovieTap() async {
         let mockMovie = Movie.mock
-        await store.send(.view(.onMovieTap(mockMovie)))
-        await store.receive(.navigation(.presentMovie(mockMovie)))
+        await store.send(\.view.onMovieTap, mockMovie)
+        await store.receive(\.navigation.presentMovie, mockMovie)
     }
     
     func testOnPreferencesTap() async {
-        await store.send(.view(.onPreferencesTap))
-        await store.receive(.navigation(.presentPreferences))
+        await store.send(\.view.onPreferencesTap)
+        await store.receive(\.navigation.presentPreferences)
     }
 }

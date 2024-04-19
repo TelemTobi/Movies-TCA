@@ -17,6 +17,7 @@ struct SplashFeature {
     }
     
     enum Action: ViewAction, Equatable {
+        @CasePathable
         enum View: Equatable {
             case onAppear
         }
