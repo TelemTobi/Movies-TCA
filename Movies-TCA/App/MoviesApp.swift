@@ -23,6 +23,7 @@ struct MoviesApp: App {
                 )
             )
             .modelContext(database.getContext())
+            .adjustPreferredAppearance()
         }
     }
 }
