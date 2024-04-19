@@ -18,9 +18,6 @@ struct Preferences {
     
     let getIsAdultContentOn: () -> Bool
     let setIsAdultContentOn: (Bool) -> Void
-    
-    let getAppearance: () -> Appearance
-    let setAppearance: (Appearance) -> Void
 }
 
 extension Preferences: DependencyKey {
@@ -31,20 +28,12 @@ extension Preferences: DependencyKey {
         },
         setIsAdultContentOn: { isOn in
             UserDefaults.standard.setValue(isOn, forKey: Key.isAdultContentOn)
-        },
-        getAppearance: {
-            Appearance(rawValue: UserDefaults.standard.string(forKey: Key.appearance) ?? .empty) ?? .system
-        },
-        setAppearance: { appearance in
-            UserDefaults.standard.setValue(appearance.rawValue, forKey: Key.appearance)
         }
     )
     
     static let testValue = Preferences(
         getIsAdultContentOn: { false },
-        setIsAdultContentOn: { _ in },
-        getAppearance: { .system },
-        setAppearance: { _ in }
+        setIsAdultContentOn: { _ in }
     )
 }
 
@@ -72,11 +61,5 @@ extension Preferences {
             let currentLocale = Locale.current.identifier.split(separator: "_").first?.lowercased() ?? ""
             return Language(rawValue: currentLocale) ?? .english
         }
-    }
-
-    enum Appearance: String, CaseIterable {
-        case system = "System"
-        case light = "Light"
-        case dark = "Dark"
     }
 }

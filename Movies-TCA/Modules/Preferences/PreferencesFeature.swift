@@ -15,12 +15,13 @@ struct PreferencesFeature {
     @ObservableState
     struct State: Equatable {
         var isAdultContentOn: Bool
-        var appearance: Preferences.Appearance
+        
+        @Shared(.appStorage("appearance"))
+        var appearance: Constants.Appearance = .system
         
         init() {
             @Dependency(\.preferences) var preferences
             isAdultContentOn = preferences.getIsAdultContentOn()
-            appearance = preferences.getAppearance()
         }
     }
     
@@ -46,15 +47,13 @@ struct PreferencesFeature {
             case let .view(viewAction):
                 return reduceViewAction(&state, viewAction)
                 
-            case let .onAdultContentToggle(isOn):
-                preferences.setIsAdultContentOn(isOn)
-                state.isAdultContentOn = isOn
+            case let .onAdultContentToggle(newValue):
+                preferences.setIsAdultContentOn(newValue)
+                state.isAdultContentOn = newValue
                 return .none
                 
-            case let .onAppearanceChange(appearance):
-                let newAppearance = Preferences.Appearance(rawValue: appearance) ?? .system
-                preferences.setAppearance(newAppearance)
-                state.appearance = newAppearance
+            case let .onAppearanceChange(newValue):
+                state.appearance = Constants.Appearance(rawValue: newValue) ?? .system
                 
                 return .run { _ in
                     guard isPresented else { return }

@@ -18,6 +18,12 @@ enum Constants {
         case preview
     }
     
+    enum Appearance: String, CaseIterable {
+        case system = "System"
+        case light = "Light"
+        case dark = "Dark"
+    }
+    
     enum Stub {
         static let delay: Int = 2
     }

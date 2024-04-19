@@ -6,24 +6,22 @@
 //
 
 import SwiftUI
-import Dependencies
+import ComposableArchitecture
 
 fileprivate struct PreferredAppearanceModifier: ViewModifier {
     
-    @Dependency(\.preferences.getAppearance) var getAppearance
-    @AppStorage(Preferences.Key.appearance) var storedAppearance: String = ""
+    @Shared(.appStorage("appearance"))
+    var appearance: Constants.Appearance = .system
     
     func body(content: Content) -> some View {
-        let _ = storedAppearance
-        
-        Group {
-            if getAppearance() == .system {
-                content
-            } else {
-                content
-                    .preferredColorScheme(getAppearance() == .light ? .light : .dark)
-            }
+        let colorScheme: ColorScheme? = switch appearance {
+        case .system: nil
+        case .light: .light
+        case .dark: .dark
         }
+        
+        content
+            .preferredColorScheme(colorScheme)
     }
 }
 
