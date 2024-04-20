@@ -14,15 +14,11 @@ struct PreferencesFeature {
     
     @ObservableState
     struct State: Equatable {
-        var isAdultContentOn: Bool
+        @Shared(.appStorage("isAdultContentOn"))
+        var isAdultContentOn: Bool = false
         
         @Shared(.appStorage("appearance"))
         var appearance: Constants.Appearance = .system
-        
-        init() {
-            @Dependency(\.preferences) var preferences
-            isAdultContentOn = preferences.getIsAdultContentOn()
-        }
     }
     
     enum Action: ViewAction, Equatable {
@@ -39,7 +35,6 @@ struct PreferencesFeature {
     
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.isPresented) var isPresented
-    @Dependency(\.preferences) var preferences
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -48,7 +43,6 @@ struct PreferencesFeature {
                 return reduceViewAction(&state, viewAction)
                 
             case let .onAdultContentToggle(newValue):
-                preferences.setIsAdultContentOn(newValue)
                 state.isAdultContentOn = newValue
                 return .none
                 

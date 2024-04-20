@@ -51,7 +51,6 @@
 		7D7FFB832BB7523C0022C651 /* MoviesListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB822BB7523C0022C651 /* MoviesListTests.swift */; };
 		7D7FFB852BB764C30022C651 /* MovieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB842BB764C30022C651 /* MovieTests.swift */; };
 		7D7FFB872BB7F3AC0022C651 /* PreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB862BB7F3AC0022C651 /* PreferencesTests.swift */; };
-		7D7FFB892BB7F7BD0022C651 /* PreferencesDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB882BB7F7BD0022C651 /* PreferencesDependency.swift */; };
 		7D7FFB8C2BBA74F70022C651 /* RootNavigatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB8B2BBA74F70022C651 /* RootNavigatorTests.swift */; };
 		7D7FFB8E2BBA75820022C651 /* HomeNavigatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB8D2BBA75820022C651 /* HomeNavigatorTests.swift */; };
 		7D7FFB902BBA75F70022C651 /* DiscoveryNavigatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB8F2BBA75F70022C651 /* DiscoveryNavigatorTests.swift */; };
@@ -197,7 +196,6 @@
 		7D7FFB822BB7523C0022C651 /* MoviesListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListTests.swift; sourceTree = "<group>"; };
 		7D7FFB842BB764C30022C651 /* MovieTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTests.swift; sourceTree = "<group>"; };
 		7D7FFB862BB7F3AC0022C651 /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
-		7D7FFB882BB7F7BD0022C651 /* PreferencesDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesDependency.swift; sourceTree = "<group>"; };
 		7D7FFB8B2BBA74F70022C651 /* RootNavigatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigatorTests.swift; sourceTree = "<group>"; };
 		7D7FFB8D2BBA75820022C651 /* HomeNavigatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigatorTests.swift; sourceTree = "<group>"; };
 		7D7FFB8F2BBA75F70022C651 /* DiscoveryNavigatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryNavigatorTests.swift; sourceTree = "<group>"; };
@@ -607,7 +605,6 @@
 				7D8F6FEE2B95948F006F6B86 /* AppDataDependency.swift */,
 				7D48B3992B5BB22000A248E3 /* DatabaseDependency.swift */,
 				7DDA64512B0C79B5008BF425 /* TmdbClientDependency.swift */,
-				7D7FFB882BB7F7BD0022C651 /* PreferencesDependency.swift */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -1033,7 +1030,6 @@
 				7D48B39A2B5BB22000A248E3 /* DatabaseDependency.swift in Sources */,
 				7DA4DEFD2B28F7D000D8E292 /* MovieDetails.swift in Sources */,
 				7D8F6FF42B9597FB006F6B86 /* SplashFeature.swift in Sources */,
-				7D7FFB892BB7F7BD0022C651 /* PreferencesDependency.swift in Sources */,
 				7D513F7E2B1722210040F913 /* PreferencesView.swift in Sources */,
 				7D48B39F2B5D867800A248E3 /* CloseButton.swift in Sources */,
 				7DE17E1F2B068C60005F4848 /* Endpoint.swift in Sources */,
