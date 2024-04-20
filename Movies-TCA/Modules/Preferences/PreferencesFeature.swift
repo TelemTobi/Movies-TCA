@@ -14,11 +14,8 @@ struct PreferencesFeature {
     
     @ObservableState
     struct State: Equatable {
-        @Shared(.appStorage("isAdultContentOn"))
-        var isAdultContentOn: Bool = false
-        
-        @Shared(.appStorage("appearance"))
-        var appearance: Constants.Appearance = .system
+        @Shared(.adultContent) var isAdultContentOn = false
+        @Shared(.appearance) var appearance = .system
     }
     
     enum Action: ViewAction, Equatable {

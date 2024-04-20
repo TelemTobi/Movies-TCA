@@ -10,8 +10,7 @@ import ComposableArchitecture
 
 struct TmdbAuthenticator: Authenticating {
     
-    @Shared(.appStorage("isAdultContentOn"))
-    var isAdultContentOn: Bool = false
+    @Shared(.adultContent) var isAdultContentOn = false
     
     var authState: AuthState {
         // TODO: Check network connection

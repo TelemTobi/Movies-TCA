@@ -10,8 +10,7 @@ import ComposableArchitecture
 
 fileprivate struct PreferredAppearanceModifier: ViewModifier {
     
-    @Shared(.appStorage("appearance"))
-    var appearance: Constants.Appearance = .system
+    @Shared(.appearance) var appearance = .system
     
     func body(content: Content) -> some View {
         let colorScheme: ColorScheme? = switch appearance {
