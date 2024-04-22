@@ -17,8 +17,8 @@ struct DiscoveryFeature {
         var isLoading = true
         var movies: [MoviesListType: IdentifiedArrayOf<Movie>] = [:]
         
-        @Shared(.likedMovies) 
-        fileprivate var likedMovies: IdentifiedArrayOf<Movie> = []
+        @Shared(.likedMovies)
+        var likedMovies: IdentifiedArrayOf<Movie> = []
     }
     
     enum Action: ViewAction, Equatable {
@@ -27,7 +27,7 @@ struct DiscoveryFeature {
             case onFirstAppear
             case onPreferencesTap
             case onMovieTap(Movie)
-            case onMovieLike(Movie, Bool)
+            case onMovieLike(Movie)
             case onMoviesListTap(MoviesListType, IdentifiedArrayOf<Movie>)
         }
         
@@ -117,17 +117,12 @@ struct DiscoveryFeature {
         case let .onMoviesListTap(listType, movies):
             return .send(.navigation(.pushMoviesList(listType, movies)))
             
-        case let .onMovieLike(movie, isLiked):
-            for listType in state.movies.keys {
-                state.movies[listType]?[id: movie.id]?.isLiked = isLiked
-            }
-            
-            if isLiked {
-                state.likedMovies.append(movie)
-            } else {
+        case let .onMovieLike(movie):
+            if state.likedMovies.contains(movie) {
                 state.likedMovies.remove(movie)
+            } else {
+                state.likedMovies.append(movie)
             }
-            
             return .none
         }
     }

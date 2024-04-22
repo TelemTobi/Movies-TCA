@@ -13,19 +13,19 @@ struct MoviesCollectionView: View {
     
     let movies: IdentifiedArrayOf<Movie>
     let onMovieTap: MovieClosure
-    var onLikeTap: ((Movie, Bool) -> Void)? = nil
+    var isMovieLiked: ((Movie) -> Binding<Bool>)? = nil
     
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 20) {
                     ForEach(movies) { movie in
-                        ItemView(
-                            movie: movie,
-                            geometry: geometry,
-                            onMovieTap: onMovieTap,
-                            onLikeTap: onLikeTap
-                        )
+                        Button {
+                            onMovieTap(movie)
+                        } label: {
+                            itemView(movie, geometry: geometry)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
                 .padding(.vertical)
@@ -34,63 +34,47 @@ struct MoviesCollectionView: View {
         }
     }
     
-    private struct ItemView: View {
-        
-        let movie: Movie
-        let geometry: GeometryProxy
-        let onMovieTap: MovieClosure
-        var onLikeTap: ((Movie, Bool) -> Void)? = nil
-        
-        var body: some View {
-            let itemWidth = geometry.size.height / 1.8
-            let itemHeight = geometry.size.height - 40
+    @MainActor
+    @ViewBuilder
+    private func itemView(_ movie: Movie, geometry: GeometryProxy) -> some View {
+        let itemWidth = geometry.size.height / 1.8
+        let itemHeight = geometry.size.height - 40
             
-            Button {
-                onMovieTap(movie)
-            } label: {
-                VStack(alignment: .leading) {
-                    ZStack(alignment: .topTrailing) {
-                        WebImage(url: movie.thumbnailUrl)
-                            .resizable()
-                            .placeholder {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .foregroundColor(.gray)
-                                    .frame(width: itemWidth, height: itemHeight)
-                                
-                                Image(systemName: "popcorn")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 40)
-                                    .foregroundColor(.white)
-                            }
-                            .scaledToFill()
+        VStack(alignment: .leading) {
+            ZStack(alignment: .topTrailing) {
+                WebImage(url: movie.thumbnailUrl)
+                    .resizable()
+                    .placeholder {
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(.gray)
                             .frame(width: itemWidth, height: itemHeight)
-                            .cornerRadius(10)
-                            .transition(.fade)
-                            .shadow(radius: 3)
                         
-                        if let onLikeTap {
-                            LikeButton(
-                                isLiked: .init(
-                                    get: { movie.isLiked },
-                                    set: { onLikeTap(movie, $0) }
-                                )
-                            )
-                            .padding(10)
-                        }
+                        Image(systemName: "popcorn")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40)
+                            .foregroundColor(.white)
                     }
-                    
-                    Text(movie.title ?? .empty)
-                        .lineLimit(1)
-                        .font(.subheadline)
-                        .padding(.trailing)
-                        .padding(.leading, 4)
-                        .foregroundColor(.primary)
+                    .scaledToFill()
+                    .frame(width: itemWidth, height: itemHeight)
+                    .cornerRadius(10)
+                    .transition(.fade)
+                    .shadow(radius: 3)
+                
+                if let isMovieLiked {
+                    LikeButton(isLiked: isMovieLiked(movie))
+                        .padding(10)
                 }
-                .frame(width: itemWidth)
             }
-            .buttonStyle(.plain)
+            
+            Text(movie.title ?? .empty)
+                .lineLimit(1)
+                .font(.subheadline)
+                .padding(.trailing)
+                .padding(.leading, 4)
+                .foregroundColor(.primary)
         }
+        .frame(width: itemWidth)
     }
 }
 
@@ -98,7 +82,7 @@ struct MoviesCollectionView: View {
     MoviesCollectionView(
         movies: IdentifiedArray(uniqueElements: MoviesList.mock.results ?? []),
         onMovieTap: { _ in },
-        onLikeTap: { _, _ in }
+        isMovieLiked: { _ in .constant(true) }
     )
     .frame(height: 280)
 }
