@@ -13,17 +13,15 @@ struct WatchlistFeature {
     
     @ObservableState
     struct State: Equatable {
-        var likedMovies: IdentifiedArrayOf<Movie> = []
+        @Shared(.likedMovies) var likedMovies: IdentifiedArrayOf<Movie> = []
         @Presents var alert: AlertState<Action.Alert>?
     }
     
     enum Action: ViewAction, Equatable {
         @CasePathable
         enum View: Equatable {
-            case setLikedMovies([LikedMovie])
             case onPreferencesTap
             case onMovieTap(Movie)
-            case onMovieLike(Movie)
             case onMovieDislike(Movie)
         }
         
@@ -43,8 +41,6 @@ struct WatchlistFeature {
         }
     }
     
-    @Dependency(\.database) var database
-    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
@@ -52,7 +48,8 @@ struct WatchlistFeature {
                 return reduceViewAction(&state, viewAction)
                 
             case let .alert(.presented(.confirmDislike(movie))):
-                return .send(.view(.onMovieLike(movie)))
+                state.likedMovies.remove(movie)
+                return .none
                 
             case .navigation, .alert:
                 return .none
@@ -63,19 +60,11 @@ struct WatchlistFeature {
     
     private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
         switch action {
-        case let .setLikedMovies(likedMovies):
-            state.likedMovies = .init(uniqueElements: likedMovies.map { $0.toMovie })
-            return .none
-            
         case let .onMovieTap(movie):
             return .send(.navigation(.presentMovie(movie)))
             
         case .onPreferencesTap:
             return .send(.navigation(.presentPreferences))
-            
-        case let .onMovieLike(movie):
-            try? database.setMovieLike(movie)
-            return .none
             
         case let .onMovieDislike(movie):
             state.alert = .dislikeConfirmation(for: movie)

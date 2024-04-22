@@ -14,8 +14,6 @@ struct WatchlistView: View {
     
     @Bindable var store: StoreOf<WatchlistFeature>
     
-    @Query private var likedMovies: [LikedMovie]
-    
     var body: some View {
         Group {
             if store.likedMovies.isEmpty {
@@ -27,12 +25,6 @@ struct WatchlistView: View {
         .navigationTitle("Watchlist")
         .toolbar(content: toolbarContent)
         .alert($store.scope(state: \.alert, action: \.alert))
-        .onFirstAppear {
-            send(.setLikedMovies(likedMovies))
-        }
-        .onChange(of: likedMovies) { _, newValue in
-            send(.setLikedMovies(likedMovies))
-        }
     }
     
     @ToolbarContentBuilder

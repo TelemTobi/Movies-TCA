@@ -16,6 +16,9 @@ struct DiscoveryFeature {
     struct State: Equatable {
         var isLoading = true
         var movies: [MoviesListType: IdentifiedArrayOf<Movie>] = [:]
+        
+        @Shared(.likedMovies) 
+        fileprivate var likedMovies: IdentifiedArrayOf<Movie> = []
     }
     
     enum Action: ViewAction, Equatable {
@@ -24,7 +27,7 @@ struct DiscoveryFeature {
             case onFirstAppear
             case onPreferencesTap
             case onMovieTap(Movie)
-            case onMovieLike(Movie)
+            case onMovieLike(Movie, Bool)
             case onMoviesListTap(MoviesListType, IdentifiedArrayOf<Movie>)
         }
         
@@ -40,11 +43,10 @@ struct DiscoveryFeature {
         case loadMovies
         case moviesListLoaded(MoviesListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
-        case setLikedMovies([LikedMovie])
+        case setupLikedMovies
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
-    @Dependency(\.database) var database
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -83,22 +85,19 @@ struct DiscoveryFeature {
                 
             case .loadingCompleted:
                 state.isLoading = false
-
-                let likedMovies = try? database.getLikedMovies()
-                return .send(.setLikedMovies(likedMovies ?? []))
+                return .send(.setupLikedMovies)
                 
-            case let .setLikedMovies(likedMovies):
-                let likedMovies = IdentifiedArray(uniqueElements: likedMovies)
-                
-                for listType in state.movies.keys {
-                    for index in state.movies[listType]!.indices
-                    where likedMovies[id: state.movies[listType]![index].id] != nil {
-                        state.movies[listType]![index].isLiked = true
-                    }
-                }
+            case .setupLikedMovies:
+                setupLikedMovies(&state)
                 return .none
                 
             case .navigation:
+                return .none
+            }
+        }
+        .onChange(of: \.likedMovies) { oldValue, newValue in
+            Reduce { state, action in
+                setupLikedMovies(&state)
                 return .none
             }
         }
@@ -118,12 +117,27 @@ struct DiscoveryFeature {
         case let .onMoviesListTap(listType, movies):
             return .send(.navigation(.pushMoviesList(listType, movies)))
             
-        case let .onMovieLike(movie):
+        case let .onMovieLike(movie, isLiked):
             for listType in state.movies.keys {
-                state.movies[listType]?[id: movie.id]?.isLiked.toggle()
+                state.movies[listType]?[id: movie.id]?.isLiked = isLiked
             }
-            try? database.setMovieLike(movie)
+            
+            if isLiked {
+                state.likedMovies.append(movie)
+            } else {
+                state.likedMovies.remove(movie)
+            }
+            
             return .none
+        }
+    }
+    
+    private func setupLikedMovies( _ state: inout State) {
+        for listType in  state.movies.keys {
+            for index in state.movies[listType]!.indices
+            where state.likedMovies[id: state.movies[listType]![index].id] != nil {
+                state.movies[listType]![index].isLiked = true
+            }
         }
     }
 }

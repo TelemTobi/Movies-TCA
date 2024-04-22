@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Movie: Decodable, Equatable, Identifiable {
+struct Movie: Codable, Equatable, Identifiable {
     
     let id: Int
     var adult: Bool?

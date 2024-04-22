@@ -13,7 +13,7 @@ struct MoviesPagerView: View {
     
     let movies: IdentifiedArrayOf<Movie>
     let onMovieTap: MovieClosure
-    var onLikeTap: MovieClosure? = nil
+    var onLikeTap: ((Movie, Bool) -> Void)? = nil
     
     var body: some View {
         GeometryReader { geometry in
@@ -41,7 +41,7 @@ struct MoviesPagerView: View {
         let movie: Movie
         let geometry: GeometryProxy
         let onMovieTap: MovieClosure
-        var onLikeTap: MovieClosure? = nil
+        var onLikeTap: ((Movie, Bool) -> Void)? = nil
         
         var body: some View {
             Button {
@@ -78,7 +78,7 @@ struct MoviesPagerView: View {
                             LikeButton(
                                 isLiked: .init(
                                     get: { movie.isLiked },
-                                    set: { _ in onLikeTap(movie) } // TODO
+                                    set: { onLikeTap(movie, $0) }
                                 )
                             )
                             .padding(10)

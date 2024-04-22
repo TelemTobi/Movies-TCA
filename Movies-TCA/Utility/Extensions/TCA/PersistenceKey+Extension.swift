@@ -15,3 +15,7 @@ extension PersistenceKey where Self == AppStorageKey<Constants.Appearance> {
 extension PersistenceKey where Self == AppStorageKey<Bool> {
     static var adultContent: Self { .appStorage("isAdultContentOn") }
 }
+
+extension PersistenceKey where Self == FileStorageKey<IdentifiedArrayOf<Movie>> {
+    static var likedMovies: Self { .fileStorage(.applicationDirectory.appending(path: "likedMovies.json")) }
+}

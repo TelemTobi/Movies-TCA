@@ -13,7 +13,7 @@ struct MoviesCollectionView: View {
     
     let movies: IdentifiedArrayOf<Movie>
     let onMovieTap: MovieClosure
-    var onLikeTap: MovieClosure? = nil
+    var onLikeTap: ((Movie, Bool) -> Void)? = nil
     
     var body: some View {
         GeometryReader { geometry in
@@ -39,7 +39,7 @@ struct MoviesCollectionView: View {
         let movie: Movie
         let geometry: GeometryProxy
         let onMovieTap: MovieClosure
-        var onLikeTap: MovieClosure? = nil
+        var onLikeTap: ((Movie, Bool) -> Void)? = nil
         
         var body: some View {
             let itemWidth = geometry.size.height / 1.8
@@ -73,7 +73,7 @@ struct MoviesCollectionView: View {
                             LikeButton(
                                 isLiked: .init(
                                     get: { movie.isLiked },
-                                    set: { _ in onLikeTap(movie) } // TODO
+                                    set: { onLikeTap(movie, $0) }
                                 )
                             )
                             .padding(10)
@@ -98,7 +98,7 @@ struct MoviesCollectionView: View {
     MoviesCollectionView(
         movies: IdentifiedArray(uniqueElements: MoviesList.mock.results ?? []),
         onMovieTap: { _ in },
-        onLikeTap: { _ in }
+        onLikeTap: { _, _ in }
     )
     .frame(height: 280)
 }

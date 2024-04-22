@@ -69,7 +69,7 @@ struct DiscoveryView: View {
                 MoviesPagerView(
                     movies: movies,
                     onMovieTap: { send(.onMovieTap($0)) },
-                    onLikeTap: { send(.onMovieLike($0)) }
+                    onLikeTap: { send(.onMovieLike($0, $1)) }
                 )
                 .frame(height: 240)
                 
@@ -77,7 +77,7 @@ struct DiscoveryView: View {
                 MoviesCollectionView(
                     movies: movies,
                     onMovieTap: { send(.onMovieTap($0)) },
-                    onLikeTap: { send(.onMovieLike($0)) }
+                    onLikeTap: { send(.onMovieLike($0, $1)) }
                 )
                 .frame(height: 280)
             }

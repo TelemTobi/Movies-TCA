@@ -15,6 +15,8 @@ struct MoviesListFeature {
     struct State: Equatable {
         var listType: MoviesListType?
         var movies: IdentifiedArrayOf<Movie> = []
+        
+        @Shared(.likedMovies) fileprivate var likedMovies: IdentifiedArrayOf<Movie> = []
     }
     
     enum Action: ViewAction, Equatable {
@@ -34,7 +36,6 @@ struct MoviesListFeature {
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
-    @Dependency(\.database) var database
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -55,7 +56,13 @@ struct MoviesListFeature {
             
         case let .onMovieLike(movie, isLiked):
             state.movies[id: movie.id]?.isLiked = isLiked
-            try? database.setMovieLike(movie)
+            
+            if isLiked, let movie = state.movies[id: movie.id] {
+                state.likedMovies.append(movie)
+            } else {
+                state.likedMovies.remove(movie)
+            }
+            
             return .none
         }
     }

@@ -15,6 +15,9 @@ struct MovieFeature {
     struct State: Equatable {
         var movieDetails: MovieDetails
         
+        @Shared(.likedMovies) 
+        fileprivate var likedMovies: IdentifiedArrayOf<Movie> = []
+        
         init(movieDetails: MovieDetails) {
             self.movieDetails = movieDetails
         }
@@ -42,7 +45,6 @@ struct MovieFeature {
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
-    @Dependency(\.database) var database
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -70,7 +72,13 @@ struct MovieFeature {
                 
             case let .setMovieLike(newValue):
                 state.movieDetails.movie.isLiked = newValue
-                try? database.setMovieLike(state.movieDetails.movie)
+                
+                if newValue {
+                    state.likedMovies.append(state.movieDetails.movie)
+                } else {
+                    state.likedMovies.remove(state.movieDetails.movie)
+                }
+                
                 return .none
                 
             case .navigation:

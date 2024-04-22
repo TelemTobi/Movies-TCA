@@ -19,6 +19,9 @@ struct SearchFeature {
         var results: IdentifiedArrayOf<Movie> = []
         var searchInput: String = .empty
         
+        @Shared(.likedMovies)
+        fileprivate var likedMovies: IdentifiedArrayOf<Movie> = []
+        
         var isSearchActive: Bool {
             searchInput.count > 2
         }
@@ -50,11 +53,10 @@ struct SearchFeature {
         case onInputChange(String)
         case searchMovies(String)
         case searchResponse(Result<MoviesList, TmdbError>)
-        case setLikedMovies([LikedMovie])
+        case setupLikedMovies
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
-    @Dependency(\.database) var database
     @Dependency(\.mainQueue) var mainQueue
     
     var body: some ReducerOf<Self> {
@@ -97,8 +99,7 @@ struct SearchFeature {
                 if let movies = response.results {
                     state.results = .init(uniqueElements: movies)
                     
-                    let likedMovies = try? database.getLikedMovies()
-                    return .send(.setLikedMovies(likedMovies ?? []))
+                    return .send(.setupLikedMovies)
                 } else {
                     return .send(.searchResponse(.unknownError))
                 }
@@ -109,10 +110,9 @@ struct SearchFeature {
                 customDump(error) // TODO: Handle error
                 return .none
                 
-            case let .setLikedMovies(likedMovies):
-                let likedMovies = IdentifiedArray(uniqueElements: likedMovies)
-                
-                for index in state.results.indices where likedMovies[id: state.results[index].id] != nil {
+            case .setupLikedMovies:
+                for index in state.results.indices 
+                where state.likedMovies[id: state.results[index].id] != nil {
                     state.results[index].isLiked = true
                 }
                 return .none
@@ -143,7 +143,13 @@ struct SearchFeature {
             
         case let .onMovieLike(movie, isLiked):
             state.results[id: movie.id]?.isLiked = isLiked
-            try? database.setMovieLike(movie)
+            
+            if isLiked {
+                state.likedMovies.append(movie)
+            } else {
+                state.likedMovies.remove(movie)
+            }
+            
             return .none
         }
     }

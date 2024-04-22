@@ -11,7 +11,7 @@ struct GenresResponse: Decodable, JsonResolver, Equatable {
     let genres: [Genre]?
 }
 
-struct Genre: Decodable, Equatable, Identifiable {
+struct Genre: Codable, Equatable, Identifiable {
     
     let id: Int
     let name: String?
