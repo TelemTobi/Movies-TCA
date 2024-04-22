@@ -16,14 +16,15 @@ struct MoviesListFeature {
         var listType: MoviesListType?
         var movies: IdentifiedArrayOf<Movie> = []
         
-        @Shared(.likedMovies) fileprivate var likedMovies: IdentifiedArrayOf<Movie> = []
+        @Shared(.likedMovies)
+        var likedMovies: IdentifiedArrayOf<Movie> = []
     }
     
     enum Action: ViewAction, Equatable {
         @CasePathable
         enum View: Equatable {
             case onMovieTap(Movie)
-            case onMovieLike(Movie, Bool)
+            case onMovieLike(Movie)
         }
         
         @CasePathable
@@ -41,6 +42,7 @@ struct MoviesListFeature {
         Reduce { state, action in
             switch action {
             case let .view(viewAction):
+                state.likedMovies.append(<#T##item: Movie##Movie#>)
                 return reduceViewAction(&state, viewAction)
                 
             case .navigation:
@@ -54,15 +56,12 @@ struct MoviesListFeature {
         case let .onMovieTap(movie):
             return .send(.navigation(.presentMovie(movie)))
             
-        case let .onMovieLike(movie, isLiked):
-            state.movies[id: movie.id]?.isLiked = isLiked
-            
-            if isLiked, let movie = state.movies[id: movie.id] {
-                state.likedMovies.append(movie)
-            } else {
+        case let .onMovieLike(movie):
+            if state.likedMovies.contains(movie) {
                 state.likedMovies.remove(movie)
+            } else {
+                state.likedMovies.append(movie)
             }
-            
             return .none
         }
     }

@@ -43,7 +43,6 @@ struct DiscoveryFeature {
         case loadMovies
         case moviesListLoaded(MoviesListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
-        case setupLikedMovies
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
@@ -85,19 +84,9 @@ struct DiscoveryFeature {
                 
             case .loadingCompleted:
                 state.isLoading = false
-                return .send(.setupLikedMovies)
-                
-            case .setupLikedMovies:
-                setupLikedMovies(&state)
                 return .none
                 
             case .navigation:
-                return .none
-            }
-        }
-        .onChange(of: \.likedMovies) { oldValue, newValue in
-            Reduce { state, action in
-                setupLikedMovies(&state)
                 return .none
             }
         }
@@ -124,15 +113,6 @@ struct DiscoveryFeature {
                 state.likedMovies.append(movie)
             }
             return .none
-        }
-    }
-    
-    private func setupLikedMovies( _ state: inout State) {
-        for listType in  state.movies.keys {
-            for index in state.movies[listType]!.indices
-            where state.likedMovies[id: state.movies[listType]![index].id] != nil {
-                state.movies[listType]![index].isLiked = true
-            }
         }
     }
 }
