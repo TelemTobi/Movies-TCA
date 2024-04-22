@@ -23,7 +23,7 @@ struct MoviesCollectionView: View {
                         Button {
                             onMovieTap(movie)
                         } label: {
-                            itemView(movie, geometry: geometry)
+                            ItemView(movie, geometry)
                         }
                         .buttonStyle(.plain)
                     }
@@ -36,7 +36,7 @@ struct MoviesCollectionView: View {
     
     @MainActor
     @ViewBuilder
-    private func itemView(_ movie: Movie, geometry: GeometryProxy) -> some View {
+    private func ItemView(_ movie: Movie, _ geometry: GeometryProxy) -> some View {
         let itemWidth = geometry.size.height / 1.8
         let itemHeight = geometry.size.height - 40
             

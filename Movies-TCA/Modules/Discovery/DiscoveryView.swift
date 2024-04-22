@@ -69,7 +69,12 @@ struct DiscoveryView: View {
                 MoviesPagerView(
                     movies: movies,
                     onMovieTap: { send(.onMovieTap($0)) },
-                    onLikeTap: { _ = $1; send(.onMovieLike($0)) }
+                    isMovieLiked: { movie in
+                        .init(
+                            get: { store.likedMovies.contains(movie) },
+                            set: { _ in send(.onMovieLike(movie)) }
+                        )
+                    }
                 )
                 .frame(height: 240)
                 
