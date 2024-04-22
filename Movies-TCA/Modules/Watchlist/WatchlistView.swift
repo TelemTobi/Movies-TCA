@@ -50,7 +50,7 @@ struct WatchlistView: View {
                 MovieListItem(
                     movie: movie,
                     isLiked: .init(
-                        get: { movie.isLiked },
+                        get: { true },
                         set: { _ in send(.onMovieDislike(movie)) }
                     )
                 )
