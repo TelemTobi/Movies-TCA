@@ -69,8 +69,6 @@ final class DiscoveryTests: XCTestCase {
         await store.send(\.loadingCompleted) { state in
             state.isLoading = false
         }
-        
-        await store.receive(\.setLikedMovies)
     }
     
     // MARK: - View Actions
@@ -95,5 +93,17 @@ final class DiscoveryTests: XCTestCase {
         let moviesList = IdentifiedArrayOf<Movie>(uniqueElements: MoviesList.mock.results ?? [])
         await store.send(\.view.onMoviesListTap, (.nowPlaying, moviesList))
         await store.receive(.navigation(.pushMoviesList(.nowPlaying, moviesList)))
+    }
+    
+    func testOnMovieLike() async {
+        let mockMovie: Movie = .mock
+        
+        await store.send(.view(.onMovieLike(mockMovie))) { state in
+            state.likedMovies.append(mockMovie)
+        }
+        
+        await store.send(.view(.onMovieLike(mockMovie))) { state in
+            state.likedMovies.remove(mockMovie)
+        }
     }
 }

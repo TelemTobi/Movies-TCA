@@ -16,7 +16,7 @@ struct MovieFeature {
         var movieDetails: MovieDetails
         
         @Shared(.likedMovies) 
-        fileprivate var likedMovies: IdentifiedArrayOf<Movie> = []
+        var likedMovies: IdentifiedArrayOf<Movie> = []
         
         init(movieDetails: MovieDetails) {
             self.movieDetails = movieDetails
@@ -33,7 +33,7 @@ struct MovieFeature {
             case onFirstAppear
             case onCloseButtonTap
             case onRelatedMovieTap(Movie)
-            case onMovieLike
+            case onLikeTap
         }
         
         @CasePathable
@@ -89,7 +89,7 @@ struct MovieFeature {
         case let .onRelatedMovieTap(movie):
             return .send(.navigation(.pushRelatedMovie(movie)))
             
-        case .onMovieLike:
+        case .onLikeTap:
             let movie = state.movieDetails.movie
             
             if state.likedMovies.contains(movie) {

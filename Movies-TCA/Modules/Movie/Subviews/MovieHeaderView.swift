@@ -38,7 +38,7 @@ extension MovieView {
                     LikeButton(
                         isLiked: .init(
                             get: { store.isLiked },
-                            set: { _ in send(.onMovieLike) }
+                            set: { _ in send(.onLikeTap) }
                         )
                     )
                     .padding(.vertical, 6)

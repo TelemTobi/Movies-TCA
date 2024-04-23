@@ -22,8 +22,8 @@ final class SearchTests: XCTestCase {
     
     func testOnInputChange() async {
         // Short search input
-        await store.send(\.onInputChange, "Hi") { state in
-            state.searchInput = "Hi"
+        await store.send(\.onInputChange, "H") { state in
+            state.searchInput = "H"
         }
         
         // Valid search input
@@ -44,7 +44,6 @@ final class SearchTests: XCTestCase {
             state.isLoading = false
             state.results = .init(uniqueElements: response.results ?? [])
         }
-        await store.receive(\.setLikedMovies)
         
         // Empty search input
         await store.send(\.onInputChange, "") { state in
@@ -68,8 +67,6 @@ final class SearchTests: XCTestCase {
             state.results = .init(uniqueElements: response.results ?? [])
         }
         
-        await store.receive(\.setLikedMovies)
-        
         // Free search
         let searchResult = await store.dependencies.tmdbClient.searchMovies("Test")
         guard case let .success(response) = searchResult else {
@@ -84,8 +81,6 @@ final class SearchTests: XCTestCase {
             state.isLoading = false
             state.results = .init(uniqueElements: response.results ?? [])
         }
-        
-        await store.receive(\.setLikedMovies)
         
         // Failure result
         await store.send(\.binding.isLoading, true) { $0.isLoading = true }
@@ -120,5 +115,17 @@ final class SearchTests: XCTestCase {
     func testOnPreferencesTap() async {
         await store.send(\.view.onPreferencesTap)
         await store.receive(\.navigation.presentPreferences)
+    }
+    
+    func testOnMovieLike() async {
+        let mockMovie: Movie = .mock
+        
+        await store.send(.view(.onMovieLike(mockMovie))) { state in
+            state.likedMovies.append(mockMovie)
+        }
+        
+        await store.send(.view(.onMovieLike(mockMovie))) { state in
+            state.likedMovies.remove(mockMovie)
+        }
     }
 }

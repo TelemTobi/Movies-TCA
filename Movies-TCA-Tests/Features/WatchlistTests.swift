@@ -17,7 +17,7 @@ final class WatchlistTests: XCTestCase {
         reducer: WatchlistFeature.init
     )
     
-    func testAlertDislikeAlert() async {
+    func testDislikeAlert() async {
         let mockMovie = Movie.mock
         await store.send(.view(.onMovieDislike(mockMovie))) { state in
             state.alert = .dislikeConfirmation(for: mockMovie)
@@ -25,19 +25,11 @@ final class WatchlistTests: XCTestCase {
         
         await store.send(\.alert.presented.confirmDislike, mockMovie) { state in
             state.alert = nil
+            state.likedMovies.remove(mockMovie)
         }
-        
-        await store.receive(\.view.onMovieLike, mockMovie)
     }
     
     // MARK: - View Actions
-    
-    func testSetLikedMovies() async {
-        let likedMovies = [LikedMovie(.mock)]
-        await store.send(\.view.setLikedMovies, likedMovies) { state in
-            state.likedMovies = .init(uniqueElements: likedMovies.map { $0.toMovie} )
-        }
-    }
     
     func testOnMovieTap() async {
         let mockMovie = Movie.mock
