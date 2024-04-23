@@ -106,8 +106,8 @@ struct SearchView: View {
                 MovieListItem(
                     movie: movie,
                     isLiked: .init(
-                        get: { movie.isLiked },
-                        set: { send(.onMovieLike(movie, $0)) }
+                        get: { store.likedMovies.contains(movie) },
+                        set: { _ in send(.onMovieLike(movie)) }
                     )
                 )
             }

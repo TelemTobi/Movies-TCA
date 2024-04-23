@@ -20,10 +20,10 @@ struct SearchFeature {
         var searchInput: String = .empty
         
         @Shared(.likedMovies)
-        fileprivate var likedMovies: IdentifiedArrayOf<Movie> = []
+        var likedMovies: IdentifiedArrayOf<Movie> = []
         
         var isSearchActive: Bool {
-            searchInput.count > 2
+            searchInput.count >= 2
         }
         
         init() {
@@ -38,7 +38,7 @@ struct SearchFeature {
             case onPreferencesTap
             case onMovieTap(Movie)
             case onGenreTap(Genre)
-            case onMovieLike(Movie, Bool)
+            case onMovieLike(Movie)
         }
         
         @CasePathable
@@ -53,7 +53,6 @@ struct SearchFeature {
         case onInputChange(String)
         case searchMovies(String)
         case searchResponse(Result<MoviesList, TmdbError>)
-        case setupLikedMovies
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
@@ -96,25 +95,17 @@ struct SearchFeature {
             case let .searchResponse(.success(response)):
                 state.isLoading = false
                 
-                if let movies = response.results {
-                    state.results = .init(uniqueElements: movies)
-                    
-                    return .send(.setupLikedMovies)
-                } else {
+                guard let movies = response.results else {
                     return .send(.searchResponse(.unknownError))
                 }
+                
+                state.results = .init(uniqueElements: movies)
+                return .none
                 
             case let .searchResponse(.failure(error)):
                 state.isLoading = false
                 
                 customDump(error) // TODO: Handle error
-                return .none
-                
-            case .setupLikedMovies:
-                for index in state.results.indices 
-                where state.likedMovies[id: state.results[index].id] != nil {
-                    state.results[index].isLiked = true
-                }
                 return .none
                 
             case .navigation, .binding:
@@ -141,15 +132,12 @@ struct SearchFeature {
         case .onPreferencesTap:
             return .send(.navigation(.presentPreferences))
             
-        case let .onMovieLike(movie, isLiked):
-            state.results[id: movie.id]?.isLiked = isLiked
-            
-            if isLiked {
-                state.likedMovies.append(movie)
-            } else {
+        case let .onMovieLike(movie):            
+            if state.likedMovies.contains(movie) {
                 state.likedMovies.remove(movie)
+            } else {
+                state.likedMovies.append(movie)
             }
-            
             return .none
         }
     }
