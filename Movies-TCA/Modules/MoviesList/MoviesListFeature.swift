@@ -42,7 +42,6 @@ struct MoviesListFeature {
         Reduce { state, action in
             switch action {
             case let .view(viewAction):
-                state.likedMovies.append(<#T##item: Movie##Movie#>)
                 return reduceViewAction(&state, viewAction)
                 
             case .navigation:

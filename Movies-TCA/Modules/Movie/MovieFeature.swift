@@ -21,6 +21,10 @@ struct MovieFeature {
         init(movieDetails: MovieDetails) {
             self.movieDetails = movieDetails
         }
+        
+        var isLiked: Bool {
+            likedMovies.contains(movieDetails.movie)
+        }
     }
     
     enum Action: ViewAction, Equatable {
@@ -29,6 +33,7 @@ struct MovieFeature {
             case onFirstAppear
             case onCloseButtonTap
             case onRelatedMovieTap(Movie)
+            case onMovieLike
         }
         
         @CasePathable
@@ -41,7 +46,6 @@ struct MovieFeature {
         case navigation(Navigation)
         case loadExtendedDetails
         case movieDetailsLoaded(Result<MovieDetails, TmdbError>)
-        case setMovieLike(Bool)
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
@@ -61,24 +65,11 @@ struct MovieFeature {
                 }
                 
             case let .movieDetailsLoaded(.success(response)):
-                let isLiked = state.movieDetails.movie.isLiked
                 state.movieDetails = response
-                state.movieDetails.movie.isLiked = isLiked
                 return .none
                 
             case let .movieDetailsLoaded(.failure(error)):
                 customDump(error) // TODO: Handle error
-                return .none
-                
-            case let .setMovieLike(newValue):
-                state.movieDetails.movie.isLiked = newValue
-                
-                if newValue {
-                    state.likedMovies.append(state.movieDetails.movie)
-                } else {
-                    state.likedMovies.remove(state.movieDetails.movie)
-                }
-                
                 return .none
                 
             case .navigation:
@@ -97,6 +88,16 @@ struct MovieFeature {
             
         case let .onRelatedMovieTap(movie):
             return .send(.navigation(.pushRelatedMovie(movie)))
+            
+        case .onMovieLike:
+            let movie = state.movieDetails.movie
+            
+            if state.likedMovies.contains(movie) {
+                state.likedMovies.remove(movie)
+            } else {
+                state.likedMovies.append(movie)
+            }
+            return .none
         }
     }
 }
