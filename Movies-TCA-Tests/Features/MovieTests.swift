@@ -26,37 +26,42 @@ final class MovieTests: XCTestCase {
             return
         }
         
-        await store.send(.loadExtendedDetails)
+        await store.send(\.loadExtendedDetails)
         
         // Success result
-        await store.receive(.movieDetailsLoaded(movieDetailsResult)) { state in
+        await store.receive(\.movieDetailsLoaded, movieDetailsResult) { state in
             state.movieDetails = response
         }
         
         // Failure result
-        await store.send(.movieDetailsLoaded(.unknownError))
+        await store.send(\.movieDetailsLoaded, .unknownError)
     }
     
     // MARK: - View Actions
     
     func testOnFirstAppear() async {
-        await store.send(.view(.onFirstAppear))
+        await store.send(\.view.onFirstAppear)
         await store.receive(\.loadExtendedDetails)
     }
     
     func testOnCloseButtonTap() async {
-        await store.send(.view(.onCloseButtonTap))
+        await store.send(\.view.onCloseButtonTap)
         await store.receive(.navigation(.dismissFlow))
     }
     
     func testOnRelatedMovieTap() async {
         let mockMovie = Movie.mock
-        await store.send(.view(.onRelatedMovieTap(mockMovie)))
-        await store.receive(.navigation(.pushRelatedMovie(mockMovie)))
+        await store.send(\.view.onRelatedMovieTap, mockMovie)
+        await store.receive(\.navigation.pushRelatedMovie, mockMovie)
     }
     
     func testOnLikeTap() async {
-        let mockMovie = Movie.mock
-        await store.send(.view(.onLikeTap(mockMovie)))
+        await store.send(.view(.onLikeTap)) { state in
+            state.likedMovies.append(state.movieDetails.movie)
+        }
+        
+        await store.send(.view(.onLikeTap)) { state in
+            state.likedMovies.remove(state.movieDetails.movie)
+        }
     }
 }

@@ -21,24 +21,24 @@ final class SplashTests: XCTestCase {
         // Success result
         let genresResult = await store.dependencies.tmdbClient.fetchGenres()
         
-        await store.send(.loadGenres)
+        await store.send(\.loadGenres)
         await store.receive(\.genresResponse, genresResult)
-        await store.receive(.navigation(.splashCompleted))
+        await store.receive(\.navigation.splashCompleted)
         
         // TODO: Make sure genres are saved to the shared state
         
         // Bad response
-        await store.send(.genresResponse(.success(GenresResponse(genres: nil))))
+        await store.send(\.genresResponse, .success(GenresResponse(genres: nil)))
         await store.receive(\.genresResponse, .unknownError)
         
         // Failure result
-        await store.send(.genresResponse(.unknownError))
+        await store.send(\.genresResponse, .unknownError)
     }
     
     // MARK: - View Actions
     
     func testOnAppear() async {
-        await store.send(.view(.onAppear))
+        await store.send(\.view.onAppear)
         await store.receive(\.loadGenres)
     }
 }

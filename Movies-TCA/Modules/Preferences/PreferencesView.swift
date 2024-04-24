@@ -72,7 +72,7 @@ extension PreferencesView {
                 systemImage: appeanceImage,
                 selection: $store.appearance.rawValue.sending(\.onAppearanceChange),
                 content: {
-                    ForEach(Preferences.Appearance.allCases.map { $0.rawValue }, id: \.self) {
+                    ForEach(Constants.Appearance.allCases.map { $0.rawValue }, id: \.self) {
                         Text(LocalizedStringKey($0))
                     }
                 }

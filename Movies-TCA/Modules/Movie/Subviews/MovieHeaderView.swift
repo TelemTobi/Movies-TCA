@@ -36,7 +36,10 @@ extension MovieView {
                     Spacer()
                     
                     LikeButton(
-                        isLiked: $store.movieDetails.movie.isLiked.sending(\.setMovieLike)
+                        isLiked: .init(
+                            get: { store.isLiked },
+                            set: { _ in send(.onLikeTap) }
+                        )
                     )
                     .padding(.vertical, 6)
                 }

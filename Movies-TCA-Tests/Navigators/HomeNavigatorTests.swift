@@ -18,11 +18,11 @@ final class HomeNavigatorTests: XCTestCase {
     )
     
     func testOnTabSelection() async {
-        await store.send(.onTabSelection(.search)) { state in
+        await store.send(\.onTabSelection, .search) { state in
             state.selectedTab = .search
         }
         
-        await store.send(.onTabSelection(.watchlist)) { state in
+        await store.send(\.onTabSelection, .watchlist) { state in
             state.selectedTab = .watchlist
         }
     }

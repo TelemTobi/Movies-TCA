@@ -25,7 +25,7 @@ extension Date {
         Calendar.current.component(.year, from: self)
     }
     
-    func description(withFormat format: DateFormat, language: Preferences.Language = .current) -> String {
+    func description(withFormat format: DateFormat, language: Constants.Language = .current) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format.rawValue
         dateFormatter.locale = language.locale

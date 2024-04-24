@@ -30,7 +30,6 @@ extension RootNavigator {
                 }
             }
             .animation(.easeInOut, value: store.destination)
-            .adjustPreferredAppearance()
         }
     }
 }

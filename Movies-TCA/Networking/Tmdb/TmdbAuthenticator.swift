@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import Dependencies
+import ComposableArchitecture
 
 struct TmdbAuthenticator: Authenticating {
     
-    @Dependency(\.preferences) var preferences
+    @Shared(.adultContent) var isAdultContentOn = false
     
     var authState: AuthState {
         // TODO: Check network connection
@@ -24,7 +24,7 @@ struct TmdbAuthenticator: Authenticating {
     func mapRequest(_ request: inout URLRequest) {
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         request.setValue(Config.TmdbApi.accessToken, forHTTPHeaderField: "Authorization")
-        request.url?.append(queryItems: [URLQueryItem(name: "language", value: Preferences.Language.current.rawValue)])
-        request.url?.append(queryItems: [URLQueryItem(name: "include_adult", value: preferences.getIsAdultContentOn().description)])
+        request.url?.append(queryItems: [URLQueryItem(name: "language", value: Constants.Language.current.rawValue)])
+        request.url?.append(queryItems: [URLQueryItem(name: "include_adult", value: isAdultContentOn.description)])
     }
 }

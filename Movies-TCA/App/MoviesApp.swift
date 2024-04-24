@@ -12,8 +12,6 @@ import ComposableArchitecture
 @main
 struct MoviesApp: App {
     
-    @Dependency(\.database) var database
-    
     var body: some Scene {
         WindowGroup {
             RootNavigator.ContentView(
@@ -22,7 +20,7 @@ struct MoviesApp: App {
                     reducer: RootNavigator.init
                 )
             )
-            .modelContext(database.getContext())
+            .adjustPreferredAppearance()
         }
     }
 }

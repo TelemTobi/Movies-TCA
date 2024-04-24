@@ -24,7 +24,19 @@ final class MoviesListTests: XCTestCase {
     
     func testOnMovieTap() async {
         let mockMovie = Movie.mock
-        await store.send(.view(.onMovieTap(mockMovie)))
-        await store.receive(.navigation(.presentMovie(mockMovie)))
+        await store.send(\.view.onMovieTap, mockMovie)
+        await store.receive(\.navigation.presentMovie, mockMovie)
+    }
+    
+    func testOnMovieLike() async {
+        let mockMovie: Movie = .mock
+        
+        await store.send(.view(.onMovieLike(mockMovie))) { state in
+            state.likedMovies.append(mockMovie)
+        }
+        
+        await store.send(.view(.onMovieLike(mockMovie))) { state in
+            state.likedMovies.remove(mockMovie)
+        }
     }
 }

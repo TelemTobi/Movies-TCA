@@ -15,18 +15,28 @@ struct MovieFeature {
     struct State: Equatable {
         var movieDetails: MovieDetails
         
+        @Shared(.likedMovies) 
+        var likedMovies: IdentifiedArrayOf<Movie> = []
+        
         init(movieDetails: MovieDetails) {
             self.movieDetails = movieDetails
+        }
+        
+        var isLiked: Bool {
+            likedMovies.contains(movieDetails.movie)
         }
     }
     
     enum Action: ViewAction, Equatable {
+        @CasePathable
         enum View: Equatable {
             case onFirstAppear
             case onCloseButtonTap
             case onRelatedMovieTap(Movie)
+            case onLikeTap
         }
         
+        @CasePathable
         enum Navigation: Equatable {
             case pushRelatedMovie(Movie)
             case dismissFlow
@@ -36,11 +46,9 @@ struct MovieFeature {
         case navigation(Navigation)
         case loadExtendedDetails
         case movieDetailsLoaded(Result<MovieDetails, TmdbError>)
-        case setMovieLike(Bool)
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
-    @Dependency(\.database) var database
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -57,18 +65,11 @@ struct MovieFeature {
                 }
                 
             case let .movieDetailsLoaded(.success(response)):
-                let isLiked = state.movieDetails.movie.isLiked
                 state.movieDetails = response
-                state.movieDetails.movie.isLiked = isLiked
                 return .none
                 
             case let .movieDetailsLoaded(.failure(error)):
                 customDump(error) // TODO: Handle error
-                return .none
-                
-            case let .setMovieLike(newValue):
-                state.movieDetails.movie.isLiked = newValue
-                try? database.setMovieLike(state.movieDetails.movie)
                 return .none
                 
             case .navigation:
@@ -87,6 +88,16 @@ struct MovieFeature {
             
         case let .onRelatedMovieTap(movie):
             return .send(.navigation(.pushRelatedMovie(movie)))
+            
+        case .onLikeTap:
+            let movie = state.movieDetails.movie
+            
+            if state.likedMovies.contains(movie) {
+                state.likedMovies.remove(movie)
+            } else {
+                state.likedMovies.append(movie)
+            }
+            return .none
         }
     }
 }

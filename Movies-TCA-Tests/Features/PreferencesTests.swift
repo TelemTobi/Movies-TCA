@@ -18,13 +18,13 @@ final class PreferencesTests: XCTestCase {
     )
     
     func testOnAdultContentToggle() async {
-        await store.send(.onAdultContentToggle(true)) { state in
+        await store.send(\.onAdultContentToggle, true) { state in
             state.isAdultContentOn = true
         }
     }
     
     func testOnAppearanceChange() async {
-        await store.send(.onAppearanceChange("Dark")) { state in
+        await store.send(\.onAppearanceChange, "Dark") { state in
             state.appearance = .dark
         }
     }
@@ -32,10 +32,10 @@ final class PreferencesTests: XCTestCase {
     // MARK: - View Actions
     
     func testOnCloseButtonTap() async {
-        await store.send(.view(.onCloseButtonTap))
+        await store.send(\.view.onCloseButtonTap)
     }
     
     func testOnLanguageTap() async {
-        await store.send(.view(.onLanguageTap))
+        await store.send(\.view.onLanguageTap)
     }
 }

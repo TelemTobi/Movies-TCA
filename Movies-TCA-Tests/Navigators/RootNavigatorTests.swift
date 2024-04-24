@@ -18,7 +18,7 @@ final class RootNavigatorTests: XCTestCase {
     )
     
     func testSplashCompleted() async {
-        await store.send(.destination(.splash(.navigation(.splashCompleted)))) { state in
+        await store.send(\.destination.splash.navigation.splashCompleted) { state in
             state.destination = .home(HomeNavigator.State())
         }
     }

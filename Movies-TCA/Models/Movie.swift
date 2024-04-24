@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Movie: Decodable, Equatable, Identifiable {
+struct Movie: Codable, Equatable, Identifiable {
     
     let id: Int
     var adult: Bool?
@@ -32,8 +32,6 @@ struct Movie: Decodable, Equatable, Identifiable {
     var video: Bool?
     var voteAverage: Float?
     var voteCount: Int?
-    
-    var isLiked: Bool = false
     
     enum CodingKeys: String, CodingKey {
         case id

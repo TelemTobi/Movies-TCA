@@ -15,14 +15,19 @@ struct MoviesListFeature {
     struct State: Equatable {
         var listType: MoviesListType?
         var movies: IdentifiedArrayOf<Movie> = []
+        
+        @Shared(.likedMovies)
+        var likedMovies: IdentifiedArrayOf<Movie> = []
     }
     
     enum Action: ViewAction, Equatable {
+        @CasePathable
         enum View: Equatable {
             case onMovieTap(Movie)
-            case onMovieLike(Movie, Bool)
+            case onMovieLike(Movie)
         }
         
+        @CasePathable
         enum Navigation: Equatable {
             case presentMovie(Movie)
         }
@@ -32,7 +37,6 @@ struct MoviesListFeature {
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
-    @Dependency(\.database) var database
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -51,9 +55,12 @@ struct MoviesListFeature {
         case let .onMovieTap(movie):
             return .send(.navigation(.presentMovie(movie)))
             
-        case let .onMovieLike(movie, isLiked):
-            state.movies[id: movie.id]?.isLiked = isLiked
-            try? database.setMovieLike(movie)
+        case let .onMovieLike(movie):
+            if state.likedMovies.contains(movie) {
+                state.likedMovies.remove(movie)
+            } else {
+                state.likedMovies.append(movie)
+            }
             return .none
         }
     }

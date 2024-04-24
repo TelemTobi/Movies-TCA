@@ -14,17 +14,12 @@ struct PreferencesFeature {
     
     @ObservableState
     struct State: Equatable {
-        var isAdultContentOn: Bool
-        var appearance: Preferences.Appearance
-        
-        init() {
-            @Dependency(\.preferences) var preferences
-            isAdultContentOn = preferences.getIsAdultContentOn()
-            appearance = preferences.getAppearance()
-        }
+        @Shared(.adultContent) var isAdultContentOn = false
+        @Shared(.appearance) var appearance = .system
     }
     
     enum Action: ViewAction, Equatable {
+        @CasePathable
         enum View: Equatable {
             case onLanguageTap
             case onCloseButtonTap
@@ -37,7 +32,6 @@ struct PreferencesFeature {
     
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.isPresented) var isPresented
-    @Dependency(\.preferences) var preferences
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -45,15 +39,12 @@ struct PreferencesFeature {
             case let .view(viewAction):
                 return reduceViewAction(&state, viewAction)
                 
-            case let .onAdultContentToggle(isOn):
-                preferences.setIsAdultContentOn(isOn)
-                state.isAdultContentOn = isOn
+            case let .onAdultContentToggle(newValue):
+                state.isAdultContentOn = newValue
                 return .none
                 
-            case let .onAppearanceChange(appearance):
-                let newAppearance = Preferences.Appearance(rawValue: appearance) ?? .system
-                preferences.setAppearance(newAppearance)
-                state.appearance = newAppearance
+            case let .onAppearanceChange(newValue):
+                state.appearance = Constants.Appearance(rawValue: newValue) ?? .system
                 
                 return .run { _ in
                     guard isPresented else { return }

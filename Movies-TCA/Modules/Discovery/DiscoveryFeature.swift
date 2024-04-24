@@ -16,9 +16,13 @@ struct DiscoveryFeature {
     struct State: Equatable {
         var isLoading = true
         var movies: [MoviesListType: IdentifiedArrayOf<Movie>] = [:]
+        
+        @Shared(.likedMovies)
+        var likedMovies: IdentifiedArrayOf<Movie> = []
     }
     
     enum Action: ViewAction, Equatable {
+        @CasePathable
         enum View: Equatable {
             case onFirstAppear
             case onPreferencesTap
@@ -27,6 +31,7 @@ struct DiscoveryFeature {
             case onMoviesListTap(MoviesListType, IdentifiedArrayOf<Movie>)
         }
         
+        @CasePathable
         enum Navigation: Equatable {
             case presentMovie(Movie)
             case presentPreferences
@@ -38,11 +43,9 @@ struct DiscoveryFeature {
         case loadMovies
         case moviesListLoaded(MoviesListType, Result<MoviesList, TmdbError>)
         case loadingCompleted
-        case setLikedMovies([LikedMovie])
     }
     
     @Dependency(\.tmdbClient) var tmdbClient
-    @Dependency(\.database) var database
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -81,19 +84,6 @@ struct DiscoveryFeature {
                 
             case .loadingCompleted:
                 state.isLoading = false
-
-                let likedMovies = try? database.getLikedMovies()
-                return .send(.setLikedMovies(likedMovies ?? []))
-                
-            case let .setLikedMovies(likedMovies):
-                let likedMovies = IdentifiedArray(uniqueElements: likedMovies)
-                
-                for listType in state.movies.keys {
-                    for index in state.movies[listType]!.indices
-                    where likedMovies[id: state.movies[listType]![index].id] != nil {
-                        state.movies[listType]![index].isLiked = true
-                    }
-                }
                 return .none
                 
             case .navigation:
@@ -117,10 +107,11 @@ struct DiscoveryFeature {
             return .send(.navigation(.pushMoviesList(listType, movies)))
             
         case let .onMovieLike(movie):
-            for listType in state.movies.keys {
-                state.movies[listType]?[id: movie.id]?.isLiked.toggle()
+            if state.likedMovies.contains(movie) {
+                state.likedMovies.remove(movie)
+            } else {
+                state.likedMovies.append(movie)
             }
-            try? database.setMovieLike(movie)
             return .none
         }
     }
