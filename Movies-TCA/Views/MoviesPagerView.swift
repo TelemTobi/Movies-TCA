@@ -90,6 +90,7 @@ struct MoviesPagerView: View {
                 Text(movie.title ?? "")
                     .font(.title2.bold())
                     .foregroundStyle(.white)
+                    .multilineTextAlignment(.leading)
                 
                 if let overview = movie.overview {
                     Text(overview)
