@@ -14,8 +14,8 @@ final class PublisherObservableObject: ObservableObject {
     
     init(publisher: AnyPublisher<Void, Never>) {
         subscriber = publisher
-            .sink(receiveValue: { [weak self] _ in
+            .sink { [weak self] _ in
                 self?.objectWillChange.send()
-            })
+            }
     }
 }
