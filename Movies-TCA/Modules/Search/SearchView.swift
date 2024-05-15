@@ -55,7 +55,7 @@ struct SearchView: View {
                         .listRowInsets(.zero)
                     
                 } else {
-                    SuggestionsView(genres: store.genres.elements)
+                    SuggestionsView()
                         .listRowSeparator(.hidden)
                 }
             }
@@ -68,13 +68,13 @@ struct SearchView: View {
     
     @MainActor
     @ViewBuilder
-    private func SuggestionsView(genres: [Genre]) -> some View {
-        let delays = Array(0..<genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()
+    private func SuggestionsView() -> some View {
+        let delays = Array(0..<store.genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()
         
-        TagCloudsView(tags: genres.compactMap(\.name)) { index, genre in
+        TagCloudsView(tags: store.genres.compactMap(\.name)) { index, genre in
             Button(
                 action: {
-                    send(.onGenreTap(genres[index]))
+                    send(.onGenreTap(store.genres[index]))
                 },
                 label: {
                     Text(genre)

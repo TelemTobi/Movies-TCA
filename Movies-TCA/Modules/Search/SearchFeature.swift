@@ -15,20 +15,14 @@ struct SearchFeature {
     @ObservableState
     struct State: Equatable {
         var isLoading = false
-        var genres: IdentifiedArrayOf<Genre> = []
         var results: IdentifiedArrayOf<Movie> = []
         var searchInput: String = .empty
-        
-        @Shared(.likedMovies)
-        var likedMovies: IdentifiedArrayOf<Movie> = []
+
+        @Shared(.genres) var genres = []
+        @Shared(.likedMovies) var likedMovies: IdentifiedArrayOf<Movie> = []
         
         var isSearchActive: Bool {
             searchInput.count >= 2
-        }
-        
-        init() {
-            @Dependency(\.appData) var appData // TODO: UseCase
-            self.genres = .init(uniqueElements: appData.genres)
         }
     }
     
@@ -81,13 +75,13 @@ struct SearchFeature {
             case let .searchMovies(query):
                 if let genre = state.genres.first(where: { $0.name == query}) {
                     return .run { send in
-                        let discoverResult = await tmdbClient.discoverMovies(genre.id)
+                        let discoverResult = await tmdbClient.discoverMovies(by: genre.id)
                         await send(.searchResponse(discoverResult))
                     }
                     
                 } else {
                     return .run { send in
-                        let searchResult = await tmdbClient.searchMovies(query)
+                        let searchResult = await tmdbClient.searchMovies(query: query)
                         await send(.searchResponse(searchResult))
                     }
                 }
