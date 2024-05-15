@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TmdbClient {
+struct TmdbClient: Sendable {
     
     private let authenticator: Authenticating
     private let networkManager: NetworkManager<TmdbEndpoint, TmdbError>
@@ -17,27 +17,22 @@ struct TmdbClient {
         networkManager = NetworkManager(authenticator: authenticator, environment: environment)
     }
     
-    @Sendable
     func fetchGenres() async -> Result<GenresResponse, TmdbError> {
         await networkManager.request(.listGenres)
     }
     
-    @Sendable
     func fetchMovies(ofType type: MoviesListType) async -> Result<MoviesList, TmdbError> {
         await networkManager.request(.listMovies(type: type))
     }
     
-    @Sendable
     func searchMovies(query: String) async -> Result<MoviesList, TmdbError> {
         await networkManager.request(.searchMovies(query: query))
     }
     
-    @Sendable
     func discoverMovies(by genreId: Int) async -> Result<MoviesList, TmdbError> {
         await networkManager.request(.discoverMovies(genreId: genreId))
     }
     
-    @Sendable
     func movieDetails(for movieId: Int) async -> Result<MovieDetails, TmdbError> {
         await networkManager.request(.movieDetails(id: movieId))
     }

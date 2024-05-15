@@ -57,10 +57,10 @@ struct DiscoveryFeature {
                 state.isLoading = true
                 
                 return .run { send in
-                    async let nowPlayingResult = tmdbClient.fetchMovies(.nowPlaying)
-                    async let popularResult = tmdbClient.fetchMovies(.popular)
-                    async let upcomingResult = tmdbClient.fetchMovies(.upcoming)
-                    async let topRatedResult = tmdbClient.fetchMovies(.topRated)
+                    async let nowPlayingResult = tmdbClient.fetchMovies(ofType: .nowPlaying)
+                    async let popularResult = tmdbClient.fetchMovies(ofType: .popular)
+                    async let upcomingResult = tmdbClient.fetchMovies(ofType: .upcoming)
+                    async let topRatedResult = tmdbClient.fetchMovies(ofType: .topRated)
 
                     await send(.moviesListLoaded(.nowPlaying, nowPlayingResult))
                     await send(.moviesListLoaded(.popular, popularResult))
