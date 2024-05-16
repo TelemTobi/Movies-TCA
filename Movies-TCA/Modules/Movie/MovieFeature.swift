@@ -60,7 +60,7 @@ struct MovieFeature {
                 let movieId = state.movieDetails.movie.id
                 
                 return .run { send in
-                    let result = await tmdbClient.movieDetails(movieId)
+                    let result = await tmdbClient.movieDetails(for: movieId)
                     await send(.movieDetailsLoaded(result))
                 }
                 

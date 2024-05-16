@@ -8,6 +8,10 @@
 import Foundation
 import ComposableArchitecture
 
+extension PersistenceKey where Self == InMemoryKey<[Genre]> {
+    static var genres: Self { .inMemory("genres") }
+}
+
 extension PersistenceKey where Self == AppStorageKey<Constants.Appearance> {
     static var appearance: Self { .appStorage("appearance") }
 }

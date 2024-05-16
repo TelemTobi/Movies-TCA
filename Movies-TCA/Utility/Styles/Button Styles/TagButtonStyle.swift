@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TagButtonStyle: ButtonStyle {
+struct CapsuledButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -21,3 +21,6 @@ struct TagButtonStyle: ButtonStyle {
     }
 }
 
+extension ButtonStyle where Self == CapsuledButtonStyle {
+    static var capsuled: Self { CapsuledButtonStyle() }
+}

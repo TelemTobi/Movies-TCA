@@ -11,7 +11,7 @@ enum AuthState {
     case reachable, notReachable, notLoggedIn
 }
 
-protocol Authenticating {
+protocol Authenticating: Sendable {
 
     var authState: AuthState { get }
 

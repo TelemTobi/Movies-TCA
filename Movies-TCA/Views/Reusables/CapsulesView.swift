@@ -1,5 +1,5 @@
 //
-//  TagCloudsView.swift
+//  CapsulesView.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 28/11/2023.
@@ -7,65 +7,69 @@
 
 import SwiftUI
 
-struct TagCloudsView<Content: View>: View {
+struct CapsulesView<Content, T>: View where Content : View, T : Hashable {
     
-    var tags: [String]
-    var item: (Int, String) -> Content
+    var items: Array<T>
+    var contentForItem: (Int, T) -> Content
 
     @State private var totalHeight: CGFloat
           = .zero       // << variant for ScrollView/List
     //    = .infinity   // << variant for VStack
-
-    init(tags: [String], @ViewBuilder item: @escaping (Int, String) -> Content) {
-        self.tags = tags
-        self.item = item
-    }
     
     var body: some View {
         VStack {
             GeometryReader { geometry in
-                self.generateContent(in: geometry)
+                generateContent(in: geometry)
             }
         }
         .frame(height: totalHeight)// << variant for ScrollView/List
         //.frame(maxHeight: totalHeight) // << variant for VStack
     }
 
-    private func generateContent(in g: GeometryProxy) -> some View {
+    @MainActor
+    @ViewBuilder
+    private func generateContent(in geometry: GeometryProxy) -> some View {
         var width = CGFloat.zero
         var height = CGFloat.zero
 
-        return ZStack(alignment: .topLeading) {
-            ForEach(Array(tags.enumerated()), id: \.element) { index, tag in
-                self.item(index, tag)
+        ZStack(alignment: .topLeading) {
+            ForEach(Array(items.enumerated()), id: \.element) { index, item in
+                contentForItem(index, item)
                     .padding(.vertical, 6)
                     .padding(.trailing, 8)
-                    .alignmentGuide(.leading, computeValue: { d in
-                        if (abs(width - d.width) > g.size.width) {
+                    .alignmentGuide(.leading) { dimension in
+                        if abs(width - dimension.width) > geometry.size.width {
                             width = 0
-                            height -= d.height
+                            height -= dimension.height
                         }
+                        
                         let result = width
-                        if tag == self.tags.last {
-                            width = 0 //last item
+                        
+                        if item == self.items.last {
+                            width = 0
                         } else {
-                            width -= d.width
+                            width -= dimension.width
                         }
+                        
                         return result
-                    })
-                    .alignmentGuide(.top, computeValue: {d in
+                    }
+                    .alignmentGuide(.top) { dimension in
                         let result = height
-                        if tag == self.tags.last {
-                            height = 0 // last item
+                        
+                        if item == items.last {
+                            height = 0
                         }
+                        
                         return result
-                    })
+                    }
             }
-        }.background(viewHeightReader($totalHeight))
+        }
+        .background(viewHeightReader($totalHeight))
     }
 
+    @MainActor
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
-        return GeometryReader { geometry -> Color in
+        GeometryReader { geometry -> Color in
             let rect = geometry.frame(in: .local)
             DispatchQueue.main.async {
                 binding.wrappedValue = rect.size.height

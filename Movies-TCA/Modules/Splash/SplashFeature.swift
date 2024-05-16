@@ -13,7 +13,7 @@ struct SplashFeature {
     
     @ObservableState
     struct State: Equatable {
-        
+        @Shared(.genres) var genres = []
     }
     
     enum Action: ViewAction, Equatable {
@@ -33,7 +33,6 @@ struct SplashFeature {
         case genresResponse(Result<GenresResponse, TmdbError>)
     }
     
-    @Dependency(\.appData) var appData
     @Dependency(\.tmdbClient) var tmdbClient
     
     var body: some ReducerOf<Self> {
@@ -53,7 +52,7 @@ struct SplashFeature {
                     return .send(.genresResponse(.unknownError))
                 }
                 
-                appData.genres = genres
+                state.genres = genres
                 return .send(.navigation(.splashCompleted))
                 
             case let .genresResponse(.failure(error)):
