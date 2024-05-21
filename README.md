@@ -35,13 +35,13 @@ This project explores the concepts behind "The Composable Architecture" (TCA) us
 
 The project is organized with a focus on modularity and separation of concerns:
 
-* **App:** Contains the main application entry point (`MoviesApp.swift`).
-* **Models:** Contains data models representing movie information.
-* **Navigators:** Dedicated TCA features for handling navigation actions. This keeps each module's features isolated from navigation concerns.
-* **Modules:** Houses individual TCA features representing specific parts of the application. Each module encapsulates its own state, actions, and reducer. 
-* **Networking:** Handles network requests and API interactions with TMDB. Consider referring to the companion package, [Flux](https://github.com/TelemTobi/Flux), for more details on networking implementation and usage.
-* **Support:** Configuration files, localization resources, and other supporting assets.
-* **Utility:** Contains constants, custom dependencies, extensions, modifiers, protocols, and UI component styles. 
-* **Views:** Reusable SwiftUI views that represent the application's user interface.
+* **App:** Contains the main application entry point (`MoviesApp.swift`).<br/><br/>
+* **Models:** Contains data models representing movie information.<br/><br/>
+* **Navigators:** Dedicated TCA features for handling navigation actions. This keeps each module's features isolated from navigation concerns.<br/><br/>
+* **Modules:** Houses individual TCA features representing specific parts of the application. Each module encapsulates its own state, actions, and reducer.<br/><br/>
+* **Networking:** Handles network requests and API interactions with TMDB. Consider referring to the companion package, [Flux](https://github.com/TelemTobi/Flux), for more details on networking implementation and usage.<br/><br/>
+* **Support:** Configuration files, localization resources, and other supporting assets.<br/><br/>
+* **Utility:** Contains constants, custom dependencies, extensions, modifiers, protocols, and UI component styles.<br/><br/>
+* **Views:** Reusable SwiftUI views that represent the application's user interface.<br/><br/>
 
 **Note:** This project is intended for educational purposes and demonstrates the usage of TCA. It might not be feature-complete and may require further development for a production-ready application.
