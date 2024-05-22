@@ -2,6 +2,12 @@
 
 This project explores the concepts behind "The Composable Architecture" (TCA) using The Movie Database (TMDB) API. The focus is on building a modular and predictable application architecture for iOS development.
 
+<p>
+  <img height="500" src="Movies-TCA/Support/Resources/Preview Content/Preview Assets.xcassets/screenshot_1.imageset/screenshot_1.png">
+  <img height="500" src="Movies-TCA/Support/Resources/Preview Content/Preview Assets.xcassets/screenshot_2.imageset/screenshot_2.png">
+  <img height="500" src="Movies-TCA/Support/Resources/Preview Content/Preview Assets.xcassets/screenshot_3.imageset/screenshot_3.png">
+</p>
+
 ### The Composable Architecture (TCA)
 
 [The Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture) is a unidirectional and state management framework for iOS development. It emphasizes building applications from small, reusable, and testable pieces. TCA applications are built around a central state type, an action type that describes user interactions and events, and a reducer function that updates the state based on dispatched actions. This architecture promotes modularity, maintainability, and easier testing of your application logic.
