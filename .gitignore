@@ -1,2 +1,4 @@
-
-Movies-TCA.xcodeproj/xcuserdata/telem.xcuserdatad/xcschemes/xcschememanagement.plist
+.DS_Store
+DerivedData/
+*.xcuserstate
+*.xcworkspace
