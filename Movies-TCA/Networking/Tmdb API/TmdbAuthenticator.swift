@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import Flux
 import ComposableArchitecture
 
-struct TmdbAuthenticator: Authenticating {
+struct TmdbAuthenticator: Authenticator {
     
     @Shared(.adultContent) var isAdultContentOn = false
     
-    var authState: AuthState {
+    var state: AuthenticationState {
         // TODO: Check network connection
         return .reachable
     }

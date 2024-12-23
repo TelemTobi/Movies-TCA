@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GenresResponse: Decodable, JsonResolver, Equatable {
+struct GenresResponse: Decodable, Equatable {
     let genres: [Genre]?
 }
 

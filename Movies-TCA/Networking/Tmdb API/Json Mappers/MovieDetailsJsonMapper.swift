@@ -1,17 +1,18 @@
 //
-//  MovieDetailsJsonResolver.swift
+//  MovieDetailsJsonMapper.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 14/12/2023.
 //
 
 import Foundation
+import Flux
 
-protocol MovieDetailsJsonResolver: JsonResolver {}
+protocol MovieDetailsJsonMapper: JsonMapper {}
 
-extension MovieDetailsJsonResolver {
+extension MovieDetailsJsonMapper {
     
-    static func resolve(_ data: Data) throws -> Data {
+    static func map(_ data: Data) throws -> Data {
         guard var jsonDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return data }
         
         jsonDictionary["movie"] = jsonDictionary

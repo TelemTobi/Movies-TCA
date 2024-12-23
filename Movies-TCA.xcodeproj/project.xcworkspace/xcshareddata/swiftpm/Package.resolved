@@ -1,5 +1,5 @@
 {
-  "originHash" : "3532fcb1a50c2939a951cb5e000f037bc643e730939ef97ad35c5b0a9e634d57",
+  "originHash" : "f9abc9247029628e2f5ccd6eae5fe529873a0113b3e14e49108b4c622ce3bd46",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TelemTobi/Flux.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "af90a7fdf15e3addf483f09de68aa3d3cbc187b7"
+        "branch" : "public_api_updates",
+        "revision" : "9b8aabda24be001c677e23d82457611bc93d86c0"
       }
     },
     {

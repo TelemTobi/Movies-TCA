@@ -10,8 +10,7 @@ import Foundation
 extension Movie {
     
     static var mock: Movie {
-        let movie = try? MoviesList.self
-            .resolve(Mock.nowPlayingMovies.dataEncoded)
+        let movie = try? Mock.nowPlayingMovies.dataEncoded
             .parse(type: MoviesList.self, using: .tmdbDateDecodingStrategy)
             .results?.randomElement()
         

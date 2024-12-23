@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import Flux
 
-extension Result where Failure : Errorable {
+extension Result where Failure : DecodableError {
     
     static var unknownError: Result<Success, Failure> {
-        .failure(Failure(.unknownError))
+        .failure(Failure(.unknownError("Unknown error")))
     }
 }

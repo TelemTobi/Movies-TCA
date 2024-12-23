@@ -6,23 +6,20 @@
 //
 
 import Foundation
+import Flux
 
-struct TmdbError: Errorable, Equatable {
+struct TmdbError: DecodableError, Equatable {
     
     let statusCode: Int?
     let developerMessage: String?
-    
-    var debugDescription: String {
-        developerMessage ?? PredefinedError.unknownError.debugDescription
-    }
     
     enum CodingKeys: String, CodingKey {
         case statusCode = "status_code"
         case developerMessage = "status_message"
     }
     
-    init(_ errorType: PredefinedError) {
-        statusCode = -1
-        developerMessage = errorType.debugDescription
+    init(_ type: Flux.Error) {
+        self.statusCode = -1
+        self.developerMessage = type.debugDescription
     }
 }

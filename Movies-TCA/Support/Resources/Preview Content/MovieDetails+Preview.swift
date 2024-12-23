@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import Flux
 
 extension MovieDetails {
     
     static var mock: MovieDetails {
         let movie = try? MovieDetails.self
-            .resolve(Mock.movieDetails.dataEncoded)
+            .map(Mock.movieDetails.dataEncoded)
             .parse(type: MovieDetails.self, using: .tmdbDateDecodingStrategy)
         
         guard let movie else {
