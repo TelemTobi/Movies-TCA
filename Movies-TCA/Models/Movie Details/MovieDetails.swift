@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MovieDetails: Decodable, Equatable, MovieDetailsJsonResolver {
+struct MovieDetails: Decodable, Equatable, MovieDetailsJsonMapper {
     var movie: Movie
     var credits: Credits?
     var relatedMovies: MoviesList?

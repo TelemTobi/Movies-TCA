@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MoviesList: Decodable, JsonResolver, Equatable {
+struct MoviesList: Decodable, Equatable {
     
     let results: [Movie]?
     let page: Int?

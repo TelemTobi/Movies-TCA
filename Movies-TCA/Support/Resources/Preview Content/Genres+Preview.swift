@@ -6,12 +6,12 @@
 //
 
 import Foundation
+import Flux
 
 extension GenresResponse {
     
     static var mock: GenresResponse {
-        let response = try? GenresResponse.self
-            .resolve(Mock.listGenres.dataEncoded)
+        let response = try? Mock.listGenres.dataEncoded
             .parse(type: GenresResponse.self)
         
         guard let response else {

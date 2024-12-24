@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Flux
 
 enum TmdbEndpoint {
     case listGenres
@@ -31,7 +32,7 @@ extension TmdbEndpoint: Endpoint {
         }
     }
     
-    var method: HTTPMethod {
+    var method: HttpMethod {
         return switch self {
         case .listGenres: .get
         case .listMovies: .get
@@ -41,23 +42,31 @@ extension TmdbEndpoint: Endpoint {
         }
     }
     
-    var task: HTTPTask {
+    var task: HttpTask {
         return switch self {
         case .listGenres: 
-            .requestPlain
+            .empty
             
         case .listMovies:
-            .requestPlain
+            .empty
             
         case .searchMovies(let query):
-            .requestParameters(["query": query])
+            .withQueryParameters(["query": query])
             
         case .discoverMovies(let genreId):
-            .requestParameters(["with_genres": genreId.description])
+            .withQueryParameters(["with_genres": genreId.description])
             
         case .movieDetails:
-                .requestParameters(["append_to_response": "credits,recommendations,similar"])
+            .withQueryParameters(["append_to_response": "credits,recommendations,similar"])
         }
+    }
+    
+    var keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy {
+        .useDefaultKeys
+    }
+    
+    var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy {
+        .tmdbDateDecodingStrategy
     }
     
     #if DEBUG
@@ -89,12 +98,4 @@ extension TmdbEndpoint: Endpoint {
         }
     }
     #endif
-    
-    var keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy {
-        .useDefaultKeys
-    }
-    
-    var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy {
-        .tmdbDateDecodingStrategy
-    }
 }
