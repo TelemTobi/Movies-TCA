@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TelemTobi/Flux.git",
       "state" : {
-        "branch" : "public_api_updates",
-        "revision" : "9b8aabda24be001c677e23d82457611bc93d86c0"
+        "revision" : "3e2b8b55d322a18ae3bab6bd1071360187da0bed",
+        "version" : "1.0.1"
       }
     },
     {
