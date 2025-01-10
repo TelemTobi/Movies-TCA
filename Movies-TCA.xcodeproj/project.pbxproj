@@ -1356,8 +1356,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TelemTobi/Flux.git";
 			requirement = {
-				branch = public_api_updates;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

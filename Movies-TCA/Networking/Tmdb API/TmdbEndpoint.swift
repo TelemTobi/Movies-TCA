@@ -45,19 +45,19 @@ extension TmdbEndpoint: Endpoint {
     var task: HttpTask {
         return switch self {
         case .listGenres: 
-            .empty
+            .none
             
         case .listMovies:
-            .empty
+            .none
             
         case .searchMovies(let query):
-            .withQueryParameters(["query": query])
+            .queryParameters(["query": query])
             
         case .discoverMovies(let genreId):
-            .withQueryParameters(["with_genres": genreId.description])
+            .queryParameters(["with_genres": genreId.description])
             
         case .movieDetails:
-            .withQueryParameters(["append_to_response": "credits,recommendations,similar"])
+            .queryParameters(["append_to_response": "credits,recommendations,similar"])
         }
     }
     
