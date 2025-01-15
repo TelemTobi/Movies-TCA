@@ -45,7 +45,7 @@ The project is organized with a focus on modularity and separation of concerns:
 * **Models:** Contains data models representing movie information.<br/><br/>
 * **Navigators:** Dedicated TCA features for handling navigation actions. This keeps each module's features isolated from navigation concerns.<br/><br/>
 * **Modules:** Houses individual TCA features representing specific parts of the application. Each module encapsulates its own state, actions, and reducer.<br/><br/>
-* **Networking:** Handles network requests and API interactions with TMDB. Consider referring to the companion package, [Flux](https://github.com/TelemTobi/Flux), for more details on networking implementation and usage.<br/><br/>
+* **Networking:** Handles network requests and API interactions with TMDB. Consider referring to the companion package, [swift-networking](https://github.com/TelemTobi/swift-networking), for more details on networking implementation and usage.<br/><br/>
 * **Support:** Configuration files, localization resources, and other supporting assets.<br/><br/>
 * **Utility:** Contains constants, custom dependencies, extensions, modifiers, protocols, and UI component styles.<br/><br/>
 * **Views:** Reusable SwiftUI views that represent the application's user interface.<br/><br/>
