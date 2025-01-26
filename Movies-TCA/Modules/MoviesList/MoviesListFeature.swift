@@ -57,9 +57,9 @@ struct MoviesListFeature {
             
         case let .onMovieLike(movie):
             if state.likedMovies.contains(movie) {
-                state.likedMovies.remove(movie)
+                state.$likedMovies.withLock { $0.remove(movie) }
             } else {
-                state.likedMovies.append(movie)
+                state.$likedMovies.withLock { $0.append(movie) }
             }
             return .none
         }

@@ -40,11 +40,11 @@ struct PreferencesFeature {
                 return reduceViewAction(&state, viewAction)
                 
             case let .onAdultContentToggle(newValue):
-                state.isAdultContentOn = newValue
+                state.$isAdultContentOn.withLock { $0 = newValue }
                 return .none
                 
             case let .onAppearanceChange(newValue):
-                state.appearance = Constants.Appearance(rawValue: newValue) ?? .system
+                state.$appearance.withLock { $0 =  Constants.Appearance(rawValue: newValue) ?? .system }
                 
                 return .run { _ in
                     guard isPresented else { return }
