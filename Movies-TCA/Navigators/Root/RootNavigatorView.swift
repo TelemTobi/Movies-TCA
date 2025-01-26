@@ -22,7 +22,6 @@ extension RootNavigator {
                         SplashView(store: store)
                     }
                     
-                    
                 case .home:
                     if let store = store.scope(state: \.destination.home, action: \.destination.home) {
                         HomeNavigator.ContentView(store: store)

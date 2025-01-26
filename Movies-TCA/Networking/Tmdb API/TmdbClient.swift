@@ -6,16 +6,16 @@
 //
 
 import Foundation
-import Flux
+import Networking
 
 struct TmdbClient {
     
     private let authenticator: Authenticator
-    private let networkManager: FluxController<TmdbEndpoint, TmdbError>
+    private let networkManager: NetworkingController<TmdbEndpoint, TmdbError>
     
-    init(environment: Flux.Environment = .live) {
+    init(environment: Networking.Environment = .live) {
         authenticator = TmdbAuthenticator()
-        networkManager = FluxController(environment: environment, authenticator: authenticator)
+        networkManager = NetworkingController(environment: environment, authenticator: authenticator)
     }
     
     func fetchGenres() async -> Result<GenresResponse, TmdbError> {

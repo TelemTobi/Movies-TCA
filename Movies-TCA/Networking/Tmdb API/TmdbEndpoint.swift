@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Flux
+import Networking
 
 enum TmdbEndpoint {
     case listGenres

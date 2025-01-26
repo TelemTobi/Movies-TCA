@@ -1,5 +1,5 @@
 {
-  "originHash" : "f9abc9247029628e2f5ccd6eae5fe529873a0113b3e14e49108b4c622ce3bd46",
+  "originHash" : "7432bb9a5b17b2b3e07251ae39fd5054516dd6b378748376b8d34b655acda296",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -8,15 +8,6 @@
       "state" : {
         "revision" : "9dc9cbe4bc45c65164fa653a563d8d8db61b09bb",
         "version" : "1.0.0"
-      }
-    },
-    {
-      "identity" : "flux",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/TelemTobi/Flux.git",
-      "state" : {
-        "revision" : "3e2b8b55d322a18ae3bab6bd1071360187da0bed",
-        "version" : "1.0.1"
       }
     },
     {
@@ -116,6 +107,15 @@
       "state" : {
         "revision" : "d1e45f3e1eee2c9193f5369fa9d70a6ddad635e8",
         "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swift-networking",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/telemtobi/swift-networking.git",
+      "state" : {
+        "revision" : "fc157cc7a62742ddf4f6d47bc87f2e02a4bae71c",
+        "version" : "1.2.0"
       }
     },
     {

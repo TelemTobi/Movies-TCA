@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Flux
+import Networking
 
 extension Result where Failure : DecodableError {
     

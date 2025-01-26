@@ -126,8 +126,8 @@
 		7DE17E0E2B053C4E005F4848 /* TmdbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E0D2B053C4E005F4848 /* TmdbClient.swift */; };
 		7DED6C4D2B61ABA80085C777 /* TruncableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED6C4C2B61ABA80085C777 /* TruncableText.swift */; };
 		7DED6C4F2B61AE5D0085C777 /* ViewSizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED6C4E2B61AE5D0085C777 /* ViewSizeReader.swift */; };
-		7DF292A42D1666E500D65B70 /* Flux in Frameworks */ = {isa = PBXBuildFile; productRef = 7DF292A32D1666E500D65B70 /* Flux */; };
 		7DF88DBF2BD3A4F00030C80F /* PersistenceKey+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF88DBE2BD3A4F00030C80F /* PersistenceKey+Extension.swift */; };
+		7DFDB2CA2D3A58610014B58F /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 7DFDB2C92D3A58610014B58F /* Networking */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -277,8 +277,8 @@
 			files = (
 				7DD570A42B559EF100042F88 /* Pow in Frameworks */,
 				7DDA645C2B0E8ABF008BF425 /* SDWebImageSwiftUI in Frameworks */,
+				7DFDB2CA2D3A58610014B58F /* Networking in Frameworks */,
 				7DE17DC62AFE0325005F4848 /* ComposableArchitecture in Frameworks */,
-				7DF292A42D1666E500D65B70 /* Flux in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -857,7 +857,7 @@
 				7DE17DC52AFE0325005F4848 /* ComposableArchitecture */,
 				7DDA645B2B0E8ABF008BF425 /* SDWebImageSwiftUI */,
 				7DD570A32B559EF100042F88 /* Pow */,
-				7DF292A32D1666E500D65B70 /* Flux */,
+				7DFDB2C92D3A58610014B58F /* Networking */,
 			);
 			productName = "Movies-TCA";
 			productReference = 7DD6D96A2AF943B7004828AB /* Movies-TCA.app */;
@@ -897,7 +897,7 @@
 				7DE17DC42AFE0325005F4848 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				7DDA645A2B0E8ABF008BF425 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				7DD570A22B559EF100042F88 /* XCRemoteSwiftPackageReference "Pow" */,
-				7DF292A22D1666E500D65B70 /* XCRemoteSwiftPackageReference "Flux" */,
+				7DFDB2C82D3A58610014B58F /* XCRemoteSwiftPackageReference "swift-networking" */,
 			);
 			productRefGroup = 7DD6D96B2AF943B7004828AB /* Products */;
 			projectDirPath = "";
@@ -1170,6 +1170,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -1227,6 +1228,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1352,9 +1354,9 @@
 				minimumVersion = 1.10.4;
 			};
 		};
-		7DF292A22D1666E500D65B70 /* XCRemoteSwiftPackageReference "Flux" */ = {
+		7DFDB2C82D3A58610014B58F /* XCRemoteSwiftPackageReference "swift-networking" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/TelemTobi/Flux.git";
+			repositoryURL = "https://github.com/telemtobi/swift-networking.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
@@ -1378,10 +1380,10 @@
 			package = 7DE17DC42AFE0325005F4848 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
 		};
-		7DF292A32D1666E500D65B70 /* Flux */ = {
+		7DFDB2C92D3A58610014B58F /* Networking */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7DF292A22D1666E500D65B70 /* XCRemoteSwiftPackageReference "Flux" */;
-			productName = Flux;
+			package = 7DFDB2C82D3A58610014B58F /* XCRemoteSwiftPackageReference "swift-networking" */;
+			productName = Networking;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
