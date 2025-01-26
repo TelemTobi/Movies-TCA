@@ -67,10 +67,9 @@ struct MovieListItem: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sizeThatFitsLayout) {
     MovieListItem(
         movie: .mock,
         isLiked: .constant(false)
     )
-    .previewLayout(.sizeThatFits)
 }

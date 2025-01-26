@@ -121,8 +121,6 @@
 		7DE17DFB2B040D25005F4848 /* TmdbError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17DFA2B040D25005F4848 /* TmdbError.swift */; };
 		7DE17E022B041357005F4848 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E012B041357005F4848 /* Config.swift */; };
 		7DE17E042B0413A1005F4848 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E032B0413A1005F4848 /* String+Extension.swift */; };
-		7DE17E072B0413CB005F4848 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7DE17E052B0413CB005F4848 /* Release.xcconfig */; };
-		7DE17E082B0413CB005F4848 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7DE17E062B0413CB005F4848 /* Debug.xcconfig */; };
 		7DE17E0E2B053C4E005F4848 /* TmdbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE17E0D2B053C4E005F4848 /* TmdbClient.swift */; };
 		7DED6C4D2B61ABA80085C777 /* TruncableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED6C4C2B61ABA80085C777 /* TruncableText.swift */; };
 		7DED6C4F2B61AE5D0085C777 /* ViewSizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED6C4E2B61AE5D0085C777 /* ViewSizeReader.swift */; };
@@ -871,7 +869,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					7D783B232B3F2719004BEEAD = {
 						CreatedOnToolsVersion = 15.0;
@@ -921,7 +919,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DE17E082B0413CB005F4848 /* Debug.xcconfig in Resources */,
 				7D810E402B2B9CA7004A67AB /* MovieDetailsStub.json in Resources */,
 				7DDA64652B0E8D0F008BF425 /* NowPlayingMoviesStub.json in Resources */,
 				7DDA64692B0E8D3B008BF425 /* TopRatedMoviesStub.json in Resources */,
@@ -930,7 +927,6 @@
 				7D6875342B4A740800882EA9 /* Localizable.xcstrings in Resources */,
 				7DD6D9722AF943B8004828AB /* Assets.xcassets in Resources */,
 				7DC8D1562B1B75DF00193A64 /* SearchMoviesStub.json in Resources */,
-				7DE17E072B0413CB005F4848 /* Release.xcconfig in Resources */,
 				7DDA64632B0E8D04008BF425 /* PopularMoviesStub.json in Resources */,
 				7DDA645F2B0E8CBD008BF425 /* ListGenresStub.json in Resources */,
 				7DC8D1582B1B78CF00193A64 /* DiscoveryMoviesStub.json in Resources */,
@@ -1114,6 +1110,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1180,6 +1177,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
