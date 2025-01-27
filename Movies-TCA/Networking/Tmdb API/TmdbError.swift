@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Flux
+import Networking
 
 struct TmdbError: DecodableError, Equatable {
     
@@ -18,7 +18,7 @@ struct TmdbError: DecodableError, Equatable {
         case developerMessage = "status_message"
     }
     
-    init(_ type: Flux.Error) {
+    init(_ type: Networking.Error) {
         self.statusCode = -1
         self.developerMessage = type.debugDescription
     }

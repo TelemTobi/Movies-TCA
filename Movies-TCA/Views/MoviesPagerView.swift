@@ -25,6 +25,7 @@ struct MoviesPagerView: View {
                         } label: {
                             ItemView(movie, geometry)
                         }
+                        .buttonStyle(.plain)
                     }
                 }
                 .scrollTargetLayout()

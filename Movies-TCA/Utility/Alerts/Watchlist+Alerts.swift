@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SwiftUINavigationCore
+import SwiftNavigation
 
 extension AlertState where Action == WatchlistFeature.Action.Alert {
     

@@ -48,7 +48,7 @@ struct WatchlistFeature {
                 return reduceViewAction(&state, viewAction)
                 
             case let .alert(.presented(.confirmDislike(movie))):
-                state.likedMovies.remove(movie)
+                state.$likedMovies.withLock { $0.remove(movie) }
                 return .none
                 
             case .navigation, .alert:

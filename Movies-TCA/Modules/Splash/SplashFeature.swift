@@ -52,7 +52,7 @@ struct SplashFeature {
                     return .send(.genresResponse(.unknownError))
                 }
                 
-                state.genres = genres
+                state.$genres.withLock { $0 = genres }
                 return .send(.navigation(.splashCompleted))
                 
             case let .genresResponse(.failure(error)):

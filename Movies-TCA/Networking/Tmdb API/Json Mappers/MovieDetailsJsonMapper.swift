@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Flux
+import Networking
 
 protocol MovieDetailsJsonMapper: JsonMapper {}
 
