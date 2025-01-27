@@ -8,7 +8,7 @@
 import Foundation
 
 #if DEBUG
-enum Mock: String {
+public enum Mock: String {
     
     case listGenres = "ListGenresStub"
     case nowPlayingMovies = "NowPlayingMoviesStub"
@@ -27,7 +27,7 @@ enum Mock: String {
     }
     
     var stringFromFile: String {
-        guard let filePath = Bundle.main.path(forResource: fileName, ofType: "json") else {
+        guard let filePath = Bundle.module.path(forResource: fileName, ofType: "json") else {
             fatalError("Stub Json file named: \(fileName) was not found.")
         }
         
@@ -38,7 +38,7 @@ enum Mock: String {
         }
     }
     
-    var dataEncoded: Data {
+    public var dataEncoded: Data {
         stringFromFile.data(using: .utf8)!
     }
 }

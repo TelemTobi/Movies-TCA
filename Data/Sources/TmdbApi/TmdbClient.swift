@@ -6,36 +6,36 @@
 //
 
 import Foundation
-import Networking
+@preconcurrency import Networking
 import Models
 
-struct TmdbClient {
+public struct TmdbClient: Sendable {
     
     private let authenticator: Authenticator
     private let controller: NetworkingController<TmdbEndpoint, TmdbError>
     
-    init(environment: Networking.Environment = .live) {
+    public init(environment: Networking.Environment = .live) {
         authenticator = TmdbAuthenticator()
         controller = NetworkingController(environment: environment, authenticator: authenticator)
     }
     
-    func fetchGenres() async -> Result<GenresResponse, TmdbError> {
+    public func fetchGenres() async -> Result<GenresResponse, TmdbError> {
         await controller.request(.listGenres)
     }
     
-    func fetchMovies(ofType type: MoviesListType) async -> Result<MoviesList, TmdbError> {
+    public func fetchMovies(ofType type: MoviesListType) async -> Result<MoviesList, TmdbError> {
         await controller.request(.listMovies(type: type))
     }
     
-    func searchMovies(query: String) async -> Result<MoviesList, TmdbError> {
+    public func searchMovies(query: String) async -> Result<MoviesList, TmdbError> {
         await controller.request(.searchMovies(query: query))
     }
     
-    func discoverMovies(by genreId: Int) async -> Result<MoviesList, TmdbError> {
+    public func discoverMovies(by genreId: Int) async -> Result<MoviesList, TmdbError> {
         await controller.request(.discoverMovies(genreId: genreId))
     }
     
-    func movieDetails(for movieId: Int) async -> Result<MovieDetails, TmdbError> {
+    public func movieDetails(for movieId: Int) async -> Result<MovieDetails, TmdbError> {
         await controller.request(.movieDetails(id: movieId))
     }
 }

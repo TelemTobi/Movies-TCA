@@ -24,9 +24,11 @@ let package = Package(
         .target(
             name: "TmdbApi",
             dependencies: [
+                "Models",
                 .product(name: "Core", package: "Core"),
                 .product(name: "Networking", package: "swift-networking")
-            ]
+            ],
+            resources: [.process("Resources")]
         )
     ]
 )

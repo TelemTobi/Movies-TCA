@@ -8,7 +8,7 @@
 import Foundation
 import Core
 
-public struct CastMember: Person, Decodable, Equatable, Identifiable {
+public struct CastMember: Person, Decodable, Equatable, Identifiable, Sendable {
     
     public let id: Int?
     public let name: String?

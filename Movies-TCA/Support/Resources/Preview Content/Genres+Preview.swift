@@ -8,6 +8,7 @@
 import Foundation
 import Networking
 import Models
+import TmdbApi
 
 extension GenresResponse {
     

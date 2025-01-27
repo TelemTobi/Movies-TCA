@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Credits: Decodable, Equatable {
+public struct Credits: Decodable, Equatable, Sendable {
     
     public let cast: [CastMember]?
     public let crew: [CrewMember]?

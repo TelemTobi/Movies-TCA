@@ -8,7 +8,7 @@
 import Foundation
 import Networking
 
-public struct MovieDetails: Decodable, Equatable, JsonMapper {
+public struct MovieDetails: Decodable, Equatable, Sendable, JsonMapper {
     public var movie: Movie
     public var credits: Credits?
     public var relatedMovies: MoviesList?

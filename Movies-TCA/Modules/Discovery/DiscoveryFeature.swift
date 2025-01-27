@@ -9,6 +9,7 @@ import Foundation
 import SwiftData
 import ComposableArchitecture
 import Models
+import TmdbApi
 
 @Reducer
 struct DiscoveryFeature {

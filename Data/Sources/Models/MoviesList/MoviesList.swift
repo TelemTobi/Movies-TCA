@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MoviesList: Decodable, Equatable {
+public struct MoviesList: Decodable, Equatable, Sendable {
     
     public let results: [Movie]?
     public let page: Int?

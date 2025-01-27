@@ -8,7 +8,7 @@
 import Foundation
 import Core
 
-public struct CrewMember: Person, Decodable, Equatable {
+public struct CrewMember: Person, Decodable, Equatable, Sendable {
     
     public let id: Int?
     public let name: String?

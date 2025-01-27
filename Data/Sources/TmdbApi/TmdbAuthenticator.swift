@@ -7,12 +7,14 @@
 
 import Foundation
 import Networking
-import ComposableArchitecture
 import Core
 
 struct TmdbAuthenticator: Authenticator {
-    
-    @Shared(.adultContent) var isAdultContentOn = false
+
+    // TODO: Get back to that 👇
+    private var isAdultContentOn: Bool {
+        UserDefaults.standard.bool(forKey: "isAdultContentOn")
+    }
     
     var state: AuthenticationState {
         // TODO: Check network connection

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct GenresResponse: Decodable, Equatable {
+public struct GenresResponse: Decodable, Equatable, Sendable {
     public let genres: [Genre]?
 }
 
