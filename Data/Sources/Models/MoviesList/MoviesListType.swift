@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public enum MoviesListType: String, CaseIterable {
+public enum MoviesListType: String, CaseIterable, Sendable {
     case nowPlaying, popular, upcoming, topRated
     
     public var title: LocalizedStringKey {

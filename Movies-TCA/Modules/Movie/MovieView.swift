@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import SDWebImageSwiftUI
+import Models
 
 @ViewAction(for: MovieFeature.self)
 struct MovieView: View {

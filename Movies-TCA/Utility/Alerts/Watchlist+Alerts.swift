@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftNavigation
+import Models
 
 extension AlertState where Action == WatchlistFeature.Action.Alert {
     

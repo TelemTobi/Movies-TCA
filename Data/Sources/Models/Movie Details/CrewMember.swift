@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Core
 
 public struct CrewMember: Person, Decodable, Equatable {
     

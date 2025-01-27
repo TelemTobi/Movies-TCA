@@ -6,17 +6,16 @@
 //
 
 import Foundation
-import SwiftUI
 
-enum Config {
+public enum Config {
     
-    enum Key: String {
+    public enum Key: String {
         case tmdbBaseUrl
         case tmdbAccessToken
         case tmdbPhotoBaseUrl
     }
     
-    static func value<T>(for key: Key) -> T? {
+    public static func value<T>(for key: Key) -> T? {
         let value = Bundle.main.object(forInfoDictionaryKey: key.rawValue)
         
         switch T.self {
@@ -26,16 +25,16 @@ enum Config {
         }
     }
     
-    enum TmdbApi {
-        static var baseUrl: String {
+    public enum TmdbApi {
+        public static var baseUrl: String {
             value(for: .tmdbBaseUrl) ?? ""
         }
         
-        static var accessToken: String {
+        public static var accessToken: String {
             value(for: .tmdbAccessToken) ?? ""
         }
         
-        static var photoBaseUrl: String {
+        public static var photoBaseUrl: String {
             value(for: .tmdbPhotoBaseUrl) ?? ""
         }
     }

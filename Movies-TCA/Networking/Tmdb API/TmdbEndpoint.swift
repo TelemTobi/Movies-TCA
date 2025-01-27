@@ -7,6 +7,8 @@
 
 import Foundation
 import Networking
+import Core
+import Models
 
 enum TmdbEndpoint {
     case listGenres

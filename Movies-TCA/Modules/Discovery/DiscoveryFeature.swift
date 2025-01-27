@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 import ComposableArchitecture
+import Models
 
 @Reducer
 struct DiscoveryFeature {
@@ -75,7 +76,7 @@ struct DiscoveryFeature {
                     state.movies[type] = .init(uniqueElements: movies)
                     return .none
                 } else {
-                    return .send(.moviesListLoaded(type, .unknownError))
+                    return .send(.moviesListLoaded(type, .failure(.unknownError)))
                 }
                 
             case let .moviesListLoaded(_, .failure(error)):

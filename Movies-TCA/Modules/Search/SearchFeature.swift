@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 import ComposableArchitecture
+import Models
 
 @Reducer
 struct SearchFeature {
@@ -90,7 +91,7 @@ struct SearchFeature {
                 state.isLoading = false
                 
                 guard let movies = response.results else {
-                    return .send(.searchResponse(.unknownError))
+                    return .send(.searchResponse(.failure(.unknownError)))
                 }
                 
                 state.results = .init(uniqueElements: movies)

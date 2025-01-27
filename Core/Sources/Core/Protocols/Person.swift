@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Person {
+public protocol Person {
     
     var name: String? { get }
     var imageUrl: URL? { get }

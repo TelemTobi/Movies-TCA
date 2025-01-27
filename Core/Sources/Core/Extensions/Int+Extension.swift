@@ -7,9 +7,7 @@
 
 import Foundation
 
-extension Int {
-    
-    var zero: Int { 0 }
+public extension Int {
     
     var durationInHoursAndMinutesShortFormat: String {
         let hours = self / 60

@@ -7,6 +7,7 @@
 
 import SDWebImageSwiftUI
 import SwiftUI
+import Models
 
 struct StretchyHeader<Header: View>: View {
     

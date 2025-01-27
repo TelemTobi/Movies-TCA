@@ -7,8 +7,9 @@
 
 import Foundation
 import SwiftUI
+import Core
 
-public struct Movie: Codable, Equatable, Identifiable {
+public struct Movie: Codable, Equatable, Identifiable, Sendable {
     
     public let id: Int
     public var adult: Bool?
@@ -64,7 +65,7 @@ public struct Movie: Codable, Equatable, Identifiable {
     }
     
     public var voteCountFormatted: LocalizedStringKey {
-        guard let voteCount else { return .notAvailable }
+        guard let voteCount else { return "N/A" }
         return "\(voteCount.abbreviation) votes"
     }
     

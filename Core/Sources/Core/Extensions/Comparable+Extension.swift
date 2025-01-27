@@ -7,14 +7,14 @@
 
 import Foundation
 
-extension Comparable {
+public extension Comparable {
     
     func clamped(to limits: ClosedRange<Self>) -> Self {
         return min(max(self, limits.lowerBound), limits.upperBound)
     }
 }
 
-extension Comparable where Self: FloatingPoint {
+public extension Comparable where Self: FloatingPoint {
 
     func percentageInside(range: ClosedRange<Self>) -> Self {
         if self < range.lowerBound {

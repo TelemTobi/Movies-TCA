@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension String {
+public extension String {
     
     static let empty = ""
     static let notAvailable = "N/A"

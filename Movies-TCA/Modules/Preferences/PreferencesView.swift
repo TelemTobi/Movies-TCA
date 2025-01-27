@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import Core
 
 @ViewAction(for: PreferencesFeature.self)
 struct PreferencesView: View {

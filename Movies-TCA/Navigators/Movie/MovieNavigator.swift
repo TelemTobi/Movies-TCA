@@ -7,6 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
+import Models
 
 @Reducer
 struct MovieNavigator {

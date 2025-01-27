@@ -8,6 +8,8 @@
 import SwiftUI
 import ComposableArchitecture
 import Pow
+import Core
+import Models
 
 @ViewAction(for: DiscoveryFeature.self)
 struct DiscoveryView: View {

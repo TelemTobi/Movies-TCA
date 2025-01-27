@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ProductionCountry: Codable, Equatable {
+public struct ProductionCountry: Codable, Equatable, Sendable {
     
     public let iso31661: String
     public let name: String

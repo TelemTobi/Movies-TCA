@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Numeric {
+public extension Numeric {
     
     var asPercentage: String {
         let formatter = NumberFormatter()

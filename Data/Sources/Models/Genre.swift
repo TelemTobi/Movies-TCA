@@ -11,7 +11,7 @@ public struct GenresResponse: Decodable, Equatable {
     public let genres: [Genre]?
 }
 
-public struct Genre: Codable, Equatable, Identifiable, Hashable {
+public struct Genre: Codable, Equatable, Identifiable, Hashable, Sendable {
     
     public let id: Int
     public let name: String?

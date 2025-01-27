@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Core
+import Models
 
 struct CircularPersonImage: View {
     let person: Person

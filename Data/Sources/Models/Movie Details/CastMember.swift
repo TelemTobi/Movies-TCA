@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Core
 
 public struct CastMember: Person, Decodable, Equatable, Identifiable {
     

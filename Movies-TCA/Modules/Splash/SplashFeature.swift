@@ -7,6 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
+import Models
 
 @Reducer
 struct SplashFeature {
@@ -49,7 +50,7 @@ struct SplashFeature {
                 
             case let .genresResponse(.success(result)):
                 guard let genres = result.genres, genres.isNotEmpty else {
-                    return .send(.genresResponse(.unknownError))
+                    return .send(.genresResponse(.failure(.unknownError)))
                 }
                 
                 state.$genres.withLock { $0 = genres }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Date {
+public extension Date {
     
     enum DateFormat: String {
         case dMMMyyyy = "d MMM yyyy"
@@ -33,7 +33,7 @@ extension Date {
     }
 }
 
-extension JSONDecoder.DateDecodingStrategy {
+public extension JSONDecoder.DateDecodingStrategy {
     
     static var tmdbDateDecodingStrategy: JSONDecoder.DateDecodingStrategy {
         .custom { decoder -> Date in

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import ComposableArchitecture
+import Core
 
 @Reducer
 struct PreferencesFeature {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Models
 
 struct MovieListItem: View {
     

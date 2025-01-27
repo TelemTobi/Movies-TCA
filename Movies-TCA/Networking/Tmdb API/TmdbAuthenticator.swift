@@ -8,6 +8,7 @@
 import Foundation
 import Networking
 import ComposableArchitecture
+import Core
 
 struct TmdbAuthenticator: Authenticator {
     

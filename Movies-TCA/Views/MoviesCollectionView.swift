@@ -8,11 +8,12 @@
 import SwiftUI
 import SDWebImageSwiftUI
 import ComposableArchitecture
+import Models
 
 struct MoviesCollectionView: View {
     
     let movies: IdentifiedArrayOf<Movie>
-    let onMovieTap: MovieClosure
+    let onMovieTap: (Movie) -> Void
     var isMovieLiked: ((Movie) -> Binding<Bool>)? = nil
     
     var body: some View {
