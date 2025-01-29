@@ -13,8 +13,8 @@ extension Movie {
     
     static var mock: Movie {
         let movie = try? Mock.nowPlayingMovies.dataEncoded
-            .parse(type: MoviesList.self, using: .tmdbDateDecodingStrategy)
-            .results?.randomElement()
+            .parse(type: MovieList.self, using: .tmdbDateDecodingStrategy)
+            .movies?.randomElement()
         
         guard let movie else {
             fatalError("Movies mock decoding error")

@@ -1,6 +1,6 @@
 //
-//  TmdbClient.swift
-//  Movies-TCA
+//  TmdbApiClient.swift
+//  TmdbApi
 //
 //  Created by Telem Tobi on 15/11/2023.
 //
@@ -10,7 +10,7 @@ import Networking
 import Models
 import Dependencies
 
-public struct TmdbClient: Sendable {
+public struct TmdbApiClient: Sendable {
     
     private let authenticator: Authenticator
     private let controller: NetworkingController<TmdbEndpoint, TmdbError>
@@ -24,15 +24,15 @@ public struct TmdbClient: Sendable {
         await controller.request(.listGenres)
     }
     
-    public func fetchMovies(ofType type: MoviesListType) async -> Result<MoviesList, TmdbError> {
+    public func fetchMovies(ofType type: MoviesListType) async -> Result<MovieList, TmdbError> {
         await controller.request(.listMovies(type: type))
     }
     
-    public func searchMovies(query: String) async -> Result<MoviesList, TmdbError> {
+    public func searchMovies(query: String) async -> Result<MovieList, TmdbError> {
         await controller.request(.searchMovies(query: query))
     }
     
-    public func discoverMovies(by genreId: Int) async -> Result<MoviesList, TmdbError> {
+    public func discoverMovies(by genreId: Int) async -> Result<MovieList, TmdbError> {
         await controller.request(.discoverMovies(genreId: genreId))
     }
     
@@ -41,14 +41,14 @@ public struct TmdbClient: Sendable {
     }
 }
 
-extension TmdbClient: DependencyKey {
-    public static let liveValue = TmdbClient(environment: .live)
-    public static let testValue = TmdbClient(environment: .test)
-    public static let previewValue = TmdbClient(environment: .preview)
+extension TmdbApiClient: DependencyKey {
+    public static let liveValue = TmdbApiClient(environment: .live)
+    public static let testValue = TmdbApiClient(environment: .test)
+    public static let previewValue = TmdbApiClient(environment: .preview)
 }
 
 public extension DependencyValues {
-    var tmdbApi: TmdbClient {
-        get { self[TmdbClient.self] }
+    var tmdbApiClient: TmdbApiClient {
+        get { self[TmdbApiClient.self] }
     }
 }

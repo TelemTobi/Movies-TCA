@@ -37,8 +37,6 @@ struct MoviesListFeature {
         case navigation(Navigation)
     }
     
-    @Dependency(\.tmdbClient) var tmdbClient
-    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {

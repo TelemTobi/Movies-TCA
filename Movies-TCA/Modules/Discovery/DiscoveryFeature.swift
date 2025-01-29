@@ -43,11 +43,11 @@ struct DiscoveryFeature {
         case view(View)
         case navigation(Navigation)
         case loadMovies
-        case moviesListLoaded(MoviesListType, Result<MoviesList, TmdbError>)
+        case movieListResult(MoviesListType, Result<MovieList, TmdbError>)
         case loadingCompleted
     }
     
-    @Dependency(\.tmdbClient) var tmdbClient
+    @Dependency(\.interactor) private var interactor
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -59,29 +59,29 @@ struct DiscoveryFeature {
                 state.isLoading = true
                 
                 return .run { send in
-                    async let nowPlayingResult = tmdbClient.fetchMovies(ofType: .nowPlaying)
-                    async let popularResult = tmdbClient.fetchMovies(ofType: .popular)
-                    async let upcomingResult = tmdbClient.fetchMovies(ofType: .upcoming)
-                    async let topRatedResult = tmdbClient.fetchMovies(ofType: .topRated)
+                    async let nowPlayingResult = interactor.fetchMovieList(ofType: .nowPlaying)
+                    async let popularResult = interactor.fetchMovieList(ofType: .popular)
+                    async let upcomingResult = interactor.fetchMovieList(ofType: .upcoming)
+                    async let topRatedResult = interactor.fetchMovieList(ofType: .topRated)
 
-                    await send(.moviesListLoaded(.nowPlaying, nowPlayingResult))
-                    await send(.moviesListLoaded(.popular, popularResult))
-                    await send(.moviesListLoaded(.upcoming, upcomingResult))
-                    await send(.moviesListLoaded(.topRated, topRatedResult))
+                    await send(.movieListResult(.nowPlaying, nowPlayingResult))
+                    await send(.movieListResult(.popular, popularResult))
+                    await send(.movieListResult(.upcoming, upcomingResult))
+                    await send(.movieListResult(.topRated, topRatedResult))
                     
                     await send(.loadingCompleted)
                 }
                 
-            case let .moviesListLoaded(type, .success(response)):
-                if let movies = response.results {
-                    state.movies[type] = .init(uniqueElements: movies)
+            case let .movieListResult(type, result):
+                switch result {
+                case let .success(response):
+                    state.movies[type] = .init(uniqueElements: response.movies ?? [])
                     return .none
-                } else {
-                    return .send(.moviesListLoaded(type, .failure(.unknownError)))
+                    
+                case let .failure(error):
+                    customDump(error) // TODO: Handle error
                 }
                 
-            case let .moviesListLoaded(_, .failure(error)):
-                customDump(error) // TODO: Handle error
                 return .none
                 
             case .loadingCompleted:
@@ -116,5 +116,11 @@ struct DiscoveryFeature {
             }
             return .none
         }
+    }
+}
+
+extension DependencyValues {
+    fileprivate var interactor: DiscoveryInteractor {
+        get { self[DiscoveryInteractor.self] }
     }
 }

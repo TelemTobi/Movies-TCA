@@ -1,6 +1,6 @@
 //
 //  TmdbAuthenticator.swift
-//  Movies-TCA
+//  TmdbApi
 //
 //  Created by Telem Tobi on 17/11/2023.
 //

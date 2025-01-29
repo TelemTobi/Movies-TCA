@@ -1,6 +1,6 @@
 //
 //  MoviesListType.swift
-//  Movies-TCA
+//  Models
 //
 //  Created by Telem Tobi on 07/01/2024.
 //

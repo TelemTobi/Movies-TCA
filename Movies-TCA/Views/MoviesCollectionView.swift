@@ -81,7 +81,7 @@ struct MoviesCollectionView: View {
 
 #Preview {
     MoviesCollectionView(
-        movies: IdentifiedArray(uniqueElements: MoviesList.mock.results ?? []),
+        movies: IdentifiedArray(uniqueElements: MovieList.mock.movies ?? []),
         onMovieTap: { _ in },
         isMovieLiked: { _ in .constant(true) }
     )

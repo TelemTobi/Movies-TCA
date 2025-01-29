@@ -9,11 +9,11 @@ import Foundation
 import Models
 import TmdbApi
 
-extension MoviesList {
+extension MovieList {
     
-    static var mock: MoviesList {
+    static var mock: MovieList {
         let moviesList = try? Mock.nowPlayingMovies.dataEncoded
-            .parse(type: MoviesList.self, using: .tmdbDateDecodingStrategy)
+            .parse(type: MovieList.self, using: .tmdbDateDecodingStrategy)
         
         guard let moviesList else {
             fatalError("Movies mock decoding error")

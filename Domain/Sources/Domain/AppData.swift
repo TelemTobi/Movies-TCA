@@ -22,7 +22,7 @@ extension AppData: DependencyKey {
     public static var testValue = AppData()
 }
 
-public extension DependencyValues {
+extension DependencyValues {
     var appData: AppData {
         get { self[AppData.self] }
     }

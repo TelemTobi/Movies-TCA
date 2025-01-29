@@ -1,5 +1,5 @@
 //
-//  Genres.swift
+//  GenresUseCases.swift
 //  Domain
 //
 //  Created by Telem Tobi on 29/01/2025.
@@ -10,18 +10,19 @@ import Dependencies
 import Models
 import TmdbApi
 
-struct GenresUsecases {
-    public var get: @Sendable () -> [Genre]
+public struct GenresUseCases: Sendable {
+    public var get: @Sendable () async -> [Genre]
     public var fetch: @Sendable () async -> Result<GenresResponse, TmdbError>
 }
 
-extension GenresUsecases: DependencyKey {
-    public static let liveValue = GenresUsecases(
+extension GenresUseCases: DependencyKey {
+    public static let liveValue = GenresUseCases(
         get: {
-            []
+            @Dependency(\.appData) var appData
+            return appData.genres
         },
         fetch: {
-            @Dependency(\.tmdbApi) var tmdbApi
+            @Dependency(\.tmdbApiClient) var tmdbApi
             let result = await tmdbApi.fetchGenres()
             
             if let genres = try? result.get().genres {
@@ -32,4 +33,10 @@ extension GenresUsecases: DependencyKey {
             return result
         }
     )
+}
+
+extension DependencyValues {
+    var genresUseCases: GenresUseCases {
+        get { self[GenresUseCases.self]}
+    }
 }

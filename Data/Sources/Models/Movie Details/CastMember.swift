@@ -1,6 +1,6 @@
 //
-//  Actor.swift
-//  Movies-TCA
+//  CastMember.swift
+//  Models
 //
 //  Created by Telem Tobi on 12/12/2023.
 //

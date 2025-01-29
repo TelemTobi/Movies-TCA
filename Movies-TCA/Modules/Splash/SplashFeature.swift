@@ -14,7 +14,7 @@ struct SplashFeature {
     
     @ObservableState
     struct State: Equatable {
-        @Shared(.genres) var genres = []
+        
     }
     
     enum Action: ViewAction, Equatable {
@@ -30,11 +30,11 @@ struct SplashFeature {
         
         case view(View)
         case navigation(Navigation)
-        case loadGenres
-        case genresResponse(Result<GenresResponse, TmdbError>)
+        case fetchGenres
+        case genresResult(Result<GenresResponse, TmdbError>)
     }
     
-    @Dependency(\.tmdbClient) var tmdbClient
+    @Dependency(\.interactor) private var interactor
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -42,23 +42,21 @@ struct SplashFeature {
             case let .view(viewAction):
                 return reduceViewAction(&state, viewAction)
                 
-            case .loadGenres:
+            case .fetchGenres:
                 return .run { send in
-                    let genresResult = await tmdbClient.fetchGenres()
-                    await send(.genresResponse(genresResult))
+                    let genresResult = await interactor.fetchGenres()
+                    await send(.genresResult(genresResult))
                 }
                 
-            case let .genresResponse(.success(result)):
-                guard let genres = result.genres, genres.isNotEmpty else {
-                    return .send(.genresResponse(.failure(.unknownError)))
+            case let .genresResult(result):
+                switch result {
+                case .success:
+                    return .send(.navigation(.splashCompleted))
+                    
+                case let .failure(error):
+                    customDump(error) // TODO: Handle error
+                    return .none
                 }
-                
-                state.$genres.withLock { $0 = genres }
-                return .send(.navigation(.splashCompleted))
-                
-            case let .genresResponse(.failure(error)):
-                customDump(error) // TODO: Handle error
-                return .none
                 
             case .navigation:
                 return .none
@@ -69,7 +67,13 @@ struct SplashFeature {
     private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
         switch action {
         case .onAppear:
-            return .send(.loadGenres)
+            return .send(.fetchGenres)
         }
+    }
+}
+
+extension DependencyValues {
+    fileprivate var interactor: SplashInteractor {
+        get { self[SplashInteractor.self] }
     }
 }

@@ -47,11 +47,11 @@ struct SearchFeature {
         case binding(BindingAction<SearchFeature.State>)
         case onInputChange(String)
         case searchMovies(String)
-        case searchResponse(Result<MoviesList, TmdbError>)
+        case searchResult(Result<MovieList, TmdbError>)
     }
     
-    @Dependency(\.tmdbClient) var tmdbClient
-    @Dependency(\.mainQueue) var mainQueue
+    @Dependency(\.interactor) private var interactor
+    @Dependency(\.mainQueue) private var mainQueue
     
     var body: some ReducerOf<Self> {
         BindingReducer()
@@ -74,34 +74,31 @@ struct SearchFeature {
                     .debounce(id: SearchInputDebounceId(), for: .seconds(1), scheduler: mainQueue)
                 
             case let .searchMovies(query):
-                if let genre = state.genres.first(where: { $0.name == query}) {
+                if let genre = state.genres.first(where: { $0.name == query }) {
                     return .run { send in
-                        let discoverResult = await tmdbClient.discoverMovies(by: genre.id)
-                        await send(.searchResponse(discoverResult))
+                        let discoverResult = await interactor.discoverMovies(by: genre.id)
+                        await send(.searchResult(discoverResult))
                     }
                     
                 } else {
                     return .run { send in
-                        let searchResult = await tmdbClient.searchMovies(query: query)
-                        await send(.searchResponse(searchResult))
+                        let searchResult = await interactor.searchMovies(using: query)
+                        await send(.searchResult(searchResult))
                     }
                 }
                 
-            case let .searchResponse(.success(response)):
+            case let .searchResult(result):
                 state.isLoading = false
                 
-                guard let movies = response.results else {
-                    return .send(.searchResponse(.failure(.unknownError)))
+                switch result {
+                case let .success(response):
+                    state.results = .init(uniqueElements: response.movies ?? [])
+                    return .none
+                    
+                case let .failure(error):
+                    customDump(error) // TODO: Handle error
+                    return .none
                 }
-                
-                state.results = .init(uniqueElements: movies)
-                return .none
-                
-            case let .searchResponse(.failure(error)):
-                state.isLoading = false
-                
-                customDump(error) // TODO: Handle error
-                return .none
                 
             case .navigation, .binding:
                 return .none
@@ -140,4 +137,10 @@ struct SearchFeature {
 
 extension SearchFeature {
     struct SearchInputDebounceId: Hashable {}
+}
+
+extension DependencyValues {
+    fileprivate var interactor: SearchInteractor {
+        get { self[SearchInteractor.self] }
+    }
 }

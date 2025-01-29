@@ -118,7 +118,7 @@ struct MovieView: View {
     
     @ViewBuilder @MainActor
     private func RelatedMoviesSection() -> some View {
-        if let relatedMovies = store.state.movieDetails.relatedMovies?.results, relatedMovies.isNotEmpty {
+        if let relatedMovies = store.state.movieDetails.relatedMovies?.movies, relatedMovies.isNotEmpty {
             Section {
                 MoviesCollectionView(
                     movies: .init(uniqueElements: relatedMovies),

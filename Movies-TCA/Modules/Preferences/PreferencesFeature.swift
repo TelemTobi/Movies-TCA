@@ -31,8 +31,9 @@ struct PreferencesFeature {
         case onAppearanceChange(String)
     }
     
-    @Dependency(\.dismiss) var dismiss
-    @Dependency(\.isPresented) var isPresented
+    @Dependency(\.interactor) private var interactor
+    @Dependency(\.dismiss) private var dismiss
+    @Dependency(\.isPresented) private var isPresented
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -58,10 +59,7 @@ struct PreferencesFeature {
     private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
         switch action {
         case .onLanguageTap:
-            DispatchQueue.main.async { // TODO: Use mainQueue dependency
-                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-                UIApplication.shared.open(url)
-            }
+            interactor.openAppSettings()
             return .none
             
         case .onCloseButtonTap:
@@ -70,5 +68,11 @@ struct PreferencesFeature {
                 await dismiss()
             }
         }
+    }
+}
+
+extension DependencyValues {
+    fileprivate var interactor: PreferencesInteractor {
+        get { self[PreferencesInteractor.self] }
     }
 }
