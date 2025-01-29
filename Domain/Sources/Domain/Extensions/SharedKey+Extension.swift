@@ -23,5 +23,5 @@ extension SharedKey where Self == AppStorageKey<Bool> {
 }
 
 extension SharedKey where Self == FileStorageKey<IdentifiedArrayOf<Movie>> {
-    static var likedMovies: Self { .fileStorage(.applicationDirectory.appending(path: "likedMovies.json")) }
+    static var favoriteMovies: Self { .fileStorage(.applicationDirectory.appending(path: "favoriteMovies.json")) }
 }

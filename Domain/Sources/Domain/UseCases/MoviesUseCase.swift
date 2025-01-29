@@ -7,10 +7,13 @@
 
 import Foundation
 import Dependencies
+import IdentifiedCollections
+import Sharing
 import Models
 import TmdbApi
 
 public struct MoviesUseCases: Sendable {
+    public var favorites: @Sendable () async -> Shared<IdentifiedArrayOf<Movie>>
     public var fetchList: @Sendable (MoviesListType) async -> Result<MovieList, TmdbError>
     public var search: @Sendable (_ query: String) async -> Result<MovieList, TmdbError>
     public var discoverByGenre: @Sendable (_ genreId: Int) async -> Result<MovieList, TmdbError>
@@ -18,6 +21,10 @@ public struct MoviesUseCases: Sendable {
 
 extension MoviesUseCases: DependencyKey {
     public static let liveValue = MoviesUseCases(
+        favorites: {
+            @Dependency(\.appData) var appData
+            return appData.$favoriteMovies
+        },
         fetchList: { listType in
             @Dependency(\.tmdbApiClient) var tmdbApiClient
             return await tmdbApiClient.fetchMovies(ofType: listType)

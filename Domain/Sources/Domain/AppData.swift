@@ -7,10 +7,15 @@
 
 import Foundation
 import Dependencies
+import Sharing
 import Models
+import IdentifiedCollections
 
 public actor AppData {
     public var genres: [Genre] = []
+    
+    @Shared(.favoriteMovies)
+    public var favoriteMovies: IdentifiedArrayOf<Movie> = []
     
     public func setGenres(_ genres: [Genre]) {
         self.genres = genres
