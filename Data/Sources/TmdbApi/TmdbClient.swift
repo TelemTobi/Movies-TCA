@@ -6,8 +6,9 @@
 //
 
 import Foundation
-@preconcurrency import Networking
+import Networking
 import Models
+import Dependencies
 
 public struct TmdbClient: Sendable {
     
@@ -37,5 +38,17 @@ public struct TmdbClient: Sendable {
     
     public func movieDetails(for movieId: Int) async -> Result<MovieDetails, TmdbError> {
         await controller.request(.movieDetails(id: movieId))
+    }
+}
+
+extension TmdbClient: DependencyKey {
+    public static let liveValue = TmdbClient(environment: .live)
+    public static let testValue = TmdbClient(environment: .test)
+    public static let previewValue = TmdbClient(environment: .preview)
+}
+
+public extension DependencyValues {
+    var tmdbApi: TmdbClient {
+        get { self[TmdbClient.self] }
     }
 }

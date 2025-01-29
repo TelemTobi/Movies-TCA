@@ -11,7 +11,8 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Core"),
-        .package(url: "https://github.com/telemtobi/swift-networking.git", from: "1.2.0")
+        .package(url: "https://github.com/telemtobi/swift-networking.git", branch: "patch/sendable_issue"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.4.0")
     ],
     targets: [
         .target(
@@ -26,9 +27,10 @@ let package = Package(
             dependencies: [
                 "Models",
                 .product(name: "Core", package: "Core"),
-                .product(name: "Networking", package: "swift-networking")
+                .product(name: "Networking", package: "swift-networking"),
+                .product(name: "Dependencies", package: "swift-dependencies")
             ],
-            resources: [.process("Resources")]
+            resources: [.process("Mock/Resources")]
         )
     ]
 )
