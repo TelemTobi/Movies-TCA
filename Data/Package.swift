@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Core"),
-        .package(url: "https://github.com/telemtobi/swift-networking.git", branch: "patch/sendable_issue"),
+        .package(url: "https://github.com/telemtobi/swift-networking.git", from: "1.2.1"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.4.0")
     ],
     targets: [

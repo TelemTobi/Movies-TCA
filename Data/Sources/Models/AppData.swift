@@ -8,7 +8,6 @@
 import Foundation
 import Dependencies
 import Sharing
-import Models
 import IdentifiedCollections
 
 public actor AppData {

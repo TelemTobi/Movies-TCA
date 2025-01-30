@@ -462,7 +462,7 @@
 				7DE17E092B0415B6005F4848 /* Info.plist */,
 				7DE17DC92AFE04BD005F4848 /* App */,
 				7DDE9E552B85145100BE95FE /* Navigators */,
-				7DE17DCE2AFE0528005F4848 /* Modules */,
+				7DE17DCE2AFE0528005F4848 /* Features */,
 				7DE17DCD2AFE050D005F4848 /* Support */,
 				7DE17DCB2AFE04F0005F4848 /* Utility */,
 				7DDA64552B0E7DA4008BF425 /* Views */,
@@ -569,7 +569,7 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		7DE17DCE2AFE0528005F4848 /* Modules */ = {
+		7DE17DCE2AFE0528005F4848 /* Features */ = {
 			isa = PBXGroup;
 			children = (
 				7DE17DE82B01470B005F4848 /* Splash */,
@@ -580,7 +580,7 @@
 				7D77E6172B113F3900B308A6 /* Movie */,
 				7D513F7A2B17220D0040F913 /* Preferences */,
 			);
-			path = Modules;
+			path = Features;
 			sourceTree = "<group>";
 		};
 		7DE17DCF2AFE0546005F4848 /* Extensions */ = {

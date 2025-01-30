@@ -8,7 +8,6 @@
 import Sharing
 import IdentifiedCollections
 import Core
-import Models
 
 public extension SharedKey where Self == InMemoryKey<[Genre]> {
     static var genres: Self { .inMemory("genres") }
