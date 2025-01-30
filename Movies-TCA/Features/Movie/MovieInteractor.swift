@@ -11,10 +11,14 @@ import Models
 import Domain
 
 struct MovieInteractor: Sendable {
-    @Dependency(\.useCases.movie) private var movie
+    @Dependency(\.useCases.movie) private var movieUseCases
     
     func fetchMovieDetails(for movieId: Int) async -> Result<MovieDetails, TmdbError> {
-        await movie.fetchDetails(movieId)
+        await movieUseCases.fetchDetails(movieId)
+    }
+    
+    func toggleWatchlist(for movie: Movie) async {
+        await movieUseCases.toggleWatchlist(movie)
     }
 }
 

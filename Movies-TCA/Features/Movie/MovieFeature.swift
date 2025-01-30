@@ -94,13 +94,9 @@ struct MovieFeature {
             
         case .onLikeTap:
             let movie = state.movieDetails.movie
-            
-            if state.watchlist.contains(movie) {
-                state.$watchlist.withLock { $0.remove(movie) }
-            } else {
-                state.$watchlist.withLock { $0.append(movie) }
+            return .run { _ in
+                await interactor.toggleWatchlist(for: movie)
             }
-            return .none
         }
     }
 }
