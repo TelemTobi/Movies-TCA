@@ -8,7 +8,6 @@
 import Foundation
 import ComposableArchitecture
 import Models
-import Domain
 
 @Reducer
 struct WatchlistFeature {

@@ -9,7 +9,6 @@ import Foundation
 import SwiftData
 import ComposableArchitecture
 import Models
-import Domain
 
 @Reducer
 struct DiscoveryFeature {
