@@ -1,6 +1,6 @@
 //
 //  AppData.swift
-//  Domain
+//  Data
 //
 //  Created by Telem Tobi on 29/01/2025.
 //

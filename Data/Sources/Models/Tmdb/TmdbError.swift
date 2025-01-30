@@ -1,6 +1,6 @@
 //
 //  TmdbError.swift
-//  Models
+//  Data
 //
 //  Created by Telem Tobi on 14/11/2023.
 //

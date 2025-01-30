@@ -1,6 +1,6 @@
 //
 //  MoviesListType.swift
-//  Models
+//  Data
 //
 //  Created by Telem Tobi on 07/01/2024.
 //

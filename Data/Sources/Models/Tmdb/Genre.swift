@@ -1,6 +1,6 @@
 //
 //  Genre.swift
-//  Models
+//  Data
 //
 //  Created by Telem Tobi on 13/11/2023.
 //

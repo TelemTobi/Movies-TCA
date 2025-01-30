@@ -1,6 +1,6 @@
 //
 //  MovieDetails.swift
-//  Models
+//  Data
 //
 //  Created by Telem Tobi on 12/12/2023.
 //
