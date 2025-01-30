@@ -19,6 +19,7 @@
 		7D4A0DEE2D4A661A004A80CF /* PreferencesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4A0DED2D4A6615004A80CF /* PreferencesInteractor.swift */; };
 		7D4A0DF02D4B418B004A80CF /* WatchlistInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4A0DEF2D4B4186004A80CF /* WatchlistInteractor.swift */; };
 		7D4A0DF22D4B41F2004A80CF /* MovieListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4A0DF12D4B41ED004A80CF /* MovieListInteractor.swift */; };
+		7D4A0DF32D4B4774004A80CF /* TmdbApi in Frameworks */ = {isa = PBXBuildFile; productRef = 7D8F4DDD2D47EED500635AE0 /* TmdbApi */; };
 		7D4BA7642BA609B700029DB4 /* HomeNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA7632BA609B700029DB4 /* HomeNavigator.swift */; };
 		7D4BA7662BA609C200029DB4 /* HomeNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA7652BA609C200029DB4 /* HomeNavigatorView.swift */; };
 		7D4BA7692BA78B1300029DB4 /* DiscoveryNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA7682BA78B1300029DB4 /* DiscoveryNavigator.swift */; };
@@ -122,6 +123,7 @@
 		7D4A0DED2D4A6615004A80CF /* PreferencesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInteractor.swift; sourceTree = "<group>"; };
 		7D4A0DEF2D4B4186004A80CF /* WatchlistInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistInteractor.swift; sourceTree = "<group>"; };
 		7D4A0DF12D4B41ED004A80CF /* MovieListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListInteractor.swift; sourceTree = "<group>"; };
+		7D4A0DF42D4BDB7D004A80CF /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Presentation; sourceTree = "<group>"; };
 		7D4BA7632BA609B700029DB4 /* HomeNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigator.swift; sourceTree = "<group>"; };
 		7D4BA7652BA609C200029DB4 /* HomeNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigatorView.swift; sourceTree = "<group>"; };
 		7D4BA7682BA78B1300029DB4 /* DiscoveryNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryNavigator.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D4A0DF32D4B4774004A80CF /* TmdbApi in Frameworks */,
 				7D8F4DDC2D4750AD00635AE0 /* Models in Frameworks */,
 				7DD570A42B559EF100042F88 /* Pow in Frameworks */,
 				7DDA645C2B0E8ABF008BF425 /* SDWebImageSwiftUI in Frameworks */,
@@ -440,6 +443,7 @@
 				7D8F4DD72D474DD300635AE0 /* Core */,
 				7D8F4DD62D474C6400635AE0 /* Data */,
 				7D8F4DE32D47F57100635AE0 /* Domain */,
+				7D4A0DF42D4BDB7D004A80CF /* Presentation */,
 				7DD6D96C2AF943B7004828AB /* Movies-TCA */,
 				7D783B252B3F2719004BEEAD /* Movies-TCA-Tests */,
 				7D8F4DD82D4750AD00635AE0 /* Frameworks */,

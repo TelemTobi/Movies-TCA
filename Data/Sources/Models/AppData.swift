@@ -24,9 +24,3 @@ extension AppData: DependencyKey {
     public static var liveValue = AppData()
     public static var testValue = AppData()
 }
-
-extension DependencyValues {
-    var appData: AppData {
-        get { self[AppData.self] }
-    }
-}
