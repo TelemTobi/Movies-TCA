@@ -16,7 +16,7 @@ struct WatchlistView: View {
     
     var body: some View {
         Group {
-            if store.likedMovies.isEmpty {
+            if store.watchlist.isEmpty {
                 EmptyFavoritesView()
             } else {
                 ContentView()
@@ -43,7 +43,7 @@ struct WatchlistView: View {
     @MainActor
     @ViewBuilder
     private func ContentView() -> some View {
-        List(store.likedMovies) { movie in
+        List(store.watchlist) { movie in
             Button {
                 send(.onMovieTap(movie))
             } label: {

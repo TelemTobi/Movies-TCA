@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 import ComposableArchitecture
 import Models
-import TmdbApi
+import Domain
 
 @Reducer
 struct DiscoveryFeature {
@@ -19,8 +19,7 @@ struct DiscoveryFeature {
         var isLoading = true
         var movies: [MoviesListType: IdentifiedArrayOf<Movie>] = [:]
         
-        @Shared(.likedMovies)
-        var likedMovies: IdentifiedArrayOf<Movie> = []
+        @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
     }
     
     enum Action: ViewAction, Equatable {
@@ -109,12 +108,9 @@ struct DiscoveryFeature {
             return .send(.navigation(.pushMoviesList(listType, movies)))
             
         case let .onMovieLike(movie):
-            if state.likedMovies.contains(movie) {
-                state.$likedMovies.withLock { $0.remove(movie) }
-            } else {
-                state.$likedMovies.withLock { $0.append(movie) }
+            return .run { _ in
+                await interactor.toggleWatchlist(for: movie)
             }
-            return .none
         }
     }
 }

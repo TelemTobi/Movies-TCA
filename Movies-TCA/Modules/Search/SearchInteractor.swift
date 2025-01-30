@@ -11,14 +11,19 @@ import Models
 import Domain
 
 struct SearchInteractor: Sendable {
-    @Dependency(\.useCases.movies) private var movies
+    @Dependency(\.useCases.movies) private var moviesUseCases
+    @Dependency(\.useCases.movie) private var movieUseCases
     
     func discoverMovies(by genreId: Int) async -> Result<MovieList, TmdbError> {
-        await movies.discoverByGenre(genreId)
+        await moviesUseCases.discoverByGenre(genreId)
     }
     
     func searchMovies(using query: String) async -> Result<MovieList, TmdbError> {
-        await movies.search(query)
+        await moviesUseCases.search(query)
+    }
+    
+    func toggleWatchlist(for movie: Movie) async {
+        await movieUseCases.toggleWatchlist(movie)
     }
 }
 

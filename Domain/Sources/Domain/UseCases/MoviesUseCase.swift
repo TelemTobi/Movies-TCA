@@ -23,7 +23,7 @@ extension MoviesUseCases: DependencyKey {
     public static let liveValue = MoviesUseCases(
         favorites: {
             @Dependency(\.appData) var appData
-            return appData.$favoriteMovies
+            return appData.$watchlist
         },
         fetchList: { listType in
             @Dependency(\.tmdbApiClient) var tmdbApiClient

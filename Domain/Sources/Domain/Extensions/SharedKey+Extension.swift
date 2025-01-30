@@ -10,18 +10,18 @@ import IdentifiedCollections
 import Core
 import Models
 
-extension SharedKey where Self == InMemoryKey<[Genre]> {
+public extension SharedKey where Self == InMemoryKey<[Genre]> {
     static var genres: Self { .inMemory("genres") }
 }
 
-extension SharedKey where Self == AppStorageKey<Constants.Appearance> {
+public extension SharedKey where Self == AppStorageKey<Constants.Appearance> {
     static var appearance: Self { .appStorage("appearance") }
 }
 
-extension SharedKey where Self == AppStorageKey<Bool> {
+public extension SharedKey where Self == AppStorageKey<Bool> {
     static var adultContent: Self { .appStorage("isAdultContentOn") }
 }
 
-extension SharedKey where Self == FileStorageKey<IdentifiedArrayOf<Movie>> {
-    static var favoriteMovies: Self { .fileStorage(.applicationDirectory.appending(path: "favoriteMovies.json")) }
+public extension SharedKey where Self == FileStorageKey<IdentifiedArrayOf<Movie>> {
+    static var watchlist: Self { .fileStorage(.applicationDirectory.appending(path: "watchlist.json")) }
 }

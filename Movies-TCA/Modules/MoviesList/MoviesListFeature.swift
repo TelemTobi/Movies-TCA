@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import Models
+import Domain
 
 @Reducer
 struct MoviesListFeature {
@@ -17,8 +18,7 @@ struct MoviesListFeature {
         var listType: MoviesListType?
         var movies: IdentifiedArrayOf<Movie> = []
         
-        @Shared(.likedMovies)
-        var likedMovies: IdentifiedArrayOf<Movie> = []
+        @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
     }
     
     enum Action: ViewAction, Equatable {
@@ -36,6 +36,8 @@ struct MoviesListFeature {
         case view(View)
         case navigation(Navigation)
     }
+    
+    @Dependency(\.interactor) private var interactor
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -55,12 +57,15 @@ struct MoviesListFeature {
             return .send(.navigation(.presentMovie(movie)))
             
         case let .onMovieLike(movie):
-            if state.likedMovies.contains(movie) {
-                state.$likedMovies.withLock { $0.remove(movie) }
-            } else {
-                state.$likedMovies.withLock { $0.append(movie) }
+            return .run { _ in
+                await interactor.toggleWatchlist(for: movie)
             }
-            return .none
         }
+    }
+}
+
+extension DependencyValues {
+    fileprivate var interactor: MovieListInteractor {
+        get { self[MovieListInteractor.self] }
     }
 }

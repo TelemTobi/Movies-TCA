@@ -73,7 +73,7 @@ struct DiscoveryView: View {
                     onMovieTap: { send(.onMovieTap($0)) },
                     isMovieLiked: { movie in
                         .init(
-                            get: { store.likedMovies.contains(movie) },
+                            get: { store.watchlist.contains(movie) },
                             set: { _ in send(.onMovieLike(movie)) }
                         )
                     }
@@ -86,7 +86,7 @@ struct DiscoveryView: View {
                     onMovieTap: { send(.onMovieTap($0)) },
                     isMovieLiked: { movie in
                         .init(
-                            get: { store.likedMovies.contains(movie) },
+                            get: { store.watchlist.contains(movie) },
                             set: { _ in send(.onMovieLike(movie)) }
                         )
                     }

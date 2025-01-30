@@ -14,8 +14,7 @@ import IdentifiedCollections
 public actor AppData {
     public var genres: [Genre] = []
     
-    @Shared(.favoriteMovies)
-    public var favoriteMovies: IdentifiedArrayOf<Movie> = []
+    @Shared(.watchlist) public var watchlist: IdentifiedArrayOf<Movie> = []
     
     public func setGenres(_ genres: [Genre]) {
         self.genres = genres

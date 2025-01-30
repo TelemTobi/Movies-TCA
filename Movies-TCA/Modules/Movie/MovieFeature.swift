@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import Models
+import Domain
 
 @Reducer
 struct MovieFeature {
@@ -16,15 +17,14 @@ struct MovieFeature {
     struct State: Equatable {
         var movieDetails: MovieDetails
         
-        @Shared(.likedMovies) 
-        var likedMovies: IdentifiedArrayOf<Movie> = []
+        @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
         
         init(movieDetails: MovieDetails) {
             self.movieDetails = movieDetails
         }
         
         var isLiked: Bool {
-            likedMovies.contains(movieDetails.movie)
+            watchlist.contains(movieDetails.movie)
         }
     }
     
@@ -96,10 +96,10 @@ struct MovieFeature {
         case .onLikeTap:
             let movie = state.movieDetails.movie
             
-            if state.likedMovies.contains(movie) {
-                state.$likedMovies.withLock { $0.remove(movie) }
+            if state.watchlist.contains(movie) {
+                state.$watchlist.withLock { $0.remove(movie) }
             } else {
-                state.$likedMovies.withLock { $0.append(movie) }
+                state.$watchlist.withLock { $0.append(movie) }
             }
             return .none
         }

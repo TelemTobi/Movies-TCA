@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import Movies_TCA
+@testable import Models
 import ComposableArchitecture
 
 @MainActor
@@ -38,7 +39,7 @@ final class DiscoveryTests: XCTestCase {
             return
         }
         
-        await store.receive(.moviesListLoaded(type, result)) { state in
+        await store.receive(.movieListResult(type, result)) { state in
             state.movies[type] = .init(uniqueElements: response.results ?? [])
         }
     }
@@ -99,11 +100,11 @@ final class DiscoveryTests: XCTestCase {
         let mockMovie: Movie = .mock
         
         await store.send(.view(.onMovieLike(mockMovie))) { state in
-            state.likedMovies.append(mockMovie)
+            state.watchlist.append(mockMovie)
         }
         
         await store.send(.view(.onMovieLike(mockMovie))) { state in
-            state.likedMovies.remove(mockMovie)
+            state.watchlist.remove(mockMovie)
         }
     }
 }

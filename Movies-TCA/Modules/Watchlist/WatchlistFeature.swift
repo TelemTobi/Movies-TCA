@@ -8,13 +8,14 @@
 import Foundation
 import ComposableArchitecture
 import Models
+import Domain
 
 @Reducer
 struct WatchlistFeature {
     
     @ObservableState
     struct State: Equatable {
-        @Shared(.likedMovies) var likedMovies: IdentifiedArrayOf<Movie> = []
+        @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
         @Presents var alert: AlertState<Action.Alert>?
     }
     
@@ -42,6 +43,8 @@ struct WatchlistFeature {
         }
     }
     
+    @Dependency(\.interactor) private var interactor
+    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
@@ -49,8 +52,9 @@ struct WatchlistFeature {
                 return reduceViewAction(&state, viewAction)
                 
             case let .alert(.presented(.confirmDislike(movie))):
-                state.$likedMovies.withLock { $0.remove(movie) }
-                return .none
+                return .run { _ in
+                    await interactor.toggleWatchlist(for: movie)
+                }
                 
             case .navigation, .alert:
                 return .none
@@ -71,5 +75,11 @@ struct WatchlistFeature {
             state.alert = .dislikeConfirmation(for: movie)
             return .none
         }
+    }
+}
+
+extension DependencyValues {
+    fileprivate var interactor: WatchlistInteractor {
+        get { self[WatchlistInteractor.self] }
     }
 }

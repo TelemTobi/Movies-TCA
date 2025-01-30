@@ -57,11 +57,11 @@ final class MovieTests: XCTestCase {
     
     func testOnLikeTap() async {
         await store.send(.view(.onLikeTap)) { state in
-            state.likedMovies.append(state.movieDetails.movie)
+            state.watchlist.append(state.movieDetails.movie)
         }
         
         await store.send(.view(.onLikeTap)) { state in
-            state.likedMovies.remove(state.movieDetails.movie)
+            state.watchlist.remove(state.movieDetails.movie)
         }
     }
 }

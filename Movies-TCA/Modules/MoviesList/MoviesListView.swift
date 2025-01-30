@@ -24,7 +24,7 @@ struct MoviesListView: View {
                     MovieListItem(
                         movie: movie,
                         isLiked: .init(
-                            get: { store.likedMovies.contains(movie) },
+                            get: { store.watchlist.contains(movie) },
                             set: { _ in send(.onMovieLike(movie)) }
                         )
                     )

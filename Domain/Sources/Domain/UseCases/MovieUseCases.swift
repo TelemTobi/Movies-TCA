@@ -11,19 +11,19 @@ import Models
 import TmdbApi
 
 public struct MovieUseCases: Sendable {
-    public var toggleFavorite: @Sendable (_ movie: Movie) async -> Void
+    public var toggleWatchlist: @Sendable (_ movie: Movie) async -> Void
     public var fetchDetails: @Sendable (_ movieId: Int) async -> Result<MovieDetails, TmdbError>
 }
 
 extension MovieUseCases: DependencyKey {
     public static let liveValue = MovieUseCases(
-        toggleFavorite: { movie in
+        toggleWatchlist: { movie in
             @Dependency(\.appData) var appData
             
-            if appData.favoriteMovies.contains(movie) {
-                let _ = appData.$favoriteMovies.withLock { $0.remove(movie) }
+            if appData.watchlist.contains(movie) {
+                let _ = appData.$watchlist.withLock { $0.remove(movie) }
             } else {
-                let _ = appData.$favoriteMovies.withLock { $0.append(movie) }
+                let _ = appData.$watchlist.withLock { $0.append(movie) }
             }
         },
         fetchDetails: { movieId in
