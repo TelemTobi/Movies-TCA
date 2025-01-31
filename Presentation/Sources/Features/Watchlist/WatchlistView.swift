@@ -12,11 +12,15 @@ import DesignSystem
 import Models
 
 @ViewAction(for: WatchlistFeature.self)
-struct WatchlistView: View {
+public struct WatchlistView: View {
     
-    @Bindable var store: StoreOf<WatchlistFeature>
+    @Bindable public var store: StoreOf<WatchlistFeature>
     
-    var body: some View {
+    public init(store: StoreOf<WatchlistFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         Group {
             if store.watchlist.isEmpty {
                 EmptyFavoritesView()

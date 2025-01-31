@@ -10,21 +10,20 @@ import ComposableArchitecture
 import Models
 
 @Reducer
-struct SplashFeature {
-    
+public struct SplashFeature {
     @ObservableState
-    struct State: Equatable {
-        
+    public struct State: Equatable {
+        public init() {}
     }
     
-    enum Action: ViewAction, Equatable {
+    public enum Action: ViewAction, Equatable {
         @CasePathable
-        enum View: Equatable {
+        public enum View: Equatable {
             case onAppear
         }
         
         @CasePathable
-        enum Navigation: Equatable {
+        public enum Navigation: Equatable {
             case splashCompleted
         }
         
@@ -36,7 +35,9 @@ struct SplashFeature {
     
     @Dependency(\.interactor) private var interactor
     
-    var body: some ReducerOf<Self> {
+    public init() {}
+
+    public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case let .view(viewAction):

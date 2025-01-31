@@ -12,11 +12,15 @@ import Models
 import DesignSystem
 
 @ViewAction(for: MoviesListFeature.self)
-struct MoviesListView: View {
+public struct MoviesListView: View {
     
-    let store: StoreOf<MoviesListFeature>
+    public let store: StoreOf<MoviesListFeature>
     
-    var body: some View {
+    public init(store: StoreOf<MoviesListFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         List {
             ForEach(store.movies) { movie in
                 Button {

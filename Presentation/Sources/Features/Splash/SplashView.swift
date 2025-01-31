@@ -10,11 +10,15 @@ import ComposableArchitecture
 import DesignSystem
 
 @ViewAction(for: SplashFeature.self)
-struct SplashView: View {
+public struct SplashView: View {
     
-    let store: StoreOf<SplashFeature>
+    public let store: StoreOf<SplashFeature>
     
-    var body: some View {
+    public init(store: StoreOf<SplashFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         GeometryReader { geometry in
             Image("splashLogo")
                 .resizable()

@@ -10,12 +10,16 @@ import ComposableArchitecture
 import DesignSystem
 
 @ViewAction(for: SearchFeature.self)
-struct SearchView: View {
+public struct SearchView: View {
     
-    @Bindable var store: StoreOf<SearchFeature>
+    @Bindable public var store: StoreOf<SearchFeature>
     @State private var didFirstAppear: Bool = false
     
-    var body: some View {
+    public init(store: StoreOf<SearchFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         ZStack {
             if store.isLoading {
                 ProgressView()

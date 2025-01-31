@@ -10,25 +10,30 @@ import ComposableArchitecture
 import Models
 
 @Reducer
-struct MoviesListFeature {
+public struct MoviesListFeature {
     
     @ObservableState
-    struct State: Equatable {
+    public struct State: Equatable {
         var listType: MoviesListType?
         var movies: IdentifiedArrayOf<Movie> = []
         
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
+        
+        public init(listType: MoviesListType? = nil, movies: IdentifiedArrayOf<Movie>) {
+            self.listType = listType
+            self.movies = movies
+        }
     }
     
-    enum Action: ViewAction, Equatable {
+    public enum Action: ViewAction, Equatable {
         @CasePathable
-        enum View: Equatable {
+        public enum View: Equatable {
             case onMovieTap(Movie)
             case onMovieLike(Movie)
         }
         
         @CasePathable
-        enum Navigation: Equatable {
+        public enum Navigation: Equatable {
             case presentMovie(Movie)
         }
         
@@ -38,7 +43,9 @@ struct MoviesListFeature {
     
     @Dependency(\.interactor) private var interactor
     
-    var body: some ReducerOf<Self> {
+    public init() {}
+
+    public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case let .view(viewAction):

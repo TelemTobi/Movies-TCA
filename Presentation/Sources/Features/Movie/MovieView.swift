@@ -12,9 +12,9 @@ import Models
 import DesignSystem
 
 @ViewAction(for: MovieFeature.self)
-struct MovieView: View {
+public struct MovieView: View {
     
-    @Bindable var store: StoreOf<MovieFeature>
+    @Bindable public var store: StoreOf<MovieFeature>
     
     @State var headerOffScreenPercentage: CGFloat = 0
     @State var isOverviewTruncated: Bool = false
@@ -30,13 +30,13 @@ struct MovieView: View {
         headerOffScreenPercentage.percentageInside(range: navigationBarVisibilityThreshold...navigationBarVisibilityThreshold + 0.02)
     }
     
-    init(store: StoreOf<MovieFeature>) {
+    public init(store: StoreOf<MovieFeature>) {
         self.store = store
     }
     
     @Environment(\.dismiss) var dismiss
     
-    var body: some View {
+    public var body: some View {
         GeometryReader { geometry in
             ScrollView(showsIndicators: false) {
                 HeaderView(geometry: geometry)

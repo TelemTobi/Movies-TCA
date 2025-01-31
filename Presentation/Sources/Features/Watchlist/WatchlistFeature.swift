@@ -10,41 +10,47 @@ import ComposableArchitecture
 import Models
 
 @Reducer
-struct WatchlistFeature {
+public struct WatchlistFeature {
     
     @ObservableState
-    struct State: Equatable {
+    public struct State: Equatable {
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
         @Presents var alert: AlertState<Action.Alert>?
+        
+        public init(alert: AlertState<Action.Alert>? = nil) {
+            self.alert = alert
+        }
     }
     
-    enum Action: ViewAction, Equatable {
+    public enum Action: ViewAction, Equatable {
         @CasePathable
-        enum View: Equatable {
+        public enum View: Equatable {
             case onPreferencesTap
             case onMovieTap(Movie)
             case onMovieDislike(Movie)
         }
         
         @CasePathable
-        enum Navigation: Equatable {
+        public enum Navigation: Equatable {
             case presentMovie(Movie)
             case presentPreferences
+        }
+        
+        @CasePathable
+        public enum Alert: Equatable {
+            case confirmDislike(Movie)
         }
         
         case view(View)
         case navigation(Navigation)
         case alert(PresentationAction<Alert>)
-        
-        @CasePathable
-        enum Alert: Equatable {
-            case confirmDislike(Movie)
-        }
     }
     
     @Dependency(\.interactor) private var interactor
     
-    var body: some ReducerOf<Self> {
+    public init() {}
+
+    public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case let .view(viewAction):

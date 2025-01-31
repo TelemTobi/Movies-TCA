@@ -11,17 +11,19 @@ import ComposableArchitecture
 import Core
 
 @Reducer
-struct PreferencesFeature {
+public struct PreferencesFeature {
     
     @ObservableState
-    struct State: Equatable {
+    public struct State: Equatable {
         @Shared(.adultContent) var isAdultContentOn = false
         @Shared(.appearance) var appearance = .system
+        
+        public init() {}
     }
     
-    enum Action: ViewAction, Equatable {
+    public enum Action: ViewAction, Equatable {
         @CasePathable
-        enum View: Equatable {
+        public enum View: Equatable {
             case onLanguageTap
             case onCloseButtonTap
         }
@@ -35,7 +37,9 @@ struct PreferencesFeature {
     @Dependency(\.dismiss) private var dismiss
     @Dependency(\.isPresented) private var isPresented
     
-    var body: some ReducerOf<Self> {
+    public init() {}
+
+    public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case let .view(viewAction):

@@ -11,12 +11,16 @@ import Core
 import DesignSystem
 
 @ViewAction(for: PreferencesFeature.self)
-struct PreferencesView: View {
+public struct PreferencesView: View {
 
-    @Bindable var store: StoreOf<PreferencesFeature>
+    @Bindable public var store: StoreOf<PreferencesFeature>
     @Environment(\.colorScheme) var colorScheme
     
-    var body: some View {
+    public init(store: StoreOf<PreferencesFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         List {
             AppSettingsSection()
             DeviceSettingsSection()

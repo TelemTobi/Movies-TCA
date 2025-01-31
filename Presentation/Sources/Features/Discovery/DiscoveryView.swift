@@ -13,11 +13,15 @@ import Models
 import DesignSystem
 
 @ViewAction(for: DiscoveryFeature.self)
-struct DiscoveryView: View {
+public struct DiscoveryView: View {
     
-    let store: StoreOf<DiscoveryFeature>
+    public let store: StoreOf<DiscoveryFeature>
     
-    var body: some View {
+    public init(store: StoreOf<DiscoveryFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         ZStack {
             if store.isLoading {
                 ProgressView()

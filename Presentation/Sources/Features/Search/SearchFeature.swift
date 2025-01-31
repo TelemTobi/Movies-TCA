@@ -11,13 +11,13 @@ import ComposableArchitecture
 import Models
 
 @Reducer
-struct SearchFeature {
+public struct SearchFeature {
     
     @ObservableState
-    struct State: Equatable {
-        var isLoading = false
-        var results: IdentifiedArrayOf<Movie> = []
-        var searchInput: String = .empty
+    public struct State: Equatable {
+        var isLoading: Bool
+        var results: IdentifiedArrayOf<Movie>
+        var searchInput: String
 
         @Shared(.genres) var genres = []
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
@@ -25,11 +25,17 @@ struct SearchFeature {
         var isSearchActive: Bool {
             searchInput.count >= 2
         }
+        
+        public init(isLoading: Bool = false, results: IdentifiedArrayOf<Movie> = [], searchInput: String = "") {
+            self.isLoading = isLoading
+            self.results = results
+            self.searchInput = searchInput
+        }
     }
     
-    enum Action: ViewAction, BindableAction, Equatable, Sendable {
+    public enum Action: ViewAction, BindableAction, Equatable {
         @CasePathable
-        enum View: Equatable {
+        public enum View: Equatable {
             case onPreferencesTap
             case onMovieTap(Movie)
             case onGenreTap(Genre)
@@ -37,7 +43,7 @@ struct SearchFeature {
         }
         
         @CasePathable
-        enum Navigation: Equatable {
+        public enum Navigation: Equatable {
             case presentMovie(Movie)
             case presentPreferences
         }
@@ -53,7 +59,9 @@ struct SearchFeature {
     @Dependency(\.interactor) private var interactor
     @Dependency(\.mainQueue) private var mainQueue
     
-    var body: some ReducerOf<Self> {
+    public init() {}
+
+    public var body: some ReducerOf<Self> {
         BindingReducer()
         
         Reduce { state, action in
