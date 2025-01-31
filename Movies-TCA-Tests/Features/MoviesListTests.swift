@@ -32,11 +32,11 @@ final class MoviesListTests: XCTestCase {
         let mockMovie: Movie = .mock
         
         await store.send(.view(.onMovieLike(mockMovie))) { state in
-            state.likedMovies.append(mockMovie)
+            state.watchlist.append(mockMovie)
         }
         
         await store.send(.view(.onMovieLike(mockMovie))) { state in
-            state.likedMovies.remove(mockMovie)
+            state.watchlist.remove(mockMovie)
         }
     }
 }

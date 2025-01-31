@@ -25,7 +25,7 @@ final class WatchlistTests: XCTestCase {
         
         await store.send(\.alert.presented.confirmDislike, mockMovie) { state in
             state.alert = nil
-            state.likedMovies.remove(mockMovie)
+            state.watchlist.remove(mockMovie)
         }
     }
     

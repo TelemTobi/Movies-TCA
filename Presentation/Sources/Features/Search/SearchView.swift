@@ -1,0 +1,133 @@
+//
+//  SearchView.swift
+//  Presentation
+//
+//  Created by Telem Tobi on 24/11/2023.
+//
+
+import SwiftUI
+import ComposableArchitecture
+import DesignSystem
+
+@ViewAction(for: SearchFeature.self)
+public struct SearchView: View {
+    
+    @Bindable public var store: StoreOf<SearchFeature>
+    @State private var didFirstAppear: Bool = false
+    
+    public init(store: StoreOf<SearchFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
+        ZStack {
+            if store.isLoading {
+                ProgressView()
+            } else {
+                ContentView()
+            }
+        }
+        .navigationTitle("Search")
+        .toolbar(content: toolbarContent)
+        .animation(.easeInOut, value: store.isLoading)
+        .searchable(
+            text: $store.searchInput.sending(\.onInputChange),
+            placement: .navigationBarDrawer(displayMode: .always),
+            prompt: "Explore movies here"
+        )
+    }
+    
+    @ToolbarContentBuilder
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(
+                action: { send(.onPreferencesTap) },
+                label: {
+                    Image(systemName: "gear")
+                        .foregroundColor(.accentColor)
+                }
+            )
+        }
+    }
+    
+    @MainActor
+    @ViewBuilder
+    private func ContentView() -> some View {
+        List {
+            Group {
+                if store.isSearchActive {
+                    ResultsView()
+                        .listRowInsets(.zero)
+                    
+                } else {
+                    SuggestionsView()
+                        .listRowSeparator(.hidden)
+                }
+            }
+            .listRowBackground(Color.clear)
+            .listSectionSeparator(.hidden, edges: .top)
+        }
+        .listStyle(.grouped)
+        .scrollIndicators(.hidden)
+    }
+    
+    @MainActor
+    @ViewBuilder
+    private func SuggestionsView() -> some View {
+        let delays = Array(0..<store.genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()
+        
+        CapsulesView(items: store.genres) { index, genre in
+            Button(
+                action: {
+                    send(.onGenreTap(genre))
+                },
+                label: {
+                    Text(genre.name ?? .empty)
+                        .font(.footnote)
+                        .fontWeight(.medium)
+                }
+            )
+            .buttonStyle(.capsuled)
+            .opacity(didFirstAppear ? 1 : 0)
+            .scaleEffect(didFirstAppear ? 1 : 0.7)
+            .rotationEffect(.degrees(didFirstAppear ? 0 : 10))
+            .animation(
+                .easeInOut(duration: 0.25).delay(delays[index]),
+                value: didFirstAppear
+            )
+        }
+        .onFirstAppear {
+            withAnimation { didFirstAppear = true }
+        }
+    }
+    
+    @MainActor
+    @ViewBuilder
+    private func ResultsView() -> some View {
+        ForEach(store.results) { movie in
+            Button {
+                send(.onMovieTap(movie))
+            } label: {
+                MovieListItem(
+                    movie: movie,
+                    isLiked: .init(
+                        get: { store.watchlist.contains(movie) },
+                        set: { _ in send(.onMovieLike(movie)) }
+                    )
+                )
+            }
+            .buttonStyle(.plain)
+        }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        SearchView(
+            store: Store(
+                initialState: SearchFeature.State(),
+                reducer: { SearchFeature() }
+            )
+        )
+    }
+}
