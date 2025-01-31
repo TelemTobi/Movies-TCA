@@ -24,6 +24,7 @@
 		7D4BA7702BAAC3F700029DB4 /* SearchNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BA76F2BAAC3F700029DB4 /* SearchNavigatorView.swift */; };
 		7D513F7C2B17221A0040F913 /* PreferencesFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F7B2B17221A0040F913 /* PreferencesFeature.swift */; };
 		7D513F7E2B1722210040F913 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D513F7D2B1722210040F913 /* PreferencesView.swift */; };
+		7D62BAC42D4CA3000041185E /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 7D62BAC32D4CA3000041185E /* DesignSystem */; };
 		7D6875342B4A740800882EA9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 7D6875332B4A740800882EA9 /* Localizable.xcstrings */; };
 		7D77E6192B113F4E00B308A6 /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E6182B113F4E00B308A6 /* MovieView.swift */; };
 		7D77E61B2B113F5800B308A6 /* MovieFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D77E61A2B113F5800B308A6 /* MovieFeature.swift */; };
@@ -157,6 +158,7 @@
 				7D4A0DF32D4B4774004A80CF /* TmdbApi in Frameworks */,
 				7D8F4DDC2D4750AD00635AE0 /* Models in Frameworks */,
 				7DD570A42B559EF100042F88 /* Pow in Frameworks */,
+				7D62BAC42D4CA3000041185E /* DesignSystem in Frameworks */,
 				7DDA645C2B0E8ABF008BF425 /* SDWebImageSwiftUI in Frameworks */,
 				7D8F4DDA2D4750AD00635AE0 /* Core in Frameworks */,
 				7D8F4DE52D47F60D00635AE0 /* Domain in Frameworks */,
@@ -500,6 +502,7 @@
 				7D8F4DDB2D4750AD00635AE0 /* Models */,
 				7D8F4DDD2D47EED500635AE0 /* TmdbApi */,
 				7D8F4DE42D47F60D00635AE0 /* Domain */,
+				7D62BAC32D4CA3000041185E /* DesignSystem */,
 			);
 			productName = "Movies-TCA";
 			productReference = 7DD6D96A2AF943B7004828AB /* Movies-TCA.app */;
@@ -747,7 +750,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 6.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -806,7 +809,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 6.0;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -819,7 +822,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Movies-TCA/Support/Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Presentation/Sources/DesignSystem/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 765F9357QN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -851,7 +854,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Movies-TCA/Support/Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Presentation/Sources/DesignSystem/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 765F9357QN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -935,6 +938,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7D62BAC32D4CA3000041185E /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
+		};
 		7D8F4DD92D4750AD00635AE0 /* Core */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Core;

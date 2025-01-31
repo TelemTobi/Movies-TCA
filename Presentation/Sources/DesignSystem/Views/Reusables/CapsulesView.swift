@@ -9,9 +9,14 @@ import SwiftUI
 
 public struct CapsulesView<Content, T>: View where Content : View, T : Hashable {
     
-    public var items: Array<T>
-    public var contentForItem: (Int, T) -> Content
+    var items: Array<T>
+    var contentForItem: (Int, T) -> Content
 
+    public init(items: Array<T>, contentForItem: @escaping (Int, T) -> Content) {
+        self.items = items
+        self.contentForItem = contentForItem
+    }
+    
     @State private var totalHeight: CGFloat
           = .zero       // << variant for ScrollView/List
     //    = .infinity   // << variant for VStack

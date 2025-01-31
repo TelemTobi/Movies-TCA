@@ -12,9 +12,15 @@ import Models
 
 public struct MoviesCollectionView: View {
     
-    public let movies: IdentifiedArrayOf<Movie>
-    public let onMovieTap: (Movie) -> Void
-    public var isMovieLiked: ((Movie) -> Binding<Bool>)? = nil
+    let movies: IdentifiedArrayOf<Movie>
+    let onMovieTap: (Movie) -> Void
+    var isMovieLiked: ((Movie) -> Binding<Bool>)? = nil
+    
+    public init(movies: IdentifiedArrayOf<Movie>, onMovieTap: @escaping (Movie) -> Void, isMovieLiked: ((Movie) -> Binding<Bool>)? = nil) {
+        self.movies = movies
+        self.onMovieTap = onMovieTap
+        self.isMovieLiked = isMovieLiked
+    }
     
     public var body: some View {
         GeometryReader { geometry in

@@ -10,8 +10,13 @@ import Core
 
 public struct CloseButton: View {
     
-    public var backgroundOpacity: CGFloat = 1
-    public let action: EmptyClosure
+    let backgroundOpacity: CGFloat
+    let action: EmptyClosure
+    
+    public init(backgroundOpacity: CGFloat = 1, action: @escaping EmptyClosure) {
+        self.backgroundOpacity = backgroundOpacity
+        self.action = action
+    }
     
     public var body: some View {
         Button(

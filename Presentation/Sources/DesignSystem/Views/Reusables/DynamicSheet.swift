@@ -9,8 +9,13 @@ import SwiftUI
 
 public struct DynamicSheet<Content: View>: View {
     
-    public let title: String
-    public let content: () -> Content
+    let title: String
+    let content: () -> Content
+    
+    public init(title: String, content: @escaping () -> Content) {
+        self.title = title
+        self.content = content
+    }
     
     @Environment(\.dismiss) var dismiss
     

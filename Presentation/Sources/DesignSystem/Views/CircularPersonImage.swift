@@ -11,8 +11,13 @@ import Core
 import Models
 
 public struct CircularPersonImage: View {
-    public let person: Person
-    public let size: CGFloat
+    let person: Person
+    let size: CGFloat
+    
+    public init(person: Person, size: CGFloat) {
+        self.person = person
+        self.size = size
+    }
     
     public var body: some View {
         WebImage(url: person.imageUrl)

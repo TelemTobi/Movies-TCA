@@ -9,8 +9,13 @@ import SwiftUI
 
 public struct VerticalKeyValueView: View {
     
-    public let key: String
-    public let value: String
+    let key: String
+    let value: String
+    
+    public init(key: String, value: String) {
+        self.key = key
+        self.value = value
+    }
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {

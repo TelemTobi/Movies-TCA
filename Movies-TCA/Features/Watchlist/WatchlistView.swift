@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import ComposableArchitecture
+import DesignSystem
 
 @ViewAction(for: WatchlistFeature.self)
 struct WatchlistView: View {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Models
+import DesignSystem
 
 struct CastMembersView: View {
     
@@ -57,9 +58,9 @@ struct CastMembersView: View {
     }
 }
 
-#Preview {
-    CastMembersView(
-        castMembers: MovieDetails.mock.credits?.cast ?? [],
-        didTapCastMember: { _ in }
-    )
-}
+//#Preview {
+//    CastMembersView(
+//        castMembers: MovieDetails.mock.credits?.cast ?? [],
+//        didTapCastMember: { _ in }
+//    )
+//}

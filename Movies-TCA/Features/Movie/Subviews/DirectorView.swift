@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Models
+import DesignSystem
 
 struct DirectorView: View {
     
@@ -44,10 +45,10 @@ struct DirectorView: View {
     }
 }
 
-#Preview {
-    DirectorView(
-        director: .mock,
-        didTapDirector: { _ in }
-    )
-    .previewLayout(.sizeThatFits)
-}
+//#Preview {
+//    DirectorView(
+//        director: .mock,
+//        didTapDirector: { _ in }
+//    )
+//    .previewLayout(.sizeThatFits)
+//}

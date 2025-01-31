@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import Core
+import DesignSystem
 
 @ViewAction(for: PreferencesFeature.self)
 struct PreferencesView: View {
@@ -34,7 +35,7 @@ extension PreferencesView {
                 systemImage: "exclamationmark.shield.fill",
                 isOn: $store.isAdultContentOn.sending(\.onAdultContentToggle)
             )
-            .labelStyle(SettingLabelStyle(color: .pink))
+            .labelStyle(.settings(color: .pink))
         }
     }
     

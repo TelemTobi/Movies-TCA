@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import SDWebImageSwiftUI
 import Models
+import DesignSystem
 
 @ViewAction(for: MovieFeature.self)
 struct MovieView: View {
@@ -153,13 +154,13 @@ struct MovieView: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        MovieView(
-            store: Store(
-                initialState: MovieFeature.State(movieDetails: .init(movie: .mock)),
-                reducer: { MovieFeature() }
-            )
-        )
-    }
-}
+//#Preview {
+//    NavigationStack {
+//        MovieView(
+//            store: Store(
+//                initialState: MovieFeature.State(movieDetails: .init(movie: .mock)),
+//                reducer: { MovieFeature() }
+//            )
+//        )
+//    }
+//}

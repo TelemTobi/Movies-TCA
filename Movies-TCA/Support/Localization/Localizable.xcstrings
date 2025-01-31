@@ -250,6 +250,7 @@
       }
     },
     "Done" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -397,6 +398,7 @@
       }
     },
     "N/A" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

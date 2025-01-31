@@ -8,6 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 import ComposableArchitecture
+import DesignSystem
 
 extension MovieView {
     
@@ -81,7 +82,7 @@ extension MovieView {
                         .fontWeight(.heavy)
                     },
                     icon: {
-                        Image(.tmdbLogo)
+                        Image("TMDBLogo")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 18)

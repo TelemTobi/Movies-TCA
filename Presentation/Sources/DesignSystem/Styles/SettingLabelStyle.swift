@@ -11,6 +11,10 @@ public struct SettingLabelStyle: LabelStyle {
     
     public let color: Color
     
+    public init(color: Color) {
+        self.color = color
+    }
+    
     public func makeBody(configuration: Configuration) -> some View {
         Label(
             title: { configuration.title },
@@ -26,5 +30,11 @@ public struct SettingLabelStyle: LabelStyle {
                     )
             }
         )
+    }
+}
+
+public extension LabelStyle where Self == SettingLabelStyle {
+    static func settings(color: Color) -> Self {
+        SettingLabelStyle(color: color)
     }
 }

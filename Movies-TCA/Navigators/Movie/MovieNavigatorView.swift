@@ -32,13 +32,13 @@ extension MovieNavigator {
     }
 }
 
-#Preview {
-    MovieNavigator.ContentView(
-        store: Store(
-            initialState: MovieNavigator.State(movieDetails: .mock),
-            reducer: MovieNavigator.init
-        )
-    )
-}
+//#Preview {
+//    MovieNavigator.ContentView(
+//        store: Store(
+//            initialState: MovieNavigator.State(movieDetails: .mock),
+//            reducer: MovieNavigator.init
+//        )
+//    )
+//}
 
 

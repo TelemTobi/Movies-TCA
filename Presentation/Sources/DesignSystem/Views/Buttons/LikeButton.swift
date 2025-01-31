@@ -11,8 +11,13 @@ import Core
 
 public struct LikeButton: View {
     
-    @Binding public var isLiked: Bool
-    public var outlineColor: Color = .white.opacity(0.8)
+    @Binding var isLiked: Bool
+    let outlineColor: Color
+    
+    public init(isLiked: Binding<Bool>, outlineColor: Color = .white.opacity(0.8)) {
+        self._isLiked = isLiked
+        self.outlineColor = outlineColor
+    }
     
     public var body: some View {
         Button(
@@ -47,6 +52,6 @@ public struct LikeButton: View {
 }
 
 #Preview {
-    return LikeButton(isLiked: .constant(false))
+    LikeButton(isLiked: .constant(false))
         .background(.black)
 }

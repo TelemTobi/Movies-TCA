@@ -10,6 +10,7 @@ import ComposableArchitecture
 import Pow
 import Core
 import Models
+import DesignSystem
 
 @ViewAction(for: DiscoveryFeature.self)
 struct DiscoveryView: View {

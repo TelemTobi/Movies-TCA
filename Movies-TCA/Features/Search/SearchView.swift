@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import DesignSystem
 
 @ViewAction(for: SearchFeature.self)
 struct SearchView: View {

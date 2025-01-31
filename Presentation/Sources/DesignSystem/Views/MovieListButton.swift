@@ -11,8 +11,13 @@ import Models
 
 public struct MovieListItem: View {
     
-    @State public var movie: Movie
-    @Binding public var isLiked: Bool
+    @State var movie: Movie
+    @Binding var isLiked: Bool
+    
+    public init(movie: Movie, isLiked: Binding<Bool>) {
+        self.movie = movie
+        self._isLiked = isLiked
+    }
     
     public var body: some View {
         GeometryReader { geometry in

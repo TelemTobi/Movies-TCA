@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import ComposableArchitecture
+import DesignSystem
 
 @main
 struct MoviesApp: App {

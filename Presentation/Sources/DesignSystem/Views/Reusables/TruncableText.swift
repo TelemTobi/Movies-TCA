@@ -9,9 +9,9 @@ import SwiftUI
 
 public struct TruncableText: View {
     
-    public let text: String
-    public let lineLimit: Int
-    public let truncationUpdate: (Bool) -> Void
+    let text: String
+    let lineLimit: Int
+    let truncationUpdate: (Bool) -> Void
     
     @State private var intrinsicSize: CGSize = .zero
     @State private var truncatedSize: CGSize = .zero

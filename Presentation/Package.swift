@@ -31,7 +31,8 @@ let package = Package(
             name: "PresentationTests",
             dependencies: ["Splash"]
         )
-    ]
+    ],
+    swiftLanguageModes: [.v5]
 )
 
 for target in package.targets where target.name != "DesignSystem" {

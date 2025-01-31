@@ -15,7 +15,7 @@ struct SplashView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            Image(.splashLogo)
+            Image("splashLogo")
                 .resizable()
                 .scaledToFit()
                 .frame(width: geometry.size.width / 2)
