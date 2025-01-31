@@ -1,5 +1,5 @@
 //
-//  MoviesListView.swift
+//  MovieListView.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 26/11/2023.
@@ -12,7 +12,7 @@ import Models
 import DesignSystem
 
 @ViewAction(for: MoviesListFeature.self)
-public struct MoviesListView: View {
+public struct MovieListView: View {
     
     public let store: StoreOf<MoviesListFeature>
     
@@ -47,16 +47,16 @@ public struct MoviesListView: View {
     }
 }
 
-//#Preview {
-//    NavigationStack {
-//        MoviesListView(
-//            store: Store(
-//                initialState: MoviesListFeature.State(
-//                    listType: .nowPlaying,
-//                    movies: [.mock, .mock]
-//                ),
-//                reducer: { MoviesListFeature() }
-//            )
-//        )
-//    }
-//}
+#Preview {
+    NavigationStack {
+        MovieListView(
+            store: Store(
+                initialState: MoviesListFeature.State(
+                    listType: .nowPlaying,
+                    movies: [.mock, .mock]
+                ),
+                reducer: { MoviesListFeature() }
+            )
+        )
+    }
+}

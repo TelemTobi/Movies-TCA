@@ -112,10 +112,10 @@ public struct MoviesPagerView: View {
     }
 }
 
-//#Preview {
-//    MoviesPagerView(
-//        movies: .init(uniqueElements: MovieList.mock.movies ?? []),
-//        onMovieTap: { _ in }
-//    )
-//    .frame(height: 260)
-//}
+#Preview {
+    MoviesPagerView(
+        movies: .init(uniqueElements: MovieList.mock.movies ?? []),
+        onMovieTap: { _ in }
+    )
+    .frame(height: 260)
+}

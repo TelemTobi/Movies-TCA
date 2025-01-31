@@ -41,9 +41,9 @@ public struct CircularPersonImage: View {
     }
 }
 
-//#Preview {
-//    CircularPersonImage(
-//        person: CastMember.mock,
-//        size: 300
-//    )
-//}
+#Preview {
+    CircularPersonImage(
+        person: CastMember.mock,
+        size: 300
+    )
+}

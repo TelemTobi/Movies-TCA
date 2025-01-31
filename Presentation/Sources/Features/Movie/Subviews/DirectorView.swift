@@ -45,10 +45,9 @@ struct DirectorView: View {
     }
 }
 
-//#Preview {
-//    DirectorView(
-//        director: .mock,
-//        didTapDirector: { _ in }
-//    )
-//    .previewLayout(.sizeThatFits)
-//}
+#Preview(traits: .sizeThatFitsLayout) {
+    DirectorView(
+        director: .mock,
+        didTapDirector: { _ in }
+    )
+}

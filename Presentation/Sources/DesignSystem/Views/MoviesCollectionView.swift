@@ -85,11 +85,11 @@ public struct MoviesCollectionView: View {
     }
 }
 
-//#Preview {
-//    MoviesCollectionView(
-//        movies: IdentifiedArray(uniqueElements: MovieList.mock.movies ?? []),
-//        onMovieTap: { _ in },
-//        isMovieLiked: { _ in .constant(true) }
-//    )
-//    .frame(height: 280)
-//}
+#Preview {
+    MoviesCollectionView(
+        movies: IdentifiedArray(uniqueElements: MovieList.mock.movies ?? []),
+        onMovieTap: { _ in },
+        isMovieLiked: { _ in .constant(true) }
+    )
+    .frame(height: 280)
+}

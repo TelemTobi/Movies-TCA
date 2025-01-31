@@ -77,7 +77,7 @@ public struct DiscoveryView: View {
                     movies: movies,
                     onMovieTap: { send(.onMovieTap($0)) },
                     isMovieLiked: { movie in
-                        .init(
+                        Binding<Bool>(
                             get: { store.watchlist.contains(movie) },
                             set: { _ in send(.onMovieLike(movie)) }
                         )

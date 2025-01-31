@@ -37,6 +37,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Core", package: "Core"),
                 .product(name: "Models", package: "Data"),
+                .product(name: "Domain", package: "Domain"),
                 .product(name: "SDWebImageSwiftUI", package: "SDWebImageSwiftUI"),
                 .product(name: "Pow", package: "Pow")
             ],

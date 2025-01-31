@@ -73,9 +73,9 @@ public struct MovieListItem: View {
     }
 }
 
-//#Preview(traits: .sizeThatFitsLayout) {
-//    MovieListItem(
-//        movie: .mock,
-//        isLiked: .constant(false)
-//    )
-//}
+#Preview(traits: .sizeThatFitsLayout) {
+    MovieListItem(
+        movie: .mock,
+        isLiked: .constant(false)
+    )
+}

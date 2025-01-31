@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Networking
 
 #if DEBUG
 public enum TmdbMock: String {
@@ -40,6 +41,10 @@ public enum TmdbMock: String {
     
     public var dataEncoded: Data {
         stringFromFile.data(using: .utf8)!
+    }
+    
+    public func decode<T: Decodable>(into type: T.Type, using dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate, _ keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) throws -> T {
+        try self.dataEncoded.decode(into: type, using: dateDecodingStrategy, keyDecodingStrategy)
     }
 }
 #endif

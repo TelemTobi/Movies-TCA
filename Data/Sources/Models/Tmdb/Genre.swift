@@ -12,7 +12,6 @@ public struct GenresResponse: Decodable, Equatable, Sendable {
 }
 
 public struct Genre: Codable, Equatable, Identifiable, Hashable, Sendable {
-    
     public let id: Int
     public let name: String?
 }
