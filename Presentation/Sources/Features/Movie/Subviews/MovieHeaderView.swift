@@ -82,7 +82,7 @@ extension MovieView {
                         .fontWeight(.heavy)
                     },
                     icon: {
-                        Image("TMDBLogo")
+                        Image(.tmdbLogo)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 18)
