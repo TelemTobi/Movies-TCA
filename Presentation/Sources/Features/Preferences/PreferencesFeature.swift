@@ -50,12 +50,10 @@ public struct PreferencesFeature {
                 return .none
                 
             case let .onAppearanceChange(newValue):
-                state.$appearance.withLock { $0 =  Constants.Appearance(rawValue: newValue) ?? .system }
-                
-                return .run { _ in
-                    guard isPresented else { return }
-                    await dismiss()
+                state.$appearance.withLock {
+                    $0 =  Constants.Appearance(rawValue: newValue) ?? .system
                 }
+                return .none
             }
         }
     }

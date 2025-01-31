@@ -11,12 +11,11 @@ import Sharing
 import IdentifiedCollections
 
 public actor AppData {
-    public var genres: [Genre] = []
-    
+    @Shared(.genres) public var genres: [Genre] = []
     @Shared(.watchlist) public var watchlist: IdentifiedArrayOf<Movie> = []
     
     public func setGenres(_ genres: [Genre]) {
-        self.genres = genres
+        self.$genres.withLock { $0 = genres }
     }
 }
 

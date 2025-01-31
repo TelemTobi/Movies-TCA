@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7D23144E2D4CBD510083E47B /* MoviesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D23144C2D4CBD510083E47B /* MoviesApp.swift */; };
 		7D2314522D4CC7070083E47B /* RootNavigator in Frameworks */ = {isa = PBXBuildFile; productRef = 7D2314512D4CC7070083E47B /* RootNavigator */; };
-		7D4A0DF32D4B4774004A80CF /* TmdbApi in Frameworks */ = {isa = PBXBuildFile; productRef = 7D8F4DDD2D47EED500635AE0 /* TmdbApi */; };
+		7D29073F2D4CE42A001A4A4D /* TmdbApi in Frameworks */ = {isa = PBXBuildFile; productRef = 7D8F4DDD2D47EED500635AE0 /* TmdbApi */; };
+		7D2907402D4CE42A001A4A4D /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 7D8F4DE42D47F60D00635AE0 /* Domain */; };
 		7D62BAC42D4CA3000041185E /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 7D62BAC32D4CA3000041185E /* DesignSystem */; };
 		7D7FFB792BB3E2990022C651 /* SplashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB782BB3E2990022C651 /* SplashTests.swift */; };
 		7D7FFB7C2BB3EE080022C651 /* DiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB7B2BB3EE080022C651 /* DiscoveryTests.swift */; };
@@ -26,9 +26,6 @@
 		7D7FFB962BBA79390022C651 /* MovieNavigatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB952BBA79390022C651 /* MovieNavigatorTests.swift */; };
 		7D8F4DDA2D4750AD00635AE0 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 7D8F4DD92D4750AD00635AE0 /* Core */; };
 		7D8F4DDC2D4750AD00635AE0 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 7D8F4DDB2D4750AD00635AE0 /* Models */; };
-		7D8F4DE52D47F60D00635AE0 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 7D8F4DE42D47F60D00635AE0 /* Domain */; };
-		7DD570A42B559EF100042F88 /* Pow in Frameworks */ = {isa = PBXBuildFile; productRef = 7DD570A32B559EF100042F88 /* Pow */; };
-		7DDA645C2B0E8ABF008BF425 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7DDA645B2B0E8ABF008BF425 /* SDWebImageSwiftUI */; };
 		7DE17DC62AFE0325005F4848 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE17DC52AFE0325005F4848 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +41,6 @@
 
 /* Begin PBXFileReference section */
 		7D23144B2D4CBD510083E47B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7D23144C2D4CBD510083E47B /* MoviesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesApp.swift; sourceTree = "<group>"; };
 		7D4A0DF42D4BDB7D004A80CF /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Presentation; sourceTree = "<group>"; };
 		7D783B242B3F2719004BEEAD /* Movies-TCA-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Movies-TCA-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D7FFB782BB3E2990022C651 /* SplashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashTests.swift; sourceTree = "<group>"; };
@@ -74,11 +70,21 @@
 			);
 			target = 7DD6D9692AF943B7004828AB /* Movies-TCA */;
 		};
+		7D3A73AE2D4CE31A0005C6D2 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AppDelegate.swift,
+				MoviesApp.swift,
+				SceneDelegate.swift,
+			);
+			target = 7DD6D9692AF943B7004828AB /* Movies-TCA */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7D2314552D4CC72B0083E47B /* Config */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Config; sourceTree = "<group>"; };
 		7D2314572D4CC72B0083E47B /* Localization */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7D2314592D4CC72B0083E47B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Localization; sourceTree = "<group>"; };
+		7D3A73AD2D4CE31A0005C6D2 /* App */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7D3A73AE2D4CE31A0005C6D2 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = App; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,14 +99,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D4A0DF32D4B4774004A80CF /* TmdbApi in Frameworks */,
+				7D2907402D4CE42A001A4A4D /* Domain in Frameworks */,
+				7D29073F2D4CE42A001A4A4D /* TmdbApi in Frameworks */,
 				7D8F4DDC2D4750AD00635AE0 /* Models in Frameworks */,
-				7DD570A42B559EF100042F88 /* Pow in Frameworks */,
 				7D62BAC42D4CA3000041185E /* DesignSystem in Frameworks */,
-				7DDA645C2B0E8ABF008BF425 /* SDWebImageSwiftUI in Frameworks */,
 				7D8F4DDA2D4750AD00635AE0 /* Core in Frameworks */,
 				7D2314522D4CC7070083E47B /* RootNavigator in Frameworks */,
-				7D8F4DE52D47F60D00635AE0 /* Domain in Frameworks */,
 				7DE17DC62AFE0325005F4848 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,10 +181,10 @@
 		7DD6D96C2AF943B7004828AB /* Movies-TCA */ = {
 			isa = PBXGroup;
 			children = (
+				7D23144B2D4CBD510083E47B /* Info.plist */,
+				7D3A73AD2D4CE31A0005C6D2 /* App */,
 				7D2314552D4CC72B0083E47B /* Config */,
 				7D2314572D4CC72B0083E47B /* Localization */,
-				7D23144B2D4CBD510083E47B /* Info.plist */,
-				7D23144C2D4CBD510083E47B /* MoviesApp.swift */,
 			);
 			path = "Movies-TCA";
 			sourceTree = "<group>";
@@ -221,8 +225,6 @@
 			name = "Movies-TCA";
 			packageProductDependencies = (
 				7DE17DC52AFE0325005F4848 /* ComposableArchitecture */,
-				7DDA645B2B0E8ABF008BF425 /* SDWebImageSwiftUI */,
-				7DD570A32B559EF100042F88 /* Pow */,
 				7D8F4DD92D4750AD00635AE0 /* Core */,
 				7D8F4DDB2D4750AD00635AE0 /* Models */,
 				7D8F4DDD2D47EED500635AE0 /* TmdbApi */,
@@ -266,8 +268,6 @@
 			mainGroup = 7DD6D9612AF943B7004828AB;
 			packageReferences = (
 				7DE17DC42AFE0325005F4848 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
-				7DDA645A2B0E8ABF008BF425 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				7DD570A22B559EF100042F88 /* XCRemoteSwiftPackageReference "Pow" */,
 			);
 			productRefGroup = 7DD6D96B2AF943B7004828AB /* Products */;
 			projectDirPath = "";
@@ -321,7 +321,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D23144E2D4CBD510083E47B /* MoviesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,22 +598,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7DD570A22B559EF100042F88 /* XCRemoteSwiftPackageReference "Pow" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/EmergeTools/Pow";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 1.0.3;
-			};
-		};
-		7DDA645A2B0E8ABF008BF425 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.4;
-			};
-		};
 		7DE17DC42AFE0325005F4848 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
@@ -649,16 +632,6 @@
 		7D8F4DE42D47F60D00635AE0 /* Domain */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Domain;
-		};
-		7DD570A32B559EF100042F88 /* Pow */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7DD570A22B559EF100042F88 /* XCRemoteSwiftPackageReference "Pow" */;
-			productName = Pow;
-		};
-		7DDA645B2B0E8ABF008BF425 /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7DDA645A2B0E8ABF008BF425 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
 		};
 		7DE17DC52AFE0325005F4848 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;

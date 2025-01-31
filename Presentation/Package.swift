@@ -34,88 +34,16 @@ let package = Package(
     targets: [
         .target(
             name: "DesignSystem",
+            dependencies: [
+                .product(name: "Core", package: "Core"),
+                .product(name: "Models", package: "Data"),
+                .product(name: "SDWebImageSwiftUI", package: "SDWebImageSwiftUI"),
+                .product(name: "Pow", package: "Pow")
+            ],
             path: "Sources/DesignSystem",
-            resources: [.process("Resources/Assets.xcassets")]
-        ),
-        .target(
-            name: "DiscoveryFeature",
-            path: "Sources/Features/Discovery"
-        ),
-        .target(
-            name: "MovieFeature",
-            path: "Sources/Features/Movie"
-        ),
-        .target(
-            name: "MovieListFeature",
-            path: "Sources/Features/MovieList"
-        ),
-        .target(
-            name: "PreferencesFeature",
-            path: "Sources/Features/Preferences"
-        ),
-        .target(
-            name: "SearchFeature",
-            path: "Sources/Features/Search"
-        ),
-        .target(
-            name: "SplashFeature",
-            path: "Sources/Features/Splash"
-        ),
-        .target(
-            name: "WatchlistFeature",
-            path: "Sources/Features/Watchlist"
-        ),
-        .target(
-            name: "DiscoveryNavigator",
-            dependencies: [
-                "DiscoveryFeature",
-                "MovieListFeature",
-                "PreferencesFeature",
-                "MovieNavigator"
-            ],
-            path: "Sources/Navigators/Discovery"
-        ),
-        .target(
-            name: "HomeNavigator",
-            dependencies: [
-                "DiscoveryNavigator",
-                "SearchNavigator",
-                "WatchlistNavigator"
-            ],
-            path: "Sources/Navigators/Home"
-        ),
-        .target(
-            name: "MovieNavigator",
-            dependencies: [
-                "MovieFeature"
-            ],
-            path: "Sources/Navigators/Movie"
-        ),
-        .target(
-            name: "RootNavigator",
-            dependencies: [
-                "SplashFeature",
-                "HomeNavigator"
-            ],
-            path: "Sources/Navigators/Root"
-        ),
-        .target(
-            name: "SearchNavigator",
-            dependencies: [
-                "SearchFeature",
-                "PreferencesFeature",
-                "MovieNavigator"
-            ],
-            path: "Sources/Navigators/Search"
-        ),
-        .target(
-            name: "WatchlistNavigator",
-            dependencies: [
-                "WatchlistFeature",
-                "PreferencesFeature",
-                "MovieNavigator"
-            ],
-            path: "Sources/Navigators/Watchlist"
+            resources: [
+                .process("Resources/Assets.xcassets")
+            ]
         ),
         .testTarget(
             name: "PresentationTests",
@@ -125,18 +53,116 @@ let package = Package(
     swiftLanguageModes: [.v5]
 )
 
-for target in package.targets where target.name != "DesignSystem" {
-    target.dependencies.append("DesignSystem")
-}
+// MARK: - Features
 
-for target in package.targets {
+let features: [PackageDescription.Target] = [
+    .target(
+        name: "DiscoveryFeature",
+        path: "Sources/Features/Discovery"
+    ),
+    .target(
+        name: "MovieFeature",
+        path: "Sources/Features/Movie"
+    ),
+    .target(
+        name: "MovieListFeature",
+        path: "Sources/Features/MovieList"
+    ),
+    .target(
+        name: "PreferencesFeature",
+        path: "Sources/Features/Preferences"
+    ),
+    .target(
+        name: "SearchFeature",
+        path: "Sources/Features/Search"
+    ),
+    .target(
+        name: "SplashFeature",
+        path: "Sources/Features/Splash"
+    ),
+    .target(
+        name: "WatchlistFeature",
+        path: "Sources/Features/Watchlist"
+    )
+]
+
+for target in features {
     target.dependencies.append(contentsOf: [
+        "DesignSystem",
         .product(name: "Core", package: "Core"),
         .product(name: "Models", package: "Data"),
         .product(name: "Domain", package: "Domain"),
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "SDWebImageSwiftUI", package: "SDWebImageSwiftUI"),
         .product(name: "Pow", package: "Pow")
-
     ])
 }
+
+// MARK: - Navigators
+
+let navigators: [PackageDescription.Target] = [
+    .target(
+        name: "DiscoveryNavigator",
+        dependencies: [
+            "DiscoveryFeature",
+            "MovieListFeature",
+            "PreferencesFeature",
+            "MovieNavigator"
+        ],
+        path: "Sources/Navigators/Discovery"
+    ),
+    .target(
+        name: "HomeNavigator",
+        dependencies: [
+            "DiscoveryNavigator",
+            "SearchNavigator",
+            "WatchlistNavigator"
+        ],
+        path: "Sources/Navigators/Home"
+    ),
+    .target(
+        name: "MovieNavigator",
+        dependencies: [
+            "MovieFeature"
+        ],
+        path: "Sources/Navigators/Movie"
+    ),
+    .target(
+        name: "RootNavigator",
+        dependencies: [
+            "SplashFeature",
+            "HomeNavigator"
+        ],
+        path: "Sources/Navigators/Root"
+    ),
+    .target(
+        name: "SearchNavigator",
+        dependencies: [
+            "SearchFeature",
+            "PreferencesFeature",
+            "MovieNavigator"
+        ],
+        path: "Sources/Navigators/Search"
+    ),
+    .target(
+        name: "WatchlistNavigator",
+        dependencies: [
+            "WatchlistFeature",
+            "PreferencesFeature",
+            "MovieNavigator"
+        ],
+        path: "Sources/Navigators/Watchlist"
+    )
+]
+
+for target in navigators {
+    target.dependencies.append(contentsOf: [
+        "DesignSystem",
+        .product(name: "Core", package: "Core"),
+        .product(name: "Models", package: "Data"),
+        .product(name: "Domain", package: "Domain"),
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ])
+}
+
+package.targets.append(contentsOf: [features, navigators].flatMap { $0 })
