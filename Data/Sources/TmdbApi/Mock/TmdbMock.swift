@@ -1,5 +1,5 @@
 //
-//  Mock.swift
+//  TmdbMock.swift
 //  Movies-TCA
 //
 //  Created by Telem Tobi on 22/11/2023.
@@ -8,7 +8,7 @@
 import Foundation
 
 #if DEBUG
-public enum Mock: String {
+public enum TmdbMock: String {
     
     case listGenres = "ListGenresStub"
     case nowPlayingMovies = "NowPlayingMoviesStub"

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7D0396E22D4A1CD3006BAD66 /* SplashInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0396E12D4A1CCF006BAD66 /* SplashInteractor.swift */; };
-		7D48B3A22B5EEF7000A248E3 /* Watchlist+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48B3A12B5EEF7000A248E3 /* Watchlist+Alerts.swift */; };
 		7D4A0DE82D4A5E31004A80CF /* DiscoveryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4A0DE72D4A5E2B004A80CF /* DiscoveryInteractor.swift */; };
 		7D4A0DEA2D4A6095004A80CF /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4A0DE92D4A6091004A80CF /* SearchInteractor.swift */; };
 		7D4A0DEC2D4A628C004A80CF /* MovieInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4A0DEB2D4A6288004A80CF /* MovieInteractor.swift */; };
@@ -81,7 +80,6 @@
 
 /* Begin PBXFileReference section */
 		7D0396E12D4A1CCF006BAD66 /* SplashInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashInteractor.swift; sourceTree = "<group>"; };
-		7D48B3A12B5EEF7000A248E3 /* Watchlist+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Watchlist+Alerts.swift"; sourceTree = "<group>"; };
 		7D4A0DE72D4A5E2B004A80CF /* DiscoveryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryInteractor.swift; sourceTree = "<group>"; };
 		7D4A0DE92D4A6091004A80CF /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
 		7D4A0DEB2D4A6288004A80CF /* MovieInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInteractor.swift; sourceTree = "<group>"; };
@@ -169,14 +167,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7D48B3A02B5EEF5F00A248E3 /* Alerts */ = {
-			isa = PBXGroup;
-			children = (
-				7D48B3A12B5EEF7000A248E3 /* Watchlist+Alerts.swift */,
-			);
-			path = Alerts;
-			sourceTree = "<group>";
-		};
 		7D4BA7622BA609A700029DB4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,7 +354,6 @@
 				7DDE9E552B85145100BE95FE /* Navigators */,
 				7DE17DCE2AFE0528005F4848 /* Features */,
 				7DE17DCD2AFE050D005F4848 /* Support */,
-				7DE17DCB2AFE04F0005F4848 /* Utility */,
 			);
 			path = "Movies-TCA";
 			sourceTree = "<group>";
@@ -398,14 +387,6 @@
 				7DD6D96D2AF943B7004828AB /* MoviesApp.swift */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		7DE17DCB2AFE04F0005F4848 /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				7D48B3A02B5EEF5F00A248E3 /* Alerts */,
-			);
-			path = Utility;
 			sourceTree = "<group>";
 		};
 		7DE17DCD2AFE050D005F4848 /* Support */ = {
@@ -632,7 +613,6 @@
 				7DD6D96E2AF943B7004828AB /* MoviesApp.swift in Sources */,
 				7D0396E22D4A1CD3006BAD66 /* SplashInteractor.swift in Sources */,
 				7D4BA7642BA609B700029DB4 /* HomeNavigator.swift in Sources */,
-				7D48B3A22B5EEF7000A248E3 /* Watchlist+Alerts.swift in Sources */,
 				7D513F7C2B17221A0040F913 /* PreferencesFeature.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

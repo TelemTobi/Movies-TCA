@@ -75,28 +75,28 @@ extension TmdbEndpoint: Endpoint {
     var sampleData: Data? {
         return switch self {
         case .listGenres:
-            Mock.listGenres.dataEncoded
+            TmdbMock.listGenres.dataEncoded
             
         case .listMovies(let type):
             switch type {
             case .nowPlaying:
-                Mock.nowPlayingMovies.dataEncoded
+                TmdbMock.nowPlayingMovies.dataEncoded
             case .popular:
-                Mock.popularMovies.dataEncoded
+                TmdbMock.popularMovies.dataEncoded
             case .topRated:
-                Mock.topRatedMovies.dataEncoded
+                TmdbMock.topRatedMovies.dataEncoded
             case .upcoming:
-                Mock.upcomingMovies.dataEncoded
+                TmdbMock.upcomingMovies.dataEncoded
             }
             
         case .searchMovies:
-            Mock.searchMovies.dataEncoded
+            TmdbMock.searchMovies.dataEncoded
             
         case .discoverMovies:
-            Mock.discoverMovies.dataEncoded
+            TmdbMock.discoverMovies.dataEncoded
             
         case .movieDetails:
-            Mock.movieDetails.dataEncoded
+            TmdbMock.movieDetails.dataEncoded
         }
     }
     #endif

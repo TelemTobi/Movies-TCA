@@ -7,7 +7,13 @@ let package = Package(
     platforms: [.iOS(.v17), .macOS(.v14)],
     products: [
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
-        .library(name: "SplashFeature", targets: ["Splash"])
+        .library(name: "DiscoveryFeature", targets: ["Discovery"]),
+        .library(name: "MovieFeature", targets: ["Movie"]),
+        .library(name: "MovieListFeature", targets: ["MovieList"]),
+        .library(name: "PreferencesFeature", targets: ["Preferences"]),
+        .library(name: "SearchFeature", targets: ["Search"]),
+        .library(name: "SplashFeature", targets: ["Splash"]),
+        .library(name: "WatchlistFeature", targets: ["Watchlist"]),
     ],
     dependencies: [
         .package(path: "../Core"),
@@ -24,8 +30,32 @@ let package = Package(
             resources: [.process("Resources/Assets.xcassets")]
         ),
         .target(
+            name: "Discovery",
+            path: "Sources/Features/Discovery"
+        ),
+        .target(
+            name: "Movie",
+            path: "Sources/Features/Movie"
+        ),
+        .target(
+            name: "MovieList",
+            path: "Sources/Features/MovieList"
+        ),
+        .target(
+            name: "Preferences",
+            path: "Sources/Features/Preferences"
+        ),
+        .target(
+            name: "Search",
+            path: "Sources/Features/Search"
+        ),
+        .target(
             name: "Splash",
             path: "Sources/Features/Splash"
+        ),
+        .target(
+            name: "Watchlist",
+            path: "Sources/Features/Watchlist"
         ),
         .testTarget(
             name: "PresentationTests",
