@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import Kingfisher
 import ComposableArchitecture
 import Models
 
@@ -49,23 +49,13 @@ public struct MoviesCollectionView: View {
             
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
-                WebImage(url: movie.thumbnailUrl)
+                KFImage(movie.thumbnailUrl)
                     .resizable()
-                    .placeholder {
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(.gray)
-                            .frame(width: itemWidth, height: itemHeight)
-                        
-                        Image(systemName: "popcorn")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40)
-                            .foregroundColor(.white)
-                    }
+                    .placeholder { ImagePlaceholder() }
+                    .fade(duration: 0.5)
                     .scaledToFill()
                     .frame(width: itemWidth, height: itemHeight)
                     .cornerRadius(10)
-                    .transition(.fade)
                     .shadow(radius: 3)
                 
                 if let isMovieLiked {

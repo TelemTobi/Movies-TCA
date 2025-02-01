@@ -28,7 +28,7 @@ let package = Package(
         .package(path: "../Data"),
         .package(path: "../Domain"),
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", from: "1.17.0"),
-        .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", from: "2.2.0"),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.1.0"),
         .package(url: "https://github.com/EmergeTools/Pow", from: "1.0.0")
     ],
     targets: [
@@ -38,7 +38,7 @@ let package = Package(
                 .product(name: "Core", package: "Core"),
                 .product(name: "Models", package: "Data"),
                 .product(name: "Domain", package: "Domain"),
-                .product(name: "SDWebImageSwiftUI", package: "SDWebImageSwiftUI"),
+                .product(name: "Kingfisher", package: "Kingfisher"),
                 .product(name: "Pow", package: "Pow")
             ],
             path: "Sources/DesignSystem",
@@ -94,7 +94,7 @@ for target in features {
         .product(name: "Models", package: "Data"),
         .product(name: "Domain", package: "Domain"),
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "SDWebImageSwiftUI", package: "SDWebImageSwiftUI"),
+        .product(name: "Kingfisher", package: "Kingfisher"),
         .product(name: "Pow", package: "Pow")
     ])
 }

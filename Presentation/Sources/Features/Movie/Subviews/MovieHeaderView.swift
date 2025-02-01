@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import Kingfisher
 import ComposableArchitecture
 import DesignSystem
 
@@ -21,8 +21,13 @@ extension MovieView {
                 height: geometry.size.width * 1.5,
                 headerOffScreenOffset: $headerOffScreenPercentage,
                 header: {
-                    WebImage(url: movie.posterUrl)
+                    KFImage(movie.posterUrl)
                         .resizable()
+                        .placeholder {
+                            KFImage(movie.thumbnailUrl)
+                                .resizable()
+                                .scaledToFill()
+                        }
                         .scaledToFill()
                 }
             )

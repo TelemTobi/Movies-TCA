@@ -26,6 +26,7 @@
 		7D7FFB962BBA79390022C651 /* MovieNavigatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FFB952BBA79390022C651 /* MovieNavigatorTests.swift */; };
 		7D8F4DDA2D4750AD00635AE0 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 7D8F4DD92D4750AD00635AE0 /* Core */; };
 		7D8F4DDC2D4750AD00635AE0 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 7D8F4DDB2D4750AD00635AE0 /* Models */; };
+		7DC12FC22D4D661F00FB62F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DC12FC12D4D65D200FB62F3 /* Assets.xcassets */; };
 		7DE17DC62AFE0325005F4848 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE17DC52AFE0325005F4848 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		7D8F4DD62D474C6400635AE0 /* Data */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Data; sourceTree = "<group>"; };
 		7D8F4DD72D474DD300635AE0 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
 		7D8F4DE32D47F57100635AE0 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
+		7DC12FC12D4D65D200FB62F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7DD6D96A2AF943B7004828AB /* Movies-TCA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movies-TCA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -185,6 +187,7 @@
 				7D3A73AD2D4CE31A0005C6D2 /* App */,
 				7D2314552D4CC72B0083E47B /* Config */,
 				7D2314572D4CC72B0083E47B /* Localization */,
+				7DC12FC12D4D65D200FB62F3 /* Assets.xcassets */,
 			);
 			path = "Movies-TCA";
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DC12FC22D4D661F00FB62F3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,7 +522,6 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -549,7 +552,6 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -1,14 +1,14 @@
 //
-//  WebImage+Extension.swift
+//  KFImage+Extension.swift
 //  Presentation
 //
-//  Created by Telem Tobi on 15/12/2023.
+//  Created by Telem Tobi on 31/01/2025.
 //
 
-import SDWebImageSwiftUI
 import SwiftUI
+import Kingfisher
 
-public extension WebImage {
+public extension KFImage {
     func centerCropped() -> some View {
         GeometryReader { geo in
             self

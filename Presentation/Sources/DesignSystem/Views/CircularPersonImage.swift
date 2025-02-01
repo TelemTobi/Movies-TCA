@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import Kingfisher
 import Core
 import Models
 
@@ -20,24 +20,19 @@ public struct CircularPersonImage: View {
     }
     
     public var body: some View {
-        WebImage(url: person.imageUrl)
+        KFImage(person.imageUrl)
             .placeholder {
                 ZStack {
-                    Circle()
-                        .overlay {
-                            Color.gray
-                        }
-                    
+                    Color.gray
                     Text(person.name?.initials ?? .empty)
                         .foregroundColor(.white)
                         .font(.rounded(.title, weight: .bold))
                 }
             }
-            .resizable()
+            .fade(duration: 0.5)
             .centerCropped()
             .frame(width: size, height: size)
             .clipShape(Circle())
-            .transition(.fade)
     }
 }
 

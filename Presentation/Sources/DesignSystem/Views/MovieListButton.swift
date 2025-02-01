@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import Kingfisher
 import Models
 
 public struct MovieListItem: View {
@@ -25,23 +25,13 @@ public struct MovieListItem: View {
             let imageHeight = geometry.size.height
             
             HStack(spacing: 10) {
-                WebImage(url: movie.thumbnailUrl)
+                KFImage(movie.thumbnailUrl)
                     .resizable()
-                    .placeholder {
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(.gray)
-                            .frame(width: imageWidth, height: imageHeight)
-                        
-                        Image(systemName: "popcorn")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40)
-                            .foregroundColor(.white)
-                    }
+                    .placeholder { ImagePlaceholder() }
+                    .fade(duration: 0.5)
                     .scaledToFill()
                     .frame(width: imageWidth, height: imageHeight)
                     .cornerRadius(5)
-                    .transition(.fade)
                     .shadow(radius: 3)
                 
                 VStack(alignment: .leading, spacing: 5) {

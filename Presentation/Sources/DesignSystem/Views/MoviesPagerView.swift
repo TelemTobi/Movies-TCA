@@ -7,7 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
-import SDWebImageSwiftUI
+import Kingfisher
 import Models
 
 public struct MoviesPagerView: View {
@@ -51,20 +51,10 @@ public struct MoviesPagerView: View {
             let minX = itemGeometry.frame(in: .scrollView).minX * 0.5
             
             ZStack(alignment: .topTrailing) {
-                WebImage(url: movie.backdropUrl ?? movie.thumbnailUrl)
+                KFImage(movie.backdropUrl ?? movie.thumbnailUrl)
                     .resizable()
-                    .placeholder {
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(.gray)
-                            .frame(width: itemSize.width, height: itemSize.height)
-                        
-                        Image(systemName: "popcorn")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40)
-                            .foregroundColor(.white)
-                    }
-                    .transition(.fade)
+                    .placeholder { ImagePlaceholder() }
+                    .fade(duration: 0.5)
                     .aspectRatio(contentMode: .fill)
                     .scaleEffect(1.2)
                     .offset(x: -minX)

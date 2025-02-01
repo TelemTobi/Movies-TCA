@@ -5,8 +5,8 @@
 //  Created by Telem Tobi on 15/12/2023.
 //
 
-import SDWebImageSwiftUI
 import SwiftUI
+import Kingfisher
 import Models
 import Domain
 
@@ -83,7 +83,7 @@ fileprivate struct BottomClipShape: Shape {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
                 StretchyHeader(height: geometry.size.width * 1.4) {
-                    WebImage(url: URL(string: "https://image.tmdb.org/t/p/original/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg"))
+                    KFImage(URL(string: "https://image.tmdb.org/t/p/original/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg"))
                         .centerCropped()
                 } headerOffScreenPercentageClosure: { offScreenPercentage in
                     // Do some animation with `offScreenPercentage`
