@@ -7,7 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
-import Kingfisher
+import NukeUI
 import Models
 
 public struct MoviesPagerView: View {
@@ -51,17 +51,23 @@ public struct MoviesPagerView: View {
             let minX = itemGeometry.frame(in: .scrollView).minX * 0.5
             
             ZStack(alignment: .topTrailing) {
-                KFImage(movie.backdropUrl ?? movie.thumbnailUrl)
-                    .resizable()
-                    .placeholder { ImagePlaceholder() }
-                    .fade(duration: 0.5)
-                    .aspectRatio(contentMode: .fill)
-                    .scaleEffect(1.2)
-                    .offset(x: -minX)
-                    .frame(width: itemSize.width, height: itemSize.height)
-                    .overlay { OverlayView(for: movie) }
-                    .clipShape(.rect(cornerRadius: 10))
-                    .shadow(radius: 3)
+                LazyImage(url: movie.backdropUrl ?? movie.thumbnailUrl) { state in
+                    ZStack {
+                        if let image = state.image {
+                            image.resizable()
+                        } else {
+                            TmdbImagePlaceholder()
+                        }
+                    }
+                    .animation(.smooth, value: state.image)
+                }
+                .aspectRatio(contentMode: .fill)
+                .scaleEffect(1.2)
+                .offset(x: -minX)
+                .frame(width: itemSize.width, height: itemSize.height)
+                .overlay { OverlayView(for: movie) }
+                .clipShape(.rect(cornerRadius: 10))
+                .shadow(radius: 3)
                 
                 if let isMovieLiked {
                     LikeButton(isLiked: isMovieLiked(movie))

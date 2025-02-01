@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Kingfisher
+import NukeUI
 import ComposableArchitecture
 import DesignSystem
 
@@ -21,19 +21,21 @@ extension MovieView {
                 height: geometry.size.width * 1.5,
                 headerOffScreenOffset: $headerOffScreenPercentage,
                 header: {
-                    KFImage(movie.posterUrl)
-                        .resizable()
-                        .placeholder {
-                            KFImage(movie.thumbnailUrl)
-                                .resizable()
-                                .scaledToFill()
+                    LazyImage(url: movie.posterUrl) { state in
+                        if let image = state.image {
+                            image.resizable()
+                        } else {
+                            LazyImage(url: movie.thumbnailUrl) { state in
+                                if let image = state.image {
+                                    image.resizable()
+                                }
+                            }
                         }
-                        .scaledToFill()
+                    }
                 }
             )
             
             VStack(alignment: .leading, spacing: 0) {
-                
                 HStack(alignment: .top) {
                     Text(movie.title ?? .empty)
                         .foregroundStyle(.white)

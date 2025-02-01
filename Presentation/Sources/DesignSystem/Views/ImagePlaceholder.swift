@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-public struct ImagePlaceholder: View {
+public struct TmdbImagePlaceholder: View {
+    
+    public init() {}
     
     public var body: some View {
         ZStack {
-            Color.gray.opacity(0.25)
+            Color.secondary.opacity(0.25)
             
             Image(systemName: "popcorn")
                 .resizable()
@@ -23,5 +25,7 @@ public struct ImagePlaceholder: View {
 }
 
 #Preview {
-    ImagePlaceholder()
+    TmdbImagePlaceholder()
+        .frame(width: 200, height: 280)
 }
+

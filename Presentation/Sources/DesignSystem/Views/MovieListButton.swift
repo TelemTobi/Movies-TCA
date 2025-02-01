@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Kingfisher
+import NukeUI
 import Models
 
 public struct MovieListItem: View {
@@ -25,14 +25,20 @@ public struct MovieListItem: View {
             let imageHeight = geometry.size.height
             
             HStack(spacing: 10) {
-                KFImage(movie.thumbnailUrl)
-                    .resizable()
-                    .placeholder { ImagePlaceholder() }
-                    .fade(duration: 0.5)
-                    .scaledToFill()
-                    .frame(width: imageWidth, height: imageHeight)
-                    .cornerRadius(5)
-                    .shadow(radius: 3)
+                LazyImage(url: movie.thumbnailUrl) { state in
+                    ZStack {
+                        if let image = state.image {
+                            image.resizable()
+                        } else {
+                            TmdbImagePlaceholder()
+                        }
+                    }
+                    .animation(.smooth, value: state.image)
+                }
+                .scaledToFill()
+                .frame(width: imageWidth, height: imageHeight)
+                .cornerRadius(5)
+                .shadow(radius: 3)
                 
                 VStack(alignment: .leading, spacing: 5) {
                     HStack(alignment: .top) {

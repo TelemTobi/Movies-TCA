@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Kingfisher
+import NukeUI
 import Core
 import Models
 
@@ -20,19 +20,24 @@ public struct CircularPersonImage: View {
     }
     
     public var body: some View {
-        KFImage(person.imageUrl)
-            .placeholder {
-                ZStack {
-                    Color.gray
-                    Text(person.name?.initials ?? .empty)
-                        .foregroundColor(.white)
-                        .font(.rounded(.title, weight: .bold))
+        LazyImage(url: person.imageUrl) { state in
+            ZStack {
+                if let image = state.image {
+                    image.resizable()
+                } else {
+                    ZStack {
+                        Color.secondary.opacity(0.25)
+                        Text(person.name?.initials ?? .empty)
+                            .foregroundColor(.white)
+                            .font(.rounded(.title, weight: .bold))
+                    }
                 }
             }
-            .fade(duration: 0.5)
-            .centerCropped()
-            .frame(width: size, height: size)
-            .clipShape(Circle())
+            .animation(.smooth, value: state.image)
+        }
+        .centerCropped()
+        .frame(width: size, height: size)
+        .clipShape(Circle())
     }
 }
 

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Kingfisher
+import NukeUI
 import ComposableArchitecture
 import Models
 
@@ -49,14 +49,20 @@ public struct MoviesCollectionView: View {
             
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
-                KFImage(movie.thumbnailUrl)
-                    .resizable()
-                    .placeholder { ImagePlaceholder() }
-                    .fade(duration: 0.5)
-                    .scaledToFill()
-                    .frame(width: itemWidth, height: itemHeight)
-                    .cornerRadius(10)
-                    .shadow(radius: 3)
+                LazyImage(url: movie.thumbnailUrl) { state in
+                    ZStack {
+                        if let image = state.image {
+                            image.resizable()
+                        } else {
+                            TmdbImagePlaceholder()
+                        }
+                    }
+                    .animation(.smooth, value: state.image)
+                }
+                .scaledToFill()
+                .frame(width: itemWidth, height: itemHeight)
+                .cornerRadius(10)
+                .shadow(radius: 3)
                 
                 if let isMovieLiked {
                     LikeButton(isLiked: isMovieLiked(movie))
