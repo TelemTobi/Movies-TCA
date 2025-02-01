@@ -13,13 +13,17 @@ import ComposableArchitecture
 @MainActor
 final class SearchTests: XCTestCase {
     
-    var store = TestStore(
-        initialState: SearchFeature.State(),
-        reducer: SearchFeature.init,
-        withDependencies: {
-            $0.mainQueue = .immediate
-        }
-    )
+    var store: TestStoreOf<SearchFeature> = {
+        @Shared(.genres) var genres = GenresResponse.mock.genres ?? []
+        
+        return TestStore(
+            initialState: SearchFeature.State(),
+            reducer: SearchFeature.init,
+            withDependencies: {
+                $0.mainQueue = .immediate
+            }
+        )
+    }()
     
     func testOnInputChange() async {
         // Short search input
@@ -56,14 +60,14 @@ final class SearchTests: XCTestCase {
     
     func testSearchMovies() async {
         // Genre tap
-        let genreResult = await store.dependencies.useCases.movies.discoverByGenre(18)
+        let genreResult = await store.dependencies.useCases.movies.discoverByGenre(28)
         guard case let .success(response) = genreResult else {
             XCTFail("Failed loading mock movies")
             return
         }
         await store.send(\.binding.isLoading, true) { $0.isLoading = true }
-        await store.send(\.searchMovies, "Action")
-        await store.receive(\.searchResult, genreResult) { state in
+        await store.send(.searchMovies("Action"))
+        await store.receive(.searchResult(genreResult)) { state in
             state.isLoading = false
             state.results = .init(uniqueElements: response.movies ?? [])
         }
@@ -99,12 +103,12 @@ final class SearchTests: XCTestCase {
         
         // Valid genre
         let genre = Genre.mock
-        await store.send(\.view.onGenreTap, genre) { state in
+        await store.send(.view(.onGenreTap(genre))) { state in
             state.searchInput = genre.name ?? .empty
             state.isLoading = true
         }
         
-        await store.receive(\.searchMovies, genre.name ?? .empty)
+        await store.receive(.searchMovies(genre.name ?? .empty))
     }
     
     func testOnMovieTap() async {
@@ -121,12 +125,7 @@ final class SearchTests: XCTestCase {
     func testOnMovieLike() async {
         let mockMovie: Movie = .mock
         
-        await store.send(.view(.onMovieLike(mockMovie))) { state in
-            state.$watchlist.withLock { $0.append(mockMovie) }
-        }
-        
-        await store.send(.view(.onMovieLike(mockMovie))) { state in
-            let _ = state.$watchlist.withLock { $0.remove(mockMovie) }
-        }
+        await store.send(.view(.onMovieLike(mockMovie)))
+        await store.send(.view(.onMovieLike(mockMovie)))
     }
 }

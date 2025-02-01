@@ -45,7 +45,7 @@ public struct DiscoveryFeature {
         
         case view(View)
         case navigation(Navigation)
-        case loadMovies
+        case fetchMovieLists
         case movieListResult(MovieListType, Result<MovieList, TmdbError>)
         case loadingCompleted
     }
@@ -60,7 +60,7 @@ public struct DiscoveryFeature {
             case let .view(viewAction):
                 return reduceViewAction(&state, viewAction)
                 
-            case .loadMovies:
+            case .fetchMovieLists:
                 state.isLoading = true
                 
                 return .run { send in
@@ -80,7 +80,9 @@ public struct DiscoveryFeature {
             case let .movieListResult(type, result):
                 switch result {
                 case let .success(response):
-                    state.movies[type] = .init(uniqueElements: response.movies ?? [])
+                    if let movies = response.movies {
+                        state.movies[type] = .init(uniqueElements:  movies)
+                    }
                     return .none
                     
                 case let .failure(error):
@@ -102,7 +104,7 @@ public struct DiscoveryFeature {
     private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
         switch action {
         case .onFirstAppear:
-            return .send(.loadMovies)
+            return .send(.fetchMovieLists)
             
         case let .onMovieTap(movie):
             return .send(.navigation(.presentMovie(movie)))

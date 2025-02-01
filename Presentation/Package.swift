@@ -61,7 +61,10 @@ let package = Package(
                 "MovieNavigator",
                 "RootNavigator",
                 "SearchNavigator",
-                "WatchlistNavigator"
+                "WatchlistNavigator",
+                .product(name: "Core", package: "Core"),
+                .product(name: "Models", package: "Data"),
+                .product(name: "Domain", package: "Domain")
             ]
         )
     ],

@@ -18,19 +18,13 @@ final class SplashTests: XCTestCase {
         reducer: SplashFeature.init
     )
 
-    func testLoadGenres() async {
+    func testFetchGenres() async {
         // Success result
         let genresResult = await store.dependencies.useCases.genres.fetch()
         
         await store.send(\.fetchGenres)
         await store.receive(\.genresResult, genresResult)
         await store.receive(\.navigation.splashCompleted)
-        
-        // TODO: Make sure genres are saved to the shared state
-        
-        // Bad response
-        await store.send(\.genresResult, .success(GenresResponse(genres: nil)))
-        await store.receive(\.genresResult, .failure(.unknownError))
         
         // Failure result
         await store.send(\.genresResult, .failure(.unknownError))

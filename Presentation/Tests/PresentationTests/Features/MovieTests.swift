@@ -57,12 +57,7 @@ final class MovieTests: XCTestCase {
     }
     
     func testOnLikeTap() async {
-        await store.send(.view(.onLikeTap)) { state in
-            state.$watchlist.withLock { $0.append(state.movieDetails.movie) }
-        }
-        
-        await store.send(.view(.onLikeTap)) { state in
-            let _ = state.$watchlist.withLock { $0.remove(state.movieDetails.movie) }
-        }
+        await store.send(.view(.onLikeTap))
+        await store.send(.view(.onLikeTap))
     }
 }

@@ -31,6 +31,8 @@ extension MovieUseCases: DependencyKey {
             return await tmdbApiClient.movieDetails(for: movieId)
         }
     )
+    
+    public static let testValue: MovieUseCases = .liveValue
 }
 
 extension DependencyValues {

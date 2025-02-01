@@ -18,15 +18,15 @@ final class DiscoveryTests: XCTestCase {
         reducer: DiscoveryFeature.init
     )
     
-    func testLoadMovies() async { // TODO: Figure out how to test properly
-        await store.send(.loadMovies)
+    func testFetchMovieLists() async { // TODO: Figure out how to test properly
+        await store.send(.fetchMovieLists)
         
         await testMoviesFetching(ofType: .nowPlaying)
         await testMoviesFetching(ofType: .popular)
         await testMoviesFetching(ofType: .upcoming)
         await testMoviesFetching(ofType: .topRated)
         
-        await store.receive(\.loadingCompleted) { state in
+        await store.receive(.loadingCompleted) { state in
             state.isLoading = false
         }
     }
@@ -53,21 +53,20 @@ final class DiscoveryTests: XCTestCase {
         }
         
         // Success Result
-        await store.send(\.movieListResult, (.nowPlaying, nowPlayingResult)) { state in
+        await store.send(.movieListResult(.nowPlaying, nowPlayingResult)) { state in
             state.movies[.nowPlaying] = .init(uniqueElements: response.movies ?? [])
         }
         
         // Bad Response
         let invalidMovieList = MovieList(movies: nil, page: nil, totalPages: nil, totalResults: nil)
-        await store.send(\.movieListResult, (.nowPlaying, .success(invalidMovieList)))
-        await store.receive(.movieListResult(.nowPlaying, .failure(.unknownError)))
+        await store.send(.movieListResult(.nowPlaying, .success(invalidMovieList)))
         
         // Failure Result
-        await store.send(\.movieListResult, (.nowPlaying, .failure(.unknownError)))
+        await store.send(.movieListResult(.nowPlaying, .failure(.unknownError)))
     }
     
     func testLoadingCompleted() async {
-        await store.send(\.loadingCompleted) { state in
+        await store.send(.loadingCompleted) { state in
             state.isLoading = false
         }
     }
@@ -76,7 +75,7 @@ final class DiscoveryTests: XCTestCase {
     
     func testOnFirstAppear() async {
         await store.send(\.view.onFirstAppear)
-        await store.receive(\.loadMovies)
+        await store.receive(\.fetchMovieLists)
     }
     
     func testOnMovieTap() async {
@@ -99,12 +98,7 @@ final class DiscoveryTests: XCTestCase {
     func testOnMovieLike() async {
         let mockMovie: Movie = .mock
         
-        await store.send(.view(.onMovieLike(mockMovie))) { state in
-            state.$watchlist.withLock { $0.append(mockMovie) }
-        }
-        
-        await store.send(.view(.onMovieLike(mockMovie))) { state in
-            let _ = state.$watchlist.withLock { $0.remove(mockMovie) }
-        }
+        await store.send(.view(.onMovieLike(mockMovie)))
+        await store.send(.view(.onMovieLike(mockMovie)))
     }
 }

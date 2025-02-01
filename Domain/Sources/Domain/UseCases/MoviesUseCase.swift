@@ -38,6 +38,8 @@ extension MoviesUseCases: DependencyKey {
             return await tmdbApiClient.discoverMovies(by: genreId)
         }
     )
+    
+    public static let testValue: MoviesUseCases = .liveValue
 }
 
 extension DependencyValues {
