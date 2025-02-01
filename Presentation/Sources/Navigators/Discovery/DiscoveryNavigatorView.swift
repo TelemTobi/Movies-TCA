@@ -42,8 +42,8 @@ public extension DiscoveryNavigator {
                 },
                 destination: { store in
                     switch store.case {
-                    case let .moviesList(store):
-                        MoviesListView(store: store)
+                    case let .movieList(store):
+                        MovieListView(store: store)
                     }
                 }
             )

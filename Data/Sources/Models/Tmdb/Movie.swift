@@ -96,4 +96,8 @@ public struct Movie: Codable, Equatable, Identifiable, Sendable {
             "COUNTRY": productionCountries?.first?.name
         ].compactMapValues { $0 }
     }
+    
+    public init(id: Int) {
+        self.id = id
+    }
 }

@@ -41,7 +41,7 @@ public struct DiscoveryNavigator {
         Reduce { state, action in
             switch action {
             case let .root(.navigation(.presentMovie(movie))),
-                let .path(.element(_, action: .moviesList(.navigation(.presentMovie(movie))))):
+                let .path(.element(_, action: .movieList(.navigation(.presentMovie(movie))))):
                 state.destination = .movie(MovieNavigator.State(movieDetails: .init(movie: movie)))
                 return .none
                 
@@ -49,9 +49,9 @@ public struct DiscoveryNavigator {
                 state.destination = .preferences(PreferencesFeature.State())
                 return .none
                 
-            case let .root(.navigation(.pushMoviesList(listType, movies))):
-                let moviesListState = MoviesListFeature.State(listType: listType, movies: movies)
-                state.path.append(.moviesList(moviesListState))
+            case let .root(.navigation(.pushMovieList(listType, movies))):
+                let movieListState = MovieListFeature.State(listType: listType, movies: movies)
+                state.path.append(.movieList(movieListState))
                 return .none
                 
             case .root, .path, .destination:
@@ -73,6 +73,6 @@ extension DiscoveryNavigator {
     
     @Reducer(state: .equatable)
     public enum Path {
-        case moviesList(MoviesListFeature)
+        case movieList(MovieListFeature)
     }
 }

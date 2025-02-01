@@ -12,7 +12,7 @@ import Models
 
 enum TmdbEndpoint {
     case listGenres
-    case listMovies(type: MoviesListType)
+    case listMovies(type: MovieListType)
     case searchMovies(query: String)
     case discoverMovies(genreId: Int)
     case movieDetails(id: Int)

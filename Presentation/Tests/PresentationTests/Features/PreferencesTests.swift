@@ -6,8 +6,9 @@
 //
 
 import XCTest
-@testable import Movies_TCA
 import ComposableArchitecture
+@testable import PreferencesFeature
+@testable import Models
 
 @MainActor
 final class PreferencesTests: XCTestCase {
@@ -19,13 +20,13 @@ final class PreferencesTests: XCTestCase {
     
     func testOnAdultContentToggle() async {
         await store.send(\.onAdultContentToggle, true) { state in
-            state.isAdultContentOn = true
+            state.$isAdultContentOn.withLock { $0 = true }
         }
     }
     
     func testOnAppearanceChange() async {
         await store.send(\.onAppearanceChange, "Dark") { state in
-            state.appearance = .dark
+            state.$appearance.withLock { $0 = .dark }
         }
     }
     

@@ -6,8 +6,9 @@
 //
 
 import XCTest
-@testable import Movies_TCA
 import ComposableArchitecture
+@testable import WatchlistFeature
+@testable import Models
 
 @MainActor
 final class WatchlistTests: XCTestCase {
@@ -25,7 +26,7 @@ final class WatchlistTests: XCTestCase {
         
         await store.send(\.alert.presented.confirmDislike, mockMovie) { state in
             state.alert = nil
-            state.watchlist.remove(mockMovie)
+            let _ = state.$watchlist.withLock { $0.remove(mockMovie) }
         }
     }
     
@@ -33,7 +34,7 @@ final class WatchlistTests: XCTestCase {
     
     func testOnMovieTap() async {
         let mockMovie = Movie.mock
-        await store.send(\.view.onMovieTap,mockMovie)
+        await store.send(\.view.onMovieTap, mockMovie)
         await store.receive(\.navigation.presentMovie, mockMovie)
     }
     

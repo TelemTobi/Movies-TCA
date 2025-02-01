@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 import Models
 
 public struct MovieListItem: View {
@@ -25,24 +25,20 @@ public struct MovieListItem: View {
             let imageHeight = geometry.size.height
             
             HStack(spacing: 10) {
-                WebImage(url: movie.thumbnailUrl)
-                    .resizable()
-                    .placeholder {
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(.gray)
-                            .frame(width: imageWidth, height: imageHeight)
-                        
-                        Image(systemName: "popcorn")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40)
-                            .foregroundColor(.white)
+                LazyImage(url: movie.thumbnailUrl) { state in
+                    ZStack {
+                        if let image = state.image {
+                            image.resizable()
+                        } else {
+                            TmdbImagePlaceholder()
+                        }
                     }
-                    .scaledToFill()
-                    .frame(width: imageWidth, height: imageHeight)
-                    .cornerRadius(5)
-                    .transition(.fade)
-                    .shadow(radius: 3)
+                    .animation(.smooth, value: state.image)
+                }
+                .scaledToFill()
+                .frame(width: imageWidth, height: imageHeight)
+                .cornerRadius(5)
+                .shadow(radius: 3)
                 
                 VStack(alignment: .leading, spacing: 5) {
                     HStack(alignment: .top) {
@@ -73,9 +69,9 @@ public struct MovieListItem: View {
     }
 }
 
-//#Preview(traits: .sizeThatFitsLayout) {
-//    MovieListItem(
-//        movie: .mock,
-//        isLiked: .constant(false)
-//    )
-//}
+#Preview(traits: .sizeThatFitsLayout) {
+    MovieListItem(
+        movie: .mock,
+        isLiked: .constant(false)
+    )
+}

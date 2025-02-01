@@ -1,5 +1,5 @@
 {
-  "originHash" : "734f5bd50e2a78f94f9ff82c013f5d6810cb773cca02e54bba6ea6ee9e5c00d2",
+  "originHash" : "d6b73b2de4026f8067c96527e96320eb7a40fe15afa505dd0f196c65a4459f79",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -11,30 +11,21 @@
       }
     },
     {
+      "identity" : "nuke",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Nuke.git",
+      "state" : {
+        "revision" : "0ead44350d2737db384908569c012fe67c421e4d",
+        "version" : "12.8.0"
+      }
+    },
+    {
       "identity" : "pow",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/EmergeTools/Pow",
       "state" : {
         "revision" : "cc014eba4b65f689cadc281ad925de5607f2adc9",
         "version" : "1.0.3"
-      }
-    },
-    {
-      "identity" : "sdwebimage",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImage.git",
-      "state" : {
-        "revision" : "1b9a2e902cbde5fdf362faa0f4fd76ea74d74305",
-        "version" : "5.18.5"
-      }
-    },
-    {
-      "identity" : "sdwebimageswiftui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
-      "state" : {
-        "revision" : "5f025e54a03d3d33dff24d7a19331f446f00ed9d",
-        "version" : "2.2.4"
       }
     },
     {

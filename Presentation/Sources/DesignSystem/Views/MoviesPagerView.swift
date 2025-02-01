@@ -7,7 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
-import SDWebImageSwiftUI
+import NukeUI
 import Models
 
 public struct MoviesPagerView: View {
@@ -51,27 +51,23 @@ public struct MoviesPagerView: View {
             let minX = itemGeometry.frame(in: .scrollView).minX * 0.5
             
             ZStack(alignment: .topTrailing) {
-                WebImage(url: movie.backdropUrl ?? movie.thumbnailUrl)
-                    .resizable()
-                    .placeholder {
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(.gray)
-                            .frame(width: itemSize.width, height: itemSize.height)
-                        
-                        Image(systemName: "popcorn")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40)
-                            .foregroundColor(.white)
+                LazyImage(url: movie.backdropUrl ?? movie.thumbnailUrl) { state in
+                    ZStack {
+                        if let image = state.image {
+                            image.resizable()
+                        } else {
+                            TmdbImagePlaceholder()
+                        }
                     }
-                    .transition(.fade)
-                    .aspectRatio(contentMode: .fill)
-                    .scaleEffect(1.2)
-                    .offset(x: -minX)
-                    .frame(width: itemSize.width, height: itemSize.height)
-                    .overlay { OverlayView(for: movie) }
-                    .clipShape(.rect(cornerRadius: 10))
-                    .shadow(radius: 3)
+                    .animation(.smooth, value: state.image)
+                }
+                .aspectRatio(contentMode: .fill)
+                .scaleEffect(1.2)
+                .offset(x: -minX)
+                .frame(width: itemSize.width, height: itemSize.height)
+                .overlay { OverlayView(for: movie) }
+                .clipShape(.rect(cornerRadius: 10))
+                .shadow(radius: 3)
                 
                 if let isMovieLiked {
                     LikeButton(isLiked: isMovieLiked(movie))
@@ -112,10 +108,10 @@ public struct MoviesPagerView: View {
     }
 }
 
-//#Preview {
-//    MoviesPagerView(
-//        movies: .init(uniqueElements: MovieList.mock.movies ?? []),
-//        onMovieTap: { _ in }
-//    )
-//    .frame(height: 260)
-//}
+#Preview {
+    MoviesPagerView(
+        movies: .init(uniqueElements: MovieList.mock.movies ?? []),
+        onMovieTap: { _ in }
+    )
+    .frame(height: 260)
+}

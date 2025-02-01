@@ -1,5 +1,5 @@
 //
-//  MoviesListView.swift
+//  MovieListView.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 26/11/2023.
@@ -7,16 +7,15 @@
 
 import SwiftUI
 import ComposableArchitecture
-import SDWebImageSwiftUI
 import Models
 import DesignSystem
 
-@ViewAction(for: MoviesListFeature.self)
-public struct MoviesListView: View {
+@ViewAction(for: MovieListFeature.self)
+public struct MovieListView: View {
     
-    public let store: StoreOf<MoviesListFeature>
+    public let store: StoreOf<MovieListFeature>
     
-    public init(store: StoreOf<MoviesListFeature>) {
+    public init(store: StoreOf<MovieListFeature>) {
         self.store = store
     }
     
@@ -47,16 +46,16 @@ public struct MoviesListView: View {
     }
 }
 
-//#Preview {
-//    NavigationStack {
-//        MoviesListView(
-//            store: Store(
-//                initialState: MoviesListFeature.State(
-//                    listType: .nowPlaying,
-//                    movies: [.mock, .mock]
-//                ),
-//                reducer: { MoviesListFeature() }
-//            )
-//        )
-//    }
-//}
+#Preview {
+    NavigationStack {
+        MovieListView(
+            store: Store(
+                initialState: MovieListFeature.State(
+                    listType: .nowPlaying,
+                    movies: [.mock, .mock]
+                ),
+                reducer: { MovieListFeature() }
+            )
+        )
+    }
+}

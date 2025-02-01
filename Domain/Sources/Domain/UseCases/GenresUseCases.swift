@@ -33,6 +33,8 @@ extension GenresUseCases: DependencyKey {
             return result
         }
     )
+    
+    public static let testValue: GenresUseCases = .liveValue
 }
 
 extension DependencyValues {

@@ -6,8 +6,10 @@
 //
 
 import XCTest
-@testable import Movies_TCA
 import ComposableArchitecture
+@testable import RootNavigator
+@testable import HomeNavigator
+@testable import Models
 
 @MainActor
 final class RootNavigatorTests: XCTestCase {

@@ -29,6 +29,8 @@ extension AppUseCases: DependencyKey {
             }
         }
     )
+    
+    public static let testValue: AppUseCases = .liveValue
 }
 
 extension DependencyValues {

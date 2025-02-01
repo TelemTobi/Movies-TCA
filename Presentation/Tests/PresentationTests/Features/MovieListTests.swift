@@ -1,23 +1,24 @@
 //
-//  MoviesListTests.swift
+//  MovieListTests.swift
 //  Movies-TCA-Tests
 //
 //  Created by Telem Tobi on 29/03/2024.
 //
 
 import XCTest
-@testable import Movies_TCA
 import ComposableArchitecture
+@testable import MovieListFeature
+@testable import Models
 
 @MainActor
-final class MoviesListTests: XCTestCase {
+final class MovieListTests: XCTestCase {
     
     var store = TestStore(
-        initialState: MoviesListFeature.State(
+        initialState: MovieListFeature.State(
             listType: .nowPlaying,
-            movies: .init(uniqueElements: MoviesList.mock.results ?? [])
+            movies: .init(uniqueElements: MovieList.mock.movies ?? [])
         ),
-        reducer: MoviesListFeature.init
+        reducer: MovieListFeature.init
     )
     
     // MARK: - View Actions
@@ -31,12 +32,7 @@ final class MoviesListTests: XCTestCase {
     func testOnMovieLike() async {
         let mockMovie: Movie = .mock
         
-        await store.send(.view(.onMovieLike(mockMovie))) { state in
-            state.watchlist.append(mockMovie)
-        }
-        
-        await store.send(.view(.onMovieLike(mockMovie))) { state in
-            state.watchlist.remove(mockMovie)
-        }
+        await store.send(.view(.onMovieLike(mockMovie)))
+        await store.send(.view(.onMovieLike(mockMovie)))
     }
 }

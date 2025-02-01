@@ -14,7 +14,7 @@ import TmdbApi
 
 public struct MoviesUseCases: Sendable {
     public var favorites: @Sendable () async -> Shared<IdentifiedArrayOf<Movie>>
-    public var fetchList: @Sendable (MoviesListType) async -> Result<MovieList, TmdbError>
+    public var fetchList: @Sendable (MovieListType) async -> Result<MovieList, TmdbError>
     public var search: @Sendable (_ query: String) async -> Result<MovieList, TmdbError>
     public var discoverByGenre: @Sendable (_ genreId: Int) async -> Result<MovieList, TmdbError>
 }
@@ -38,6 +38,8 @@ extension MoviesUseCases: DependencyKey {
             return await tmdbApiClient.discoverMovies(by: genreId)
         }
     )
+    
+    public static let testValue: MoviesUseCases = .liveValue
 }
 
 extension DependencyValues {

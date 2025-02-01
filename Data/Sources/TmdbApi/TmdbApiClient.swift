@@ -24,7 +24,7 @@ public struct TmdbApiClient: Sendable {
         await controller.request(.listGenres)
     }
     
-    public func fetchMovies(ofType type: MoviesListType) async -> Result<MovieList, TmdbError> {
+    public func fetchMovies(ofType type: MovieListType) async -> Result<MovieList, TmdbError> {
         await controller.request(.listMovies(type: type))
     }
     

@@ -11,8 +11,13 @@ import Models
 import Domain
 
 struct SearchInteractor: Sendable {
+    @Dependency(\.useCases.genres) private var genresUseCases
     @Dependency(\.useCases.movies) private var moviesUseCases
     @Dependency(\.useCases.movie) private var movieUseCases
+    
+    var genres: [Genre] {
+        get async { await genresUseCases.get() }
+    }
     
     func discoverMovies(by genreId: Int) async -> Result<MovieList, TmdbError> {
         await moviesUseCases.discoverByGenre(genreId)

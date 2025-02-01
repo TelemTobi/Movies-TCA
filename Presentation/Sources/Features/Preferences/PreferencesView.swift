@@ -68,7 +68,7 @@ extension PreferencesView {
                             .foregroundStyle(.secondary)
                     }
                     .contentShape(Rectangle())
-                    .labelStyle(SettingLabelStyle(color: .blue))
+                    .labelStyle(.settings(color: .blue))
                 }
             )
             .buttonStyle(.plain)
@@ -83,9 +83,7 @@ extension PreferencesView {
                     }
                 }
             )
-            .labelStyle(
-                SettingLabelStyle(color: appearanceLabelColor)
-            )
+            .labelStyle(.settings(color: appearanceLabelColor))
         }
     }
 }

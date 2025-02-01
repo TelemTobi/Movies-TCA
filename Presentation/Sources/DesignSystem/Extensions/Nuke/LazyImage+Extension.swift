@@ -1,18 +1,18 @@
 //
-//  WebImage+Extension.swift
+//  KFImage+Extension.swift
 //  Presentation
 //
-//  Created by Telem Tobi on 15/12/2023.
+//  Created by Telem Tobi on 31/01/2025.
 //
 
-import SDWebImageSwiftUI
 import SwiftUI
+import NukeUI
 
-public extension WebImage {
+public extension LazyImage {
+    
     func centerCropped() -> some View {
         GeometryReader { geo in
             self
-                .resizable()
                 .scaledToFill()
                 .frame(width: geo.size.width, height: geo.size.height)
                 .clipped()

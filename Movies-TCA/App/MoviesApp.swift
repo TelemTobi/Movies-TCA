@@ -14,6 +14,8 @@ import RootNavigator
 @main
 struct MoviesApp: App {
     
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
             RootNavigator.ContentView(
@@ -22,7 +24,6 @@ struct MoviesApp: App {
                     reducer: RootNavigator.init
                 )
             )
-            .adjustPreferredAppearance()
         }
     }
 }

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 import Core
 import Models
 
@@ -20,30 +20,30 @@ public struct CircularPersonImage: View {
     }
     
     public var body: some View {
-        WebImage(url: person.imageUrl)
-            .placeholder {
-                ZStack {
-                    Circle()
-                        .overlay {
-                            Color.gray
-                        }
-                    
-                    Text(person.name?.initials ?? .empty)
-                        .foregroundColor(.white)
-                        .font(.rounded(.title, weight: .bold))
+        LazyImage(url: person.imageUrl) { state in
+            ZStack {
+                if let image = state.image {
+                    image.resizable()
+                } else {
+                    ZStack {
+                        Color.secondary.opacity(0.25)
+                        Text(person.name?.initials ?? .empty)
+                            .foregroundColor(.white)
+                            .font(.rounded(.title, weight: .bold))
+                    }
                 }
             }
-            .resizable()
-            .centerCropped()
-            .frame(width: size, height: size)
-            .clipShape(Circle())
-            .transition(.fade)
+            .animation(.smooth, value: state.image)
+        }
+        .centerCropped()
+        .frame(width: size, height: size)
+        .clipShape(Circle())
     }
 }
 
-//#Preview {
-//    CircularPersonImage(
-//        person: CastMember.mock,
-//        size: 300
-//    )
-//}
+#Preview {
+    CircularPersonImage(
+        person: CastMember.mock,
+        size: 300
+    )
+}

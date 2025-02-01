@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 import ComposableArchitecture
 import Models
 
@@ -49,24 +49,20 @@ public struct MoviesCollectionView: View {
             
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
-                WebImage(url: movie.thumbnailUrl)
-                    .resizable()
-                    .placeholder {
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(.gray)
-                            .frame(width: itemWidth, height: itemHeight)
-                        
-                        Image(systemName: "popcorn")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40)
-                            .foregroundColor(.white)
+                LazyImage(url: movie.thumbnailUrl) { state in
+                    ZStack {
+                        if let image = state.image {
+                            image.resizable()
+                        } else {
+                            TmdbImagePlaceholder()
+                        }
                     }
-                    .scaledToFill()
-                    .frame(width: itemWidth, height: itemHeight)
-                    .cornerRadius(10)
-                    .transition(.fade)
-                    .shadow(radius: 3)
+                    .animation(.smooth, value: state.image)
+                }
+                .scaledToFill()
+                .frame(width: itemWidth, height: itemHeight)
+                .cornerRadius(10)
+                .shadow(radius: 3)
                 
                 if let isMovieLiked {
                     LikeButton(isLiked: isMovieLiked(movie))
@@ -85,11 +81,11 @@ public struct MoviesCollectionView: View {
     }
 }
 
-//#Preview {
-//    MoviesCollectionView(
-//        movies: IdentifiedArray(uniqueElements: MovieList.mock.movies ?? []),
-//        onMovieTap: { _ in },
-//        isMovieLiked: { _ in .constant(true) }
-//    )
-//    .frame(height: 280)
-//}
+#Preview {
+    MoviesCollectionView(
+        movies: IdentifiedArray(uniqueElements: MovieList.mock.movies ?? []),
+        onMovieTap: { _ in },
+        isMovieLiked: { _ in .constant(true) }
+    )
+    .frame(height: 280)
+}
