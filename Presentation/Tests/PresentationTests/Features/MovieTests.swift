@@ -6,8 +6,9 @@
 //
 
 import XCTest
-@testable import Movies_TCA
 import ComposableArchitecture
+@testable import MovieFeature
+@testable import Models
 
 @MainActor
 final class MovieTests: XCTestCase {
@@ -19,29 +20,29 @@ final class MovieTests: XCTestCase {
     
     func testLoadExtendedDetails() async throws {
         let movieId = try XCTUnwrap(store.state.movieDetails.movie.id)
-        let movieDetailsResult = await store.dependencies.tmdbClient.movieDetails(movieId)
+        let movieDetailsResult = await store.dependencies.useCases.movie.fetchDetails(movieId)
 
         guard case let .success(response) = movieDetailsResult else {
             XCTFail("Failed loading mock movie details")
             return
         }
         
-        await store.send(\.loadExtendedDetails)
+        await store.send(\.fetchMovieDetails)
         
         // Success result
-        await store.receive(\.movieDetailsLoaded, movieDetailsResult) { state in
+        await store.receive(\.movieDetailsResult, movieDetailsResult) { state in
             state.movieDetails = response
         }
         
         // Failure result
-        await store.send(\.movieDetailsLoaded, .unknownError)
+        await store.send(\.movieDetailsResult, .failure(.unknownError))
     }
     
     // MARK: - View Actions
     
     func testOnFirstAppear() async {
         await store.send(\.view.onFirstAppear)
-        await store.receive(\.loadExtendedDetails)
+        await store.receive(\.fetchMovieDetails)
     }
     
     func testOnCloseButtonTap() async {
@@ -57,11 +58,11 @@ final class MovieTests: XCTestCase {
     
     func testOnLikeTap() async {
         await store.send(.view(.onLikeTap)) { state in
-            state.watchlist.append(state.movieDetails.movie)
+            state.$watchlist.withLock { $0.append(state.movieDetails.movie) }
         }
         
         await store.send(.view(.onLikeTap)) { state in
-            state.watchlist.remove(state.movieDetails.movie)
+            let _ = state.$watchlist.withLock { $0.remove(state.movieDetails.movie) }
         }
     }
 }

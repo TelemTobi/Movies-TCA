@@ -50,14 +50,14 @@ public extension Movie {
 
 public extension MovieList {
     static var mock: MovieList {
-        let moviesList = try? TmdbMock.nowPlayingMovies
+        let movieList = try? TmdbMock.nowPlayingMovies
             .decode(into: MovieList.self, using: .tmdbDateDecodingStrategy)
         
-        guard let moviesList else {
+        guard let movieList else {
             fatalError("Movies mock decoding error")
         }
         
-        return moviesList
+        return movieList
     }
 }
 

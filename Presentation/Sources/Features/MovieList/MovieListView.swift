@@ -10,12 +10,12 @@ import ComposableArchitecture
 import Models
 import DesignSystem
 
-@ViewAction(for: MoviesListFeature.self)
+@ViewAction(for: MovieListFeature.self)
 public struct MovieListView: View {
     
-    public let store: StoreOf<MoviesListFeature>
+    public let store: StoreOf<MovieListFeature>
     
-    public init(store: StoreOf<MoviesListFeature>) {
+    public init(store: StoreOf<MovieListFeature>) {
         self.store = store
     }
     
@@ -50,11 +50,11 @@ public struct MovieListView: View {
     NavigationStack {
         MovieListView(
             store: Store(
-                initialState: MoviesListFeature.State(
+                initialState: MovieListFeature.State(
                     listType: .nowPlaying,
                     movies: [.mock, .mock]
                 ),
-                reducer: { MoviesListFeature() }
+                reducer: { MovieListFeature() }
             )
         )
     }

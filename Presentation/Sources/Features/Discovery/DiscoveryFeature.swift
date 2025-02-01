@@ -16,11 +16,11 @@ public struct DiscoveryFeature {
     @ObservableState
     public struct State: Equatable {
         var isLoading = true
-        var movies: [MoviesListType: IdentifiedArrayOf<Movie>] = [:]
+        var movies: [MovieListType: IdentifiedArrayOf<Movie>] = [:]
         
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
         
-        public init(isLoading: Bool = true, movies: [MoviesListType : IdentifiedArrayOf<Movie>] = [:]) {
+        public init(isLoading: Bool = true, movies: [MovieListType : IdentifiedArrayOf<Movie>] = [:]) {
             self.isLoading = isLoading
             self.movies = movies
         }
@@ -33,20 +33,20 @@ public struct DiscoveryFeature {
             case onPreferencesTap
             case onMovieTap(Movie)
             case onMovieLike(Movie)
-            case onMoviesListTap(MoviesListType, IdentifiedArrayOf<Movie>)
+            case onMovieListTap(MovieListType, IdentifiedArrayOf<Movie>)
         }
         
         @CasePathable
         public enum Navigation: Equatable {
             case presentMovie(Movie)
             case presentPreferences
-            case pushMoviesList(MoviesListType, IdentifiedArrayOf<Movie>)
+            case pushMovieList(MovieListType, IdentifiedArrayOf<Movie>)
         }
         
         case view(View)
         case navigation(Navigation)
         case loadMovies
-        case movieListResult(MoviesListType, Result<MovieList, TmdbError>)
+        case movieListResult(MovieListType, Result<MovieList, TmdbError>)
         case loadingCompleted
     }
     
@@ -110,8 +110,8 @@ public struct DiscoveryFeature {
         case .onPreferencesTap:
             return .send(.navigation(.presentPreferences))
             
-        case let .onMoviesListTap(listType, movies):
-            return .send(.navigation(.pushMoviesList(listType, movies)))
+        case let .onMovieListTap(listType, movies):
+            return .send(.navigation(.pushMovieList(listType, movies)))
             
         case let .onMovieLike(movie):
             return .run { _ in

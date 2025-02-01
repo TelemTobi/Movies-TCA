@@ -6,8 +6,11 @@
 //
 
 import XCTest
-@testable import Movies_TCA
 import ComposableArchitecture
+@testable import WatchlistNavigator
+@testable import MovieNavigator
+@testable import PreferencesFeature
+@testable import Models
 
 @MainActor
 final class WatchlistNavigatorTests: XCTestCase {

@@ -53,7 +53,7 @@ public struct DiscoveryView: View {
     @ViewBuilder @MainActor
     private func ContentView() -> some View {
         List {
-            ForEach(MoviesListType.allCases, id: \.self) { listType in
+            ForEach(MovieListType.allCases, id: \.self) { listType in
                 if let movies = store.movies[listType] {
                     SectionView(listType: listType, movies: movies)
                 }
@@ -69,7 +69,7 @@ public struct DiscoveryView: View {
     }
     
     @ViewBuilder @MainActor
-    private func SectionView(listType: MoviesListType, movies: IdentifiedArrayOf<Movie>) -> some View {
+    private func SectionView(listType: MovieListType, movies: IdentifiedArrayOf<Movie>) -> some View {
         Section {
             switch listType {
             case .nowPlaying:
@@ -104,7 +104,7 @@ public struct DiscoveryView: View {
                     title: listType.title,
                     action: "See All",
                     onActionTap: {
-                        send(.onMoviesListTap(listType, movies))
+                        send(.onMovieListTap(listType, movies))
                     }
                 )
                 .padding(.horizontal)

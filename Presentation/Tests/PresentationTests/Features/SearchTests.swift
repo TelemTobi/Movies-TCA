@@ -6,8 +6,9 @@
 //
 
 import XCTest
-@testable import Movies_TCA
 import ComposableArchitecture
+@testable import SearchFeature
+@testable import Models
 
 @MainActor
 final class SearchTests: XCTestCase {
@@ -34,15 +35,15 @@ final class SearchTests: XCTestCase {
         
         await store.receive(\.searchMovies, "Hello")
         
-        let searchResult = await store.dependencies.tmdbClient.searchMovies("Hello")
+        let searchResult = await store.dependencies.useCases.movies.search("Hello")
         guard case let .success(response) = searchResult else {
             XCTFail("Failed loading mock search result")
             return
         }
         
-        await store.receive(\.searchResponse, searchResult) { state in
+        await store.receive(\.searchResult, searchResult) { state in
             state.isLoading = false
-            state.results = .init(uniqueElements: response.results ?? [])
+            state.results = .init(uniqueElements: response.movies ?? [])
         }
         
         // Empty search input
@@ -55,20 +56,20 @@ final class SearchTests: XCTestCase {
     
     func testSearchMovies() async {
         // Genre tap
-        let genreResult = await store.dependencies.tmdbClient.discoverMovies(18)
+        let genreResult = await store.dependencies.useCases.movies.discoverByGenre(18)
         guard case let .success(response) = genreResult else {
             XCTFail("Failed loading mock movies")
             return
         }
         await store.send(\.binding.isLoading, true) { $0.isLoading = true }
         await store.send(\.searchMovies, "Action")
-        await store.receive(\.searchResponse, genreResult) { state in
+        await store.receive(\.searchResult, genreResult) { state in
             state.isLoading = false
-            state.results = .init(uniqueElements: response.results ?? [])
+            state.results = .init(uniqueElements: response.movies ?? [])
         }
         
         // Free search
-        let searchResult = await store.dependencies.tmdbClient.searchMovies("Test")
+        let searchResult = await store.dependencies.useCases.movies.search("Test")
         guard case let .success(response) = searchResult else {
             XCTFail("Failed loading mock movies")
             return
@@ -77,14 +78,14 @@ final class SearchTests: XCTestCase {
         // Success result
         await store.send(\.binding.isLoading, true) { $0.isLoading = true }
         await store.send(\.searchMovies, "Test")
-        await store.receive(\.searchResponse, searchResult) { state in
+        await store.receive(\.searchResult, searchResult) { state in
             state.isLoading = false
-            state.results = .init(uniqueElements: response.results ?? [])
+            state.results = .init(uniqueElements: response.movies ?? [])
         }
         
         // Failure result
         await store.send(\.binding.isLoading, true) { $0.isLoading = true }
-        await store.send(\.searchResponse, .unknownError) { state in
+        await store.send(\.searchResult, .failure(.unknownError)) { state in
             state.isLoading = false
         }
     }
@@ -121,11 +122,11 @@ final class SearchTests: XCTestCase {
         let mockMovie: Movie = .mock
         
         await store.send(.view(.onMovieLike(mockMovie))) { state in
-            state.watchlist.append(mockMovie)
+            state.$watchlist.withLock { $0.append(mockMovie) }
         }
         
         await store.send(.view(.onMovieLike(mockMovie))) { state in
-            state.watchlist.remove(mockMovie)
+            let _ = state.$watchlist.withLock { $0.remove(mockMovie) }
         }
     }
 }

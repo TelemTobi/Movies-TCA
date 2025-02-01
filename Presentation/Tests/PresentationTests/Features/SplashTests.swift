@@ -6,8 +6,9 @@
 //
 
 import XCTest
-@testable import Movies_TCA
 import ComposableArchitecture
+@testable import SplashFeature
+@testable import Models
 
 @MainActor
 final class SplashTests: XCTestCase {
@@ -19,26 +20,26 @@ final class SplashTests: XCTestCase {
 
     func testLoadGenres() async {
         // Success result
-        let genresResult = await store.dependencies.tmdbClient.fetchGenres()
+        let genresResult = await store.dependencies.useCases.genres.fetch()
         
-        await store.send(\.loadGenres)
-        await store.receive(\.genresResponse, genresResult)
+        await store.send(\.fetchGenres)
+        await store.receive(\.genresResult, genresResult)
         await store.receive(\.navigation.splashCompleted)
         
         // TODO: Make sure genres are saved to the shared state
         
         // Bad response
-        await store.send(\.genresResponse, .success(GenresResponse(genres: nil)))
-        await store.receive(\.genresResponse, .unknownError)
+        await store.send(\.genresResult, .success(GenresResponse(genres: nil)))
+        await store.receive(\.genresResult, .failure(.unknownError))
         
         // Failure result
-        await store.send(\.genresResponse, .unknownError)
+        await store.send(\.genresResult, .failure(.unknownError))
     }
     
     // MARK: - View Actions
     
     func testOnAppear() async {
         await store.send(\.view.onAppear)
-        await store.receive(\.loadGenres)
+        await store.receive(\.fetchGenres)
     }
 }

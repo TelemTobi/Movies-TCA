@@ -48,7 +48,21 @@ let package = Package(
         ),
         .testTarget(
             name: "PresentationTests",
-            dependencies: ["SplashFeature"]
+            dependencies: [
+                "DiscoveryFeature",
+                "MovieFeature",
+                "MovieListFeature",
+                "PreferencesFeature",
+                "SearchFeature",
+                "SplashFeature",
+                "WatchlistFeature",
+                "DiscoveryNavigator",
+                "HomeNavigator",
+                "MovieNavigator",
+                "RootNavigator",
+                "SearchNavigator",
+                "WatchlistNavigator"
+            ]
         )
     ],
     swiftLanguageModes: [.v5]

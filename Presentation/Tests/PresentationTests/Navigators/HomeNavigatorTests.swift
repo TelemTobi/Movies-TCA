@@ -6,8 +6,9 @@
 //
 
 import XCTest
-@testable import Movies_TCA
 import ComposableArchitecture
+@testable import HomeNavigator
+@testable import Models
 
 @MainActor
 final class HomeNavigatorTests: XCTestCase {

@@ -6,8 +6,12 @@
 //
 
 import XCTest
-@testable import Movies_TCA
 import ComposableArchitecture
+@testable import DiscoveryNavigator
+@testable import MovieListFeature
+@testable import PreferencesFeature
+@testable import MovieNavigator
+@testable import Models
 
 @MainActor
 final class DiscoveryNavigatorTests: XCTestCase {
@@ -20,8 +24,8 @@ final class DiscoveryNavigatorTests: XCTestCase {
     func testPushMovieList() async {
         let mockMovieList: IdentifiedArrayOf<Movie> = .init(uniqueElements: [Movie.mock])
         
-        await store.send(\.root.navigation.pushMoviesList, (.nowPlaying, mockMovieList)) { state in
-            state.path.append(.moviesList(MoviesListFeature.State(listType: .nowPlaying, movies: mockMovieList)))
+        await store.send(\.root.navigation.pushMovieList, (.nowPlaying, mockMovieList)) { state in
+            state.path.append(.movieList(MovieListFeature.State(listType: .nowPlaying, movies: mockMovieList)))
         }
         
         await store.send(\.path.popFrom, 0) { state in
@@ -41,11 +45,11 @@ final class DiscoveryNavigatorTests: XCTestCase {
         }
         
         let mockMovieList: IdentifiedArrayOf<Movie> = .init(uniqueElements: [Movie.mock])
-        await store.send(\.root.navigation.pushMoviesList, (.nowPlaying, mockMovieList)) { state in
-            state.path.append(.moviesList(MoviesListFeature.State(listType: .nowPlaying, movies: mockMovieList)))
+        await store.send(\.root.navigation.pushMovieList, (.nowPlaying, mockMovieList)) { state in
+            state.path.append(.movieList(MovieListFeature.State(listType: .nowPlaying, movies: mockMovieList)))
         }
         
-        await store.send(\.path[id: 0].moviesList.navigation.presentMovie, mockMovie) { state in
+        await store.send(\.path[id: 0].movieList.navigation.presentMovie, mockMovie) { state in
             state.destination = .movie(MovieNavigator.State(movieDetails: .init(movie: mockMovie)))
         }
         

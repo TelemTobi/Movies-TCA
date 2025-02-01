@@ -1,5 +1,5 @@
 //
-//  MoviesListFeature.swift
+//  MovieListFeature.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 26/11/2023.
@@ -10,16 +10,16 @@ import ComposableArchitecture
 import Models
 
 @Reducer
-public struct MoviesListFeature {
+public struct MovieListFeature {
     
     @ObservableState
     public struct State: Equatable {
-        var listType: MoviesListType?
+        var listType: MovieListType?
         var movies: IdentifiedArrayOf<Movie> = []
         
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
         
-        public init(listType: MoviesListType? = nil, movies: IdentifiedArrayOf<Movie>) {
+        public init(listType: MovieListType? = nil, movies: IdentifiedArrayOf<Movie>) {
             self.listType = listType
             self.movies = movies
         }

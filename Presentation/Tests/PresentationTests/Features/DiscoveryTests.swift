@@ -6,9 +6,9 @@
 //
 
 import XCTest
-@testable import Movies_TCA
-@testable import Models
 import ComposableArchitecture
+@testable import DiscoveryFeature
+@testable import Models
 
 @MainActor
 final class DiscoveryTests: XCTestCase {
@@ -31,8 +31,8 @@ final class DiscoveryTests: XCTestCase {
         }
     }
     
-    private func testMoviesFetching(ofType type: MoviesListType) async {
-        let result = await store.dependencies.tmdbClient.fetchMovies(type)
+    private func testMoviesFetching(ofType type: MovieListType) async {
+        let result = await store.dependencies.useCases.movies.fetchList(type)
         
         guard case let .success(response) = result else {
             XCTFail("Failed loading mock movies")
@@ -40,12 +40,12 @@ final class DiscoveryTests: XCTestCase {
         }
         
         await store.receive(.movieListResult(type, result)) { state in
-            state.movies[type] = .init(uniqueElements: response.results ?? [])
+            state.movies[type] = .init(uniqueElements: response.movies ?? [])
         }
     }
 
-    func testMoviesListLoaded() async {
-        let nowPlayingResult = await store.dependencies.tmdbClient.fetchMovies(.nowPlaying)
+    func testMovieListLoaded() async {
+        let nowPlayingResult = await store.dependencies.useCases.movies.fetchList(.nowPlaying)
         
         guard case let .success(response) = nowPlayingResult else {
             XCTFail("Failed loading mock movies")
@@ -53,17 +53,17 @@ final class DiscoveryTests: XCTestCase {
         }
         
         // Success Result
-        await store.send(\.moviesListLoaded, (.nowPlaying, nowPlayingResult)) { state in
-            state.movies[.nowPlaying] = .init(uniqueElements: response.results ?? [])
+        await store.send(\.movieListResult, (.nowPlaying, nowPlayingResult)) { state in
+            state.movies[.nowPlaying] = .init(uniqueElements: response.movies ?? [])
         }
         
         // Bad Response
-        let invalidMovieList = MoviesList(results: nil, page: nil, totalPages: nil, totalResults: nil)
-        await store.send(\.moviesListLoaded, (.nowPlaying, .success(invalidMovieList)))
-        await store.receive(.moviesListLoaded(.nowPlaying, .unknownError))
+        let invalidMovieList = MovieList(movies: nil, page: nil, totalPages: nil, totalResults: nil)
+        await store.send(\.movieListResult, (.nowPlaying, .success(invalidMovieList)))
+        await store.receive(.movieListResult(.nowPlaying, .failure(.unknownError)))
         
         // Failure Result
-        await store.send(\.moviesListLoaded, (.nowPlaying, .unknownError))
+        await store.send(\.movieListResult, (.nowPlaying, .failure(.unknownError)))
     }
     
     func testLoadingCompleted() async {
@@ -90,21 +90,21 @@ final class DiscoveryTests: XCTestCase {
         await store.receive(\.navigation.presentPreferences)
     }
     
-    func testOnMoviesListTap() async {
-        let moviesList = IdentifiedArrayOf<Movie>(uniqueElements: MoviesList.mock.results ?? [])
-        await store.send(\.view.onMoviesListTap, (.nowPlaying, moviesList))
-        await store.receive(.navigation(.pushMoviesList(.nowPlaying, moviesList)))
+    func testOnMovieListTap() async {
+        let movieList = IdentifiedArrayOf<Movie>(uniqueElements: MovieList.mock.movies ?? [])
+        await store.send(\.view.onMovieListTap, (.nowPlaying, movieList))
+        await store.receive(.navigation(.pushMovieList(.nowPlaying, movieList)))
     }
     
     func testOnMovieLike() async {
         let mockMovie: Movie = .mock
         
         await store.send(.view(.onMovieLike(mockMovie))) { state in
-            state.watchlist.append(mockMovie)
+            state.$watchlist.withLock { $0.append(mockMovie) }
         }
         
         await store.send(.view(.onMovieLike(mockMovie))) { state in
-            state.watchlist.remove(mockMovie)
+            let _ = state.$watchlist.withLock { $0.remove(mockMovie) }
         }
     }
 }
