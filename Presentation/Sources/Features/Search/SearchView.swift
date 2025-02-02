@@ -27,13 +27,13 @@ public struct SearchView: View {
                 ContentView()
             }
         }
-        .navigationTitle("Search")
+        .navigationTitle(.localized(.search))
         .toolbar(content: toolbarContent)
         .animation(.easeInOut, value: store.isLoading)
         .searchable(
             text: $store.searchInput.sending(\.onInputChange),
             placement: .navigationBarDrawer(displayMode: .always),
-            prompt: "Explore movies here"
+            prompt: .localized(.moviesSearchPrompt)
         )
     }
     

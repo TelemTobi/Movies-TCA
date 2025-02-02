@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import Core
 import Models
 import DesignSystem
 
@@ -84,7 +85,7 @@ public struct MovieView: View {
                 )
             }
         } header: {
-            SectionHeader(title: "Cast", action: "See All") {
+            SectionHeader(title: LocalizedStringKey.localized(.cast), action: "See All") {
                 // TODO: See All tap
             }
             .padding(.horizontal)
@@ -107,7 +108,7 @@ public struct MovieView: View {
                 )
             }
         } header: {
-            SectionHeader(title: "Directed By")
+            SectionHeader(title: .localized(.directedBy))
         }
         .padding(.horizontal)
         
@@ -126,7 +127,7 @@ public struct MovieView: View {
                 )
                 .frame(height: 280)
             } header: {
-                SectionHeader(title: "Related")
+                SectionHeader(title: .localized(.related))
                     .padding(.horizontal)
             }
             
@@ -147,7 +148,7 @@ public struct MovieView: View {
                     .transition(.slideAndFade)
             }
         } header: {
-            SectionHeader(title: "Information")
+            SectionHeader(title: .localized(.information))
         }
         .padding(.horizontal)
     }

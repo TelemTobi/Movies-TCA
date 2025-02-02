@@ -8,6 +8,7 @@
 import SwiftUI
 import NukeUI
 import ComposableArchitecture
+import Core
 import DesignSystem
 
 extension MovieView {
@@ -59,7 +60,7 @@ extension MovieView {
                 
                 HStack(alignment: .bottom, spacing: 0) {
                     TruncableText(
-                        movie.overview ?? .notAvailable,
+                        movie.overview ?? .localized(.notAvailable),
                         lineLimit: 3,
                         truncationUpdate: { isTruncated in
                             isOverviewTruncated = isTruncated
@@ -70,7 +71,7 @@ extension MovieView {
                     Spacer(minLength: 0)
                     
                     if isOverviewTruncated {
-                        Button("More") {
+                        Button(.localized(.more)) {
                             isOverviewSheetPresented = true
                         }
                     }
@@ -122,7 +123,7 @@ extension MovieView {
             }
             .sheet(isPresented: $isOverviewSheetPresented) {
                 DynamicSheet(
-                    title: movie.title ?? .notAvailable,
+                    title: movie.title ?? .localized(.notAvailable),
                     content: {
                         OverviewSheetContent()
                     }
@@ -147,7 +148,7 @@ extension MovieView {
                     .padding(.horizontal)
             }
             
-            Text(store.movieDetails.movie.overview ?? .notAvailable)
+            Text(store.movieDetails.movie.overview ?? .localized(.notAvailable))
                 .padding(.horizontal)
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.center)
@@ -160,9 +161,9 @@ extension MovieView {
     }
     
     fileprivate var bulletPoints: String {
-        [store.movieDetails.movie.genres?.first?.name ?? .notAvailable,
-         store.movieDetails.movie.releaseDate?.year.description ?? .notAvailable,
-         store.movieDetails.movie.runtime?.durationInHoursAndMinutesShortFormat ?? .notAvailable
+        [store.movieDetails.movie.genres?.first?.name ?? .localized(.notAvailable),
+         store.movieDetails.movie.releaseDate?.year.description ?? .localized(.notAvailable),
+         store.movieDetails.movie.runtime?.durationInHoursAndMinutesShortFormat ?? .localized(.notAvailable)
         ].joined(separator: .dotSeparator)
     }
 }

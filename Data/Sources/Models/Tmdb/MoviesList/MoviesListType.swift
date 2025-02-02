@@ -7,16 +7,17 @@
 
 import Foundation
 import SwiftUI
+import Core
 
 public enum MovieListType: String, CaseIterable, Sendable {
     case nowPlaying, popular, upcoming, topRated
     
     public var title: LocalizedStringKey {
         return switch self {
-            case .nowPlaying: "Now Playing"
-            case .popular: "Popular"
-            case .upcoming: "Upcoming"
-            case .topRated: "Top Rated"
+        case .nowPlaying: .localized(.nowPlaying)
+        case .popular: .localized(.popular)
+        case .upcoming: .localized(.upcoming)
+        case .topRated: .localized(.topRated)
         }
     }
 }

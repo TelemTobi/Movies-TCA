@@ -25,19 +25,19 @@ public extension HomeNavigator {
                 DiscoveryNavigator.ContentView(
                     store: store.scope(state: \.discover, action: \.discover)
                 )
-                .tabItem { Label("Discovery", systemImage: "globe") }
-                .tag(HomeNavigator.Tab.discover)
+                .tabItem { Label(.localized(.discovery), systemImage: "globe") }
+                .tag(HomeNavigator.Tab.discovery)
                 
                 SearchNavigator.ContentView(
                     store: store.scope(state: \.search, action: \.search)
                 )
-                .tabItem { Label("Search", systemImage: "magnifyingglass") }
+                .tabItem { Label(.localized(.search), systemImage: "magnifyingglass") }
                 .tag(HomeNavigator.Tab.search)
                 
                 WatchlistNavigator.ContentView(
                     store: store.scope(state: \.watchlist, action: \.watchlist)
                 )
-                .tabItem { Label("Watchlist", systemImage: "popcorn") }
+                .tabItem { Label(.localized(.watchlist), systemImage: "popcorn") }
                 .tag(HomeNavigator.Tab.watchlist)
             }
         }

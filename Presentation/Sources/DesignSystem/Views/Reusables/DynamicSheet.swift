@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Core
 
 public struct DynamicSheet<Content: View>: View {
     
@@ -49,7 +50,7 @@ public struct DynamicSheet<Content: View>: View {
     }
     
     private var DoneButtonLabel: some View {
-        Text("Done")
+        Text(.localized(.done))
             .fontWeight(.semibold)
             .foregroundColor(.accentColor)
     }

@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import ComposableArchitecture
+import Core
 import DesignSystem
 import Models
 
@@ -28,7 +29,7 @@ public struct WatchlistView: View {
                 ContentView()
             }
         }
-        .navigationTitle("Watchlist")
+        .navigationTitle(.localized(.watchlist))
         .toolbar(content: toolbarContent)
         .alert($store.scope(state: \.alert, action: \.alert))
     }
@@ -74,9 +75,9 @@ public struct WatchlistView: View {
     @ViewBuilder
     private func EmptyFavoritesView() -> some View {
         ContentUnavailableView(
-            "Your watchlist is empty",
+            .localized(.watchlistEmptyStateTitle),
             systemImage: "popcorn",
-            description: Text("Movies you liked will appear here")
+            description: Text(.localized(.watchlistEmptyStateContent))
         )
     }
 }
@@ -85,19 +86,19 @@ extension AlertState where Action == WatchlistFeature.Action.Alert {
     static func dislikeConfirmation(for movie: Movie) -> Self {
         Self(
             title: {
-                TextState("Are you sure?")
+                TextState(String.localized(.areYouSure))
             },
             actions: {
                 ButtonState(role: .destructive, action: .confirmDislike(movie)) {
-                    TextState("Remove")
+                    TextState(.localized(.remove))
                 }
                 
                 ButtonState(role: .cancel) {
-                    TextState("Cancel")
+                    TextState(String.localized(.cancel))
                 }
             },
             message: {
-                TextState("Your'e about to remove \(movie.title ?? "") from your watchlist")
+                TextState(.localized(.watchlistRemovalAlertContent(movieTitle: movie.title ?? .empty)))
             }
         )
     }

@@ -30,7 +30,7 @@ public struct PreferencesFeature {
         
         case view(View)
         case onAdultContentToggle(Bool)
-        case onAppearanceChange(String)
+        case onAppearanceChange(Constants.Appearance)
     }
     
     @Dependency(\.interactor) private var interactor
@@ -50,9 +50,7 @@ public struct PreferencesFeature {
                 return .none
                 
             case let .onAppearanceChange(newValue):
-                state.$appearance.withLock {
-                    $0 =  Constants.Appearance(rawValue: newValue) ?? .system
-                }
+                state.$appearance.withLock { $0 = newValue }
                 return .none
             }
         }

@@ -8,9 +8,15 @@ let package = Package(
     products: [
         .library(name: "Core", targets: ["Core"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/telemtobi/swift-localization", from: "1.0.2")
+    ],
     targets: [
         .target(
-            name: "Core"
+            name: "Core",
+            dependencies: [
+                .product(name: "Localization", package: "swift-localization")
+            ]
         )
     ]
 )

@@ -10,5 +10,4 @@ import SwiftUI
 public extension LocalizedStringKey {
     
     static var empty: Self { LocalizedStringKey("") }
-    static var notAvailable: Self { LocalizedStringKey("N/A") }
 }

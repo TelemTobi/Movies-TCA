@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Core
 import Models
 import DesignSystem
 
@@ -23,11 +24,11 @@ struct DirectorView: View {
                     .padding(.vertical, 8)
                 
                 VStack(alignment: .leading) {
-                    Text("\(director.name ?? .notAvailable)")
+                    Text("\(director.name ?? .localized(.notAvailable))")
                         .font(.headline)
                         .foregroundColor(.primary)
                     
-                    Text("Director")
+                    Text(.localized(.director))
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
