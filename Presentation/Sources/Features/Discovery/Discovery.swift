@@ -1,5 +1,5 @@
 //
-//  DiscoveryFeature.swift
+//  Discovery.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 11/11/2023.
@@ -11,7 +11,7 @@ import ComposableArchitecture
 import Models
 
 @Reducer
-public struct DiscoveryFeature {
+public struct Discovery {
     
     @ObservableState
     public struct State: Equatable {

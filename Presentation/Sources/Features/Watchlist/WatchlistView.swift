@@ -12,12 +12,12 @@ import Core
 import DesignSystem
 import Models
 
-@ViewAction(for: WatchlistFeature.self)
+@ViewAction(for: Watchlist.self)
 public struct WatchlistView: View {
     
-    @Bindable public var store: StoreOf<WatchlistFeature>
+    @Bindable public var store: StoreOf<Watchlist>
     
-    public init(store: StoreOf<WatchlistFeature>) {
+    public init(store: StoreOf<Watchlist>) {
         self.store = store
     }
     
@@ -82,7 +82,7 @@ public struct WatchlistView: View {
     }
 }
 
-extension AlertState where Action == WatchlistFeature.Action.Alert {
+extension AlertState where Action == Watchlist.Action.Alert {
     static func dislikeConfirmation(for movie: Movie) -> Self {
         Self(
             title: {
@@ -108,8 +108,8 @@ extension AlertState where Action == WatchlistFeature.Action.Alert {
     NavigationStack {
         WatchlistView(
             store: Store(
-                initialState: WatchlistFeature.State(),
-                reducer: { WatchlistFeature() }
+                initialState: Watchlist.State(),
+                reducer: { Watchlist() }
             )
         )
     }

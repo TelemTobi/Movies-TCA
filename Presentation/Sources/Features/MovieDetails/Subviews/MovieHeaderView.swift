@@ -11,11 +11,11 @@ import ComposableArchitecture
 import Core
 import DesignSystem
 
-extension MovieView {
+extension MovieDetailsView {
     
     @ViewBuilder
     func HeaderView(geometry: GeometryProxy) -> some View {
-        let movie = store.movieDetails.movie
+        let movie = store.detailedMovie.movie
         
         ZStack(alignment: .bottom) {
             StretchyHeader(
@@ -139,7 +139,7 @@ extension MovieView {
     @ViewBuilder
     fileprivate func OverviewSheetContent() -> some View {
         VStack {
-            if let tagline = store.movieDetails.movie.tagline, tagline.isNotEmpty {
+            if let tagline = store.detailedMovie.movie.tagline, tagline.isNotEmpty {
                 Text("\"\(tagline)\"")
                     .font(.rounded(.title, weight: .bold))
                     .foregroundColor(.secondary)
@@ -148,7 +148,7 @@ extension MovieView {
                     .padding(.horizontal)
             }
             
-            Text(store.movieDetails.movie.overview ?? .localized(.notAvailable))
+            Text(store.detailedMovie.movie.overview ?? .localized(.notAvailable))
                 .padding(.horizontal)
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.center)
@@ -161,9 +161,9 @@ extension MovieView {
     }
     
     fileprivate var bulletPoints: String {
-        [store.movieDetails.movie.genres?.first?.name ?? .localized(.notAvailable),
-         store.movieDetails.movie.releaseDate?.year.description ?? .localized(.notAvailable),
-         store.movieDetails.movie.runtime?.durationInHoursAndMinutesShortFormat ?? .localized(.notAvailable)
+        [store.detailedMovie.movie.genres?.first?.name ?? .localized(.notAvailable),
+         store.detailedMovie.movie.releaseDate?.year.description ?? .localized(.notAvailable),
+         store.detailedMovie.movie.runtime?.durationInHoursAndMinutesShortFormat ?? .localized(.notAvailable)
         ].joined(separator: .dotSeparator)
     }
 }

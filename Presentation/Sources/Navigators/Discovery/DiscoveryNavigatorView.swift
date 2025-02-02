@@ -11,12 +11,15 @@ import DiscoveryFeature
 import MovieListFeature
 import PreferencesFeature
 import MovieNavigator
+import DesignSystem
 
 public extension DiscoveryNavigator {
     
     struct ContentView: View {
         
         @Bindable public var store: StoreOf<DiscoveryNavigator>
+        
+        @Namespace var transitionNamespace
         
         public init(store: StoreOf<DiscoveryNavigator>) {
             self.store = store
@@ -47,10 +50,11 @@ public extension DiscoveryNavigator {
                     }
                 }
             )
+            .environment(\.namespace, transitionNamespace)
         }
         
         @MainActor
-        private func PreferencesSheet(store: StoreOf<PreferencesFeature>) -> some View {
+        private func PreferencesSheet(store: StoreOf<Preferences>) -> some View {
             NavigationStack {
                 PreferencesView(store: store)
                     .toolbar {

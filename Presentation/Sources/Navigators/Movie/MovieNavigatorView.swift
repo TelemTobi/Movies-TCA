@@ -8,12 +8,13 @@
 import SwiftUI
 import ComposableArchitecture
 import Models
-import MovieFeature
+import MovieDetailsFeature
 
 public extension MovieNavigator {
     struct ContentView: View {
         
         @Bindable public var store: StoreOf<MovieNavigator>
+        @Environment(\.namespace) private var namespace: Namespace.ID?
         
         public init(store: StoreOf<MovieNavigator>) {
             self.store = store
@@ -23,15 +24,23 @@ public extension MovieNavigator {
             NavigationStack(
                 path: $store.scope(state: \.path, action: \.path),
                 root: {
-                    MovieView(store: store.scope(state: \.root, action: \.root))
+                    MovieDetailsView(store: store.scope(state: \.root, action: \.root))
                 },
                 destination: { store in
                     switch store.case {
                     case let .relatedMovie(store):
-                        MovieView(store: store)
+                        MovieDetailsView(store: store)
                     }
                 }
             )
+            .modify { view in
+                if #available(iOS 18.0, *), let namespace {
+                    let movieId = store.root.detailedMovie.movie.id
+                    view.navigationTransition(.zoom(sourceID: movieId, in: namespace))
+                } else {
+                    view
+                }
+            }
         }
     }
 }
@@ -39,7 +48,7 @@ public extension MovieNavigator {
 #Preview {
     MovieNavigator.ContentView(
         store: Store(
-            initialState: MovieNavigator.State(movieDetails: .mock),
+            initialState: MovieNavigator.State(detailedMovie: .mock),
             reducer: MovieNavigator.init
         )
     )

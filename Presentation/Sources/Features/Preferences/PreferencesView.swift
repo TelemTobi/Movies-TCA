@@ -10,13 +10,13 @@ import ComposableArchitecture
 import Core
 import DesignSystem
 
-@ViewAction(for: PreferencesFeature.self)
+@ViewAction(for: Preferences.self)
 public struct PreferencesView: View {
 
-    @Bindable public var store: StoreOf<PreferencesFeature>
+    @Bindable public var store: StoreOf<Preferences>
     @Environment(\.colorScheme) var colorScheme
     
-    public init(store: StoreOf<PreferencesFeature>) {
+    public init(store: StoreOf<Preferences>) {
         self.store = store
     }
     
@@ -99,8 +99,8 @@ extension PreferencesView {
     NavigationStack {
         PreferencesView(
             store: Store(
-                initialState: PreferencesFeature.State(),
-                reducer: { PreferencesFeature() }
+                initialState: Preferences.State(),
+                reducer: { Preferences() }
             )
         )
     }

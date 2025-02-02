@@ -1,5 +1,5 @@
 //
-//  SearchFeature.swift
+//  Search.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 24/11/2023.
@@ -11,7 +11,7 @@ import ComposableArchitecture
 import Models
 
 @Reducer
-public struct SearchFeature {
+public struct Search {
     
     @ObservableState
     public struct State: Equatable {
@@ -50,7 +50,7 @@ public struct SearchFeature {
         
         case view(View)
         case navigation(Navigation)
-        case binding(BindingAction<SearchFeature.State>)
+        case binding(BindingAction<Search.State>)
         case onInputChange(String)
         case searchMovies(String)
         case searchResult(Result<MovieList, TmdbError>)
@@ -140,7 +140,7 @@ public struct SearchFeature {
     }
 }
 
-extension SearchFeature {
+extension Search {
     struct SearchInputDebounceId: Hashable {}
 }
 

@@ -12,7 +12,7 @@ import TmdbApi
 
 public struct MovieUseCases: Sendable {
     public var toggleWatchlist: @Sendable (_ movie: Movie) async -> Void
-    public var fetchDetails: @Sendable (_ movieId: Int) async -> Result<MovieDetails, TmdbError>
+    public var fetchDetails: @Sendable (_ movieId: Int) async -> Result<DetailedMovie, TmdbError>
 }
 
 extension MovieUseCases: DependencyKey {

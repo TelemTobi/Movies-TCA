@@ -12,12 +12,12 @@ import Core
 import Models
 import DesignSystem
 
-@ViewAction(for: DiscoveryFeature.self)
+@ViewAction(for: Discovery.self)
 public struct DiscoveryView: View {
     
-    public let store: StoreOf<DiscoveryFeature>
-    
-    public init(store: StoreOf<DiscoveryFeature>) {
+    public let store: StoreOf<Discovery>
+        
+    public init(store: StoreOf<Discovery>) {
         self.store = store
     }
     
@@ -121,8 +121,8 @@ public struct DiscoveryView: View {
     NavigationStack {
         DiscoveryView(
             store: Store(
-                initialState: DiscoveryFeature.State(),
-                reducer: { DiscoveryFeature() }
+                initialState: Discovery.State(),
+                reducer: { Discovery() }
             )
         )
     }

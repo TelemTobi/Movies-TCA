@@ -9,12 +9,12 @@ import SwiftUI
 import ComposableArchitecture
 import DesignSystem
 
-@ViewAction(for: SplashFeature.self)
+@ViewAction(for: Splash.self)
 public struct SplashView: View {
     
-    public let store: StoreOf<SplashFeature>
+    public let store: StoreOf<Splash>
     
-    public init(store: StoreOf<SplashFeature>) {
+    public init(store: StoreOf<Splash>) {
         self.store = store
     }
     
@@ -36,8 +36,8 @@ public struct SplashView: View {
 #Preview {
     SplashView(
         store: Store(
-            initialState: SplashFeature.State(),
-            reducer: SplashFeature.init
+            initialState: Splash.State(),
+            reducer: Splash.init
         )
     )
 }

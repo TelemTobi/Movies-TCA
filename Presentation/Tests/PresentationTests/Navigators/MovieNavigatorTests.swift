@@ -8,14 +8,14 @@
 import XCTest
 import ComposableArchitecture
 @testable import MovieNavigator
-@testable import MovieFeature
+@testable import MovieDetailsFeature
 @testable import Models
 
 @MainActor
 final class MovieNavigatorTests: XCTestCase {
     
     var store = TestStore(
-        initialState: MovieNavigator.State(movieDetails: .init(movie: .mock)),
+        initialState: MovieNavigator.State(detailedMovie: .init(movie: .mock)),
         reducer: MovieNavigator.init
     )
     
@@ -23,11 +23,11 @@ final class MovieNavigatorTests: XCTestCase {
         let mockMovie = Movie.mock
         
         await store.send(\.root.navigation.pushRelatedMovie, mockMovie) { state in
-            state.path.append(.relatedMovie(MovieFeature.State(movieDetails: .init(movie: mockMovie))))
+            state.path.append(.relatedMovie(MovieDetails.State(detailedMovie: .init(movie: mockMovie))))
         }
         
         await store.send(\.path[id: 0].relatedMovie.navigation.pushRelatedMovie, mockMovie) { state in
-            state.path.append(.relatedMovie(MovieFeature.State(movieDetails: .init(movie: mockMovie))))
+            state.path.append(.relatedMovie(MovieDetails.State(detailedMovie: .init(movie: mockMovie))))
         }
         
         await store.send(\.path[id: 1].relatedMovie.navigation.dismissFlow)

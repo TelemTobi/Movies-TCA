@@ -14,8 +14,8 @@ import ComposableArchitecture
 final class WatchlistTests: XCTestCase {
     
     var store = TestStore(
-        initialState: WatchlistFeature.State(),
-        reducer: WatchlistFeature.init
+        initialState: Watchlist.State(),
+        reducer: Watchlist.init
     )
     
     func testDislikeAlert() async {

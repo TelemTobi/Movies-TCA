@@ -1,5 +1,5 @@
 //
-//  MovieDetails.swift
+//  DetailedMovie.swift
 //  Data
 //
 //  Created by Telem Tobi on 12/12/2023.
@@ -8,7 +8,7 @@
 import Foundation
 import Networking
 
-public struct MovieDetails: Decodable, Equatable, Sendable, JsonMapper {
+public struct DetailedMovie: Decodable, Equatable, Sendable, JsonMapper {
     public var movie: Movie
     public var credits: Credits?
     public var relatedMovies: MovieList?
@@ -20,7 +20,7 @@ public struct MovieDetails: Decodable, Equatable, Sendable, JsonMapper {
     }
 }
 
-public extension MovieDetails {
+public extension DetailedMovie {
     static func map(_ data: Data) throws -> Data {
         guard var jsonDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return data }
         

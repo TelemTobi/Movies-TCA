@@ -17,7 +17,7 @@ public struct SearchNavigator {
     
     @ObservableState
     public struct State: Equatable {
-        var root = SearchFeature.State()
+        var root = Search.State()
         var path = StackState<Path.State>()
         @Presents var destination: Destination.State?
         
@@ -29,7 +29,7 @@ public struct SearchNavigator {
     }
     
     public enum Action {
-        case root(SearchFeature.Action)
+        case root(Search.Action)
         case path(StackAction<Path.State, Path.Action>)
         case destination(PresentationAction<Destination.Action>)
     }
@@ -37,16 +37,16 @@ public struct SearchNavigator {
     public init() {}
 
     public var body: some ReducerOf<Self> {
-        Scope(state: \.root, action: \.root, child: SearchFeature.init)
+        Scope(state: \.root, action: \.root, child: Search.init)
         
         Reduce { state, action in
             switch action {
             case let .root(.navigation(.presentMovie(movie))):
-                state.destination = .movie(MovieNavigator.State(movieDetails: .init(movie: movie)))
+                state.destination = .movie(MovieNavigator.State(detailedMovie: .init(movie: movie)))
                 return .none
                 
             case .root(.navigation(.presentPreferences)):
-                state.destination = .preferences(PreferencesFeature.State())
+                state.destination = .preferences(Preferences.State())
                 return .none
                 
             case .root, .path, .destination:
@@ -63,7 +63,7 @@ extension SearchNavigator {
     @Reducer(state: .equatable)
     public enum Destination {
         case movie(MovieNavigator)
-        case preferences(PreferencesFeature)
+        case preferences(Preferences)
     }
     
     @Reducer(state: .equatable)

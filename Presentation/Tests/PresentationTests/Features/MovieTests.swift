@@ -7,19 +7,19 @@
 
 import XCTest
 import ComposableArchitecture
-@testable import MovieFeature
+@testable import MovieDetailsFeature
 @testable import Models
 
 @MainActor
 final class MovieTests: XCTestCase {
     
     var store = TestStore(
-        initialState: MovieFeature.State(movieDetails: .init(movie: .mock)),
-        reducer: MovieFeature.init
+        initialState: MovieDetails.State(detailedMovie: .init(movie: .mock)),
+        reducer: MovieDetails.init
     )
     
     func testLoadExtendedDetails() async throws {
-        let movieId = try XCTUnwrap(store.state.movieDetails.movie.id)
+        let movieId = try XCTUnwrap(store.state.detailedMovie.movie.id)
         let movieDetailsResult = await store.dependencies.useCases.movie.fetchDetails(movieId)
 
         guard case let .success(response) = movieDetailsResult else {

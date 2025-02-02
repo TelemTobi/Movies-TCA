@@ -1,5 +1,5 @@
 //
-//  WatchlistFeature.swift
+//  Watchlist.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 06/12/2023.
@@ -10,7 +10,7 @@ import ComposableArchitecture
 import Models
 
 @Reducer
-public struct WatchlistFeature {
+public struct Watchlist {
     
     @ObservableState
     public struct State: Equatable {

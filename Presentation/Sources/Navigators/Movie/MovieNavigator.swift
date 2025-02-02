@@ -8,23 +8,23 @@
 import Foundation
 import ComposableArchitecture
 import Models
-import MovieFeature
+import MovieDetailsFeature
 
 @Reducer
 public struct MovieNavigator {
     
     @ObservableState
     public struct State: Equatable {
-        var root: MovieFeature.State
+        var root: MovieDetails.State
         var path = StackState<Path.State>()
         
-        public init(movieDetails: MovieDetails, path: StackState<Path.State> = .init()) {
-            self.root = .init(movieDetails: movieDetails)
+        public init(detailedMovie: DetailedMovie, path: StackState<Path.State> = .init()) {
+            self.root = .init(detailedMovie: detailedMovie)
         }
     }
     
     public enum Action {
-        case root(MovieFeature.Action)
+        case root(MovieDetails.Action)
         case path(StackAction<Path.State, Path.Action>)
     }
     
@@ -34,13 +34,13 @@ public struct MovieNavigator {
     public init() {}
 
     public var body: some ReducerOf<Self> {
-        Scope(state: \.root, action: \.root, child: MovieFeature.init)
+        Scope(state: \.root, action: \.root, child: MovieDetails.init)
         
         Reduce { state, action in
             switch action {
             case let .root(.navigation(.pushRelatedMovie(movie))),
                  let .path(.element(_, action: .relatedMovie(.navigation(.pushRelatedMovie(movie))))):
-                state.path.append(.relatedMovie(MovieFeature.State(movieDetails: .init(movie: movie))))
+                state.path.append(.relatedMovie(MovieDetails.State(detailedMovie: .init(movie: movie))))
                 return .none
                 
             case .root(.navigation(.dismissFlow)),
@@ -61,6 +61,6 @@ extension MovieNavigator {
     
     @Reducer(state: .equatable)
     public enum Path {
-        case relatedMovie(MovieFeature)
+        case relatedMovie(MovieDetails)
     }
 }

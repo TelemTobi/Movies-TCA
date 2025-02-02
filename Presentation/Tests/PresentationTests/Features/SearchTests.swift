@@ -13,12 +13,12 @@ import ComposableArchitecture
 @MainActor
 final class SearchTests: XCTestCase {
     
-    var store: TestStoreOf<SearchFeature> = {
+    var store: TestStoreOf<Search> = {
         @Shared(.genres) var genres = GenresResponse.mock.genres ?? []
         
         return TestStore(
-            initialState: SearchFeature.State(),
-            reducer: SearchFeature.init,
+            initialState: Search.State(),
+            reducer: Search.init,
             withDependencies: {
                 $0.mainQueue = .immediate
             }

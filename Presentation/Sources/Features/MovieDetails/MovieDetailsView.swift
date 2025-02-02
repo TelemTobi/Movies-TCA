@@ -1,5 +1,5 @@
 //
-//  MovieView.swift
+//  MovieDetailsView.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 24/11/2023.
@@ -11,16 +11,18 @@ import Core
 import Models
 import DesignSystem
 
-@ViewAction(for: MovieFeature.self)
-public struct MovieView: View {
+@ViewAction(for: MovieDetails.self)
+public struct MovieDetailsView: View {
     
-    @Bindable public var store: StoreOf<MovieFeature>
+    @Bindable public var store: StoreOf<MovieDetails>
     
     @State var headerOffScreenPercentage: CGFloat = 0
     @State var isOverviewTruncated: Bool = false
     @State var isOverviewSheetPresented: Bool = false
     
     var navigationBarVisibilityThreshold: CGFloat = 0.85
+
+    @Environment(\.namespace) var namespace: Namespace.ID?
     
     private var isHeaderShowing: Bool {
         headerOffScreenPercentage < navigationBarVisibilityThreshold
@@ -30,7 +32,7 @@ public struct MovieView: View {
         headerOffScreenPercentage.percentageInside(range: navigationBarVisibilityThreshold...navigationBarVisibilityThreshold + 0.02)
     }
     
-    public init(store: StoreOf<MovieFeature>) {
+    public init(store: StoreOf<MovieDetails>) {
         self.store = store
     }
     
@@ -53,12 +55,12 @@ public struct MovieView: View {
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarTitleDisplayMode(.inline)
-        .animation(.snappy(duration: 0.5), value: store.movieDetails)
+        .animation(.snappy(duration: 0.5), value: store.detailedMovie)
         .toolbarBackground(isHeaderShowing ? .hidden : .visible, for: .navigationBar)
         .onFirstAppear { send(.onFirstAppear) }
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(store.movieDetails.movie.title ?? .empty)
+                Text(store.detailedMovie.movie.title ?? .empty)
                     .font(.rounded(.headline))
                     .multilineTextAlignment(.center)
                     .opacity(navigationTitleOpacity)
@@ -76,7 +78,7 @@ public struct MovieView: View {
     @ViewBuilder @MainActor
     private func CastSection() -> some View {
         Section {
-            if let cast = store.state.movieDetails.credits?.cast, cast.isNotEmpty {
+            if let cast = store.detailedMovie.credits?.cast, cast.isNotEmpty {
                 CastMembersView(
                     castMembers: cast,
                     didTapCastMember: { member in
@@ -99,7 +101,7 @@ public struct MovieView: View {
     @ViewBuilder @MainActor
     private func DirectorSection() -> some View {
         Section {
-            if let director = store.state.movieDetails.credits?.director {
+            if let director = store.detailedMovie.credits?.director {
                 DirectorView(
                     director: director,
                     didTapDirector: { director in
@@ -119,7 +121,7 @@ public struct MovieView: View {
     
     @ViewBuilder @MainActor
     private func RelatedMoviesSection() -> some View {
-        if let relatedMovies = store.state.movieDetails.relatedMovies?.movies, relatedMovies.isNotEmpty {
+        if let relatedMovies = store.detailedMovie.relatedMovies?.movies, relatedMovies.isNotEmpty {
             Section {
                 MoviesCollectionView(
                     movies: .init(uniqueElements: relatedMovies),
@@ -143,7 +145,7 @@ public struct MovieView: View {
     @ViewBuilder @MainActor
     private func InformationSection() -> some View {
         Section {
-            ForEach(store.movieDetails.movie.infoDictionary.sorted(by: <), id: \.key) { key, value in
+            ForEach(store.detailedMovie.movie.infoDictionary.sorted(by: <), id: \.key) { key, value in
                 VerticalKeyValueView(key: key, value: value)
                     .transition(.slideAndFade)
             }
@@ -156,10 +158,10 @@ public struct MovieView: View {
 
 #Preview {
     NavigationStack {
-        MovieView(
+        MovieDetailsView(
             store: Store(
-                initialState: MovieFeature.State(movieDetails: .init(movie: .mock)),
-                reducer: { MovieFeature() }
+                initialState: MovieDetails.State(detailedMovie: .init(movie: .mock)),
+                reducer: { MovieDetails() }
             )
         )
     }

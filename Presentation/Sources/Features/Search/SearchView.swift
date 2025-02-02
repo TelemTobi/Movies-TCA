@@ -9,13 +9,13 @@ import SwiftUI
 import ComposableArchitecture
 import DesignSystem
 
-@ViewAction(for: SearchFeature.self)
+@ViewAction(for: Search.self)
 public struct SearchView: View {
     
-    @Bindable public var store: StoreOf<SearchFeature>
+    @Bindable public var store: StoreOf<Search>
     @State private var didFirstAppear: Bool = false
     
-    public init(store: StoreOf<SearchFeature>) {
+    public init(store: StoreOf<Search>) {
         self.store = store
     }
     
@@ -125,8 +125,8 @@ public struct SearchView: View {
     NavigationStack {
         SearchView(
             store: Store(
-                initialState: SearchFeature.State(),
-                reducer: { SearchFeature() }
+                initialState: Search.State(),
+                reducer: { Search() }
             )
         )
     }

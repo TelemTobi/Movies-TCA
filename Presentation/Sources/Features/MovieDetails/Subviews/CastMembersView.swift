@@ -60,7 +60,7 @@ struct CastMembersView: View {
 
 #Preview {
     CastMembersView(
-        castMembers: MovieDetails.mock.credits?.cast ?? [],
+        castMembers: DetailedMovie.mock.credits?.cast ?? [],
         didTapCastMember: { _ in }
     )
 }

@@ -36,7 +36,7 @@ public struct TmdbApiClient: Sendable {
         await controller.request(.discoverMovies(genreId: genreId))
     }
     
-    public func movieDetails(for movieId: Int) async -> Result<MovieDetails, TmdbError> {
+    public func movieDetails(for movieId: Int) async -> Result<DetailedMovie, TmdbError> {
         await controller.request(.movieDetails(id: movieId))
     }
 }

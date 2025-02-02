@@ -25,7 +25,7 @@ final class DiscoveryNavigatorTests: XCTestCase {
         let mockMovieList: IdentifiedArrayOf<Movie> = .init(uniqueElements: [Movie.mock])
         
         await store.send(\.root.navigation.pushMovieList, (.nowPlaying, mockMovieList)) { state in
-            state.path.append(.movieList(MovieListFeature.State(listType: .nowPlaying, movies: mockMovieList)))
+            state.path.append(.movieList(MovieList.State(listType: .nowPlaying, movies: mockMovieList)))
         }
         
         await store.send(\.path.popFrom, 0) { state in
@@ -37,7 +37,7 @@ final class DiscoveryNavigatorTests: XCTestCase {
         let mockMovie = Movie.mock
         
         await store.send(\.root.navigation.presentMovie, mockMovie) { state in
-            state.destination = .movie(MovieNavigator.State(movieDetails: .init(movie: mockMovie)))
+            state.destination = .movie(MovieNavigator.State(detailedMovie: .init(movie: mockMovie)))
         }
         
         await store.send(\.destination.dismiss) { state in
@@ -46,11 +46,11 @@ final class DiscoveryNavigatorTests: XCTestCase {
         
         let mockMovieList: IdentifiedArrayOf<Movie> = .init(uniqueElements: [Movie.mock])
         await store.send(\.root.navigation.pushMovieList, (.nowPlaying, mockMovieList)) { state in
-            state.path.append(.movieList(MovieListFeature.State(listType: .nowPlaying, movies: mockMovieList)))
+            state.path.append(.movieList(MovieList.State(listType: .nowPlaying, movies: mockMovieList)))
         }
         
         await store.send(\.path[id: 0].movieList.navigation.presentMovie, mockMovie) { state in
-            state.destination = .movie(MovieNavigator.State(movieDetails: .init(movie: mockMovie)))
+            state.destination = .movie(MovieNavigator.State(detailedMovie: .init(movie: mockMovie)))
         }
         
         await store.send(\.destination.dismiss) { state in
@@ -64,7 +64,7 @@ final class DiscoveryNavigatorTests: XCTestCase {
     
     func testPresentPreferences() async {
         await store.send(\.root.navigation.presentPreferences) { state in
-            state.destination = .preferences(PreferencesFeature.State())
+            state.destination = .preferences(Preferences.State())
         }
     }
 }
