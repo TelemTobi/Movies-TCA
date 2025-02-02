@@ -46,8 +46,7 @@ public struct DiscoveryFeature {
         case view(View)
         case navigation(Navigation)
         case fetchMovieLists
-        case movieListResult(MovieListType, Result<MovieList, TmdbError>)
-        case loadingCompleted
+        case movieListsResult([MovieListType: Result<MovieList, TmdbError>])
     }
     
     @Dependency(\.interactor) private var interactor
@@ -64,34 +63,16 @@ public struct DiscoveryFeature {
                 state.isLoading = true
                 
                 return .run { send in
-                    async let nowPlayingResult = interactor.fetchMovieList(ofType: .nowPlaying)
-                    async let popularResult = interactor.fetchMovieList(ofType: .popular)
-                    async let upcomingResult = interactor.fetchMovieList(ofType: .upcoming)
-                    async let topRatedResult = interactor.fetchMovieList(ofType: .topRated)
-
-                    await send(.movieListResult(.nowPlaying, nowPlayingResult))
-                    await send(.movieListResult(.popular, popularResult))
-                    await send(.movieListResult(.upcoming, upcomingResult))
-                    await send(.movieListResult(.topRated, topRatedResult))
-                    
-                    await send(.loadingCompleted)
+                    let result = await interactor.fetchMovieLists(ofTypes: MovieListType.allCases)
+                    await send(.movieListsResult(result))
                 }
                 
-            case let .movieListResult(type, result):
-                switch result {
-                case let .success(response):
-                    if let movies = response.movies {
-                        state.movies[type] = .init(uniqueElements:  movies)
-                    }
-                    return .none
-                    
-                case let .failure(error):
-                    customDump(error) // TODO: Handle error
+            case let .movieListsResult(result):
+                state.movies = result.compactMapValues { result in
+                    guard let movies = try? result.get().movies else { return nil }
+                    return .init(uniqueElements: movies)
                 }
                 
-                return .none
-                
-            case .loadingCompleted:
                 state.isLoading = false
                 return .none
                 
