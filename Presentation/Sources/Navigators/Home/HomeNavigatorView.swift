@@ -16,6 +16,8 @@ public extension HomeNavigator {
         
         @Bindable public var store: StoreOf<HomeNavigator>
         
+        @Namespace var transitionNamespace
+        
         public init(store: StoreOf<HomeNavigator>) {
             self.store = store
         }
@@ -40,6 +42,7 @@ public extension HomeNavigator {
                 .tabItem { Label(.localized(.watchlist), systemImage: "popcorn") }
                 .tag(HomeNavigator.Tab.watchlist)
             }
+            .environment(\.namespace, transitionNamespace)
         }
     }
 }

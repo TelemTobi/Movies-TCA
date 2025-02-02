@@ -100,13 +100,9 @@ public struct DiscoveryView: View {
             }
         } header: {
             if listType != .nowPlaying {
-                SectionHeader(
-                    title: listType.title,
-                    action: "See All",
-                    onActionTap: {
-                        send(.onMovieListTap(listType, movies))
-                    }
-                )
+                SectionHeader(title: listType.title) {
+                    send(.onMovieListTap(listType, movies))
+                }
                 .padding(.horizontal)
                 .textCase(.none)
             } else {

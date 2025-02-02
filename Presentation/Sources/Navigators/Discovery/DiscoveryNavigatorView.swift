@@ -19,8 +19,6 @@ public extension DiscoveryNavigator {
         
         @Bindable public var store: StoreOf<DiscoveryNavigator>
         
-        @Namespace var transitionNamespace
-        
         public init(store: StoreOf<DiscoveryNavigator>) {
             self.store = store
         }
@@ -50,7 +48,6 @@ public extension DiscoveryNavigator {
                     }
                 }
             )
-            .environment(\.namespace, transitionNamespace)
         }
         
         @MainActor

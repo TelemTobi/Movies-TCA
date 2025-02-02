@@ -87,7 +87,7 @@ public struct MovieDetailsView: View {
                 )
             }
         } header: {
-            SectionHeader(title: LocalizedStringKey.localized(.cast), action: "See All") {
+            SectionHeader(title: LocalizedStringKey.localized(.cast)) {
                 // TODO: See All tap
             }
             .padding(.horizontal)

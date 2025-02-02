@@ -36,6 +36,7 @@ struct DirectorView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Image(systemName: "chevron.forward")
+                    .font(.rounded(.body, weight: .bold))
                     .foregroundColor(.secondary)
                     .padding(.trailing, 5)
             }
