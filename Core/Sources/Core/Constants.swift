@@ -18,9 +18,9 @@ public enum Constants {
     }
     
     public enum Appearance: String, CaseIterable, Sendable {
-        case system = "System"
-        case light = "Light"
-        case dark = "Dark"
+        case system
+        case light
+        case dark
     }
     
     public enum Language: String {

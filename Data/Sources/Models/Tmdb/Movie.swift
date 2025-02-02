@@ -60,13 +60,13 @@ public struct Movie: Codable, Equatable, Identifiable, Sendable {
     }
     
     public var voteAverageFormatted: String {
-        guard let voteAverage else { return .notAvailable }
+        guard let voteAverage else { return .localized(.notAvailable) }
         return (voteAverage / 10).asPercentage
     }
     
-    public var voteCountFormatted: LocalizedStringKey {
-        guard let voteCount else { return "N/A" }
-        return "\(voteCount.abbreviation) votes"
+    public var voteCountFormatted: String {
+        guard let voteCount else { return .localized(.notAvailable) }
+        return .localized(.numberOfVotes(voteCount.abbreviation))
     }
     
     public var posterUrl: URL? {
@@ -86,14 +86,14 @@ public struct Movie: Codable, Equatable, Identifiable, Sendable {
     
     public var infoDictionary: [String: String] {
         [
-            "RELEASE DATE": releaseDate?.description(withFormat: .dMMMyyyy),
-            "RUNTIME": runtime?.durationInHoursAndMinutesLongFormat,
-            "GENRES": genres?.compactMap { $0.name }.joined(separator: ", "),
-            "STATUS": status,
-            "BUDGET": budget?.currencyFormatted(),
-            "REVENUE": revenue?.currencyFormatted(),
-            "ORIGINAL TITLE": originalTitle,
-            "COUNTRY": productionCountries?.first?.name
+            .localized(.releaseDate): releaseDate?.description(withFormat: .dMMMyyyy),
+            .localized(.runtime): runtime?.durationInHoursAndMinutesLongFormat,
+            .localized(.genres): genres?.compactMap { $0.name }.joined(separator: ", "),
+            .localized(.status): status,
+            .localized(.budget): budget?.currencyFormatted(),
+            .localized(.revenue): revenue?.currencyFormatted(),
+            .localized(.originalTitle): originalTitle,
+            .localized(.country): productionCountries?.first?.name
         ].compactMapValues { $0 }
     }
     

@@ -29,7 +29,7 @@ public struct DiscoveryView: View {
                 ContentView()
             }
         }
-        .navigationTitle("Discovery")
+        .navigationTitle(.localized(.discovery))
         .animation(.easeInOut, value: store.isLoading)
         .toolbar(content: toolbarContent)
         .onFirstAppear {

@@ -11,7 +11,8 @@ let package = Package(
     dependencies: [
         .package(path: "../Core"),
         .package(path: "../Data"),
-        .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.4.0")
+        .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.4.0"),
+        .package(url: "https://github.com/telemtobi/swift-localization", from: "1.0.2")
     ],
     targets: [
         .target(
@@ -20,7 +21,8 @@ let package = Package(
                 .product(name: "Core", package: "Core"),
                 .product(name: "Models", package: "Data"),
                 .product(name: "TmdbApi", package: "Data"),
-                .product(name: "Dependencies", package: "swift-dependencies")
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "Localization", package: "swift-localization")
             ]
         ),
         .testTarget(

@@ -1,59 +1,8 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "\"%@\"" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\""
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "\"%@\""
-          }
-        }
-      }
-    },
-    "%@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        }
-      }
-    },
-    "%@ votes" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ votes"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ הצבעות"
-          }
-        }
-      }
-    },
-    "Adult Content" : {
-      "extractionState" : "stale",
+    "adultContent" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -69,8 +18,8 @@
         }
       }
     },
-    "Appearance" : {
-      "extractionState" : "stale",
+    "appearance" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -81,13 +30,13 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נראות"
+            "value" : "מצב תצוגה"
           }
         }
       }
     },
-    "Are you sure?" : {
-      "extractionState" : "stale",
+    "areYouSure" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -98,12 +47,12 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "את/ה בטוח/ה?"
+            "value" : "רק מוודאים"
           }
         }
       }
     },
-    "BUDGET" : {
+    "budget" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -120,8 +69,8 @@
         }
       }
     },
-    "Cancel" : {
-      "extractionState" : "stale",
+    "cancel" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -137,8 +86,8 @@
         }
       }
     },
-    "Cast" : {
-      "extractionState" : "stale",
+    "cast" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -154,8 +103,8 @@
         }
       }
     },
-    "Close" : {
-      "extractionState" : "stale",
+    "close" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -171,7 +120,7 @@
         }
       }
     },
-    "COUNTRY" : {
+    "country" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -188,7 +137,7 @@
         }
       }
     },
-    "Dark" : {
+    "dark" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -205,8 +154,8 @@
         }
       }
     },
-    "Directed By" : {
-      "extractionState" : "stale",
+    "directedBy" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -222,8 +171,8 @@
         }
       }
     },
-    "Director" : {
-      "extractionState" : "stale",
+    "director" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -239,7 +188,7 @@
         }
       }
     },
-    "Discovery" : {
+    "discovery" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -256,8 +205,8 @@
         }
       }
     },
-    "Done" : {
-      "extractionState" : "stale",
+    "done" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -273,24 +222,7 @@
         }
       }
     },
-    "Explore movies here" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Explore movies here"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "גלו סרטים כאן"
-          }
-        }
-      }
-    },
-    "GENRES" : {
+    "genres" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -307,25 +239,8 @@
         }
       }
     },
-    "Hello, World!" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hello, World!"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "שלום, עולם!"
-          }
-        }
-      }
-    },
-    "Information" : {
-      "extractionState" : "stale",
+    "information" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -341,8 +256,8 @@
         }
       }
     },
-    "Language" : {
-      "extractionState" : "stale",
+    "language" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -358,7 +273,7 @@
         }
       }
     },
-    "Light" : {
+    "light" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -375,8 +290,8 @@
         }
       }
     },
-    "More" : {
-      "extractionState" : "stale",
+    "more" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -392,25 +307,25 @@
         }
       }
     },
-    "Movies you liked will appear here" : {
-      "extractionState" : "stale",
+    "moviesSearchPrompt" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Movies you liked will appear here"
+            "value" : "Explore movies here"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "סרטים שאהבת יופיעו כאן"
+            "value" : "גלו סרטים כאן"
           }
         }
       }
     },
-    "N/A" : {
-      "extractionState" : "stale",
+    "notAvailable" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -421,12 +336,12 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "לא זמין"
+            "value" : "N/A"
           }
         }
       }
     },
-    "Now Playing" : {
+    "nowPlaying" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -443,7 +358,24 @@
         }
       }
     },
-    "ORIGINAL TITLE" : {
+    "numberOfVotes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ votes"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ דירוגים"
+          }
+        }
+      }
+    },
+    "originalTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -460,7 +392,7 @@
         }
       }
     },
-    "Popular" : {
+    "popular" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -477,8 +409,8 @@
         }
       }
     },
-    "Preferences" : {
-      "extractionState" : "stale",
+    "preferences" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -494,8 +426,8 @@
         }
       }
     },
-    "Related" : {
-      "extractionState" : "stale",
+    "related" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -511,7 +443,7 @@
         }
       }
     },
-    "RELEASE DATE" : {
+    "releaseDate" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -528,8 +460,8 @@
         }
       }
     },
-    "Remove" : {
-      "extractionState" : "stale",
+    "remove" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -545,7 +477,7 @@
         }
       }
     },
-    "REVENUE" : {
+    "revenue" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -562,7 +494,7 @@
         }
       }
     },
-    "RUNTIME" : {
+    "runtime" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -579,7 +511,7 @@
         }
       }
     },
-    "Search" : {
+    "search" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -596,7 +528,7 @@
         }
       }
     },
-    "See All" : {
+    "seeAll" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -613,7 +545,7 @@
         }
       }
     },
-    "STATUS" : {
+    "status" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -630,7 +562,7 @@
         }
       }
     },
-    "System" : {
+    "system" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -647,7 +579,7 @@
         }
       }
     },
-    "Top Rated" : {
+    "topRated" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -664,7 +596,7 @@
         }
       }
     },
-    "Upcoming" : {
+    "upcoming" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -681,7 +613,7 @@
         }
       }
     },
-    "Watchlist" : {
+    "watchlist" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -698,8 +630,25 @@
         }
       }
     },
-    "Your watchlist is empty" : {
-      "extractionState" : "stale",
+    "watchlistEmptyStateContent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Movies you liked will appear here"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "סרטים שאהבת יופיעו כאן"
+          }
+        }
+      }
+    },
+    "watchlistEmptyStateTitle" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -715,8 +664,8 @@
         }
       }
     },
-    "Your'e about to remove %@ from your watchlist" : {
-      "extractionState" : "stale",
+    "watchlistRemovalAlertContent" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {

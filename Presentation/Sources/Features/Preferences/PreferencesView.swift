@@ -25,7 +25,7 @@ public struct PreferencesView: View {
             AppSettingsSection()
             DeviceSettingsSection()
         }
-        .navigationTitle("Preferences")
+        .navigationTitle(.localized(.preferences))
     }
 }
 
@@ -35,7 +35,7 @@ extension PreferencesView {
     private func AppSettingsSection() -> some View {
         Section {
             Toggle(
-                "Adult Content",
+                .localized(.adultContent),
                 systemImage: "exclamationmark.shield.fill",
                 isOn: $store.isAdultContentOn.sending(\.onAdultContentToggle)
             )
@@ -62,24 +62,31 @@ extension PreferencesView {
                 action: { send(.onLanguageTap) },
                 label: {
                     HStack {
-                        Label("Language", systemImage: "globe")
+                        Label(.localized(.language), systemImage: "globe")
                         Spacer()
                         Image(systemName: "chevron.forward")
                             .foregroundStyle(.secondary)
                     }
-                    .contentShape(Rectangle())
+                    .contentShape(.rect)
                     .labelStyle(.settings(color: .blue))
                 }
             )
             .buttonStyle(.plain)
             
             Picker(
-                "Appearance",
+                .localized(.appearance),
                 systemImage: appeanceImage,
-                selection: $store.appearance.rawValue.sending(\.onAppearanceChange),
+                selection: $store.appearance.sending(\.onAppearanceChange),
                 content: {
-                    ForEach(Constants.Appearance.allCases.map { $0.rawValue }, id: \.self) {
-                        Text(LocalizedStringKey($0))
+                    ForEach(Constants.Appearance.allCases, id: \.self) { appearance in
+                        let title: Localization = switch appearance {
+                        case .system: .system
+                        case .light: .light
+                        case .dark: .dark
+                        }
+                        
+                        Text(LocalizedStringKey.localized(title))
+                            .tag(appearance)
                     }
                 }
             )

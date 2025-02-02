@@ -29,7 +29,8 @@ let package = Package(
         .package(path: "../Domain"),
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", from: "1.17.0"),
         .package(url: "https://github.com/kean/Nuke.git", from: "12.8.0"),
-        .package(url: "https://github.com/EmergeTools/Pow", from: "1.0.0")
+        .package(url: "https://github.com/EmergeTools/Pow", from: "1.0.0"),
+        .package(url: "https://github.com/telemtobi/swift-localization", from: "1.0.2")
     ],
     targets: [
         .target(
@@ -39,7 +40,8 @@ let package = Package(
                 .product(name: "Models", package: "Data"),
                 .product(name: "Domain", package: "Domain"),
                 .product(name: "NukeUI", package: "Nuke"),
-                .product(name: "Pow", package: "Pow")
+                .product(name: "Pow", package: "Pow"),
+                .product(name: "Localization", package: "swift-localization")
             ],
             path: "Sources/DesignSystem",
             resources: [
@@ -112,7 +114,8 @@ for target in features {
         .product(name: "Domain", package: "Domain"),
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "NukeUI", package: "Nuke"),
-        .product(name: "Pow", package: "Pow")
+        .product(name: "Pow", package: "Pow"),
+        .product(name: "Localization", package: "swift-localization")
     ])
 }
 
@@ -180,6 +183,7 @@ for target in navigators {
         .product(name: "Models", package: "Data"),
         .product(name: "Domain", package: "Domain"),
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "Localization", package: "swift-localization")
     ])
 }
 

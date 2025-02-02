@@ -43,7 +43,7 @@ public struct SectionHeader: View {
 
 
 #Preview {
-    SectionHeader(title: "Now Playing", action: "See All") {
+    SectionHeader(title: .localized(.nowPlaying), action: .localized(.seeAll)) {
         
     }
 }

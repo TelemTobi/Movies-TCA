@@ -16,13 +16,13 @@ public struct HomeNavigator {
     
     @ObservableState
     public struct State: Equatable {
-        var selectedTab: Tab = .discover
+        var selectedTab: Tab = .discovery
         
         var discover = DiscoveryNavigator.State()
         var search = SearchNavigator.State()
         var watchlist = WatchlistNavigator.State()
         
-        public init(selectedTab: Tab = .discover) {
+        public init(selectedTab: Tab = .discovery) {
             self.selectedTab = selectedTab
         }
     }
@@ -60,14 +60,8 @@ public struct HomeNavigator {
 extension HomeNavigator {
     
     public enum Tab {
-        case discover, search, watchlist
-        
-        var title: String {
-            return switch self {
-            case .discover: "Discovery"
-            case .search: "Search"
-            case .watchlist: "Watchlist"
-            }
-        }
+        case discovery
+        case search
+        case watchlist
     }
 }

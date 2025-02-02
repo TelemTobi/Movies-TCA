@@ -1,5 +1,5 @@
 {
-  "originHash" : "d6b73b2de4026f8067c96527e96320eb7a40fe15afa505dd0f196c65a4459f79",
+  "originHash" : "379039c5b7ee468cf1ae996781062f363a8e21c280036de28d04b6fdaa35bef5",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -98,6 +98,15 @@
       "state" : {
         "revision" : "2f5ab6e091dd032b63dacbda052405756010dc3b",
         "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "swift-localization",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TelemTobi/swift-localization.git",
+      "state" : {
+        "revision" : "f2d78aaccb7388c1e41ec2e52ba4335f98fa8795",
+        "version" : "1.0.2"
       }
     },
     {

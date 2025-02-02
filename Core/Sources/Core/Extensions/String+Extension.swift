@@ -10,7 +10,6 @@ import Foundation
 public extension String {
     
     static let empty = ""
-    static let notAvailable = "N/A"
     static let dotSeparator = " · "
     
     var url: URL? {
