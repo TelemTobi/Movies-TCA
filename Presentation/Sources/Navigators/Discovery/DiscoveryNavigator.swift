@@ -11,6 +11,7 @@ import DiscoveryFeature
 import MovieListFeature
 import PreferencesFeature
 import MovieNavigator
+import DesignSystem
 
 @Reducer
 public struct DiscoveryNavigator {
@@ -20,6 +21,8 @@ public struct DiscoveryNavigator {
         var root = Discovery.State()
         var path = StackState<Path.State>()
         @Presents var destination: Destination.State?
+        
+        var transitionSource: TransitionSource?
         
         public init(path: StackState<Path.State> = StackState<Path.State>(), destination: Destination.State? = nil) {
             self.path = path
@@ -40,8 +43,16 @@ public struct DiscoveryNavigator {
         
         Reduce { state, action in
             switch action {
-            case let .root(.navigation(.presentMovie(movie))),
-                let .path(.element(_, action: .movieList(.navigation(.presentMovie(movie))))):
+            case let .root(.navigation(.presentMovie(movie, transitionSource))):
+                state.transitionSource = transitionSource
+                state.destination = .movie(MovieNavigator.State(detailedMovie: .init(movie: movie)))
+                return .none
+                
+            case .destination(.dismiss):
+                state.transitionSource = nil
+                return .none
+                
+            case let .path(.element(_, action: .movieList(.navigation(.presentMovie(movie))))):
                 state.destination = .movie(MovieNavigator.State(detailedMovie: .init(movie: movie)))
                 return .none
                 

@@ -18,7 +18,7 @@ struct CastMembersView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 20) {
                 
-                ForEach(castMembers.prefix(10)) { member in
+                ForEach(castMembers) { member in
                     Button {
                         didTapCastMember(member)
                     } label: {

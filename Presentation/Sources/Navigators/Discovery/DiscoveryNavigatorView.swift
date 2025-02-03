@@ -48,6 +48,7 @@ public extension DiscoveryNavigator {
                     }
                 }
             )
+            .environment(\.transitionSource, store.transitionSource)
         }
         
         @MainActor

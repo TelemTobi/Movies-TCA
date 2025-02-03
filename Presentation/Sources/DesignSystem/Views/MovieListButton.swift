@@ -43,7 +43,7 @@ public struct MovieListItem: View {
                 .shadow(radius: 3)
                 .modify { view in
                     if #available(iOS 18.0, *), let namespace {
-                        view.matchedTransitionSource(id: movie.id, in: namespace)
+                        view.matchedTransitionSource(id: movie.id.description, in: namespace)
                     } else {
                         view
                     }

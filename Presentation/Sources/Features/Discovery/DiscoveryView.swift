@@ -75,7 +75,7 @@ public struct DiscoveryView: View {
             case .nowPlaying:
                 MoviesPagerView(
                     movies: movies,
-                    onMovieTap: { send(.onMovieTap($0)) },
+                    onMovieTap: { send(.onMovieTap($0, .pager)) },
                     isMovieLiked: { movie in
                         Binding<Bool>(
                             get: { store.watchlist.contains(movie) },
@@ -88,7 +88,7 @@ public struct DiscoveryView: View {
             case .popular, .topRated, .upcoming:
                 MoviesCollectionView(
                     movies: movies,
-                    onMovieTap: { send(.onMovieTap($0)) },
+                    onMovieTap: { send(.onMovieTap($0, .collection)) },
                     isMovieLiked: { movie in
                         .init(
                             get: { store.watchlist.contains(movie) },

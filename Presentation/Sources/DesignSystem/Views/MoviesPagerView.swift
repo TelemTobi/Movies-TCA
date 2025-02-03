@@ -72,7 +72,8 @@ public struct MoviesPagerView: View {
                 .shadow(radius: 3)
                 .modify { view in
                     if #available(iOS 18.0, *), let namespace {
-                        view.matchedTransitionSource(id: movie.id, in: namespace)
+                        let sourceId = movie.id.description + (TransitionSource.pager.rawValue)
+                        view.matchedTransitionSource(id: sourceId, in: namespace)
                     } else {
                         view
                     }

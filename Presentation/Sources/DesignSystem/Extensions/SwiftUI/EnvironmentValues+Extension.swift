@@ -10,4 +10,10 @@ import SwiftUI
 public extension EnvironmentValues {
 
     @Entry var namespace: Namespace.ID? = nil
+    @Entry var transitionSource: TransitionSource? = nil
+}
+
+public enum TransitionSource: String {
+    case pager
+    case collection
 }

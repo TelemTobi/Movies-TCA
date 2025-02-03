@@ -21,8 +21,6 @@ public struct MovieDetailsView: View {
     @State var isOverviewSheetPresented: Bool = false
     
     var navigationBarVisibilityThreshold: CGFloat = 0.85
-
-    @Environment(\.namespace) var namespace: Namespace.ID?
     
     private var isHeaderShowing: Bool {
         headerOffScreenPercentage < navigationBarVisibilityThreshold
@@ -87,9 +85,7 @@ public struct MovieDetailsView: View {
                 )
             }
         } header: {
-            SectionHeader(title: LocalizedStringKey.localized(.cast)) {
-                // TODO: See All tap
-            }
+            SectionHeader(title: LocalizedStringKey.localized(.cast))
             .padding(.horizontal)
         }
         

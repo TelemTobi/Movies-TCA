@@ -9,12 +9,15 @@ import SwiftUI
 import ComposableArchitecture
 import Models
 import MovieDetailsFeature
+import DesignSystem
 
 public extension MovieNavigator {
     struct ContentView: View {
         
         @Bindable public var store: StoreOf<MovieNavigator>
+        
         @Environment(\.namespace) private var namespace: Namespace.ID?
+        @Environment(\.transitionSource) private var transitionSource: TransitionSource?
         
         public init(store: StoreOf<MovieNavigator>) {
             self.store = store
@@ -36,7 +39,9 @@ public extension MovieNavigator {
             .modify { view in
                 if #available(iOS 18.0, *), let namespace {
                     let movieId = store.root.detailedMovie.movie.id
-                    view.navigationTransition(.zoom(sourceID: movieId, in: namespace))
+                    let sourceId = movieId.description + (transitionSource?.rawValue ?? "")
+                    let _ = print(sourceId)
+                    view.navigationTransition(.zoom(sourceID: sourceId, in: namespace))
                 } else {
                     view
                 }

@@ -9,6 +9,7 @@ import Foundation
 import SwiftData
 import ComposableArchitecture
 import Models
+import DesignSystem
 
 @Reducer
 public struct Discovery {
@@ -31,14 +32,14 @@ public struct Discovery {
         public enum View: Equatable {
             case onFirstAppear
             case onPreferencesTap
-            case onMovieTap(Movie)
+            case onMovieTap(Movie, TransitionSource)
             case onMovieLike(Movie)
             case onMovieListTap(MovieListType, IdentifiedArrayOf<Movie>)
         }
         
         @CasePathable
         public enum Navigation: Equatable {
-            case presentMovie(Movie)
+            case presentMovie(Movie, TransitionSource)
             case presentPreferences
             case pushMovieList(MovieListType, IdentifiedArrayOf<Movie>)
         }
@@ -87,8 +88,8 @@ public struct Discovery {
         case .onFirstAppear:
             return .send(.fetchMovieLists)
             
-        case let .onMovieTap(movie):
-            return .send(.navigation(.presentMovie(movie)))
+        case let .onMovieTap(movie, transitionSource):
+            return .send(.navigation(.presentMovie(movie, transitionSource)))
             
         case .onPreferencesTap:
             return .send(.navigation(.presentPreferences))
