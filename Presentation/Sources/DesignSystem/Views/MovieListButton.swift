@@ -14,6 +14,8 @@ public struct MovieListItem: View {
     @State var movie: Movie
     @Binding var isLiked: Bool
     
+    @Environment(\.namespace) private var namespace: Namespace.ID?
+    
     public init(movie: Movie, isLiked: Binding<Bool>) {
         self.movie = movie
         self._isLiked = isLiked
@@ -39,6 +41,13 @@ public struct MovieListItem: View {
                 .frame(width: imageWidth, height: imageHeight)
                 .cornerRadius(5)
                 .shadow(radius: 3)
+                .modify { view in
+                    if #available(iOS 18.0, *), let namespace {
+                        view.matchedTransitionSource(id: movie.id.description, in: namespace)
+                    } else {
+                        view
+                    }
+                }
                 
                 VStack(alignment: .leading, spacing: 5) {
                     HStack(alignment: .top) {

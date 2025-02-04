@@ -17,6 +17,7 @@ public struct MoviesUseCases: Sendable {
     public var fetchList: @Sendable (MovieListType) async -> Result<MovieList, TmdbError>
     public var search: @Sendable (_ query: String) async -> Result<MovieList, TmdbError>
     public var discoverByGenre: @Sendable (_ genreId: Int) async -> Result<MovieList, TmdbError>
+    public var fetchLists: @Sendable ([MovieListType]) async -> [MovieListType: Result<MovieList, TmdbError>]
 }
 
 extension MoviesUseCases: DependencyKey {
@@ -36,6 +37,22 @@ extension MoviesUseCases: DependencyKey {
         discoverByGenre: { genreId in
             @Dependency(\.tmdbApiClient) var tmdbApiClient
             return await tmdbApiClient.discoverMovies(by: genreId)
+        },
+        fetchLists: { listTypes in
+            @Dependency(\.tmdbApiClient) var tmdbApiClient
+            
+            return await withTaskGroup(of: (MovieListType, Result<MovieList, TmdbError>).self) { group in
+                for listType in listTypes {
+                    group.addTask { [tmdbApiClient] in
+                        let result = await tmdbApiClient.fetchMovies(ofType: listType)
+                        return (listType, result)
+                    }
+                }
+                
+                return await group.reduce(into: [:]) { partialResult, movieListResponse in
+                    partialResult[movieListResponse.0] = movieListResponse.1
+                }
+            }
         }
     )
     

@@ -61,11 +61,11 @@ public extension MovieList {
     }
 }
 
-public extension MovieDetails {
-    static var mock: MovieDetails {
-        let movie = try? MovieDetails.self
+public extension DetailedMovie {
+    static var mock: DetailedMovie {
+        let movie = try? DetailedMovie.self
             .map(TmdbMock.movieDetails.dataEncoded)
-            .decode(into: MovieDetails.self, using: .tmdbDateDecodingStrategy)
+            .decode(into: DetailedMovie.self, using: .tmdbDateDecodingStrategy)
         
         guard let movie else {
             fatalError("MovieDetails mock decoding error")
@@ -77,7 +77,7 @@ public extension MovieDetails {
 
 public extension CastMember {
     static var mock: CastMember {
-        guard let castMember = MovieDetails.mock.credits?.cast?.randomElement() else {
+        guard let castMember = DetailedMovie.mock.credits?.cast?.randomElement() else {
             fatalError("CastMember mock decoding error")
         }
         return castMember
@@ -86,7 +86,7 @@ public extension CastMember {
 
 public extension CrewMember {
     static var mock: CrewMember {
-        guard let crewMember = MovieDetails.mock.credits?.crew?.randomElement() else {
+        guard let crewMember = DetailedMovie.mock.credits?.crew?.randomElement() else {
             fatalError("CrewMember mock decoding error")
         }
         return crewMember

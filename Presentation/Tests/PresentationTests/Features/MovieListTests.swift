@@ -14,11 +14,11 @@ import ComposableArchitecture
 final class MovieListTests: XCTestCase {
     
     var store = TestStore(
-        initialState: MovieListFeature.State(
+        initialState: MovieList.State(
             listType: .nowPlaying,
             movies: .init(uniqueElements: MovieList.mock.movies ?? [])
         ),
-        reducer: MovieListFeature.init
+        reducer: MovieList.init
     )
     
     // MARK: - View Actions

@@ -16,6 +16,8 @@ public struct MoviesPagerView: View {
     let onMovieTap: (Movie) -> Void
     var isMovieLiked: ((Movie) -> Binding<Bool>)? = nil
     
+    @Environment(\.namespace) private var namespace: Namespace.ID?
+    
     public init(movies: IdentifiedArrayOf<Movie>, onMovieTap: @escaping (Movie) -> Void, isMovieLiked: ((Movie) -> Binding<Bool>)? = nil) {
         self.movies = movies
         self.onMovieTap = onMovieTap
@@ -68,6 +70,14 @@ public struct MoviesPagerView: View {
                 .overlay { OverlayView(for: movie) }
                 .clipShape(.rect(cornerRadius: 10))
                 .shadow(radius: 3)
+                .modify { view in
+                    if #available(iOS 18.0, *), let namespace {
+                        let sourceId = movie.id.description + (TransitionSource.pager.rawValue)
+                        view.matchedTransitionSource(id: sourceId, in: namespace)
+                    } else {
+                        view
+                    }
+                }
                 
                 if let isMovieLiked {
                     LikeButton(isLiked: isMovieLiked(movie))

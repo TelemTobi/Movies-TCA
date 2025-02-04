@@ -14,8 +14,8 @@ import ComposableArchitecture
 final class PreferencesTests: XCTestCase {
     
     var store = TestStore(
-        initialState: PreferencesFeature.State(),
-        reducer: PreferencesFeature.init
+        initialState: Preferences.State(),
+        reducer: Preferences.init
     )
     
     func testOnAdultContentToggle() async {

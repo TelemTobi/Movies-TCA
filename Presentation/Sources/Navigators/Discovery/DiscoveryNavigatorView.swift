@@ -11,6 +11,7 @@ import DiscoveryFeature
 import MovieListFeature
 import PreferencesFeature
 import MovieNavigator
+import DesignSystem
 
 public extension DiscoveryNavigator {
     
@@ -47,10 +48,11 @@ public extension DiscoveryNavigator {
                     }
                 }
             )
+            .environment(\.transitionSource, store.transitionSource)
         }
         
         @MainActor
-        private func PreferencesSheet(store: StoreOf<PreferencesFeature>) -> some View {
+        private func PreferencesSheet(store: StoreOf<Preferences>) -> some View {
             NavigationStack {
                 PreferencesView(store: store)
                     .toolbar {

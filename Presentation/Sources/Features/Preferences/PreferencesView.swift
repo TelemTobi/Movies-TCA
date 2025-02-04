@@ -10,13 +10,13 @@ import ComposableArchitecture
 import Core
 import DesignSystem
 
-@ViewAction(for: PreferencesFeature.self)
+@ViewAction(for: Preferences.self)
 public struct PreferencesView: View {
 
-    @Bindable public var store: StoreOf<PreferencesFeature>
+    @Bindable public var store: StoreOf<Preferences>
     @Environment(\.colorScheme) var colorScheme
     
-    public init(store: StoreOf<PreferencesFeature>) {
+    public init(store: StoreOf<Preferences>) {
         self.store = store
     }
     
@@ -35,11 +35,15 @@ extension PreferencesView {
     private func AppSettingsSection() -> some View {
         Section {
             Toggle(
-                .localized(.adultContent),
-                systemImage: "exclamationmark.shield.fill",
-                isOn: $store.isAdultContentOn.sending(\.onAdultContentToggle)
+                isOn: $store.isAdultContentOn.sending(\.onAdultContentToggle),
+                label: {
+                    Label(
+                        .localized(.adultContent),
+                        systemImage: "exclamationmark.shield.fill"
+                    )
+                    .labelStyle(.setting(color: .pink))
+                }
             )
-            .labelStyle(.settings(color: .pink))
         }
     }
     
@@ -68,14 +72,12 @@ extension PreferencesView {
                             .foregroundStyle(.secondary)
                     }
                     .contentShape(.rect)
-                    .labelStyle(.settings(color: .blue))
+                    .labelStyle(.setting(color: .blue))
                 }
             )
             .buttonStyle(.plain)
-            
+
             Picker(
-                .localized(.appearance),
-                systemImage: appeanceImage,
                 selection: $store.appearance.sending(\.onAppearanceChange),
                 content: {
                     ForEach(Constants.Appearance.allCases, id: \.self) { appearance in
@@ -88,9 +90,15 @@ extension PreferencesView {
                         Text(LocalizedStringKey.localized(title))
                             .tag(appearance)
                     }
+                },
+                label: {
+                    Label(
+                        .localized(.appearance),
+                        systemImage: appeanceImage
+                    )
+                    .labelStyle(.setting(color: appearanceLabelColor))
                 }
             )
-            .labelStyle(.settings(color: appearanceLabelColor))
         }
     }
 }
@@ -99,8 +107,8 @@ extension PreferencesView {
     NavigationStack {
         PreferencesView(
             store: Store(
-                initialState: PreferencesFeature.State(),
-                reducer: { PreferencesFeature() }
+                initialState: Preferences.State(),
+                reducer: { Preferences() }
             )
         )
     }

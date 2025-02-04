@@ -14,8 +14,8 @@ import ComposableArchitecture
 final class SplashTests: XCTestCase {
 
     var store = TestStore(
-        initialState: SplashFeature.State(),
-        reducer: SplashFeature.init
+        initialState: Splash.State(),
+        reducer: Splash.init
     )
 
     func testFetchGenres() async {

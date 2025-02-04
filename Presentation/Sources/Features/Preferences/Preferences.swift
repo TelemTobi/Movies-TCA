@@ -1,5 +1,5 @@
 //
-//  PreferencesFeature.swift
+//  Preferences.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 29/11/2023.
@@ -11,7 +11,7 @@ import ComposableArchitecture
 import Core
 
 @Reducer
-public struct PreferencesFeature {
+public struct Preferences {
     
     @ObservableState
     public struct State: Equatable {

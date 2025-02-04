@@ -1,5 +1,5 @@
 //
-//  MovieInteractor.swift
+//  MovieDetailsInteractor.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 29/01/2025.
@@ -10,10 +10,10 @@ import Dependencies
 import Models
 import Domain
 
-struct MovieInteractor: Sendable {
+struct MovieDetailsInteractor: Sendable {
     @Dependency(\.useCases.movie) private var movieUseCases
     
-    func fetchMovieDetails(for movieId: Int) async -> Result<MovieDetails, TmdbError> {
+    func fetchMovieDetails(for movieId: Int) async -> Result<DetailedMovie, TmdbError> {
         await movieUseCases.fetchDetails(movieId)
     }
     
@@ -22,7 +22,7 @@ struct MovieInteractor: Sendable {
     }
 }
 
-extension MovieInteractor: DependencyKey {
-    static let liveValue = MovieInteractor()
-    static let testValue = MovieInteractor()
+extension MovieDetailsInteractor: DependencyKey {
+    static let liveValue = MovieDetailsInteractor()
+    static let testValue = MovieDetailsInteractor()
 }

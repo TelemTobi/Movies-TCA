@@ -17,7 +17,7 @@ public struct RootNavigator {
     public struct State: Equatable {
         var destination: Destination.State
         
-        public init(destination: Destination.State = .splash(SplashFeature.State())) {
+        public init(destination: Destination.State = .splash(Splash.State())) {
             self.destination = destination
         }
     }
@@ -50,17 +50,17 @@ extension RootNavigator {
     public struct Destination {
         @ObservableState
         public enum State: Equatable {
-            case splash(SplashFeature.State)
+            case splash(Splash.State)
             case home(HomeNavigator.State)
         }
         
         public enum Action {
-            case splash(SplashFeature.Action)
+            case splash(Splash.Action)
             case home(HomeNavigator.Action)
         }
         
         public var body: some ReducerOf<Self> {
-            Scope(state: \.splash, action: \.splash, child: SplashFeature.init)
+            Scope(state: \.splash, action: \.splash, child: Splash.init)
             Scope(state: \.home, action: \.home, child: HomeNavigator.init)
         }
     }

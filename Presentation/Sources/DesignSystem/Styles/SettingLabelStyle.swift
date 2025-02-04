@@ -34,7 +34,7 @@ public struct SettingLabelStyle: LabelStyle {
 }
 
 public extension LabelStyle where Self == SettingLabelStyle {
-    static func settings(color: Color) -> Self {
+    static func setting(color: Color) -> Self {
         SettingLabelStyle(color: color)
     }
 }

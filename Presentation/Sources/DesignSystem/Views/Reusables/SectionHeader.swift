@@ -11,39 +11,47 @@ import Core
 public struct SectionHeader: View {
     
     let title: LocalizedStringKey
-    let action: LocalizedStringKey?
-    let onActionTap: EmptyClosure?
+    let action: EmptyClosure?
     
-    public init(title: LocalizedStringKey, action: LocalizedStringKey? = nil, onActionTap: EmptyClosure? = nil) {
+    public init(title: LocalizedStringKey, action: EmptyClosure? = nil) {
         self.title = title
         self.action = action
-        self.onActionTap = onActionTap
     }
     
     public var body: some View {
         HStack {
-            Text(title)
-                .font(.rounded(.title2, weight: .semibold))
-                .foregroundColor(.primary)
+            if let action {
+                Button {
+                    action()
+                } label: {
+                    HStack(spacing: 4) {
+                        Text(title)
+                            .font(.rounded(.title2, weight: .semibold))
+                            .foregroundColor(.primary)
+                        
+                        Image(systemName: "chevron.forward")
+                            .font(.rounded(.body, weight: .bold))
+                            .foregroundColor(.secondary)
+                            .offset(y: 1)
+                    }
+                }
+                .buttonStyle(.plain)
+                
+            } else {
+                Text(title)
+                    .font(.rounded(.title2, weight: .semibold))
+                    .foregroundColor(.primary)
+
+            }
             
             Spacer()
-            
-            if let action, let onActionTap {
-                Button {
-                    onActionTap()
-                } label: {
-                    Text(action)
-                        .font(.callout)
-                        .foregroundColor(.accentColor)
-                }
-            }
         }
     }
 }
 
 
 #Preview {
-    SectionHeader(title: .localized(.nowPlaying), action: .localized(.seeAll)) {
+    SectionHeader(title: .localized(.nowPlaying)) {
         
     }
 }

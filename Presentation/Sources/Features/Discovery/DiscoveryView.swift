@@ -12,12 +12,12 @@ import Core
 import Models
 import DesignSystem
 
-@ViewAction(for: DiscoveryFeature.self)
+@ViewAction(for: Discovery.self)
 public struct DiscoveryView: View {
     
-    public let store: StoreOf<DiscoveryFeature>
-    
-    public init(store: StoreOf<DiscoveryFeature>) {
+    public let store: StoreOf<Discovery>
+        
+    public init(store: StoreOf<Discovery>) {
         self.store = store
     }
     
@@ -75,7 +75,7 @@ public struct DiscoveryView: View {
             case .nowPlaying:
                 MoviesPagerView(
                     movies: movies,
-                    onMovieTap: { send(.onMovieTap($0)) },
+                    onMovieTap: { send(.onMovieTap($0, .pager)) },
                     isMovieLiked: { movie in
                         Binding<Bool>(
                             get: { store.watchlist.contains(movie) },
@@ -88,7 +88,7 @@ public struct DiscoveryView: View {
             case .popular, .topRated, .upcoming:
                 MoviesCollectionView(
                     movies: movies,
-                    onMovieTap: { send(.onMovieTap($0)) },
+                    onMovieTap: { send(.onMovieTap($0, .collection)) },
                     isMovieLiked: { movie in
                         .init(
                             get: { store.watchlist.contains(movie) },
@@ -100,13 +100,9 @@ public struct DiscoveryView: View {
             }
         } header: {
             if listType != .nowPlaying {
-                SectionHeader(
-                    title: listType.title,
-                    action: "See All",
-                    onActionTap: {
-                        send(.onMovieListTap(listType, movies))
-                    }
-                )
+                SectionHeader(title: listType.title) {
+                    send(.onMovieListTap(listType, movies))
+                }
                 .padding(.horizontal)
                 .textCase(.none)
             } else {
@@ -121,8 +117,8 @@ public struct DiscoveryView: View {
     NavigationStack {
         DiscoveryView(
             store: Store(
-                initialState: DiscoveryFeature.State(),
-                reducer: { DiscoveryFeature() }
+                initialState: Discovery.State(),
+                reducer: { Discovery() }
             )
         )
     }

@@ -45,7 +45,7 @@ public extension WatchlistNavigator {
         }
         
         @MainActor
-        private func PreferencesSheet(store: StoreOf<PreferencesFeature>) -> some View {
+        private func PreferencesSheet(store: StoreOf<Preferences>) -> some View {
             NavigationStack {
                 PreferencesView(store: store)
                     .toolbar {

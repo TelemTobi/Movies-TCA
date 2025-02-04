@@ -16,6 +16,8 @@ public struct MoviesCollectionView: View {
     let onMovieTap: (Movie) -> Void
     var isMovieLiked: ((Movie) -> Binding<Bool>)? = nil
     
+    @Environment(\.namespace) private var namespace: Namespace.ID?
+    
     public init(movies: IdentifiedArrayOf<Movie>, onMovieTap: @escaping (Movie) -> Void, isMovieLiked: ((Movie) -> Binding<Bool>)? = nil) {
         self.movies = movies
         self.onMovieTap = onMovieTap
@@ -63,6 +65,14 @@ public struct MoviesCollectionView: View {
                 .frame(width: itemWidth, height: itemHeight)
                 .cornerRadius(10)
                 .shadow(radius: 3)
+                .modify { view in
+                    if #available(iOS 18.0, *), let namespace {
+                        let sourceId = movie.id.description + (TransitionSource.collection.rawValue)
+                        view.matchedTransitionSource(id: sourceId, in: namespace)
+                    } else {
+                        view
+                    }
+                }
                 
                 if let isMovieLiked {
                     LikeButton(isLiked: isMovieLiked(movie))

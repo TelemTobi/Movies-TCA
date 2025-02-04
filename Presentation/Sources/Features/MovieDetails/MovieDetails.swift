@@ -1,5 +1,5 @@
 //
-//  MovieFeature.swift
+//  MovieDetails.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 24/11/2023.
@@ -10,20 +10,20 @@ import ComposableArchitecture
 import Models
 
 @Reducer
-public struct MovieFeature {
+public struct MovieDetails {
     
     @ObservableState
     public struct State: Equatable {
-        var movieDetails: MovieDetails
+        public var detailedMovie: DetailedMovie
         
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
         
-        public init(movieDetails: MovieDetails) {
-            self.movieDetails = movieDetails
+        public init(detailedMovie: DetailedMovie) {
+            self.detailedMovie = detailedMovie
         }
         
         var isLiked: Bool {
-            watchlist.contains(movieDetails.movie)
+            watchlist.contains(detailedMovie.movie)
         }
     }
     
@@ -45,7 +45,7 @@ public struct MovieFeature {
         case view(View)
         case navigation(Navigation)
         case fetchMovieDetails
-        case movieDetailsResult(Result<MovieDetails, TmdbError>)
+        case movieDetailsResult(Result<DetailedMovie, TmdbError>)
     }
     
     @Dependency(\.interactor) private var interactor
@@ -59,7 +59,7 @@ public struct MovieFeature {
                 return reduceViewAction(&state, viewAction)
                 
             case .fetchMovieDetails:
-                let movieId = state.movieDetails.movie.id
+                let movieId = state.detailedMovie.movie.id
                 
                 return .run { send in
                     let result = await interactor.fetchMovieDetails(for: movieId)
@@ -69,7 +69,7 @@ public struct MovieFeature {
             case let .movieDetailsResult(result):
                 switch result {
                 case let .success(response):
-                    state.movieDetails = response
+                    state.detailedMovie = response
                     return .none
                     
                 case let .failure(error):
@@ -95,7 +95,7 @@ public struct MovieFeature {
             return .send(.navigation(.pushRelatedMovie(movie)))
             
         case .onLikeTap:
-            let movie = state.movieDetails.movie
+            let movie = state.detailedMovie.movie
             return .run { _ in
                 await interactor.toggleWatchlist(for: movie)
             }
@@ -104,7 +104,7 @@ public struct MovieFeature {
 }
 
 extension DependencyValues {
-    fileprivate var interactor: MovieInteractor {
-        get { self[MovieInteractor.self] }
+    fileprivate var interactor: MovieDetailsInteractor {
+        get { self[MovieDetailsInteractor.self] }
     }
 }

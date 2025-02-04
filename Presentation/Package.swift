@@ -9,7 +9,7 @@ let package = Package(
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
         
         .library(name: "DiscoveryFeature", targets: ["DiscoveryFeature"]),
-        .library(name: "MovieFeature", targets: ["MovieFeature"]),
+        .library(name: "MovieDetailsFeature", targets: ["MovieDetailsFeature"]),
         .library(name: "MovieListFeature", targets: ["MovieListFeature"]),
         .library(name: "PreferencesFeature", targets: ["PreferencesFeature"]),
         .library(name: "SearchFeature", targets: ["SearchFeature"]),
@@ -52,7 +52,7 @@ let package = Package(
             name: "PresentationTests",
             dependencies: [
                 "DiscoveryFeature",
-                "MovieFeature",
+                "MovieDetailsFeature",
                 "MovieListFeature",
                 "PreferencesFeature",
                 "SearchFeature",
@@ -81,8 +81,8 @@ let features: [PackageDescription.Target] = [
         path: "Sources/Features/Discovery"
     ),
     .target(
-        name: "MovieFeature",
-        path: "Sources/Features/Movie"
+        name: "MovieDetailsFeature",
+        path: "Sources/Features/MovieDetails"
     ),
     .target(
         name: "MovieListFeature",
@@ -144,7 +144,7 @@ let navigators: [PackageDescription.Target] = [
     .target(
         name: "MovieNavigator",
         dependencies: [
-            "MovieFeature"
+            "MovieDetailsFeature"
         ],
         path: "Sources/Navigators/Movie"
     ),

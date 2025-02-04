@@ -11,15 +11,18 @@ import DiscoveryFeature
 import MovieListFeature
 import PreferencesFeature
 import MovieNavigator
+import DesignSystem
 
 @Reducer
 public struct DiscoveryNavigator {
     
     @ObservableState
     public struct State: Equatable {
-        var root = DiscoveryFeature.State()
+        var root = Discovery.State()
         var path = StackState<Path.State>()
         @Presents var destination: Destination.State?
+        
+        var transitionSource: TransitionSource?
         
         public init(path: StackState<Path.State> = StackState<Path.State>(), destination: Destination.State? = nil) {
             self.path = path
@@ -28,7 +31,7 @@ public struct DiscoveryNavigator {
     }
     
     public enum Action {
-        case root(DiscoveryFeature.Action)
+        case root(Discovery.Action)
         case path(StackAction<Path.State, Path.Action>)
         case destination(PresentationAction<Destination.Action>)
     }
@@ -36,21 +39,29 @@ public struct DiscoveryNavigator {
     public init() {}
 
     public var body: some ReducerOf<Self> {
-        Scope(state: \.root, action: \.root, child: DiscoveryFeature.init)
+        Scope(state: \.root, action: \.root, child: Discovery.init)
         
         Reduce { state, action in
             switch action {
-            case let .root(.navigation(.presentMovie(movie))),
-                let .path(.element(_, action: .movieList(.navigation(.presentMovie(movie))))):
-                state.destination = .movie(MovieNavigator.State(movieDetails: .init(movie: movie)))
+            case let .root(.navigation(.presentMovie(movie, transitionSource))):
+                state.transitionSource = transitionSource
+                state.destination = .movie(MovieNavigator.State(detailedMovie: .init(movie: movie)))
+                return .none
+                
+            case .destination(.dismiss):
+                state.transitionSource = nil
+                return .none
+                
+            case let .path(.element(_, action: .movieList(.navigation(.presentMovie(movie))))):
+                state.destination = .movie(MovieNavigator.State(detailedMovie: .init(movie: movie)))
                 return .none
                 
             case .root(.navigation(.presentPreferences)):
-                state.destination = .preferences(PreferencesFeature.State())
+                state.destination = .preferences(Preferences.State())
                 return .none
                 
             case let .root(.navigation(.pushMovieList(listType, movies))):
-                let movieListState = MovieListFeature.State(listType: listType, movies: movies)
+                let movieListState = MovieList.State(listType: listType, movies: movies)
                 state.path.append(.movieList(movieListState))
                 return .none
                 
@@ -68,11 +79,11 @@ extension DiscoveryNavigator {
     @Reducer(state: .equatable)
     public enum Destination {
         case movie(MovieNavigator)
-        case preferences(PreferencesFeature)
+        case preferences(Preferences)
     }
     
     @Reducer(state: .equatable)
     public enum Path {
-        case movieList(MovieListFeature)
+        case movieList(MovieList)
     }
 }

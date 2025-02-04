@@ -14,8 +14,8 @@ import ComposableArchitecture
 final class DiscoveryTests: XCTestCase {
     
     var store = TestStore(
-        initialState: DiscoveryFeature.State(),
-        reducer: DiscoveryFeature.init
+        initialState: Discovery.State(),
+        reducer: Discovery.init
     )
     
     func testFetchMovieLists() async { // TODO: Figure out how to test properly

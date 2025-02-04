@@ -24,7 +24,7 @@ final class WatchlistNavigatorTests: XCTestCase {
         let mockMovie = Movie.mock
         
         await store.send(\.root.navigation.presentMovie, mockMovie) { state in
-            state.destination = .movie(MovieNavigator.State(movieDetails: .init(movie: mockMovie)))
+            state.destination = .movie(MovieNavigator.State(detailedMovie: .init(movie: mockMovie)))
         }
         
         await store.send(\.destination.dismiss) { state in
@@ -34,7 +34,7 @@ final class WatchlistNavigatorTests: XCTestCase {
     
     func testPresentPreferences() async {
         await store.send(\.root.navigation.presentPreferences) { state in
-            state.destination = .preferences(PreferencesFeature.State())
+            state.destination = .preferences(Preferences.State())
         }
     }
 }
