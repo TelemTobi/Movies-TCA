@@ -131,7 +131,8 @@ extension MovieDetailsView {
             }
         }
         .overlay {
-            Color.primary.colorInvert()
+//            Color.primary.colorInvert()
+            Color(.background)
                 .opacity(headerOpacity)
         }
     }
