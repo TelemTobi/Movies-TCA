@@ -29,6 +29,7 @@ public struct WatchlistView: View {
                 ContentView()
             }
         }
+        .backgroundColor(.background)
         .navigationTitle(.localized(.watchlist))
         .toolbar(content: toolbarContent)
         .alert($store.scope(state: \.alert, action: \.alert))
@@ -67,7 +68,7 @@ public struct WatchlistView: View {
             .listRowBackground(Color.clear)
             .listSectionSeparator(.hidden, edges: .top)
         }
-        .listStyle(.grouped)
+        .listStyle(.plain)
         .scrollIndicators(.hidden)
     }
     

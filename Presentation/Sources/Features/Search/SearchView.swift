@@ -27,9 +27,11 @@ public struct SearchView: View {
                 ContentView()
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .backgroundColor(.background)
+        .animation(.snappy, value: store.isLoading)
         .navigationTitle(.localized(.search))
         .toolbar(content: toolbarContent)
-        .animation(.easeInOut, value: store.isLoading)
         .searchable(
             text: $store.searchInput.sending(\.onInputChange),
             placement: .navigationBarDrawer(displayMode: .always),
@@ -50,7 +52,6 @@ public struct SearchView: View {
         }
     }
     
-    @MainActor
     @ViewBuilder
     private func ContentView() -> some View {
         List {
@@ -67,11 +68,10 @@ public struct SearchView: View {
             .listRowBackground(Color.clear)
             .listSectionSeparator(.hidden, edges: .top)
         }
-        .listStyle(.grouped)
+        .listStyle(.plain)
         .scrollIndicators(.hidden)
     }
     
-    @MainActor
     @ViewBuilder
     private func SuggestionsView() -> some View {
         let delays = Array(0..<store.genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()

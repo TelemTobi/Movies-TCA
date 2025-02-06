@@ -79,7 +79,7 @@ public struct Search {
                 }
                 
                 return .send(.searchMovies(input))
-                    .debounce(id: SearchInputDebounceId(), for: .seconds(1), scheduler: mainQueue)
+                    .debounce(id: DebounceID.textInput, for: .seconds(1), scheduler: mainQueue)
                 
             case let .searchMovies(query):
                 if let genre = state.genres.first(where: { $0.name == query }) {
@@ -140,8 +140,10 @@ public struct Search {
     }
 }
 
-extension Search {
-    struct SearchInputDebounceId: Hashable {}
+fileprivate extension Search {
+    enum DebounceID: Hashable {
+        case textInput
+    }
 }
 
 extension DependencyValues {

@@ -17,4 +17,8 @@ public extension View {
             self
         }
     }
+    
+    func backgroundColor(_ resource: Color.Resource) -> some View {
+        self.background(Color(resource))
+    }
 }

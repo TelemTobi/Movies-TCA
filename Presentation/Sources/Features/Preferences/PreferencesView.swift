@@ -22,9 +22,17 @@ public struct PreferencesView: View {
     
     public var body: some View {
         List {
-            AppSettingsSection()
-            DeviceSettingsSection()
+            Group {
+                AppSettingsSection()
+                DeviceSettingsSection()
+            }
+            .listRowInsets(.zero)
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
         }
+        .listStyle(.plain)
+        .padding(.horizontal)
+        .backgroundColor(.background)
         .navigationTitle(.localized(.preferences))
     }
 }
@@ -33,7 +41,7 @@ extension PreferencesView {
     
     @ViewBuilder
     private func AppSettingsSection() -> some View {
-        Section {
+        VStack {
             Toggle(
                 isOn: $store.isAdultContentOn.sending(\.onAdultContentToggle),
                 label: {
@@ -45,6 +53,9 @@ extension PreferencesView {
                 }
             )
         }
+        .padding()
+        .backgroundColor(.foreground)
+        .clipShape(.rect(cornerRadius: 10))
     }
     
     @ViewBuilder
@@ -61,7 +72,7 @@ extension PreferencesView {
         case .system: colorScheme == .light ? .orange : .purple
         }
         
-        Section {
+        VStack {
             Button(
                 action: { send(.onLanguageTap) },
                 label: {
@@ -77,6 +88,8 @@ extension PreferencesView {
             )
             .buttonStyle(.plain)
 
+            Divider()
+            
             Picker(
                 selection: $store.appearance.sending(\.onAppearanceChange),
                 content: {
@@ -100,6 +113,10 @@ extension PreferencesView {
                 }
             )
         }
+        .padding()
+        .backgroundColor(.foreground)
+        .clipShape(.rect(cornerRadius: 10))
+        .padding(.vertical)
     }
 }
 

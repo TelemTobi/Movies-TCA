@@ -39,8 +39,9 @@ public struct MovieListView: View {
             .listRowBackground(Color.clear)
             .listSectionSeparator(.hidden, edges: .top)
         }
-        .listStyle(.grouped)
+        .listStyle(.plain)
         .scrollIndicators(.hidden)
+        .backgroundColor(.background)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(store.listType?.title ?? "")
     }

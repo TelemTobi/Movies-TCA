@@ -40,7 +40,6 @@ public extension MovieNavigator {
                 if #available(iOS 18.0, *), let namespace {
                     let movieId = store.root.detailedMovie.movie.id
                     let sourceId = movieId.description + (transitionSource?.rawValue ?? "")
-                    let _ = print(sourceId)
                     view.navigationTransition(.zoom(sourceID: sourceId, in: namespace))
                 } else {
                     view

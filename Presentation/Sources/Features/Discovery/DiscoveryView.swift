@@ -32,6 +32,7 @@ public struct DiscoveryView: View {
         .navigationTitle(.localized(.discovery))
         .animation(.easeInOut, value: store.isLoading)
         .toolbar(content: toolbarContent)
+        .backgroundColor(.background)
         .onFirstAppear {
             send(.onFirstAppear)
         }
@@ -50,27 +51,34 @@ public struct DiscoveryView: View {
         }
     }
     
-    @ViewBuilder @MainActor
+    @ViewBuilder
     private func ContentView() -> some View {
-        List {
-            ForEach(MovieListType.allCases, id: \.self) { listType in
-                if let movies = store.movies[listType] {
-                    SectionView(listType: listType, movies: movies)
+        ScrollView {
+            LazyVStack(spacing: 12) {
+                ForEach(MovieListType.allCases, id: \.self) { listType in
+                    if let movies = store.movies[listType] {
+                        SectionView(listType: listType, movies: movies)
+                    }
                 }
             }
-            .listRowInsets(.zero)
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
-            .listSectionSeparator(.hidden, edges: .top)
         }
-        .listStyle(.grouped)
         .scrollIndicators(.hidden)
         .particleLayer(name: Constants.Layer.like)
     }
     
-    @ViewBuilder @MainActor
+    @ViewBuilder
     private func SectionView(listType: MovieListType, movies: IdentifiedArrayOf<Movie>) -> some View {
-        Section {
+        VStack(spacing: 0) {
+            if listType != .nowPlaying {
+                SectionHeader(title: listType.title) {
+                    send(.onMovieListTap(listType, movies))
+                }
+                .padding(.horizontal)
+                .textCase(.none)
+            } else {
+                EmptyView()
+            }
+            
             switch listType {
             case .nowPlaying:
                 MoviesPagerView(
@@ -97,16 +105,6 @@ public struct DiscoveryView: View {
                     }
                 )
                 .frame(height: 280)
-            }
-        } header: {
-            if listType != .nowPlaying {
-                SectionHeader(title: listType.title) {
-                    send(.onMovieListTap(listType, movies))
-                }
-                .padding(.horizontal)
-                .textCase(.none)
-            } else {
-                EmptyView()
             }
         }
     }

@@ -15,7 +15,7 @@ public struct CapsuledButtonStyle: ButtonStyle {
             .padding(.horizontal, 12)
             .foregroundStyle(.white)
             .background(Color.accentColor.gradient)
-            .clipShape(Capsule())
+            .clipShape(.capsule)
             .opacity(configuration.isPressed ? 0.8 : 1.0)
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
     }

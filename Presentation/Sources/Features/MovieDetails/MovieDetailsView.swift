@@ -50,6 +50,7 @@ public struct MovieDetailsView: View {
                 .padding(.vertical, 5)
             }
             .listStyle(.plain)
+            .backgroundColor(.background)
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarTitleDisplayMode(.inline)
