@@ -29,6 +29,7 @@ public struct DiscoveryView: View {
                 ContentView()
             }
         }
+        .ignoresSafeArea(edges: .top)
         .navigationTitle(.localized(.discovery))
         .animation(.easeInOut, value: store.isLoading)
         .toolbar(content: toolbarContent)
@@ -54,7 +55,7 @@ public struct DiscoveryView: View {
     @ViewBuilder
     private func ContentView() -> some View {
         ScrollView {
-            LazyVStack(spacing: 12) {
+            LazyVStack(spacing: 20) {
                 ForEach(MovieListType.allCases, id: \.self) { listType in
                     if let movies = store.movies[listType] {
                         SectionView(listType: listType, movies: movies)
@@ -81,17 +82,8 @@ public struct DiscoveryView: View {
             
             switch listType {
             case .nowPlaying:
-                MoviesPagerView(
-                    movies: movies,
-                    onMovieTap: { send(.onMovieTap($0, .pager)) },
-                    isMovieLiked: { movie in
-                        Binding<Bool>(
-                            get: { store.watchlist.contains(movie) },
-                            set: { _ in send(.onMovieLike(movie)) }
-                        )
-                    }
-                )
-                .frame(height: 240)
+                MoviesPager(movies: movies)
+                    .aspectRatio(14/21, contentMode: .fill)
                 
             case .popular, .topRated, .upcoming:
                 MoviesCollectionView(

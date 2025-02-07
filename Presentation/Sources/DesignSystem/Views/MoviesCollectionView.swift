@@ -39,7 +39,9 @@ public struct MoviesCollectionView: View {
                 }
                 .padding(.vertical)
                 .padding(.horizontal, 16)
+                .scrollTargetLayout()
             }
+            .scrollTargetBehavior(.viewAligned)
         }
     }
     
@@ -88,6 +90,9 @@ public struct MoviesCollectionView: View {
                 .foregroundColor(.primary)
         }
         .frame(width: itemWidth)
+        .scrollTransition(.interactive, axis: .horizontal) { view, phase in
+            view.scaleEffect(phase.isIdentity ? 1 : 0.95)
+        }
     }
 }
 
