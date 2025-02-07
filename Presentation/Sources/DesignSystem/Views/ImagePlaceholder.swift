@@ -13,7 +13,7 @@ public struct TmdbImagePlaceholder: View {
     
     public var body: some View {
         ZStack {
-            Color.secondary.opacity(0.25)
+            Color(resource: .placeholder)
             
             Image(systemName: "popcorn")
                 .resizable()

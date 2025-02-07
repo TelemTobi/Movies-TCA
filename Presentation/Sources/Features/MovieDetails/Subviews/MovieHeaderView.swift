@@ -18,23 +18,20 @@ extension MovieDetailsView {
         let movie = store.detailedMovie.movie
         
         ZStack(alignment: .bottom) {
-            StretchyHeader(
-                height: geometry.size.width * 1.5,
-                headerOffScreenOffset: $headerOffScreenPercentage,
-                header: {
-                    LazyImage(url: movie.posterUrl) { state in
-                        if let image = state.image {
-                            image.resizable()
-                        } else {
-                            LazyImage(url: movie.thumbnailUrl) { state in
-                                if let image = state.image {
-                                    image.resizable()
-                                }
+            StretchyHeader($headerOffScreenPercentage) {
+                LazyImage(url: movie.posterUrl) { state in
+                    if let image = state.image {
+                        image.resizable()
+                    } else {
+                        LazyImage(url: movie.thumbnailUrl) { state in
+                            if let image = state.image {
+                                image.resizable()
                             }
                         }
                     }
                 }
-            )
+            }
+            .aspectRatio(14/21, contentMode: .fill)
             
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .top) {
@@ -131,7 +128,6 @@ extension MovieDetailsView {
             }
         }
         .overlay {
-//            Color.primary.colorInvert()
             Color(.background)
                 .opacity(headerOpacity)
         }

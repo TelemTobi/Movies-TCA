@@ -84,7 +84,8 @@ public struct MoviesCollectionView: View {
             
             Text(movie.title ?? .empty)
                 .lineLimit(1)
-                .font(.subheadline)
+                .font(.rounded(.subheadline))
+                .fontWeight(.medium)
                 .padding(.trailing)
                 .padding(.leading, 4)
                 .foregroundColor(.primary)

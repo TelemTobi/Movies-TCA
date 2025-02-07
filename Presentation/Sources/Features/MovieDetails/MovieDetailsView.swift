@@ -20,7 +20,7 @@ public struct MovieDetailsView: View {
     @State var isOverviewTruncated: Bool = false
     @State var isOverviewSheetPresented: Bool = false
     
-    var navigationBarVisibilityThreshold: CGFloat = 0.85
+    var navigationBarVisibilityThreshold: CGFloat = 0.83
     
     private var isHeaderShowing: Bool {
         headerOffScreenPercentage < navigationBarVisibilityThreshold

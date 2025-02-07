@@ -1,5 +1,5 @@
 //
-//  TagButtonStyle.swift
+//  CapsuledButtonStyle.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 28/11/2023.

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Core
 
 public struct ParallaxPager<Content: View, Overlay: View, Collection: RandomAccessCollection>: View {
     
@@ -15,6 +16,15 @@ public struct ParallaxPager<Content: View, Overlay: View, Collection: RandomAcce
     @ViewBuilder let content: (Collection.Element) -> Content
     @ViewBuilder let overlay: (Collection.Element) -> Overlay
     
+    @State private var scrollPosition: Int?
+    @State private var items: [[Collection.Element]] = []
+    
+    /// Insert a description
+    /// - Parameters:
+    ///   - collection: The collection to iterate over
+    ///   - spacing: The Amount of spacing between items
+    ///   - content: Parallaxed content for item in the collection
+    ///   - overlay: Overlay content for item in the collection
     public init(
         collection: Collection,
         spacing: CGFloat = 0,
@@ -28,11 +38,13 @@ public struct ParallaxPager<Content: View, Overlay: View, Collection: RandomAcce
     }
     
     public var body: some View {
+        let items = items.flatMap { $0 }
+        
         GeometryReader { geometry in
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: spacing) {
-                    ForEach(0..<collection.count, id: \.self) { index in
-                        let item = collection[_offset: index]
+                    ForEach(0..<items.count, id: \.self) { index in
+                        let item = items[index]
                         
                         itemWrapper(
                             content: { content(item) },
@@ -45,7 +57,31 @@ public struct ParallaxPager<Content: View, Overlay: View, Collection: RandomAcce
             }
             .scrollIndicators(.hidden)
             .scrollTargetBehavior(.paging)
+            .scrollPosition(id: $scrollPosition)
             .contentMargins(.horizontal, spacing, for: .scrollContent)
+            .onFirstAppear {
+                self.items = .init(repeating: collection.map { $0 }, count: 3)
+                scrollPosition = collection.count
+            }
+            .onChange(of: scrollPosition) {
+                guard let scrollPosition else { return }
+                
+                let itemCount = collection.count
+                
+                if scrollPosition / itemCount == 0, scrollPosition % itemCount == itemCount - 1 {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        self.items.removeLast()
+                        self.items.insert(collection.map { $0 }, at: 0)
+                        self.scrollPosition = scrollPosition + collection.count
+                    }
+                } else if scrollPosition / itemCount == 2, scrollPosition % itemCount == 0 {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        self.items.removeFirst()
+                        self.items.append(collection.map { $0 })
+                        self.scrollPosition = scrollPosition - collection.count
+                    }
+                }
+            }
         }
     }
     
@@ -64,21 +100,5 @@ public struct ParallaxPager<Content: View, Overlay: View, Collection: RandomAcce
                 .clipShape(.rect)
         }
         
-    }
-}
-
-public final class InfiniteArray<Content>: RandomAccessCollection {
-    private var elements: [Content]
-    
-    public init(elements: [Content]) {
-        self.elements = elements
-    }
-    
-    public var startIndex: Int { Int(Int32.min) }
-    public var endIndex: Int { Int(Int32.max) }
-    
-    public subscript(position: Int) -> Content {
-        let index = (elements.count + (position % elements.count)) % elements.count
-        return elements[index]
     }
 }

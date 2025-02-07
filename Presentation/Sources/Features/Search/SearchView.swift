@@ -83,7 +83,7 @@ public struct SearchView: View {
                 },
                 label: {
                     Text(genre.name ?? .empty)
-                        .font(.footnote)
+                        .font(.rounded(.footnote))
                         .fontWeight(.medium)
                 }
             )

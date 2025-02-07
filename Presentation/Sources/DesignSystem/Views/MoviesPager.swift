@@ -14,19 +14,45 @@ import TmdbApi
 public struct MoviesPager: View {
     
     let movies: IdentifiedArrayOf<Movie>
+    let onMovieTap: (Movie) -> Void
+    
+    @State private var headerOffScreenOffset: CGFloat = 0
+    private var navigationBarVisibilityThreshold: CGFloat = 0.83
+    
+    private var isHeaderShowing: Bool {
+        headerOffScreenOffset < navigationBarVisibilityThreshold
+    }
+    
+    private var navigationTitleOpacity: CGFloat {
+        headerOffScreenOffset.percentageInside(range: navigationBarVisibilityThreshold...navigationBarVisibilityThreshold + 0.02)
+    }
+    
+    fileprivate var headerOpacity: CGFloat {
+        headerOffScreenOffset
+            .percentageInside(range: 0.35...(navigationBarVisibilityThreshold + 0.01))
+    }
     
     @Environment(\.namespace) private var namespace: Namespace.ID?
 
-    public init(movies: IdentifiedArrayOf<Movie>) {
+    public init(movies: IdentifiedArrayOf<Movie>, onMovieTap: @escaping (Movie) -> Void) {
         self.movies = movies
+        self.onMovieTap = onMovieTap
     }
     
     public var body: some View {
-        ParallaxPager(
-            collection: movies.elements,
-            content: { content(for: $0) },
-            overlay: { overlay(for: $0) }
-        )
+        StretchyHeader($headerOffScreenOffset) {
+            ParallaxPager(
+                collection: movies.elements,
+                content: { content(for: $0) },
+                overlay: { overlay(for: $0) }
+            )
+        }
+        .toolbar(content: toolbarContent)
+        .toolbarBackground(isHeaderShowing ? .hidden : .visible, for: .navigationBar)
+        .overlay {
+            Color(resource: .background)
+                .opacity(headerOpacity)
+        }
     }
     
     @ViewBuilder
@@ -52,29 +78,48 @@ public struct MoviesPager: View {
     }
     
     private func overlay(for movie: Movie) -> some View {
-        ZStack(alignment: .bottom) {
-            LinearGradient(
-                colors: [.clear, .clear, .clear, .black.opacity(0.1), .black.opacity(0.4), .black.opacity(0.7)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            
-            VStack(spacing: 12) {
-                Text(movie.title ?? "")
-                    .font(.title.bold())
-                    .foregroundStyle(.white)
-                    .multilineTextAlignment(.leading)
+        Button {
+            onMovieTap(movie)
+        } label: {
+            ZStack(alignment: .bottom) {
+                LinearGradient(
+                    colors: [.clear, .clear, .clear, .black.opacity(0.1), .black.opacity(0.4), .black.opacity(0.7)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
                 
-                if let overview = movie.overview {
-                    Text(overview)
-                        .font(.callout)
-                        .fontWeight(.medium)
+                VStack(spacing: 12) {
+                    Text(movie.title ?? "")
+                        .font(.rounded(.title))
+                        .fontWeight(.black)
                         .foregroundStyle(.white)
-                        .lineLimit(2)
                         .multilineTextAlignment(.center)
+                    
+                    if let overview = movie.overview {
+                        Text(overview)
+                            .font(.callout)
+                            .fontWeight(.medium)
+                            .foregroundStyle(.white)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.center)
+                    }
                 }
+                .padding()
             }
-            .padding()
+        }
+        .buttonStyle(.plain)
+        .scrollTransition(.interactive, axis: .horizontal) { view, phase in
+            view.opacity(phase.isIdentity ? 1 : 0)
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text(.localized(.discovery))
+                .font(.rounded(.headline))
+                .multilineTextAlignment(.center)
+                .opacity(navigationTitleOpacity)
         }
     }
 }
@@ -85,6 +130,7 @@ public struct MoviesPager: View {
         .movies ?? []
     
     MoviesPager(
-        movies: .init(uniqueElements: movies ?? [])
+        movies: .init(uniqueElements: movies ?? []),
+        onMovieTap: { _ in }
     )
 }

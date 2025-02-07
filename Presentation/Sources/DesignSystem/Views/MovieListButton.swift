@@ -53,7 +53,8 @@ public struct MovieListItem: View {
                     HStack(alignment: .top) {
                         Text(movie.title ?? "")
                             .lineLimit(2)
-                            .font(.title2.weight(.bold))
+                            .font(.rounded(.title2))
+                            .fontWeight(.bold)
                             .layoutPriority(1)
                         
                         Spacer()

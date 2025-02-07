@@ -12,9 +12,14 @@ public extension Color {
     enum Resource: String {
         case background
         case foreground
+        case placeholder
     }
     
     init(_ resource: Resource) {
+        self.init(resource.rawValue, bundle: .module)
+    }
+    
+    init(resource: Resource) {
         self.init(resource.rawValue, bundle: .module)
     }
 }

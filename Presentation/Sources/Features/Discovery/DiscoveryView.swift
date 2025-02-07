@@ -31,24 +31,11 @@ public struct DiscoveryView: View {
         }
         .ignoresSafeArea(edges: .top)
         .navigationTitle(.localized(.discovery))
+        .navigationBarTitleDisplayMode(.inline)
         .animation(.easeInOut, value: store.isLoading)
-        .toolbar(content: toolbarContent)
         .backgroundColor(.background)
         .onFirstAppear {
             send(.onFirstAppear)
-        }
-    }
-    
-    @ToolbarContentBuilder
-    private func toolbarContent() -> some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button(
-                action: { send(.onPreferencesTap) },
-                label: {
-                    Image(systemName: "gear")
-                        .foregroundColor(.accentColor)
-                }
-            )
         }
     }
     
@@ -82,8 +69,11 @@ public struct DiscoveryView: View {
             
             switch listType {
             case .nowPlaying:
-                MoviesPager(movies: movies)
-                    .aspectRatio(14/21, contentMode: .fill)
+                MoviesPager(
+                    movies: movies,
+                    onMovieTap: { send(.onMovieTap($0, .pager)) }
+                )
+                .aspectRatio(14/21, contentMode: .fill)
                 
             case .popular, .topRated, .upcoming:
                 MoviesCollectionView(
