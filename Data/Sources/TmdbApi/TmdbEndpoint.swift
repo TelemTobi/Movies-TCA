@@ -79,6 +79,8 @@ extension TmdbEndpoint: Endpoint {
             
         case .listMovies(let type):
             switch type {
+            case .watchlist:
+                TmdbMock.nowPlayingMovies.dataEncoded
             case .nowPlaying:
                 TmdbMock.nowPlayingMovies.dataEncoded
             case .popular:

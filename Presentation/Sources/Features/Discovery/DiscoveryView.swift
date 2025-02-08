@@ -23,29 +23,38 @@ public struct DiscoveryView: View {
     
     public var body: some View {
         ZStack {
-            if store.isLoading {
+            switch store.viewState {
+            case .loading:
                 ProgressView()
-            } else {
-                ContentView()
+                
+            case let .loaded(lists):
+                contentView(lists)
             }
         }
         .ignoresSafeArea(edges: .top)
         .navigationTitle(.localized(.discovery))
         .navigationBarTitleDisplayMode(.inline)
-        .animation(.easeInOut, value: store.isLoading)
+        .animation(.smooth, value: store.viewState)
         .backgroundColor(.background)
-        .onFirstAppear {
-            send(.onFirstAppear)
-        }
+        .onFirstAppear { send(.onFirstAppear) }
     }
     
     @ViewBuilder
-    private func ContentView() -> some View {
+    private func contentView(_ lists: [MovieListType: IdentifiedArrayOf<Movie>]) -> some View {
         ScrollView {
             LazyVStack(spacing: 20) {
                 ForEach(MovieListType.allCases, id: \.self) { listType in
-                    if let movies = store.movies[listType] {
-                        SectionView(listType: listType, movies: movies)
+                    switch listType {
+                    case .watchlist:
+                        sectionView(
+                            listType: .watchlist,
+                            movies: store.watchlist
+                        )
+                        
+                    default:
+                        if let movies = lists[listType] {
+                            sectionView(listType: listType, movies: movies)
+                        }
                     }
                 }
             }
@@ -55,7 +64,7 @@ public struct DiscoveryView: View {
     }
     
     @ViewBuilder
-    private func SectionView(listType: MovieListType, movies: IdentifiedArrayOf<Movie>) -> some View {
+    private func sectionView(listType: MovieListType, movies: IdentifiedArrayOf<Movie>) -> some View {
         VStack(spacing: 0) {
             if listType != .nowPlaying {
                 SectionHeader(title: listType.title) {
@@ -68,6 +77,14 @@ public struct DiscoveryView: View {
             }
             
             switch listType {
+            case .watchlist:
+                MoviesCollectionView(
+                    type: .backdrop,
+                    movies: movies,
+                    onMovieTap: { send(.onMovieTap($0, .pager)) }
+                )
+                .frame(height: 160)
+                
             case .nowPlaying:
                 MoviesPager(
                     movies: movies,
@@ -77,19 +94,19 @@ public struct DiscoveryView: View {
                 
             case .upcoming:
                 MoviesCollectionView(
-                    type: .backdrop,
-                    movies: movies,
-                    onMovieTap: { send(.onMovieTap($0, .collection)) }
-                )
-                .frame(height: 120)
-                
-            case .popular:
-                MoviesCollectionView(
                     type: .poster,
                     movies: movies,
                     onMovieTap: { send(.onMovieTap($0, .collection)) }
                 )
-                .frame(height: 280)
+                .frame(height: 260)
+                
+            case .popular:
+                MoviesCollectionView(
+                    type: .backdrop,
+                    movies: movies,
+                    onMovieTap: { send(.onMovieTap($0, .collection)) }
+                )
+                .frame(height: 130)
                 
             case .topRated:
                 MoviesCollectionView(
@@ -97,7 +114,7 @@ public struct DiscoveryView: View {
                     movies: movies,
                     onMovieTap: { send(.onMovieTap($0, .collection)) }
                 )
-                .frame(height: 140)
+                .frame(height: 130)
             }
         }
     }

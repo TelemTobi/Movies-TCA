@@ -10,10 +10,11 @@ import SwiftUI
 import Core
 
 public enum MovieListType: String, CaseIterable, Sendable {
-    case nowPlaying, upcoming, popular, topRated
+    case nowPlaying, watchlist, upcoming, popular, topRated
     
     public var title: LocalizedStringKey {
         return switch self {
+        case .watchlist: .localized(.watchlist)
         case .nowPlaying: .localized(.nowPlaying)
         case .upcoming: .localized(.upcoming)
         case .popular: .localized(.popular)

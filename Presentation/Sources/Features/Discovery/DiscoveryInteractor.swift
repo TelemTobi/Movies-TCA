@@ -14,7 +14,7 @@ struct DiscoveryInteractor: Sendable {
     @Dependency(\.useCases.movies) private var moviesUseCases
     @Dependency(\.useCases.movie) private var movieUseCases
     
-    func fetchMovieLists(ofTypes types: [MovieListType]) async -> [MovieListType: Result<MovieList, TmdbError>] {
+    func fetchMovieLists(ofTypes types: MovieListType...) async -> [MovieListType: Result<MovieList, TmdbError>] {
         await moviesUseCases.fetchLists(types)
     }
     

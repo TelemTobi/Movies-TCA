@@ -16,14 +16,12 @@ public struct Discovery {
     
     @ObservableState
     public struct State: Equatable {
-        var isLoading = true
-        var movies: [MovieListType: IdentifiedArrayOf<Movie>] = [:]
+        var viewState: ViewState
         
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
         
-        public init(isLoading: Bool = true, movies: [MovieListType : IdentifiedArrayOf<Movie>] = [:]) {
-            self.isLoading = isLoading
-            self.movies = movies
+        public init(viewState: ViewState = .loading) {
+            self.viewState = viewState
         }
     }
     
@@ -61,20 +59,22 @@ public struct Discovery {
                 return reduceViewAction(&state, viewAction)
                 
             case .fetchMovieLists:
-                state.isLoading = true
+                state.viewState = .loading
                 
                 return .run { send in
-                    let result = await interactor.fetchMovieLists(ofTypes: MovieListType.allCases)
+                    let result = await interactor.fetchMovieLists(
+                        ofTypes: .nowPlaying, .upcoming, .popular, .topRated
+                    )
                     await send(.movieListsResult(result))
                 }
                 
             case let .movieListsResult(result):
-                state.movies = result.compactMapValues { result in
-                    guard let movies = try? result.get().movies else { return nil }
-                    return .init(uniqueElements: movies)
-                }
-                
-                state.isLoading = false
+                state.viewState = .loaded(
+                    result.compactMapValues { result in
+                        guard let movies = try? result.get().movies else { return nil }
+                        return .init(uniqueElements: movies)
+                    }
+                )
                 return .none
                 
             case .navigation:
@@ -102,6 +102,13 @@ public struct Discovery {
                 await interactor.toggleWatchlist(for: movie)
             }
         }
+    }
+}
+
+public extension Discovery {
+    enum ViewState: Equatable {
+        case loading
+        case loaded([MovieListType: IdentifiedArrayOf<Movie>])
     }
 }
 
