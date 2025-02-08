@@ -16,20 +16,20 @@ public struct MoviesPager: View {
     let movies: IdentifiedArrayOf<Movie>
     let onMovieTap: (Movie) -> Void
     
-    @State private var headerOffScreenOffset: CGFloat = 0
-    private var navigationBarVisibilityThreshold: CGFloat = 0.83
+    @State private var scrollOffset: CGFloat = 0
+    @State private var offScreenOffset: CGFloat = 0
+    private var navigationBarVisibilityThreshold: CGFloat = 0.8
     
     private var isHeaderShowing: Bool {
-        headerOffScreenOffset < navigationBarVisibilityThreshold
+        offScreenOffset < navigationBarVisibilityThreshold
     }
     
     private var navigationTitleOpacity: CGFloat {
-        headerOffScreenOffset.percentageInside(range: navigationBarVisibilityThreshold...navigationBarVisibilityThreshold + 0.02)
+        offScreenOffset.percentageInside(range: navigationBarVisibilityThreshold...navigationBarVisibilityThreshold + 0.02)
     }
     
     fileprivate var headerOpacity: CGFloat {
-        headerOffScreenOffset
-            .percentageInside(range: 0.35...(navigationBarVisibilityThreshold + 0.01))
+        offScreenOffset.percentageInside(range: 0.35...(navigationBarVisibilityThreshold + 0.01))
     }
     
     @Environment(\.namespace) private var namespace: Namespace.ID?
@@ -40,12 +40,23 @@ public struct MoviesPager: View {
     }
     
     public var body: some View {
-        StretchyHeader($headerOffScreenOffset) {
+        GeometryReader { geo in
             ParallaxPager(
                 collection: movies.elements,
-                content: { content(for: $0) },
+                content: {
+                    content(for: $0)
+                        .position(x: geo.frame(in: .local).midX, y: geo.frame(in: .local).midY)
+                        .offset(y: max(scrollOffset / 1.25, 0))
+                        .clipShape(.bottomClip(height: geo.size.height))
+                },
                 overlay: { overlay(for: $0) }
             )
+            .scaleEffect(max(1 - (scrollOffset / geo.frame(in: .global).height), 1), anchor: .bottom)
+            .didScroll { offset in
+                scrollOffset = offset
+                let offScreenPercentage = offset / geo.size.height
+                self.offScreenOffset = offScreenPercentage.clamped(to: 0...1)
+            }
         }
         .toolbar(content: toolbarContent)
         .toolbarBackground(isHeaderShowing ? .hidden : .visible, for: .navigationBar)
@@ -66,14 +77,6 @@ public struct MoviesPager: View {
                 }
             }
             .animation(.smooth, value: state.image)
-        }
-        .modify { view in
-            if #available(iOS 18.0, *), let namespace {
-                let sourceId = movie.id.description + (TransitionSource.pager.rawValue)
-                view.matchedTransitionSource(id: sourceId, in: namespace)
-            } else {
-                view
-            }
         }
     }
     
@@ -129,8 +132,12 @@ public struct MoviesPager: View {
         .decode(into: MovieList.self, using: .tmdbDateDecodingStrategy)
         .movies ?? []
     
-    MoviesPager(
-        movies: .init(uniqueElements: movies ?? []),
-        onMovieTap: { _ in }
-    )
+    ScrollView {
+        MoviesPager(
+            movies: .init(uniqueElements: movies ?? []),
+            onMovieTap: { _ in }
+        )
+        .aspectRatio(14/21, contentMode: .fill)
+    }
+    .ignoresSafeArea(edges: .top)
 }

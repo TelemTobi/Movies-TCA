@@ -44,7 +44,7 @@ public struct StretchyHeader<Header: View>: View {
                 .scaleEffect(max(1 - (scrollOffset / geo.frame(in: .global).height), 1), anchor: .bottom)
                 .position(x: geo.frame(in: .local).midX, y: geo.frame(in: .local).midY)
                 .offset(y: max(scrollOffset / 1.25, 0))
-                .clipShape(BottomClipShape(height: geo.size.height))
+                .clipShape(.bottomClip(height: geo.size.height))
                 .didScroll { offset in
                     scrollOffset = offset
                     let offScreenPercentage = offset / geo.size.height
@@ -52,24 +52,6 @@ public struct StretchyHeader<Header: View>: View {
                     self.offScreenOffset = offScreenPercentage.clamped(to: 0...1)
                 }
         }
-    }
-}
-
-fileprivate struct BottomClipShape: Shape {
-    
-    let height: CGFloat
-    
-    func path(in rect: CGRect) -> Path {
-        
-        var path = Path()
-        let topOffset = height * 2
-        
-        path.move(to: CGPoint(x: 0, y: rect.minY - topOffset))
-        path.addLine(to: CGPoint(x: 0, y: rect.height))
-        path.addLine(to: CGPoint(x: rect.width, y: rect.height))
-        path.addLine(to: CGPoint(x: rect.width, y: rect.minY - topOffset))
-        path.closeSubpath()
-        return path
     }
 }
 
@@ -108,5 +90,6 @@ fileprivate struct BottomClipShape: Shape {
                 }
             }
         }
+        .ignoresSafeArea()
     }
 }
