@@ -75,18 +75,29 @@ public struct DiscoveryView: View {
                 )
                 .aspectRatio(14/21, contentMode: .fill)
                 
-            case .popular, .topRated, .upcoming:
+            case .upcoming:
                 MoviesCollectionView(
+                    type: .backdrop,
                     movies: movies,
-                    onMovieTap: { send(.onMovieTap($0, .collection)) },
-                    isMovieLiked: { movie in
-                        .init(
-                            get: { store.watchlist.contains(movie) },
-                            set: { _ in send(.onMovieLike(movie)) }
-                        )
-                    }
+                    onMovieTap: { send(.onMovieTap($0, .collection)) }
+                )
+                .frame(height: 120)
+                
+            case .popular:
+                MoviesCollectionView(
+                    type: .poster,
+                    movies: movies,
+                    onMovieTap: { send(.onMovieTap($0, .collection)) }
                 )
                 .frame(height: 280)
+                
+            case .topRated:
+                MoviesCollectionView(
+                    type: .backdrop,
+                    movies: movies,
+                    onMovieTap: { send(.onMovieTap($0, .collection)) }
+                )
+                .frame(height: 140)
             }
         }
     }

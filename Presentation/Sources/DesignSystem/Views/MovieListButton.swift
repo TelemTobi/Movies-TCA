@@ -27,7 +27,7 @@ public struct MovieListItem: View {
             let imageHeight = geometry.size.height
             
             HStack(spacing: 10) {
-                LazyImage(url: movie.thumbnailUrl) { state in
+                LazyImage(url: movie.posterThumbnailUrl) { state in
                     ZStack {
                         if let image = state.image {
                             image.resizable()
@@ -41,6 +41,10 @@ public struct MovieListItem: View {
                 .frame(width: imageWidth, height: imageHeight)
                 .cornerRadius(5)
                 .shadow(radius: 3)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 10)
+                        .strokeBorder(.ultraThinMaterial, lineWidth: 1)
+                }
                 .modify { view in
                     if #available(iOS 18.0, *), let namespace {
                         view.matchedTransitionSource(id: movie.id.description, in: namespace)

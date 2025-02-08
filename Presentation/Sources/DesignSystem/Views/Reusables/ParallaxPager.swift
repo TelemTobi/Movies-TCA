@@ -13,6 +13,8 @@ public struct ParallaxPager<Content: View, Overlay: View, Collection: RandomAcce
     let collection: Collection
     let spacing: CGFloat
 
+    @Binding var currentItem: Collection.Element?
+    
     @ViewBuilder let content: (Collection.Element) -> Content
     @ViewBuilder let overlay: (Collection.Element) -> Overlay
     
@@ -28,11 +30,13 @@ public struct ParallaxPager<Content: View, Overlay: View, Collection: RandomAcce
     public init(
         collection: Collection,
         spacing: CGFloat = 0,
+        current: Binding<Collection.Element?> = .constant(nil),
         content: @escaping (Collection.Element) -> Content,
         overlay: @escaping (Collection.Element) -> Overlay
     ) {
         self.collection = collection
         self.spacing = spacing
+        self._currentItem = current
         self.content = content
         self.overlay = overlay
     }
@@ -65,6 +69,8 @@ public struct ParallaxPager<Content: View, Overlay: View, Collection: RandomAcce
             }
             .onChange(of: scrollPosition) {
                 guard let scrollPosition else { return }
+                
+                currentItem = self.items.flatMap { $0 }[scrollPosition]
                 
                 let itemCount = collection.count
                 

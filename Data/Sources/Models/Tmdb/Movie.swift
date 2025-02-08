@@ -74,14 +74,19 @@ public struct Movie: Codable, Equatable, Identifiable, Sendable {
         return .init(string: Config.TmdbApi.photoBaseUrl + "/original/" + posterPath)
     }
     
-    public var thumbnailUrl: URL? {
+    public var posterThumbnailUrl: URL? {
         guard let posterPath else { return nil }
-        return .init(string: Config.TmdbApi.photoBaseUrl + "/w500/" + posterPath)
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/w300/" + posterPath)
     }
     
     public var backdropUrl: URL? {
         guard let backdropPath else { return nil }
         return .init(string: Config.TmdbApi.photoBaseUrl + "/w780/" + backdropPath)
+    }
+    
+    public var backdropThumbnailUrl: URL? {
+        guard let backdropPath else { return nil }
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/w400/" + backdropPath)
     }
     
     public var infoDictionary: [String: String] {

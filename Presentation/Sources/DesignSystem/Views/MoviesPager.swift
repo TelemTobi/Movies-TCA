@@ -16,10 +16,12 @@ public struct MoviesPager: View {
     let movies: IdentifiedArrayOf<Movie>
     let onMovieTap: (Movie) -> Void
     
+    @State private var currentItem: Movie?
     @State private var scrollOffset: CGFloat = 0
     @State private var offScreenOffset: CGFloat = 0
+
     private var navigationBarVisibilityThreshold: CGFloat = 0.8
-    
+
     private var isHeaderShowing: Bool {
         offScreenOffset < navigationBarVisibilityThreshold
     }
@@ -28,7 +30,7 @@ public struct MoviesPager: View {
         offScreenOffset.percentageInside(range: navigationBarVisibilityThreshold...navigationBarVisibilityThreshold + 0.02)
     }
     
-    fileprivate var headerOpacity: CGFloat {
+    private var headerOpacity: CGFloat {
         offScreenOffset.percentageInside(range: 0.35...(navigationBarVisibilityThreshold + 0.01))
     }
     
@@ -68,7 +70,7 @@ public struct MoviesPager: View {
     
     @ViewBuilder
     private func content(for movie: Movie) -> some View {
-        LazyImage(url: movie.posterUrl ?? movie.thumbnailUrl) { state in
+        LazyImage(url: movie.posterUrl ?? movie.posterThumbnailUrl) { state in
             ZStack {
                 if let image = state.image {
                     image.resizable()

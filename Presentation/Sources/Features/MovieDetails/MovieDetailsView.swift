@@ -121,6 +121,7 @@ public struct MovieDetailsView: View {
         if let relatedMovies = store.detailedMovie.relatedMovies?.movies, relatedMovies.isNotEmpty {
             Section {
                 MoviesCollectionView(
+                    type: .poster,
                     movies: .init(uniqueElements: relatedMovies),
                     onMovieTap: { send(.onRelatedMovieTap($0)) }
                 )

@@ -23,7 +23,7 @@ extension MovieDetailsView {
                     if let image = state.image {
                         image.resizable()
                     } else {
-                        LazyImage(url: movie.thumbnailUrl) { state in
+                        LazyImage(url: movie.posterThumbnailUrl) { state in
                             if let image = state.image {
                                 image.resizable()
                             }

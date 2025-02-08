@@ -12,22 +12,26 @@ import Models
 
 public struct MoviesCollectionView: View {
     
+    public enum ContentType {
+        case poster, backdrop
+    }
+    
+    let type: ContentType
     let movies: IdentifiedArrayOf<Movie>
     let onMovieTap: (Movie) -> Void
-    var isMovieLiked: ((Movie) -> Binding<Bool>)? = nil
     
     @Environment(\.namespace) private var namespace: Namespace.ID?
     
-    public init(movies: IdentifiedArrayOf<Movie>, onMovieTap: @escaping (Movie) -> Void, isMovieLiked: ((Movie) -> Binding<Bool>)? = nil) {
+    public init(type: ContentType, movies: IdentifiedArrayOf<Movie>, onMovieTap: @escaping (Movie) -> Void) {
+        self.type = type
         self.movies = movies
         self.onMovieTap = onMovieTap
-        self.isMovieLiked = isMovieLiked
     }
     
     public var body: some View {
         GeometryReader { geometry in
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 20) {
+                LazyHStack(spacing: 8) {
                     ForEach(movies) { movie in
                         Button {
                             onMovieTap(movie)
@@ -45,47 +49,51 @@ public struct MoviesCollectionView: View {
         }
     }
     
-    @MainActor
     @ViewBuilder
     private func ItemView(_ movie: Movie, _ geometry: GeometryProxy) -> some View {
-        let itemWidth = geometry.size.height / 1.8
-        let itemHeight = geometry.size.height - 40
+        let imageUrl = switch type {
+        case .poster: movie.posterThumbnailUrl
+        case .backdrop: movie.backdropThumbnailUrl
+        }
+        
+        let imageRatio: CGFloat = switch type {
+        case .poster: 14/21
+        case .backdrop: 38/21
+        }
             
+        let itemHeight = geometry.size.height - 40
+        let itemWidth = itemHeight * imageRatio
+        
         VStack(alignment: .leading) {
-            ZStack(alignment: .topTrailing) {
-                LazyImage(url: movie.thumbnailUrl) { state in
-                    ZStack {
-                        if let image = state.image {
-                            image.resizable()
-                        } else {
-                            TmdbImagePlaceholder()
-                        }
-                    }
-                    .animation(.smooth, value: state.image)
-                }
-                .scaledToFill()
-                .frame(width: itemWidth, height: itemHeight)
-                .cornerRadius(10)
-                .shadow(radius: 3)
-                .modify { view in
-                    if #available(iOS 18.0, *), let namespace {
-                        let sourceId = movie.id.description + (TransitionSource.collection.rawValue)
-                        view.matchedTransitionSource(id: sourceId, in: namespace)
+            LazyImage(url: imageUrl) { state in
+                ZStack {
+                    if let image = state.image {
+                        image.resizable()
                     } else {
-                        view
+                        TmdbImagePlaceholder()
                     }
                 }
-                
-                if let isMovieLiked {
-                    LikeButton(isLiked: isMovieLiked(movie))
-                        .padding(10)
+                .animation(.smooth, value: state.image)
+            }
+            .frame(width: itemWidth, height: itemHeight)
+            .aspectRatio(imageRatio, contentMode: .fill)
+            .cornerRadius(10)
+            .overlay {
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(.ultraThinMaterial, lineWidth: 1)
+            }
+            .modify { view in
+                if #available(iOS 18.0, *), let namespace {
+                    let sourceId = movie.id.description + (TransitionSource.collection.rawValue)
+                    view.matchedTransitionSource(id: sourceId, in: namespace)
+                } else {
+                    view
                 }
             }
             
             Text(movie.title ?? .empty)
                 .lineLimit(1)
-                .font(.rounded(.subheadline))
-                .fontWeight(.medium)
+                .font(.rounded(.callout, weight: .regular))
                 .padding(.trailing)
                 .padding(.leading, 4)
                 .foregroundColor(.primary)
@@ -99,9 +107,9 @@ public struct MoviesCollectionView: View {
 
 #Preview {
     MoviesCollectionView(
-        movies: IdentifiedArray(uniqueElements: MovieList.mock.movies ?? []),
-        onMovieTap: { _ in },
-        isMovieLiked: { _ in .constant(true) }
+        type: .poster,
+        movies: .init(uniqueElements: MovieList.mock.movies ?? []),
+        onMovieTap: { _ in }
     )
     .frame(height: 280)
 }
