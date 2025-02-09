@@ -122,7 +122,6 @@ public struct MovieDetailsView: View {
             Section {
                 MoviesRow(
                     movies: .init(uniqueElements: relatedMovies),
-                    imageType: .poster,
                     onMovieTap: { send(.onRelatedMovieTap($0)) }
                 )
                 .frame(height: 280)

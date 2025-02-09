@@ -79,7 +79,7 @@ public struct DiscoveryView: View {
             case .watchlist:
                 MoviesRow(
                     movies: movies,
-                    imageType: .backdrop,
+                    listType: listType,
                     onMovieTap: { send(.onMovieTap($0, .pager)) }
                 )
                 .frame(height: 160)
@@ -94,7 +94,7 @@ public struct DiscoveryView: View {
             case .upcoming:
                 MoviesRow(
                     movies: movies,
-                    imageType: .poster,
+                    listType: listType,
                     onMovieTap: { send(.onMovieTap($0, .collection)) }
                 )
                 .frame(height: 260)
@@ -102,7 +102,7 @@ public struct DiscoveryView: View {
             case .popular:
                 MoviesRow(
                     movies: movies,
-                    imageType: .backdrop,
+                    listType: listType,
                     onMovieTap: { send(.onMovieTap($0, .collection)) }
                 )
                 .frame(height: 130)
@@ -110,7 +110,7 @@ public struct DiscoveryView: View {
             case .topRated:
                 MoviesRow(
                     movies: movies,
-                    imageType: .backdrop,
+                    listType: listType,
                     onMovieTap: { send(.onMovieTap($0, .collection)) }
                 )
                 .frame(height: 130)

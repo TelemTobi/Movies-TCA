@@ -14,14 +14,18 @@ import Models
 public struct MoviesRow: View {
     
     let movies: IdentifiedArrayOf<Movie>
-    let imageType: Constants.ImageType
+    let listType: MovieListType?
     let onMovieTap: (Movie) -> Void
     
     @Environment(\.namespace) private var namespace: Namespace.ID?
     
-    public init(movies: IdentifiedArrayOf<Movie>, imageType: Constants.ImageType, onMovieTap: @escaping (Movie) -> Void) {
+    private var imageType: Constants.ImageType {
+        listType?.imageType ?? .poster
+    }
+    
+    public init(movies: IdentifiedArrayOf<Movie>, listType: MovieListType? = nil, onMovieTap: @escaping (Movie) -> Void) {
         self.movies = movies
-        self.imageType = imageType
+        self.listType = listType
         self.onMovieTap = onMovieTap
     }
     
@@ -69,7 +73,7 @@ public struct MoviesRow: View {
 #Preview {
     MoviesRow(
         movies: .init(uniqueElements: MovieList.mock.movies ?? []),
-        imageType: .poster,
+        listType: .watchlist,
         onMovieTap: { _ in }
     )
     .frame(height: 280)

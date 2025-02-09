@@ -14,15 +14,21 @@ public struct MovieCollection {
     
     @ObservableState
     public struct State: Equatable {
-        let collectionLayout: CollectionLayout
-        let listType: MovieListType?
+        let listType: MovieListType
         let movies: IdentifiedArrayOf<Movie>
         
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
         @Shared(.genres) fileprivate var genres: [Genre] = []
         
-        public init(collectionType: CollectionLayout = .list, listType: MovieListType? = nil, movies: IdentifiedArrayOf<Movie>) {
-            self.collectionLayout = collectionType
+        var collectionLayout: CollectionLayout {
+            switch listType {
+            case .watchlist: .list(indexed: false)
+            case .popular, .topRated: .list(indexed: true)
+            case .nowPlaying, .upcoming: .grid
+            }
+        }
+        
+        public init(listType: MovieListType, movies: IdentifiedArrayOf<Movie>) {
             self.listType = listType
             self.movies = movies
         }
@@ -75,7 +81,8 @@ public struct MovieCollection {
 
 public extension MovieCollection {
     enum CollectionLayout {
-        case list, grid
+        case list(indexed: Bool)
+        case grid
     }
 }
 

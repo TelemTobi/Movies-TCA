@@ -23,8 +23,8 @@ public struct MovieCollectionView: View {
     public var body: some View {
         Group {
             switch store.collectionLayout {
-            case .list:
-                listView()
+            case let .list(indexed):
+                listView(indexed)
             case .grid:
                 gridView()
             }
@@ -33,10 +33,10 @@ public struct MovieCollectionView: View {
         .scrollIndicators(.hidden)
         .backgroundColor(.background)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(store.listType?.title ?? "")
+        .navigationTitle(store.listType.title)
     }
     
-    private func listView() -> some View {
+    private func listView(_ indexed: Bool) -> some View {
         List {
             ForEach(Array(store.movies.enumerated()), id: \.offset) { index, movie in
                 Button {
@@ -44,7 +44,7 @@ public struct MovieCollectionView: View {
                 } label: {
                     MovieListItem(
                         movie: movie,
-                        index: index + 1,
+                        index: indexed ? index + 1 : nil,
                         imageType: .backdrop
                     )
                 }
@@ -61,7 +61,10 @@ public struct MovieCollectionView: View {
     
     @ViewBuilder
     private func gridView() -> some View {
-        let columns: [GridItem] = .init(repeating: GridItem(.flexible()), count: 2)
+        let columns: [GridItem] = .init(
+            repeating: GridItem(.flexible(), spacing: 20),
+            count: 2
+        )
         
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
