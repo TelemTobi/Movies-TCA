@@ -8,7 +8,7 @@
 import XCTest
 import ComposableArchitecture
 @testable import DiscoveryNavigator
-@testable import MovieListFeature
+@testable import MovieCollectionFeature
 @testable import PreferencesFeature
 @testable import MovieNavigator
 @testable import Models
@@ -25,7 +25,7 @@ final class DiscoveryNavigatorTests: XCTestCase {
         let mockMovieList: IdentifiedArrayOf<Movie> = .init(uniqueElements: [Movie.mock])
         
         await store.send(\.root.navigation.pushMovieList, (.nowPlaying, mockMovieList)) { state in
-            state.path.append(.movieList(MovieList.State(listType: .nowPlaying, movies: mockMovieList)))
+            state.path.append(.movieList(MovieCollection.State(listType: .nowPlaying, movies: mockMovieList)))
         }
         
         await store.send(\.path.popFrom, 0) { state in
@@ -46,7 +46,7 @@ final class DiscoveryNavigatorTests: XCTestCase {
         
         let mockMovieList: IdentifiedArrayOf<Movie> = .init(uniqueElements: [Movie.mock])
         await store.send(\.root.navigation.pushMovieList, (.nowPlaying, mockMovieList)) { state in
-            state.path.append(.movieList(MovieList.State(listType: .nowPlaying, movies: mockMovieList)))
+            state.path.append(.movieList(MovieCollection.State(listType: .nowPlaying, movies: mockMovieList)))
         }
         
         await store.send(\.path[id: 0].movieList.navigation.presentMovie, mockMovie) { state in

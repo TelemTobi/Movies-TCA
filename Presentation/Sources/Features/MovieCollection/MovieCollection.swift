@@ -1,5 +1,5 @@
 //
-//  MovieList.swift
+//  MovieCollection.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 26/11/2023.
@@ -10,16 +10,19 @@ import ComposableArchitecture
 import Models
 
 @Reducer
-public struct MovieList {
+public struct MovieCollection {
     
     @ObservableState
     public struct State: Equatable {
-        var listType: MovieListType?
-        var movies: IdentifiedArrayOf<Movie> = []
+        let collectionLayout: CollectionLayout
+        let listType: MovieListType?
+        let movies: IdentifiedArrayOf<Movie>
         
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
+        @Shared(.genres) fileprivate var genres: [Genre] = []
         
-        public init(listType: MovieListType? = nil, movies: IdentifiedArrayOf<Movie>) {
+        public init(collectionType: CollectionLayout = .list, listType: MovieListType? = nil, movies: IdentifiedArrayOf<Movie>) {
+            self.collectionLayout = collectionType
             self.listType = listType
             self.movies = movies
         }
@@ -70,8 +73,14 @@ public struct MovieList {
     }
 }
 
+public extension MovieCollection {
+    enum CollectionLayout {
+        case list, grid
+    }
+}
+
 extension DependencyValues {
-    fileprivate var interactor: MovieListInteractor {
-        get { self[MovieListInteractor.self] }
+    fileprivate var interactor: MovieCollectionInteractor {
+        get { self[MovieCollectionInteractor.self] }
     }
 }

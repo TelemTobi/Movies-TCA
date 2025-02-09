@@ -10,7 +10,7 @@ let package = Package(
         
         .library(name: "DiscoveryFeature", targets: ["DiscoveryFeature"]),
         .library(name: "MovieDetailsFeature", targets: ["MovieDetailsFeature"]),
-        .library(name: "MovieListFeature", targets: ["MovieListFeature"]),
+        .library(name: "MovieCollectionFeature", targets: ["MovieCollectionFeature"]),
         .library(name: "PreferencesFeature", targets: ["PreferencesFeature"]),
         .library(name: "SearchFeature", targets: ["SearchFeature"]),
         .library(name: "SplashFeature", targets: ["SplashFeature"]),
@@ -53,7 +53,7 @@ let package = Package(
             dependencies: [
                 "DiscoveryFeature",
                 "MovieDetailsFeature",
-                "MovieListFeature",
+                "MovieCollectionFeature",
                 "PreferencesFeature",
                 "SearchFeature",
                 "SplashFeature",
@@ -85,8 +85,8 @@ let features: [PackageDescription.Target] = [
         path: "Sources/Features/MovieDetails"
     ),
     .target(
-        name: "MovieListFeature",
-        path: "Sources/Features/MovieList"
+        name: "MovieCollectionFeature",
+        path: "Sources/Features/MovieCollection"
     ),
     .target(
         name: "PreferencesFeature",
@@ -126,7 +126,7 @@ let navigators: [PackageDescription.Target] = [
         name: "DiscoveryNavigator",
         dependencies: [
             "DiscoveryFeature",
-            "MovieListFeature",
+            "MovieCollectionFeature",
             "PreferencesFeature",
             "MovieNavigator"
         ],

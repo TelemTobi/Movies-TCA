@@ -120,9 +120,9 @@ public struct MovieDetailsView: View {
     private func RelatedMoviesSection() -> some View {
         if let relatedMovies = store.detailedMovie.relatedMovies?.movies, relatedMovies.isNotEmpty {
             Section {
-                MoviesCollectionView(
-                    type: .poster,
+                MoviesRow(
                     movies: .init(uniqueElements: relatedMovies),
+                    imageType: .poster,
                     onMovieTap: { send(.onRelatedMovieTap($0)) }
                 )
                 .frame(height: 280)

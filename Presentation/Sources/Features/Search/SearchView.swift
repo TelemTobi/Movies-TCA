@@ -110,11 +110,9 @@ public struct SearchView: View {
             } label: {
                 MovieListItem(
                     movie: movie,
-                    isLiked: .init(
-                        get: { store.watchlist.contains(movie) },
-                        set: { _ in send(.onMovieLike(movie)) }
-                    )
+                    imageType: .poster
                 )
+                .frame(height: 220)
             }
             .buttonStyle(.plain)
         }

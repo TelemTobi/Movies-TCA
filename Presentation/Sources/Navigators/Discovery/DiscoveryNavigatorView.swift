@@ -8,7 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import DiscoveryFeature
-import MovieListFeature
+import MovieCollectionFeature
 import PreferencesFeature
 import MovieNavigator
 import DesignSystem
@@ -44,7 +44,7 @@ public extension DiscoveryNavigator {
                 destination: { store in
                     switch store.case {
                     case let .movieList(store):
-                        MovieListView(store: store)
+                        MovieCollectionView(store: store)
                     }
                 }
             )

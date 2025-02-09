@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import DiscoveryFeature
-import MovieListFeature
+import MovieCollectionFeature
 import PreferencesFeature
 import MovieNavigator
 import DesignSystem
@@ -61,7 +61,7 @@ public struct DiscoveryNavigator {
                 return .none
                 
             case let .root(.navigation(.pushMovieList(listType, movies))):
-                let movieListState = MovieList.State(listType: listType, movies: movies)
+                let movieListState = MovieCollection.State(listType: listType, movies: movies)
                 state.path.append(.movieList(movieListState))
                 return .none
                 
@@ -84,6 +84,6 @@ extension DiscoveryNavigator {
     
     @Reducer(state: .equatable)
     public enum Path {
-        case movieList(MovieList)
+        case movieList(MovieCollection)
     }
 }

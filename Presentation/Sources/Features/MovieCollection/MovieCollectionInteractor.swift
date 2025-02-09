@@ -10,7 +10,7 @@ import Dependencies
 import Models
 import Domain
 
-struct MovieListInteractor: Sendable {
+struct MovieCollectionInteractor: Sendable {
     @Dependency(\.useCases.movie) private var movieUseCases
     
     func toggleWatchlist(for movie: Movie) async {
@@ -18,7 +18,7 @@ struct MovieListInteractor: Sendable {
     }
 }
 
-extension MovieListInteractor: DependencyKey {
-    static let liveValue = MovieListInteractor()
-    static let testValue = MovieListInteractor()
+extension MovieCollectionInteractor: DependencyKey {
+    static let liveValue = MovieCollectionInteractor()
+    static let testValue = MovieCollectionInteractor()
 }

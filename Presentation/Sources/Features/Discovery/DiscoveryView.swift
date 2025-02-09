@@ -46,13 +46,12 @@ public struct DiscoveryView: View {
                 ForEach(MovieListType.allCases, id: \.self) { listType in
                     switch listType {
                     case .watchlist:
-                        sectionView(
-                            listType: .watchlist,
-                            movies: store.watchlist
-                        )
+                        if store.watchlist.isNotEmpty {
+                            sectionView(listType: .watchlist, movies: store.watchlist)
+                        }
                         
                     default:
-                        if let movies = lists[listType] {
+                        if let movies = lists[listType], movies.isNotEmpty {
                             sectionView(listType: listType, movies: movies)
                         }
                     }
@@ -78,9 +77,9 @@ public struct DiscoveryView: View {
             
             switch listType {
             case .watchlist:
-                MoviesCollectionView(
-                    type: .backdrop,
+                MoviesRow(
                     movies: movies,
+                    imageType: .backdrop,
                     onMovieTap: { send(.onMovieTap($0, .pager)) }
                 )
                 .frame(height: 160)
@@ -93,25 +92,25 @@ public struct DiscoveryView: View {
                 .aspectRatio(14/21, contentMode: .fill)
                 
             case .upcoming:
-                MoviesCollectionView(
-                    type: .poster,
+                MoviesRow(
                     movies: movies,
+                    imageType: .poster,
                     onMovieTap: { send(.onMovieTap($0, .collection)) }
                 )
                 .frame(height: 260)
                 
             case .popular:
-                MoviesCollectionView(
-                    type: .backdrop,
+                MoviesRow(
                     movies: movies,
+                    imageType: .backdrop,
                     onMovieTap: { send(.onMovieTap($0, .collection)) }
                 )
                 .frame(height: 130)
                 
             case .topRated:
-                MoviesCollectionView(
-                    type: .backdrop,
+                MoviesRow(
                     movies: movies,
+                    imageType: .backdrop,
                     onMovieTap: { send(.onMovieTap($0, .collection)) }
                 )
                 .frame(height: 130)

@@ -57,16 +57,13 @@ public struct WatchlistView: View {
             } label: {
                 MovieListItem(
                     movie: movie,
-                    isLiked: .init(
-                        get: { true },
-                        set: { _ in send(.onMovieDislike(movie)) }
-                    )
+                    imageType: .poster
                 )
             }
             .buttonStyle(.plain)
-            .listRowInsets(.zero)
             .listRowBackground(Color.clear)
             .listSectionSeparator(.hidden, edges: .top)
+            .frame(height: 220)
         }
         .listStyle(.plain)
         .scrollIndicators(.hidden)
