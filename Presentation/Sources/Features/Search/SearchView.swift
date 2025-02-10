@@ -24,15 +24,18 @@ public struct SearchView: View {
     
     public var body: some View {
         ZStack {
-            if store.isLoading {
+            switch store.viewState {
+            case .suggestions:
+                suggestionsView()
+            case .loading:
                 ProgressView()
-            } else {
-                contentView()
+            case let .searchResult(movies):
+                resultsView(movies)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .backgroundColor(.background)
-        .animation(.snappy, value: store.isLoading)
+        .animation(.snappy, value: store.viewState)
         .navigationTitle(.localized(.search))
         .toolbar(content: toolbarContent)
         .searchable(
@@ -56,39 +59,20 @@ public struct SearchView: View {
     }
     
     @ViewBuilder
-    private func contentView() -> some View {
-        List {
-            Group {
-                if store.isSearchActive {
-                    resultsView()
-                        .alignmentGuide(.listRowSeparatorLeading) { _ in
-                            80 * Constants.ImageType.backdrop.ratio
-                        }
-                    
-                } else {
-                    suggestionsView()
-                        .listRowSeparator(.hidden)
-                }
-            }
-            .listRowBackground(Color.clear)
-            .listSectionSeparator(.hidden, edges: [.top, .bottom])
-        }
-        .listStyle(.plain)
-        .scrollIndicators(.hidden)
-    }
-    
-    @ViewBuilder
     private func suggestionsView() -> some View {
         let columns: [GridItem] = .init(
             repeating: GridItem(.flexible(), spacing: 12),
             count: 2
         )
         
-        LazyVGrid(columns: columns, spacing: 12) {
-            ForEach(store.genres) { genre in
-                genreGridItem(genre)
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 12) {
+                ForEach(store.genres) { genre in
+                    genreGridItem(genre)
+                }
             }
         }
+        .padding(.horizontal)
     }
     
     @ViewBuilder
@@ -125,19 +109,28 @@ public struct SearchView: View {
     }
     
     @ViewBuilder
-    private func resultsView() -> some View {
-        ForEach(store.results) { movie in
-            Button {
-                send(.onMovieTap(movie))
-            } label: {
-                MovieListItem(
-                    movie: movie,
-                    imageType: .backdrop
-                )
-                .frame(height: 70)
+    private func resultsView(_ movies: IdentifiedArrayOf<Movie>) -> some View {
+        List {
+            ForEach(movies) { movie in
+                Button {
+                    send(.onMovieTap(movie))
+                } label: {
+                    MovieListItem(
+                        movie: movie,
+                        imageType: .backdrop
+                    )
+                    .frame(height: 70)
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
+            .scrollIndicators(.hidden)
+            .listRowBackground(Color.clear)
+            .listSectionSeparator(.hidden, edges: [.top, .bottom])
+            .alignmentGuide(.listRowSeparatorLeading) { _ in
+                80 * Constants.ImageType.backdrop.ratio
+            }
         }
+        .listStyle(.plain)
     }
 }
 
