@@ -121,7 +121,7 @@ public struct MoviesPager: View {
     @ToolbarContentBuilder
     private func toolbarContent() -> some ToolbarContent {
         ToolbarItem(placement: .principal) {
-            Text(.localized(.discovery))
+            Text(.localized(.movies))
                 .font(.rounded(.headline))
                 .multilineTextAlignment(.center)
                 .opacity(navigationTitleOpacity)

@@ -1,5 +1,5 @@
 //
-//  DiscoveryTests.swift
+//  MoviesHomepageTests.swift
 //  Movies-TCA-Tests
 //
 //  Created by Telem Tobi on 27/03/2024.
@@ -7,15 +7,15 @@
 
 import XCTest
 import ComposableArchitecture
-@testable import DiscoveryFeature
+@testable import MoviesHomepageFeature
 @testable import Models
 
 @MainActor
-final class DiscoveryTests: XCTestCase {
+final class MoviesHomepageTests: XCTestCase {
     
     var store = TestStore(
-        initialState: Discovery.State(),
-        reducer: Discovery.init
+        initialState: MoviesHomepage.State(),
+        reducer: MoviesHomepage.init
     )
     
     func testFetchMovieLists() async { // TODO: Figure out how to test properly

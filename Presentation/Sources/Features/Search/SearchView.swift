@@ -24,7 +24,7 @@ public struct SearchView: View {
             if store.isLoading {
                 ProgressView()
             } else {
-                ContentView()
+                contentView()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -53,15 +53,15 @@ public struct SearchView: View {
     }
     
     @ViewBuilder
-    private func ContentView() -> some View {
+    private func contentView() -> some View {
         List {
             Group {
                 if store.isSearchActive {
-                    ResultsView()
+                    resultsView()
                         .listRowInsets(.zero)
                     
                 } else {
-                    SuggestionsView()
+                    suggestionsView()
                         .listRowSeparator(.hidden)
                 }
             }
@@ -73,7 +73,7 @@ public struct SearchView: View {
     }
     
     @ViewBuilder
-    private func SuggestionsView() -> some View {
+    private func suggestionsView() -> some View {
         let delays = Array(0..<store.genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()
         
         CapsulesView(items: store.genres) { index, genre in
@@ -103,7 +103,7 @@ public struct SearchView: View {
     
     @MainActor
     @ViewBuilder
-    private func ResultsView() -> some View {
+    private func resultsView() -> some View {
         ForEach(store.results) { movie in
             Button {
                 send(.onMovieTap(movie))

@@ -1,5 +1,5 @@
 //
-//  DiscoveryInteractor.swift
+//  MoviesHomepageInteractor.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 29/01/2025.
@@ -10,7 +10,7 @@ import Dependencies
 import Models
 import Domain
 
-struct DiscoveryInteractor: Sendable {
+struct MoviesHomepageInteractor: Sendable {
     @Dependency(\.useCases.movies) private var moviesUseCases
     @Dependency(\.useCases.movie) private var movieUseCases
     
@@ -27,7 +27,7 @@ struct DiscoveryInteractor: Sendable {
     }
 }
 
-extension DiscoveryInteractor: DependencyKey {
-    static let liveValue = DiscoveryInteractor()
-    static let testValue = DiscoveryInteractor()
+extension MoviesHomepageInteractor: DependencyKey {
+    static let liveValue = MoviesHomepageInteractor()
+    static let testValue = MoviesHomepageInteractor()
 }

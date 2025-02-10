@@ -1,5 +1,5 @@
 //
-//  Discovery.swift
+//  MoviesHomepage.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 11/11/2023.
@@ -12,7 +12,7 @@ import Models
 import DesignSystem
 
 @Reducer
-public struct Discovery {
+public struct MoviesHomepage {
     
     @ObservableState
     public struct State: Equatable {
@@ -105,7 +105,7 @@ public struct Discovery {
     }
 }
 
-public extension Discovery {
+public extension MoviesHomepage {
     enum ViewState: Equatable {
         case loading
         case loaded([MovieListType: IdentifiedArrayOf<Movie>])
@@ -113,7 +113,7 @@ public extension Discovery {
 }
 
 extension DependencyValues {
-    fileprivate var interactor: DiscoveryInteractor {
-        get { self[DiscoveryInteractor.self] }
+    fileprivate var interactor: MoviesHomepageInteractor {
+        get { self[MoviesHomepageInteractor.self] }
     }
 }

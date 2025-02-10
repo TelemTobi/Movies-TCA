@@ -1,5 +1,5 @@
 //
-//  DiscoveryView.swift
+//  MoviesHomepageView.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 11/11/2023.
@@ -12,12 +12,12 @@ import Core
 import Models
 import DesignSystem
 
-@ViewAction(for: Discovery.self)
-public struct DiscoveryView: View {
+@ViewAction(for: MoviesHomepage.self)
+public struct MoviesHomepageView: View {
     
-    public let store: StoreOf<Discovery>
+    public let store: StoreOf<MoviesHomepage>
         
-    public init(store: StoreOf<Discovery>) {
+    public init(store: StoreOf<MoviesHomepage>) {
         self.store = store
     }
     
@@ -32,7 +32,7 @@ public struct DiscoveryView: View {
             }
         }
         .ignoresSafeArea(edges: .top)
-        .navigationTitle(.localized(.discovery))
+        .navigationTitle(.localized(.movies))
         .navigationBarTitleDisplayMode(.inline)
         .animation(.smooth, value: store.viewState)
         .backgroundColor(.background)
@@ -106,10 +106,10 @@ public struct DiscoveryView: View {
 
 #Preview {
     NavigationStack {
-        DiscoveryView(
+        MoviesHomepageView(
             store: Store(
-                initialState: Discovery.State(),
-                reducer: { Discovery() }
+                initialState: MoviesHomepage.State(),
+                reducer: { MoviesHomepage() }
             )
         )
     }

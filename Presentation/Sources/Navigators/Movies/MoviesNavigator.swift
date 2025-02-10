@@ -1,5 +1,5 @@
 //
-//  DiscoveryNavigator.swift
+//  MoviesNavigator.swift
 //  Presentation
 //
 //  Created by Telem Tobi on 17/03/2024.
@@ -7,18 +7,18 @@
 
 import Foundation
 import ComposableArchitecture
-import DiscoveryFeature
+import MoviesHomepageFeature
 import MovieCollectionFeature
 import PreferencesFeature
 import MovieNavigator
 import DesignSystem
 
 @Reducer
-public struct DiscoveryNavigator {
+public struct MoviesNavigator {
     
     @ObservableState
     public struct State: Equatable {
-        var root = Discovery.State()
+        var root = MoviesHomepage.State()
         var path = StackState<Path.State>()
         @Presents var destination: Destination.State?
         
@@ -31,7 +31,7 @@ public struct DiscoveryNavigator {
     }
     
     public enum Action {
-        case root(Discovery.Action)
+        case root(MoviesHomepage.Action)
         case path(StackAction<Path.State, Path.Action>)
         case destination(PresentationAction<Destination.Action>)
     }
@@ -39,7 +39,7 @@ public struct DiscoveryNavigator {
     public init() {}
 
     public var body: some ReducerOf<Self> {
-        Scope(state: \.root, action: \.root, child: Discovery.init)
+        Scope(state: \.root, action: \.root, child: MoviesHomepage.init)
         
         Reduce { state, action in
             switch action {
@@ -74,7 +74,7 @@ public struct DiscoveryNavigator {
     }
 }
 
-extension DiscoveryNavigator {
+extension MoviesNavigator {
         
     @Reducer(state: .equatable)
     public enum Destination {

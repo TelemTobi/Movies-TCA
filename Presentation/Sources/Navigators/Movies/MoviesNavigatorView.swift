@@ -1,22 +1,25 @@
 //
-//  WatchlistNavigatorView.swift
+//  MoviesNavigatorView.swift
 //  Presentation
 //
-//  Created by Telem Tobi on 24/03/2024.
+//  Created by Telem Tobi on 17/03/2024.
 //
 
 import SwiftUI
 import ComposableArchitecture
-import WatchlistFeature
-import MovieNavigator
+import MoviesHomepageFeature
+import MovieCollectionFeature
 import PreferencesFeature
+import MovieNavigator
+import DesignSystem
 
-public extension WatchlistNavigator {
+public extension MoviesNavigator {
+    
     struct ContentView: View {
         
-        @Bindable public var store: StoreOf<WatchlistNavigator>
+        @Bindable public var store: StoreOf<MoviesNavigator>
         
-        public init(store: StoreOf<WatchlistNavigator>) {
+        public init(store: StoreOf<MoviesNavigator>) {
             self.store = store
         }
         
@@ -24,7 +27,7 @@ public extension WatchlistNavigator {
             NavigationStack(
                 path: $store.scope(state: \.path, action: \.path),
                 root: {
-                    WatchlistView(store: store.scope(state: \.root, action: \.root))
+                    MoviesHomepageView(store: store.scope(state: \.root, action: \.root))
                         .fullScreenCover(
                             item: $store.scope(state: \.destination, action: \.destination),
                             content: { store in
@@ -39,9 +42,13 @@ public extension WatchlistNavigator {
                         )
                 },
                 destination: { store in
-                    
+                    switch store.case {
+                    case let .movieList(store):
+                        MovieCollectionView(store: store)
+                    }
                 }
             )
+            .environment(\.transitionSource, store.transitionSource)
         }
         
         @MainActor
@@ -61,12 +68,11 @@ public extension WatchlistNavigator {
 }
 
 #Preview {
-    WatchlistNavigator.ContentView(
+    MoviesNavigator.ContentView(
         store: Store(
-            initialState: WatchlistNavigator.State(),
-            reducer: WatchlistNavigator.init
+            initialState: MoviesNavigator.State(),
+            reducer: MoviesNavigator.init
         )
     )
 }
-
 

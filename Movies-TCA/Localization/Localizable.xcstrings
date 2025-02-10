@@ -188,23 +188,6 @@
         }
       }
     },
-    "discovery" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Discovery"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "המלצות"
-          }
-        }
-      }
-    },
     "done" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -303,6 +286,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "עוד"
+          }
+        }
+      }
+    },
+    "movies" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Movies"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "סרטים"
           }
         }
       }

@@ -1,5 +1,5 @@
 //
-//  DiscoveryNavigatorTests.swift
+//  MoviesNavigatorTests.swift
 //  Movies-TCA-Tests
 //
 //  Created by Telem Tobi on 01/04/2024.
@@ -7,18 +7,18 @@
 
 import XCTest
 import ComposableArchitecture
-@testable import DiscoveryNavigator
+@testable import MoviesNavigator
 @testable import MovieCollectionFeature
 @testable import PreferencesFeature
 @testable import MovieNavigator
 @testable import Models
 
 @MainActor
-final class DiscoveryNavigatorTests: XCTestCase {
+final class MoviesNavigatorTests: XCTestCase {
     
     var store = TestStore(
-        initialState: DiscoveryNavigator.State(),
-        reducer: DiscoveryNavigator.init
+        initialState: MoviesNavigator.State(),
+        reducer: MoviesNavigator.init
     )
     
     func testPushMovieList() async {

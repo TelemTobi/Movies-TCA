@@ -7,22 +7,20 @@
 
 import Foundation
 import ComposableArchitecture
-import DiscoveryNavigator
+import MoviesNavigator
 import SearchNavigator
-import WatchlistNavigator
 
 @Reducer
 public struct HomeNavigator {
     
     @ObservableState
     public struct State: Equatable {
-        var selectedTab: Tab = .discovery
+        var selectedTab: Tab = .movies
         
-        var discover = DiscoveryNavigator.State()
+        var movies = MoviesNavigator.State()
         var search = SearchNavigator.State()
-        var watchlist = WatchlistNavigator.State()
         
-        public init(selectedTab: Tab = .discovery) {
+        public init(selectedTab: Tab = .movies) {
             self.selectedTab = selectedTab
         }
     }
@@ -30,19 +28,16 @@ public struct HomeNavigator {
     public enum Action {
         case onTabSelection(Tab)
         
-        case discover(DiscoveryNavigator.Action)
+        case movies(MoviesNavigator.Action)
         case search(SearchNavigator.Action)
-        case watchlist(WatchlistNavigator.Action)
     }
     
     public init() {}
 
     public var body: some ReducerOf<Self> {
-        Scope(state: \.discover, action: \.discover, child: DiscoveryNavigator.init)
+        Scope(state: \.movies, action: \.movies, child: MoviesNavigator.init)
         
         Scope(state: \.search, action: \.search, child: SearchNavigator.init)
-        
-        Scope(state: \.watchlist, action: \.watchlist, child: WatchlistNavigator.init)
         
         Reduce { state, action in
             switch action {
@@ -50,7 +45,7 @@ public struct HomeNavigator {
                 state.selectedTab = tab
                 return .none
                 
-            case .discover, .search, .watchlist:
+            case .movies, .search:
                 return .none
             }
         }
@@ -60,8 +55,7 @@ public struct HomeNavigator {
 extension HomeNavigator {
     
     public enum Tab {
-        case discovery
+        case movies
         case search
-        case watchlist
     }
 }

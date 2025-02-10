@@ -8,20 +8,18 @@ let package = Package(
     products: [
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
         
-        .library(name: "DiscoveryFeature", targets: ["DiscoveryFeature"]),
+        .library(name: "MoviesHomepageFeature", targets: ["MoviesHomepageFeature"]),
         .library(name: "MovieDetailsFeature", targets: ["MovieDetailsFeature"]),
         .library(name: "MovieCollectionFeature", targets: ["MovieCollectionFeature"]),
         .library(name: "PreferencesFeature", targets: ["PreferencesFeature"]),
         .library(name: "SearchFeature", targets: ["SearchFeature"]),
         .library(name: "SplashFeature", targets: ["SplashFeature"]),
-        .library(name: "WatchlistFeature", targets: ["WatchlistFeature"]),
         
-        .library(name: "DiscoveryNavigator", targets: ["DiscoveryNavigator"]),
         .library(name: "HomeNavigator", targets: ["HomeNavigator"]),
+        .library(name: "MoviesNavigator", targets: ["MoviesNavigator"]),
         .library(name: "MovieNavigator", targets: ["MovieNavigator"]),
         .library(name: "RootNavigator", targets: ["RootNavigator"]),
         .library(name: "SearchNavigator", targets: ["SearchNavigator"]),
-        .library(name: "WatchlistNavigator", targets: ["WatchlistNavigator"]),
     ],
     dependencies: [
         .package(path: "../Core"),
@@ -51,19 +49,17 @@ let package = Package(
         .testTarget(
             name: "PresentationTests",
             dependencies: [
-                "DiscoveryFeature",
+                "MoviesHomepageFeature",
                 "MovieDetailsFeature",
                 "MovieCollectionFeature",
                 "PreferencesFeature",
                 "SearchFeature",
                 "SplashFeature",
-                "WatchlistFeature",
-                "DiscoveryNavigator",
                 "HomeNavigator",
+                "MoviesNavigator",
                 "MovieNavigator",
                 "RootNavigator",
                 "SearchNavigator",
-                "WatchlistNavigator",
                 .product(name: "Core", package: "Core"),
                 .product(name: "Models", package: "Data"),
                 .product(name: "Domain", package: "Domain")
@@ -77,8 +73,8 @@ let package = Package(
 
 let features: [PackageDescription.Target] = [
     .target(
-        name: "DiscoveryFeature",
-        path: "Sources/Features/Discovery"
+        name: "MoviesHomepageFeature",
+        path: "Sources/Features/MoviesHomepage"
     ),
     .target(
         name: "MovieDetailsFeature",
@@ -99,10 +95,6 @@ let features: [PackageDescription.Target] = [
     .target(
         name: "SplashFeature",
         path: "Sources/Features/Splash"
-    ),
-    .target(
-        name: "WatchlistFeature",
-        path: "Sources/Features/Watchlist"
     )
 ]
 
@@ -123,23 +115,22 @@ for target in features {
 
 let navigators: [PackageDescription.Target] = [
     .target(
-        name: "DiscoveryNavigator",
+        name: "HomeNavigator",
         dependencies: [
-            "DiscoveryFeature",
+            "MoviesNavigator",
+            "SearchNavigator"
+        ],
+        path: "Sources/Navigators/Home"
+    ),
+    .target(
+        name: "MoviesNavigator",
+        dependencies: [
+            "MoviesHomepageFeature",
             "MovieCollectionFeature",
             "PreferencesFeature",
             "MovieNavigator"
         ],
-        path: "Sources/Navigators/Discovery"
-    ),
-    .target(
-        name: "HomeNavigator",
-        dependencies: [
-            "DiscoveryNavigator",
-            "SearchNavigator",
-            "WatchlistNavigator"
-        ],
-        path: "Sources/Navigators/Home"
+        path: "Sources/Navigators/Movies"
     ),
     .target(
         name: "MovieNavigator",
@@ -164,15 +155,6 @@ let navigators: [PackageDescription.Target] = [
             "MovieNavigator"
         ],
         path: "Sources/Navigators/Search"
-    ),
-    .target(
-        name: "WatchlistNavigator",
-        dependencies: [
-            "WatchlistFeature",
-            "PreferencesFeature",
-            "MovieNavigator"
-        ],
-        path: "Sources/Navigators/Watchlist"
     )
 ]
 
