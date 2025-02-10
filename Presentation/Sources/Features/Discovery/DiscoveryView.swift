@@ -76,14 +76,6 @@ public struct DiscoveryView: View {
             }
             
             switch listType {
-            case .watchlist:
-                MoviesRow(
-                    movies: movies,
-                    listType: listType,
-                    onMovieTap: { send(.onMovieTap($0, .pager)) }
-                )
-                .frame(height: 160)
-                
             case .nowPlaying:
                 MoviesPager(
                     movies: movies,
@@ -91,29 +83,21 @@ public struct DiscoveryView: View {
                 )
                 .aspectRatio(14/21, contentMode: .fill)
                 
-            case .upcoming:
-                MoviesRow(
-                    movies: movies,
-                    listType: listType,
-                    onMovieTap: { send(.onMovieTap($0, .collection)) }
-                )
-                .frame(height: 260)
+            case .watchlist, .upcoming, .popular, .topRated:
+                let rowHeight: CGFloat? = switch listType {
+                case .watchlist: 160
+                case .upcoming: 260
+                case .popular: 130
+                case .topRated: 130
+                default: nil
+                }
                 
-            case .popular:
                 MoviesRow(
                     movies: movies,
                     listType: listType,
                     onMovieTap: { send(.onMovieTap($0, .collection)) }
                 )
-                .frame(height: 130)
-                
-            case .topRated:
-                MoviesRow(
-                    movies: movies,
-                    listType: listType,
-                    onMovieTap: { send(.onMovieTap($0, .collection)) }
-                )
-                .frame(height: 130)
+                .frame(height: rowHeight)
             }
         }
     }

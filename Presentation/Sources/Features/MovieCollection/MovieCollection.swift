@@ -22,7 +22,7 @@ public struct MovieCollection {
         
         var collectionLayout: CollectionLayout {
             switch listType {
-            case .watchlist: .list(indexed: false)
+            case .watchlist: .list(indexed: false, editable: true)
             case .popular, .topRated: .list(indexed: true)
             case .nowPlaying, .upcoming: .grid
             }
@@ -39,6 +39,7 @@ public struct MovieCollection {
         public enum View: Equatable {
             case onMovieTap(Movie)
             case onMovieLike(Movie)
+            case onDeleteAction(Movie)
         }
         
         @CasePathable
@@ -75,13 +76,22 @@ public struct MovieCollection {
             return .run { _ in
                 await interactor.toggleWatchlist(for: movie)
             }
+            
+        case let .onDeleteAction(movie):
+            switch state.listType {
+            case .watchlist:
+                let _ = state.$watchlist.withLock { $0.remove(movie) }
+            default:
+                break
+            }
+            return .none
         }
     }
 }
 
 public extension MovieCollection {
     enum CollectionLayout {
-        case list(indexed: Bool)
+        case list(indexed: Bool, editable: Bool = false)
         case grid
     }
 }

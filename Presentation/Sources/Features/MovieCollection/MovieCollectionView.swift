@@ -23,8 +23,8 @@ public struct MovieCollectionView: View {
     public var body: some View {
         Group {
             switch store.collectionLayout {
-            case let .list(indexed):
-                listView(indexed)
+            case let .list(indexed, editable):
+                listView(indexed, editable)
             case .grid:
                 gridView()
             }
@@ -36,7 +36,7 @@ public struct MovieCollectionView: View {
         .navigationTitle(store.listType.title)
     }
     
-    private func listView(_ indexed: Bool) -> some View {
+    private func listView(_ indexed: Bool, _ editable: Bool) -> some View {
         List {
             ForEach(Array(store.movies.enumerated()), id: \.offset) { index, movie in
                 Button {
@@ -47,6 +47,15 @@ public struct MovieCollectionView: View {
                         index: indexed ? index + 1 : nil,
                         imageType: .backdrop
                     )
+                    .swipeActions(edge: .trailing) {
+                        if editable {
+                            Button(role: .destructive) {
+                                send(.onDeleteAction(movie))
+                            } label: {
+                                Image(systemName: "trash.fill")
+                            }
+                        }
+                    }
                 }
                 .buttonStyle(.plain)
                 .frame(height: 70)
