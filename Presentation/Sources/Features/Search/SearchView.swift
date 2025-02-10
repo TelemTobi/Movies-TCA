@@ -5,9 +5,12 @@
 //  Created by Telem Tobi on 24/11/2023.
 //
 
+import UIKit
 import SwiftUI
 import ComposableArchitecture
+import Core
 import DesignSystem
+import Models
 
 @ViewAction(for: Search.self)
 public struct SearchView: View {
@@ -58,7 +61,9 @@ public struct SearchView: View {
             Group {
                 if store.isSearchActive {
                     resultsView()
-                        .listRowInsets(.zero)
+                        .alignmentGuide(.listRowSeparatorLeading) { _ in
+                            80 * Constants.ImageType.backdrop.ratio
+                        }
                     
                 } else {
                     suggestionsView()
@@ -66,7 +71,7 @@ public struct SearchView: View {
                 }
             }
             .listRowBackground(Color.clear)
-            .listSectionSeparator(.hidden, edges: .top)
+            .listSectionSeparator(.hidden, edges: [.top, .bottom])
         }
         .listStyle(.plain)
         .scrollIndicators(.hidden)
@@ -74,34 +79,51 @@ public struct SearchView: View {
     
     @ViewBuilder
     private func suggestionsView() -> some View {
-        let delays = Array(0..<store.genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()
+        let columns: [GridItem] = .init(
+            repeating: GridItem(.flexible(), spacing: 12),
+            count: 2
+        )
         
-        CapsulesView(items: store.genres) { index, genre in
-            Button(
-                action: {
-                    send(.onGenreTap(genre))
-                },
-                label: {
-                    Text(genre.name ?? .empty)
-                        .font(.rounded(.footnote))
-                        .fontWeight(.medium)
-                }
-            )
-            .buttonStyle(.capsuled)
-            .opacity(didFirstAppear ? 1 : 0)
-            .scaleEffect(didFirstAppear ? 1 : 0.7)
-            .rotationEffect(.degrees(didFirstAppear ? 0 : 10))
-            .animation(
-                .easeInOut(duration: 0.25).delay(delays[index]),
-                value: didFirstAppear
-            )
-        }
-        .onFirstAppear {
-            withAnimation { didFirstAppear = true }
+        LazyVGrid(columns: columns, spacing: 12) {
+            ForEach(store.genres) { genre in
+                genreGridItem(genre)
+            }
         }
     }
     
-    @MainActor
+    @ViewBuilder
+    private func genreGridItem(_ genre: Genre) -> some View {
+        if let image = UIImage(named: genre.id.description) {
+            Button {
+                send(.onGenreTap(genre))
+            } label: {
+                ZStack(alignment: .bottomLeading) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(Constants.ImageType.backdrop.ratio, contentMode: .fill)
+                        .cornerRadius(10)
+                        .overlay {
+                            LinearGradient(
+                                colors: [.clear, .black.opacity(0.3)],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        }
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 10)
+                                .strokeBorder(.ultraThinMaterial, lineWidth: 1)
+                        }
+                    
+                    Text(genre.name ?? "")
+                        .font(.rounded(.body))
+                        .foregroundStyle(.white)
+                        .padding(10)
+                }
+            }
+            .buttonStyle(.plain)
+        }
+    }
+    
     @ViewBuilder
     private func resultsView() -> some View {
         ForEach(store.results) { movie in
@@ -110,9 +132,9 @@ public struct SearchView: View {
             } label: {
                 MovieListItem(
                     movie: movie,
-                    imageType: .poster
+                    imageType: .backdrop
                 )
-                .frame(height: 220)
+                .frame(height: 70)
             }
             .buttonStyle(.plain)
         }

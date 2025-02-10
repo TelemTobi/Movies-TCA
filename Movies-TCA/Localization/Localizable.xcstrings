@@ -313,13 +313,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Explore movies here"
+            "value" : "Shows, Movies and More"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "גלו סרטים כאן"
+            "value" : "סדרות, סרטים ועוד"
           }
         }
       }

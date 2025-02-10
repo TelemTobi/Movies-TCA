@@ -101,5 +101,9 @@ extension TmdbEndpoint: Endpoint {
             TmdbMock.movieDetails.dataEncoded
         }
     }
+    
+    var shouldPrintLogs: Bool {
+        true
+    }
     #endif
 }

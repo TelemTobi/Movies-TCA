@@ -61,7 +61,7 @@ public struct MovieCollectionView: View {
                 .frame(height: 70)
             }
             .listRowBackground(Color.clear)
-            .listSectionSeparator(.hidden, edges: .top)
+            .listSectionSeparator(.hidden, edges: [.top, .bottom])
             .alignmentGuide(.listRowSeparatorLeading) { _ in
                 80 * Constants.ImageType.backdrop.ratio
             }
