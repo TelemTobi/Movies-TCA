@@ -20,4 +20,11 @@ public extension MovieListType {
         case .topRated: .backdrop
         }
     }
+    
+    var indexed: Bool {
+        switch self {
+        case .topRated, .popular: true
+        case .nowPlaying, .upcoming, .watchlist: false
+        }
+    }
 }

@@ -67,17 +67,18 @@ public struct SearchView: View {
         
         ScrollView {
             LazyVGrid(columns: columns, spacing: 12) {
-                ForEach(store.genres) { genre in
+                ForEach(store.genres, id: \.self) { genre in
                     genreGridItem(genre)
                 }
             }
+            .padding(.bottom)
+            .padding(.horizontal)
         }
-        .padding(.horizontal)
     }
     
     @ViewBuilder
     private func genreGridItem(_ genre: Genre) -> some View {
-        if let image = UIImage(named: genre.id.description) {
+        if let image = UIImage(named: genre.rawValue.description) {
             Button {
                 send(.onGenreTap(genre))
             } label: {
@@ -98,8 +99,8 @@ public struct SearchView: View {
                                 .strokeBorder(.ultraThinMaterial, lineWidth: 1)
                         }
                     
-                    Text(genre.name ?? "")
-                        .font(.rounded(.body))
+                    Text(genre.description ?? "")
+                        .font(.rounded(.body, weight: .bold))
                         .foregroundStyle(.white)
                         .padding(10)
                 }

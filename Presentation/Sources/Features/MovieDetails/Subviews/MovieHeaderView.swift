@@ -158,7 +158,7 @@ extension MovieDetailsView {
     }
     
     fileprivate var bulletPoints: String {
-        [store.detailedMovie.movie.genres?.first?.name ?? .localized(.notAvailable),
+        [store.detailedMovie.movie.genres?.first?.description ?? .localized(.notAvailable),
          store.detailedMovie.movie.releaseDate?.year.description ?? .localized(.notAvailable),
          store.detailedMovie.movie.runtime?.durationInHoursAndMinutesShortFormat ?? .localized(.notAvailable)
         ].joined(separator: .dotSeparator)

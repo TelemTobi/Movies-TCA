@@ -80,9 +80,9 @@ public struct Search {
                     .debounce(for: .textInput)
                 
             case let .searchMovies(query):
-                if let genre = state.genres.first(where: { $0.name == query }) {
+                if let genre = state.genres.first(where: { $0.description == query }) {
                     return .run { send in
-                        let discoverResult = await interactor.discoverMovies(by: genre.id)
+                        let discoverResult = await interactor.discoverMovies(by: genre.rawValue)
                         await send(.searchResult(discoverResult))
                     }
                     .debounce(for: .loading)
@@ -118,7 +118,7 @@ public struct Search {
     private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
         switch action {
         case let .onGenreTap(genre):
-            guard let genreName = genre.name else {
+            guard let genreName = genre.description else {
                 return .none
             }
             

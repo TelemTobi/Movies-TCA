@@ -23,6 +23,14 @@ public struct MoviesRow: View {
         listType?.imageType ?? .poster
     }
     
+    private var itemWidth: CGFloat {
+        switch listType {
+        case .watchlist: 240
+        case .popular, .topRated: 160
+        case .upcoming, .nowPlaying, .none: 180
+        }
+    }
+    
     public init(movies: IdentifiedArrayOf<Movie>, listType: MovieListType? = nil, onMovieTap: @escaping (Movie) -> Void) {
         self.movies = movies
         self.listType = listType
@@ -30,32 +38,34 @@ public struct MoviesRow: View {
     }
     
     public var body: some View {
-        GeometryReader { geometry in
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 8) {
-                    ForEach(movies) { movie in
-                        itemView(movie, geometry)
-                    }
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack(spacing: 8) {
+                ForEach(Array(movies.enumerated()), id: \.element.id) { index, movie in
+                    itemView(movie, index + 1)
+                        .frame(width: itemWidth)
                 }
-                .padding(.vertical)
-                .padding(.horizontal, 16)
-                .scrollTargetLayout()
             }
-            .scrollTargetBehavior(.viewAligned)
+            .padding(.vertical)
+            .padding(.horizontal, 16)
+            .scrollTargetLayout()
         }
+        .scrollTargetBehavior(.viewAligned)
     }
     
-    private func itemView(_ movie: Movie, _ geometry: GeometryProxy) -> some View {
+    @ViewBuilder
+    private func itemView(_ movie: Movie, _ index: Int) -> some View {
+        let index = listType?.indexed == true ? index : nil
+        
         Button {
             onMovieTap(movie)
         } label: {
             MovieGridItem(
                 movie: movie,
-                imageType: imageType
+                imageType: imageType,
+                index: index
             )
         }
         .buttonStyle(.plain)
-        .frame(width: (geometry.size.height - 40) * imageType.ratio)
         .scrollTransition(.interactive, axis: .horizontal) { view, phase in
             view.scaleEffect(phase.isIdentity ? 1 : 0.95)
         }
@@ -76,5 +86,5 @@ public struct MoviesRow: View {
         listType: .watchlist,
         onMovieTap: { _ in }
     )
-    .frame(height: 280)
+    .frame(height: 150)
 }

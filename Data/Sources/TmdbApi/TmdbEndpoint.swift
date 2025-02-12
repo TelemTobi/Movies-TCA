@@ -21,7 +21,7 @@ enum TmdbEndpoint {
 extension TmdbEndpoint: Endpoint {
     
     var baseURL: URL {
-        URL(string: Config.TmdbApi.baseUrl)!
+        URL(string: Config.TmdbApi.baseUrl) ?? URL(string: "https://api.themoviedb.org/3")!
     }
     
     var path: String {

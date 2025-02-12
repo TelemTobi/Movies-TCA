@@ -8,8 +8,12 @@
 import SwiftUI
 
 public extension Font {
-    static func rounded(_ style: TextStyle, weight: Weight = .bold) -> Font {
+    static func rounded(_ style: TextStyle, weight: Weight = .regular) -> Font {
         .system(style, design: .rounded, weight: weight)
+    }
+    
+    static func rounded(_ size: CGFloat, weight: Weight = .regular) -> Font {
+        .system(size: size, weight: weight, design: .rounded)
     }
     
     var uiFont: UIFont {
