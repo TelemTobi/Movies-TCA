@@ -94,9 +94,17 @@ public struct MovieListItem: View {
                 .font(.rounded(titleFont, weight: .medium))
                 .layoutPriority(1)
             
-            Text(movie.overview ?? "")
-                .font(subtitleFont)
-                .foregroundStyle(.secondary)
+            
+            if let genres = movie.genres?.prefix(2) {
+                let joinedGenres = Array(genres)
+                    .compactMap { $0.description }
+                    .joined(separator: .dotSeparator)
+                
+                Text(joinedGenres)
+                    .font(subtitleFont)
+                    .foregroundStyle(.secondary)
+            }
+
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

@@ -100,6 +100,18 @@ public struct MoviesPager: View {
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.center)
                     
+                    if let genres = movie.genres?.prefix(2) {
+                        let joinedGenres = Array(genres)
+                            .compactMap { $0.description }
+                            .joined(separator: .dotSeparator)
+                        
+                        Text(joinedGenres)
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.regularMaterial)
+                            .environment(\.colorScheme, .light)
+                    }
+                    
                     if let overview = movie.overview {
                         Text(overview)
                             .font(.callout)
