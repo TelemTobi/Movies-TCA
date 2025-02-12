@@ -61,7 +61,7 @@ public enum Genre: Int, Codable, Sendable {
         case .music: "Music"
         case .mystery: "Mystery"
         case .romance: "Romance"
-        case .scienceFiction: "SiFi"
+        case .scienceFiction: "Sci-Fi"
         case .tvMovie: "TV Movie"
         case .thriller: "Thriller"
         case .war: "War"

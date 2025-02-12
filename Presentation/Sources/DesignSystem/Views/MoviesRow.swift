@@ -13,27 +13,19 @@ import Models
 
 public struct MoviesRow: View {
     
-    let movies: IdentifiedArrayOf<Movie>
-    let listType: MovieListType?
+    let movies: [Movie]
+    let imageType: Constants.ImageType
+    let itemWidth: CGFloat
+    let indexed: Bool
     let onMovieTap: (Movie) -> Void
     
     @Environment(\.namespace) private var namespace: Namespace.ID?
     
-    private var imageType: Constants.ImageType {
-        listType?.imageType ?? .poster
-    }
-    
-    private var itemWidth: CGFloat {
-        switch listType {
-        case .watchlist: 240
-        case .popular, .topRated: 160
-        case .upcoming, .nowPlaying, .none: 180
-        }
-    }
-    
-    public init(movies: IdentifiedArrayOf<Movie>, listType: MovieListType? = nil, onMovieTap: @escaping (Movie) -> Void) {
+    public init(movies: [Movie], imageType: Constants.ImageType = .poster, itemWidth: CGFloat = 160, indexed: Bool = false, onMovieTap: @escaping (Movie) -> Void) {
         self.movies = movies
-        self.listType = listType
+        self.imageType = imageType
+        self.itemWidth = itemWidth
+        self.indexed = indexed
         self.onMovieTap = onMovieTap
     }
     
@@ -54,7 +46,7 @@ public struct MoviesRow: View {
     
     @ViewBuilder
     private func itemView(_ movie: Movie, _ index: Int) -> some View {
-        let index = listType?.indexed == true ? index : nil
+        let index = indexed ? index : nil
         
         Button {
             onMovieTap(movie)
@@ -82,8 +74,7 @@ public struct MoviesRow: View {
 
 #Preview {
     MoviesRow(
-        movies: .init(uniqueElements: MovieList.mock.movies ?? []),
-        listType: .watchlist,
+        movies: MovieList.mock.movies ?? [],
         onMovieTap: { _ in }
     )
     .frame(height: 150)

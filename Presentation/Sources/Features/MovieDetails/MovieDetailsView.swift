@@ -86,7 +86,7 @@ public struct MovieDetailsView: View {
                 )
             }
         } header: {
-            SectionHeader(title: LocalizedStringKey.localized(.cast))
+            SectionHeader(title: .localized(.cast))
             .padding(.horizontal)
         }
         
@@ -121,10 +121,9 @@ public struct MovieDetailsView: View {
         if let relatedMovies = store.detailedMovie.relatedMovies?.movies, relatedMovies.isNotEmpty {
             Section {
                 MoviesRow(
-                    movies: .init(uniqueElements: relatedMovies),
+                    movies: relatedMovies,
                     onMovieTap: { send(.onRelatedMovieTap($0)) }
                 )
-                .frame(height: 280)
             } header: {
                 SectionHeader(title: .localized(.related))
                     .padding(.horizontal)

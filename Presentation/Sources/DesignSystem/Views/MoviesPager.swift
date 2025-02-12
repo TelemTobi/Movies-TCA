@@ -13,7 +13,7 @@ import TmdbApi
 
 public struct MoviesPager: View {
     
-    let movies: IdentifiedArrayOf<Movie>
+    let movies: [Movie]
     let onMovieTap: (Movie) -> Void
     
     @State private var currentItem: Movie?
@@ -36,7 +36,7 @@ public struct MoviesPager: View {
     
     @Environment(\.namespace) private var namespace: Namespace.ID?
 
-    public init(movies: IdentifiedArrayOf<Movie>, onMovieTap: @escaping (Movie) -> Void) {
+    public init(movies: [Movie], onMovieTap: @escaping (Movie) -> Void) {
         self.movies = movies
         self.onMovieTap = onMovieTap
     }
@@ -44,7 +44,7 @@ public struct MoviesPager: View {
     public var body: some View {
         GeometryReader { geo in
             ParallaxPager(
-                collection: movies.elements,
+                collection: movies,
                 content: {
                     content(for: $0)
                         .position(x: geo.frame(in: .local).midX, y: geo.frame(in: .local).midY)
@@ -148,7 +148,7 @@ public struct MoviesPager: View {
     
     ScrollView {
         MoviesPager(
-            movies: .init(uniqueElements: movies ?? []),
+            movies: movies ?? [],
             onMovieTap: { _ in }
         )
         .aspectRatio(14/21, contentMode: .fill)

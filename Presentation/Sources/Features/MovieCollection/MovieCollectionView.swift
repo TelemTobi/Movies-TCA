@@ -23,8 +23,8 @@ public struct MovieCollectionView: View {
     public var body: some View {
         Group {
             switch store.collectionLayout {
-            case let .list(indexed, editable):
-                listView(indexed, editable)
+            case let .list(editable):
+                listView(editable)
             case .grid:
                 gridView()
             }
@@ -33,18 +33,18 @@ public struct MovieCollectionView: View {
         .scrollIndicators(.hidden)
         .backgroundColor(.background)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(store.listType.title)
+        .navigationTitle(store.section.title ?? .empty)
     }
     
-    private func listView(_ indexed: Bool, _ editable: Bool) -> some View {
+    private func listView(_ editable: Bool) -> some View {
         List {
-            ForEach(Array(store.movies.enumerated()), id: \.offset) { index, movie in
+            ForEach(Array((store.movieList.movies ?? []).enumerated()), id: \.offset) { index, movie in
                 Button {
                     send(.onMovieTap(movie))
                 } label: {
                     MovieListItem(
                         movie: movie,
-                        index: indexed ? index + 1 : nil,
+                        index: store.section.indexed ? index + 1 : nil,
                         imageType: .backdrop
                     )
                     .swipeActions(edge: .trailing) {
@@ -77,14 +77,14 @@ public struct MovieCollectionView: View {
         
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(store.movies) { movie in
+                ForEach(store.movieList.movies ?? []) { movie in
                     MovieGridItem(
                         movie: movie,
                         imageType: .backdrop
                     )
                 }
             }
-            .padding(.horizontal)
+            .padding()
         }
     }
 }
@@ -94,8 +94,8 @@ public struct MovieCollectionView: View {
         MovieCollectionView(
             store: Store(
                 initialState: MovieCollection.State(
-                    listType: .nowPlaying,
-                    movies: [.mock, .mock]
+                    section: .nowPlaying,
+                    movieList: .init(movies: [.mock, .mock])
                 ),
                 reducer: { MovieCollection() }
             )

@@ -17,6 +17,7 @@ public struct MoviesHomepage {
     @ObservableState
     public struct State: Equatable {
         var viewState: ViewState
+        var lists: [MovieListType: MovieList] = [:]
         
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
         
@@ -32,14 +33,14 @@ public struct MoviesHomepage {
             case onPreferencesTap
             case onMovieTap(Movie, TransitionSource)
             case onMovieLike(Movie)
-            case onMovieListTap(MovieListType, IdentifiedArrayOf<Movie>)
+            case onSectionHeaderTap(HomepageSection)
         }
         
         @CasePathable
         public enum Navigation: Equatable {
             case presentMovie(Movie, TransitionSource)
             case presentPreferences
-            case pushMovieList(MovieListType, IdentifiedArrayOf<Movie>)
+            case expandSection(HomepageSection, MovieList)
         }
         
         case view(View)
@@ -69,12 +70,11 @@ public struct MoviesHomepage {
                 }
                 
             case let .movieListsResult(result):
-                state.viewState = .loaded(
-                    result.compactMapValues { result in
-                        guard let movies = try? result.get().movies else { return nil }
-                        return .init(uniqueElements: movies)
-                    }
-                )
+                state.lists = result
+                    .compactMapValues { try? $0.get() }
+                    .filter { $0.value.movies?.isEmpty == false }
+                
+                state.viewState = .loaded(createSections(outOf: &state))
                 return .none
                 
             case .navigation:
@@ -94,8 +94,18 @@ public struct MoviesHomepage {
         case .onPreferencesTap:
             return .send(.navigation(.presentPreferences))
             
-        case let .onMovieListTap(listType, movies):
-            return .send(.navigation(.pushMovieList(listType, movies)))
+        case let .onSectionHeaderTap(section):
+            let movieList: MovieList? = switch section {
+            case .nowPlaying: state.lists[.nowPlaying]
+            case .watchlist: MovieList(movies: state.watchlist.elements)
+            case .upcoming: state.lists[.upcoming]
+            case .popular: state.lists[.popular]
+            case .genres: nil
+            case .topRated: state.lists[.topRated]
+            }
+            
+            guard let movieList else { return .none }
+            return .send(.navigation(.expandSection(section, movieList)))
             
         case let .onMovieLike(movie):
             return .run { _ in
@@ -103,12 +113,24 @@ public struct MoviesHomepage {
             }
         }
     }
+    
+    private func createSections(outOf state: inout State) -> [HomepageSection] {
+        [
+            state.lists[.nowPlaying] != nil ? .nowPlaying : nil,
+            state.watchlist.isNotEmpty ? .watchlist : nil,
+            state.lists[.upcoming] != nil ? .upcoming : nil,
+            state.lists[.popular] != nil ? .popular : nil,
+            .genres,
+            state.lists[.topRated] != nil ? .topRated : nil,
+        ]
+        .compactMap { $0 }
+    }
 }
 
 public extension MoviesHomepage {
     enum ViewState: Equatable {
         case loading
-        case loaded([MovieListType: IdentifiedArrayOf<Movie>])
+        case loaded([HomepageSection])
     }
 }
 

@@ -17,7 +17,15 @@ public struct CapsuledButtonStyle: ButtonStyle {
             .background(Color.blue.gradient)
             .clipShape(.capsule)
             .opacity(configuration.isPressed ? 0.8 : 1.0)
-            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .overlay {
+                if configuration.isPressed {
+                    Color(resource: .background).opacity(0.15)
+                }
+            }
+            .overlay {
+                Capsule()
+                    .strokeBorder(.ultraThinMaterial, lineWidth: 1)
+            }
     }
 }
 

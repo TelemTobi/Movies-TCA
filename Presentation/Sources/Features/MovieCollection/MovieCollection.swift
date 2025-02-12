@@ -8,29 +8,31 @@
 import Foundation
 import ComposableArchitecture
 import Models
+import DesignSystem
 
 @Reducer
 public struct MovieCollection {
     
     @ObservableState
     public struct State: Equatable {
-        let listType: MovieListType
-        let movies: IdentifiedArrayOf<Movie>
+        let section: HomepageSection
+        let movieList: MovieList
         
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
         @Shared(.genres) fileprivate var genres: [Genre] = []
         
         var collectionLayout: CollectionLayout {
-            switch listType {
-            case .watchlist: .list(indexed: false, editable: true)
-            case .popular, .topRated: .list(indexed: true)
+            switch section {
+            case .watchlist: .list(editable: true)
+            case .popular, .topRated: .list(editable: false)
             case .nowPlaying, .upcoming: .grid
+            default: .grid
             }
         }
         
-        public init(listType: MovieListType, movies: IdentifiedArrayOf<Movie>) {
-            self.listType = listType
-            self.movies = movies
+        public init(section: HomepageSection, movieList: MovieList) {
+            self.section = section
+            self.movieList = movieList
         }
     }
     
@@ -78,7 +80,7 @@ public struct MovieCollection {
             }
             
         case let .onDeleteAction(movie):
-            switch state.listType {
+            switch state.section {
             case .watchlist:
                 let _ = state.$watchlist.withLock { $0.remove(movie) }
             default:
@@ -91,7 +93,7 @@ public struct MovieCollection {
 
 public extension MovieCollection {
     enum CollectionLayout {
-        case list(indexed: Bool, editable: Bool = false)
+        case list(editable: Bool)
         case grid
     }
 }

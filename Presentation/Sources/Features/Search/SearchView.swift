@@ -60,52 +60,35 @@ public struct SearchView: View {
     
     @ViewBuilder
     private func suggestionsView() -> some View {
-        let columns: [GridItem] = .init(
-            repeating: GridItem(.flexible(), spacing: 12),
-            count: 2
-        )
+        let delays = Array(0..<store.genres.count)
+            .map { 0.2 + (CGFloat($0) * 0.05) }
+            .shuffled()
         
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 12) {
-                ForEach(store.genres, id: \.self) { genre in
-                    genreGridItem(genre)
-                }
+            CapsulesView(items: store.genres) { index, genre in
+                Button(
+                    action: {
+                        send(.onGenreTap(genre))
+                    },
+                    label: {
+                        Text(genre.description ?? .empty)
+                            .font(.rounded(.footnote))
+                            .fontWeight(.medium)
+                    }
+                )
+                .buttonStyle(.capsuled)
+                .opacity(didFirstAppear ? 1 : 0)
+                .scaleEffect(didFirstAppear ? 1 : 0.7)
+                .rotationEffect(.degrees(didFirstAppear ? 0 : 10))
+                .animation(
+                    .easeInOut(duration: 0.25).delay(delays[index]),
+                    value: didFirstAppear
+                )
             }
-            .padding(.bottom)
             .padding(.horizontal)
-        }
-    }
-    
-    @ViewBuilder
-    private func genreGridItem(_ genre: Genre) -> some View {
-        if let image = UIImage(named: genre.rawValue.description) {
-            Button {
-                send(.onGenreTap(genre))
-            } label: {
-                ZStack(alignment: .bottomLeading) {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(Constants.ImageType.backdrop.ratio, contentMode: .fill)
-                        .cornerRadius(10)
-                        .overlay {
-                            LinearGradient(
-                                colors: [.clear, .black.opacity(0.3)],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        }
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder(.ultraThinMaterial, lineWidth: 1)
-                        }
-                    
-                    Text(genre.description ?? "")
-                        .font(.rounded(.body, weight: .bold))
-                        .foregroundStyle(.white)
-                        .padding(10)
-                }
+            .onFirstAppear {
+                withAnimation { didFirstAppear = true }
             }
-            .buttonStyle(.plain)
         }
     }
     

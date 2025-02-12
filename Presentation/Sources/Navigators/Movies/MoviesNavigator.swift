@@ -60,8 +60,8 @@ public struct MoviesNavigator {
                 state.destination = .preferences(Preferences.State())
                 return .none
                 
-            case let .root(.navigation(.pushMovieList(listType, movies))):
-                let movieListState = MovieCollection.State(listType: listType, movies: movies)
+            case let .root(.navigation(.expandSection(section, movieList))):
+                let movieListState = MovieCollection.State(section: section, movieList: movieList)
                 state.path.append(.movieList(movieListState))
                 return .none
                 

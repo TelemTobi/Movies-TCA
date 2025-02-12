@@ -27,8 +27,8 @@ public struct MoviesHomepageView: View {
             case .loading:
                 ProgressView()
                 
-            case let .loaded(lists):
-                contentView(lists)
+            case let .loaded(sections):
+                contentView(sections)
             }
         }
         .ignoresSafeArea(edges: .top)
@@ -40,55 +40,57 @@ public struct MoviesHomepageView: View {
     }
     
     @ViewBuilder
-    private func contentView(_ lists: [MovieListType: IdentifiedArrayOf<Movie>]) -> some View {
+    private func contentView(_ sections: [HomepageSection]) -> some View {
         ScrollView {
             LazyVStack(spacing: 20) {
-                ForEach(MovieListType.allCases, id: \.self) { listType in
-                    switch listType {
-                    case .watchlist:
-                        if store.watchlist.isNotEmpty {
-                            sectionView(listType: .watchlist, movies: store.watchlist)
-                        }
-                        
-                    default:
-                        if let movies = lists[listType], movies.isNotEmpty {
-                            sectionView(listType: listType, movies: movies)
-                        }
-                    }
+                ForEach(sections, id: \.self) { section in
+                    sectionView(section: section)
                 }
             }
+            .scrollIndicators(.hidden)
+            .particleLayer(name: Constants.Layer.like)
         }
-        .scrollIndicators(.hidden)
-        .particleLayer(name: Constants.Layer.like)
     }
     
     @ViewBuilder
-    private func sectionView(listType: MovieListType, movies: IdentifiedArrayOf<Movie>) -> some View {
+    private func sectionView(section: HomepageSection) -> some View {
         VStack(spacing: 0) {
-            if listType != .nowPlaying {
-                SectionHeader(title: listType.title) {
-                    send(.onMovieListTap(listType, movies))
-                }
+            if let title = section.title {
+                SectionHeader(
+                    title: title,
+                    action: section.isExpandable ? { send(.onSectionHeaderTap(section)) } : nil
+                )
                 .padding(.horizontal)
                 .textCase(.none)
-            } else {
-                EmptyView()
             }
             
-            switch listType {
+            switch section {
             case .nowPlaying:
                 MoviesPager(
-                    movies: movies,
+                    movies: store.lists[.nowPlaying]?.movies ?? [],
                     onMovieTap: { send(.onMovieTap($0, .pager)) }
                 )
                 .aspectRatio(14/21, contentMode: .fill)
                 
             case .watchlist, .upcoming, .popular, .topRated:
+                let movies: [Movie] = switch section {
+                case .watchlist: store.watchlist.elements
+                case .upcoming: store.lists[.upcoming]?.movies ?? []
+                case .popular: store.lists[.popular]?.movies ?? []
+                case .topRated: store.lists[.topRated]?.movies ?? []
+                default: []
+                }
+                
                 MoviesRow(
                     movies: movies,
-                    listType: listType,
+                    imageType: section.imageType,
+                    itemWidth: section.itemWidth,
+                    indexed: section.indexed,
                     onMovieTap: { send(.onMovieTap($0, .collection)) }
                 )
+                
+            case .genres:
+                EmptyView()
             }
         }
     }

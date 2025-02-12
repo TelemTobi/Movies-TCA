@@ -24,6 +24,7 @@ public enum Localization {
     case director
     case done
     case genres
+    case discoverByGenre
     case information
     case language
     case light
