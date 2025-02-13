@@ -38,10 +38,7 @@ public struct CircularPersonImage: View {
         .centerCropped()
         .frame(width: size, height: size)
         .clipShape(Circle())
-        .overlay {
-            Circle()
-                .strokeBorder(.ultraThinMaterial, lineWidth: 1)
-        }
+        .adaptiveConstrast(shape: .circle)
     }
 }
 

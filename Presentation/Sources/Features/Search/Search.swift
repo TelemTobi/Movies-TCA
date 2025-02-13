@@ -118,13 +118,9 @@ public struct Search {
     private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
         switch action {
         case let .onGenreTap(genre):
-            guard let genreName = genre.description else {
-                return .none
-            }
-            
-            state.searchInput = genreName
+            state.searchInput = genre.description
             state.viewState = .loading
-            return .send(.searchMovies(genreName))
+            return .send(.searchMovies(genre.description))
             
         case let .onMovieTap(movie):
             return .send(.navigation(.presentMovie(movie)))

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import NukeUI
-import ComposableArchitecture
 import Core
 import Models
 
@@ -37,6 +36,7 @@ public struct MoviesRow: View {
                         .frame(width: itemWidth)
                 }
             }
+            .adaptiveShadow()
             .padding(.vertical)
             .padding(.horizontal, 16)
             .scrollTargetLayout()
@@ -47,6 +47,7 @@ public struct MoviesRow: View {
     @ViewBuilder
     private func itemView(_ movie: Movie, _ index: Int) -> some View {
         let index = indexed ? index : nil
+        let transitionSourceId = movie.id.description + TransitionSource.collection.rawValue
         
         Button {
             onMovieTap(movie)
@@ -61,14 +62,7 @@ public struct MoviesRow: View {
         .scrollTransition(.interactive, axis: .horizontal) { view, phase in
             view.scaleEffect(phase.isIdentity ? 1 : 0.95)
         }
-        .modify { view in
-            if #available(iOS 18.0, *), let namespace {
-                let sourceId = movie.id.description + (TransitionSource.collection.rawValue)
-                view.matchedTransitionSource(id: sourceId, in: namespace)
-            } else {
-                view
-            }
-        }
+        .matchedTransitionSource(id: transitionSourceId, in: namespace)
     }
 }
 

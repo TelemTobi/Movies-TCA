@@ -28,6 +28,7 @@ public struct MovieListItem: View {
         GeometryReader { geometry in
             HStack(spacing: 16) {
                 imageView(geometry)
+                    .adaptiveConstrast()
                 
                 if let index {
                     Text(index.description)
@@ -63,17 +64,7 @@ public struct MovieListItem: View {
         .frame(width: imageWidth, height: imageHeight)
         .aspectRatio(imageType.ratio, contentMode: .fill)
         .cornerRadius(10)
-        .overlay {
-            RoundedRectangle(cornerRadius: 10)
-                .strokeBorder(.ultraThinMaterial, lineWidth: 1)
-        }
-        .modify { view in
-            if #available(iOS 18.0, *), let namespace {
-                view.matchedTransitionSource(id: movie.id.description, in: namespace)
-            } else {
-                view
-            }
-        }
+        .matchedTransitionSource(id: movie.id.description, in: namespace)
     }
     
     @ViewBuilder

@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import MoviesHomepageFeature
 import MovieCollectionFeature
+import GenreDetailsFeature
 import PreferencesFeature
 import MovieNavigator
 import DesignSystem
@@ -45,6 +46,9 @@ public extension MoviesNavigator {
                     switch store.case {
                     case let .movieList(store):
                         MovieCollectionView(store: store)
+                        
+                    case let .genreDetails(store):
+                        GenreDetailsView(store: store)
                     }
                 }
             )

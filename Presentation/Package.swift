@@ -4,10 +4,11 @@ import PackageDescription
 
 let package = Package(
     name: "Presentation",
-    platforms: [.iOS(.v17), .macOS(.v14)],
+    platforms: [.iOS(.v18), .macOS(.v15)],
     products: [
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
         
+        .library(name: "GenreDetailsFeature", targets: ["GenreDetailsFeature"]),
         .library(name: "MoviesHomepageFeature", targets: ["MoviesHomepageFeature"]),
         .library(name: "MovieDetailsFeature", targets: ["MovieDetailsFeature"]),
         .library(name: "MovieCollectionFeature", targets: ["MovieCollectionFeature"]),
@@ -49,6 +50,7 @@ let package = Package(
         .testTarget(
             name: "PresentationTests",
             dependencies: [
+                "GenreDetailsFeature",
                 "MoviesHomepageFeature",
                 "MovieDetailsFeature",
                 "MovieCollectionFeature",
@@ -72,6 +74,10 @@ let package = Package(
 // MARK: - Features
 
 let features: [PackageDescription.Target] = [
+    .target(
+        name: "GenreDetailsFeature",
+        path: "Sources/Features/GenreDetails"
+    ),
     .target(
         name: "MoviesHomepageFeature",
         path: "Sources/Features/MoviesHomepage"
@@ -125,6 +131,7 @@ let navigators: [PackageDescription.Target] = [
     .target(
         name: "MoviesNavigator",
         dependencies: [
+            "GenreDetailsFeature",
             "MoviesHomepageFeature",
             "MovieCollectionFeature",
             "PreferencesFeature",
@@ -151,6 +158,7 @@ let navigators: [PackageDescription.Target] = [
         name: "SearchNavigator",
         dependencies: [
             "SearchFeature",
+            "GenreDetailsFeature",
             "PreferencesFeature",
             "MovieNavigator"
         ],

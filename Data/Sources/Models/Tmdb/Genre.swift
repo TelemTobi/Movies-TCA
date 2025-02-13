@@ -45,7 +45,7 @@ public enum Genre: Int, Codable, Sendable {
     case western = 37
     case unknown
     
-    public var description: String? {
+    public var description: String {
         switch self {
         case .action: "Action"
         case .adventure: "Adventure"
@@ -66,7 +66,7 @@ public enum Genre: Int, Codable, Sendable {
         case .thriller: "Thriller"
         case .war: "War"
         case .western: "Western"
-        case .unknown: nil
+        case .unknown: .localized(.notAvailable)
         }
     }
     

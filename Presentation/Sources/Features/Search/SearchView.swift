@@ -71,7 +71,7 @@ public struct SearchView: View {
                         send(.onGenreTap(genre))
                     },
                     label: {
-                        Text(genre.description ?? .empty)
+                        Text(genre.description)
                             .font(.rounded(.footnote))
                             .fontWeight(.medium)
                     }
@@ -90,6 +90,7 @@ public struct SearchView: View {
                 withAnimation { didFirstAppear = true }
             }
         }
+        .scrollIndicators(.hidden)
     }
     
     @ViewBuilder
@@ -115,6 +116,7 @@ public struct SearchView: View {
             }
         }
         .listStyle(.plain)
+        .scrollIndicators(.hidden)
     }
 }
 

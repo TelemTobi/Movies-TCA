@@ -42,11 +42,8 @@ public struct MovieGridItem: View {
                 .animation(.smooth, value: state.image)
             }
             .aspectRatio(imageType.ratio, contentMode: .fill)
-            .cornerRadius(10)
-            .overlay {
-                RoundedRectangle(cornerRadius: 10)
-                    .strokeBorder(.ultraThinMaterial, lineWidth: 1)
-            }
+            .clipShape(.rect(cornerRadius: 10))
+            .adaptiveConstrast(shadow: .off)
             
             Group {
                 if let index {

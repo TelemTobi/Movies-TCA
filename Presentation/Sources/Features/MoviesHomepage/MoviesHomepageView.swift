@@ -50,6 +50,7 @@ public struct MoviesHomepageView: View {
             .scrollIndicators(.hidden)
             .particleLayer(name: Constants.Layer.like)
         }
+        .scrollIndicators(.hidden)
     }
     
     @ViewBuilder
@@ -90,7 +91,10 @@ public struct MoviesHomepageView: View {
                 )
                 
             case .genres:
-                EmptyView()
+                GenresRow(
+                    genres: [.action, .scienceFiction, .comedy, .thriller, .drama],
+                    onGenreTap: { send(.onGenreTap($0)) }
+                )
             }
         }
     }
