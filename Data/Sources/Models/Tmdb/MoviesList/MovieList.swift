@@ -20,4 +20,11 @@ public struct MovieList: Decodable, Equatable, Sendable {
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
+    
+    public init(movies: [Movie]?, page: Int? = nil, totalPages: Int? = nil, totalResults: Int? = nil) {
+        self.movies = movies
+        self.page = page
+        self.totalPages = totalPages
+        self.totalResults = totalResults
+    }
 }

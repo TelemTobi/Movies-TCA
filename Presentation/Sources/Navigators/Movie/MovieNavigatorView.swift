@@ -19,6 +19,11 @@ public extension MovieNavigator {
         @Environment(\.namespace) private var namespace: Namespace.ID?
         @Environment(\.transitionSource) private var transitionSource: TransitionSource?
         
+        private var transitionSourceId: String {
+            let movieId = store.root.detailedMovie.movie.id
+            return movieId.description + (transitionSource?.rawValue ?? "")
+        }
+        
         public init(store: StoreOf<MovieNavigator>) {
             self.store = store
         }
@@ -36,16 +41,7 @@ public extension MovieNavigator {
                     }
                 }
             )
-            .modify { view in
-                if #available(iOS 18.0, *), let namespace {
-                    let movieId = store.root.detailedMovie.movie.id
-                    let sourceId = movieId.description + (transitionSource?.rawValue ?? "")
-                    let _ = print(sourceId)
-                    view.navigationTransition(.zoom(sourceID: sourceId, in: namespace))
-                } else {
-                    view
-                }
-            }
+            .zoomTransition(sourceID: transitionSourceId, in: namespace)
         }
     }
 }

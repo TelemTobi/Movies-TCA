@@ -7,18 +7,18 @@
 
 import XCTest
 import ComposableArchitecture
-@testable import MovieListFeature
+@testable import MovieCollectionFeature
 @testable import Models
 
 @MainActor
 final class MovieListTests: XCTestCase {
     
     var store = TestStore(
-        initialState: MovieList.State(
+        initialState: MovieCollection.State(
             listType: .nowPlaying,
             movies: .init(uniqueElements: MovieList.mock.movies ?? [])
         ),
-        reducer: MovieList.init
+        reducer: MovieCollection.init
     )
     
     // MARK: - View Actions

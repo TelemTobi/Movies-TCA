@@ -21,7 +21,7 @@ enum TmdbEndpoint {
 extension TmdbEndpoint: Endpoint {
     
     var baseURL: URL {
-        URL(string: Config.TmdbApi.baseUrl)!
+        URL(string: Config.TmdbApi.baseUrl) ?? URL(string: "https://api.themoviedb.org/3")!
     }
     
     var path: String {
@@ -79,6 +79,8 @@ extension TmdbEndpoint: Endpoint {
             
         case .listMovies(let type):
             switch type {
+            case .watchlist:
+                TmdbMock.nowPlayingMovies.dataEncoded
             case .nowPlaying:
                 TmdbMock.nowPlayingMovies.dataEncoded
             case .popular:
@@ -98,6 +100,10 @@ extension TmdbEndpoint: Endpoint {
         case .movieDetails:
             TmdbMock.movieDetails.dataEncoded
         }
+    }
+    
+    var shouldPrintLogs: Bool {
+        true
     }
     #endif
 }

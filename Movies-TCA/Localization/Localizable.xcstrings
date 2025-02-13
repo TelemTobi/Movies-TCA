@@ -183,24 +183,24 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "במאי"
+            "value" : "במאי/ת"
           }
         }
       }
     },
-    "discovery" : {
+    "discoverByGenre" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Discovery"
+            "value" : "Discover by Genre"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "המלצות"
+            "value" : "לפי ז׳אנר"
           }
         }
       }
@@ -307,19 +307,36 @@
         }
       }
     },
+    "movies" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Movies"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "סרטים"
+          }
+        }
+      }
+    },
     "moviesSearchPrompt" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Explore movies here"
+            "value" : "Shows, Movies and More"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "גלו סרטים כאן"
+            "value" : "סדרות, סרטים ועוד"
           }
         }
       }

@@ -39,11 +39,11 @@ extension MoviesUseCases: DependencyKey {
             return await tmdbApiClient.discoverMovies(by: genreId)
         },
         fetchLists: { listTypes in
-            @Dependency(\.tmdbApiClient) var tmdbApiClient
-            
-            return await withTaskGroup(of: (MovieListType, Result<MovieList, TmdbError>).self) { group in
+            await withTaskGroup(of: (MovieListType, Result<MovieList, TmdbError>).self) { group in
                 for listType in listTypes {
-                    group.addTask { [tmdbApiClient] in
+                    group.addTask {
+                        @Dependency(\.tmdbApiClient) var tmdbApiClient
+                        
                         let result = await tmdbApiClient.fetchMovies(ofType: listType)
                         return (listType, result)
                     }

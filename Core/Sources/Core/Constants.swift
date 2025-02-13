@@ -40,6 +40,18 @@ public enum Constants {
         }
     }
     
+    
+    public enum ImageType {
+        case poster, backdrop
+        
+        public var ratio: CGFloat {
+            switch self {
+            case .poster: 14/21
+            case .backdrop: 38/21
+            }
+        }
+    }
+    
     public enum Layer {
         public static var like: String { #function }
     }

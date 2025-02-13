@@ -13,14 +13,15 @@ public struct TmdbImagePlaceholder: View {
     
     public var body: some View {
         ZStack {
-            Color.secondary.opacity(0.25)
-            
             Image(systemName: "popcorn")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 40)
+                .frame(maxWidth: 40)
                 .foregroundColor(.white)
         }
+        .padding(20)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .backgroundColor(.placeholder)
     }
 }
 

@@ -20,7 +20,7 @@ public struct MovieDetailsView: View {
     @State var isOverviewTruncated: Bool = false
     @State var isOverviewSheetPresented: Bool = false
     
-    var navigationBarVisibilityThreshold: CGFloat = 0.85
+    var navigationBarVisibilityThreshold: CGFloat = 0.83
     
     private var isHeaderShowing: Bool {
         headerOffScreenPercentage < navigationBarVisibilityThreshold
@@ -50,6 +50,7 @@ public struct MovieDetailsView: View {
                 .padding(.vertical, 5)
             }
             .listStyle(.plain)
+            .backgroundColor(.background)
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarTitleDisplayMode(.inline)
@@ -85,7 +86,7 @@ public struct MovieDetailsView: View {
                 )
             }
         } header: {
-            SectionHeader(title: LocalizedStringKey.localized(.cast))
+            SectionHeader(title: .localized(.cast))
             .padding(.horizontal)
         }
         
@@ -119,11 +120,10 @@ public struct MovieDetailsView: View {
     private func RelatedMoviesSection() -> some View {
         if let relatedMovies = store.detailedMovie.relatedMovies?.movies, relatedMovies.isNotEmpty {
             Section {
-                MoviesCollectionView(
-                    movies: .init(uniqueElements: relatedMovies),
+                MoviesRow(
+                    movies: relatedMovies,
                     onMovieTap: { send(.onRelatedMovieTap($0)) }
                 )
-                .frame(height: 280)
             } header: {
                 SectionHeader(title: .localized(.related))
                     .padding(.horizontal)

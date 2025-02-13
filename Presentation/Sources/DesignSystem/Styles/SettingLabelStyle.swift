@@ -17,7 +17,10 @@ public struct SettingLabelStyle: LabelStyle {
     
     public func makeBody(configuration: Configuration) -> some View {
         Label(
-            title: { configuration.title },
+            title: {
+                configuration.title
+                    .font(.rounded(.body, weight: .medium))
+            },
             icon: {
                 configuration.icon
                     .imageScale(.medium)

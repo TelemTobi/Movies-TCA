@@ -15,8 +15,7 @@ public struct Search {
     
     @ObservableState
     public struct State: Equatable {
-        var isLoading: Bool
-        var results: IdentifiedArrayOf<Movie>
+        var viewState: ViewState = .suggestions
         var searchInput: String
 
         @Shared(.genres) var genres = []
@@ -26,9 +25,7 @@ public struct Search {
             searchInput.count >= 2
         }
         
-        public init(isLoading: Bool = false, results: IdentifiedArrayOf<Movie> = [], searchInput: String = "") {
-            self.isLoading = isLoading
-            self.results = results
+        public init(searchInput: String = "") {
             self.searchInput = searchInput
         }
     }
@@ -71,22 +68,24 @@ public struct Search {
                 
             case let .onInputChange(input):
                 state.searchInput = input
-                state.isLoading = state.isSearchActive
                 
                 guard state.isSearchActive else {
-                    state.results = []
+                    state.viewState = .suggestions
                     return .none
                 }
                 
+                state.viewState = .loading
+                
                 return .send(.searchMovies(input))
-                    .debounce(id: SearchInputDebounceId(), for: .seconds(1), scheduler: mainQueue)
+                    .debounce(for: .textInput)
                 
             case let .searchMovies(query):
-                if let genre = state.genres.first(where: { $0.name == query }) {
+                if let genre = state.genres.first(where: { $0.description == query }) {
                     return .run { send in
-                        let discoverResult = await interactor.discoverMovies(by: genre.id)
+                        let discoverResult = await interactor.discoverMovies(by: genre.rawValue)
                         await send(.searchResult(discoverResult))
                     }
+                    .debounce(for: .loading)
                     
                 } else {
                     return .run { send in
@@ -96,11 +95,13 @@ public struct Search {
                 }
                 
             case let .searchResult(result):
-                state.isLoading = false
-                
                 switch result {
                 case let .success(response):
-                    state.results = .init(uniqueElements: response.movies ?? [])
+                    if let movies = response.movies, movies.isNotEmpty {
+                        state.viewState = .searchResult(.init(uniqueElements: movies))
+                    } else {
+                        // TODO: Handle empty state
+                    }
                     return .none
                     
                 case let .failure(error):
@@ -117,14 +118,9 @@ public struct Search {
     private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
         switch action {
         case let .onGenreTap(genre):
-            guard let genreName = genre.name else {
-                return .none
-            }
-            
-            state.searchInput = genreName
-            state.isLoading = true
-            
-            return .send(.searchMovies(genreName))
+            state.searchInput = genre.description
+            state.viewState = .loading
+            return .send(.searchMovies(genre.description))
             
         case let .onMovieTap(movie):
             return .send(.navigation(.presentMovie(movie)))
@@ -141,7 +137,11 @@ public struct Search {
 }
 
 extension Search {
-    struct SearchInputDebounceId: Hashable {}
+    enum ViewState: Equatable {
+        case suggestions
+        case loading
+        case searchResult(IdentifiedArrayOf<Movie>)
+    }
 }
 
 extension DependencyValues {

@@ -5,9 +5,12 @@
 //  Created by Telem Tobi on 24/11/2023.
 //
 
+import UIKit
 import SwiftUI
 import ComposableArchitecture
+import Core
 import DesignSystem
+import Models
 
 @ViewAction(for: Search.self)
 public struct SearchView: View {
@@ -21,15 +24,20 @@ public struct SearchView: View {
     
     public var body: some View {
         ZStack {
-            if store.isLoading {
+            switch store.viewState {
+            case .suggestions:
+                suggestionsView()
+            case .loading:
                 ProgressView()
-            } else {
-                ContentView()
+            case let .searchResult(movies):
+                resultsView(movies)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .backgroundColor(.background)
+        .animation(.snappy, value: store.viewState)
         .navigationTitle(.localized(.search))
         .toolbar(content: toolbarContent)
-        .animation(.easeInOut, value: store.isLoading)
         .searchable(
             text: $store.searchInput.sending(\.onInputChange),
             placement: .navigationBarDrawer(displayMode: .always),
@@ -50,74 +58,65 @@ public struct SearchView: View {
         }
     }
     
-    @MainActor
     @ViewBuilder
-    private func ContentView() -> some View {
-        List {
-            Group {
-                if store.isSearchActive {
-                    ResultsView()
-                        .listRowInsets(.zero)
-                    
-                } else {
-                    SuggestionsView()
-                        .listRowSeparator(.hidden)
-                }
+    private func suggestionsView() -> some View {
+        let delays = Array(0..<store.genres.count)
+            .map { 0.2 + (CGFloat($0) * 0.05) }
+            .shuffled()
+        
+        ScrollView {
+            CapsulesView(items: store.genres) { index, genre in
+                Button(
+                    action: {
+                        send(.onGenreTap(genre))
+                    },
+                    label: {
+                        Text(genre.description)
+                            .font(.rounded(.footnote))
+                            .fontWeight(.medium)
+                    }
+                )
+                .buttonStyle(.capsuled)
+                .opacity(didFirstAppear ? 1 : 0)
+                .scaleEffect(didFirstAppear ? 1 : 0.7)
+                .rotationEffect(.degrees(didFirstAppear ? 0 : 10))
+                .animation(
+                    .easeInOut(duration: 0.25).delay(delays[index]),
+                    value: didFirstAppear
+                )
             }
-            .listRowBackground(Color.clear)
-            .listSectionSeparator(.hidden, edges: .top)
+            .padding(.horizontal)
+            .onFirstAppear {
+                withAnimation { didFirstAppear = true }
+            }
         }
-        .listStyle(.grouped)
         .scrollIndicators(.hidden)
     }
     
-    @MainActor
     @ViewBuilder
-    private func SuggestionsView() -> some View {
-        let delays = Array(0..<store.genres.count).map { 0.2 + (CGFloat($0) * 0.05) }.shuffled()
-        
-        CapsulesView(items: store.genres) { index, genre in
-            Button(
-                action: {
-                    send(.onGenreTap(genre))
-                },
-                label: {
-                    Text(genre.name ?? .empty)
-                        .font(.footnote)
-                        .fontWeight(.medium)
-                }
-            )
-            .buttonStyle(.capsuled)
-            .opacity(didFirstAppear ? 1 : 0)
-            .scaleEffect(didFirstAppear ? 1 : 0.7)
-            .rotationEffect(.degrees(didFirstAppear ? 0 : 10))
-            .animation(
-                .easeInOut(duration: 0.25).delay(delays[index]),
-                value: didFirstAppear
-            )
-        }
-        .onFirstAppear {
-            withAnimation { didFirstAppear = true }
-        }
-    }
-    
-    @MainActor
-    @ViewBuilder
-    private func ResultsView() -> some View {
-        ForEach(store.results) { movie in
-            Button {
-                send(.onMovieTap(movie))
-            } label: {
-                MovieListItem(
-                    movie: movie,
-                    isLiked: .init(
-                        get: { store.watchlist.contains(movie) },
-                        set: { _ in send(.onMovieLike(movie)) }
+    private func resultsView(_ movies: IdentifiedArrayOf<Movie>) -> some View {
+        List {
+            ForEach(movies) { movie in
+                Button {
+                    send(.onMovieTap(movie))
+                } label: {
+                    MovieListItem(
+                        movie: movie,
+                        imageType: .backdrop
                     )
-                )
+                    .frame(height: 70)
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
+            .scrollIndicators(.hidden)
+            .listRowBackground(Color.clear)
+            .listSectionSeparator(.hidden, edges: [.top, .bottom])
+            .alignmentGuide(.listRowSeparatorLeading) { _ in
+                80 * Constants.ImageType.backdrop.ratio
+            }
         }
+        .listStyle(.plain)
+        .scrollIndicators(.hidden)
     }
 }
 

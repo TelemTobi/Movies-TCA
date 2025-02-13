@@ -10,10 +10,10 @@ import Core
 
 public struct SectionHeader: View {
     
-    let title: LocalizedStringKey
+    let title: String
     let action: EmptyClosure?
     
-    public init(title: LocalizedStringKey, action: EmptyClosure? = nil) {
+    public init(title: String, action: EmptyClosure? = nil) {
         self.title = title
         self.action = action
     }

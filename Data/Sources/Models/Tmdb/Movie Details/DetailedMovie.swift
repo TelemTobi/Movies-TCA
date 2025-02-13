@@ -24,8 +24,13 @@ public extension DetailedMovie {
     static func map(_ data: Data) throws -> Data {
         guard var jsonDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return data }
         
+        if let genres = jsonDictionary["genres"] as? [[String: Any]] {
+            jsonDictionary["genre_ids"] = genres.compactMap { $0["id"] }
+        }
+        
         jsonDictionary["movie"] = jsonDictionary
-        jsonDictionary["relatedMovies"] = jsonDictionary["recommendations"] ?? jsonDictionary["similar"]
+        jsonDictionary["relatedMovies"] = jsonDictionary["similar"] ?? jsonDictionary["recommendations"]
+        
         return try JSONSerialization.data(withJSONObject: jsonDictionary)
     }
 }

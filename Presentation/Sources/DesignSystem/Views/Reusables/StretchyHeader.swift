@@ -12,7 +12,6 @@ import Domain
 
 public struct StretchyHeader<Header: View>: View {
     
-    private let height: CGFloat
     private let header: @MainActor () -> Header
     private let headerOffScreenPercentageClosure: (@MainActor (CGFloat) -> Void)?
     
@@ -25,18 +24,15 @@ public struct StretchyHeader<Header: View>: View {
     ///    **This view must be nested inside a ScrollView in order for it to work!**
     ///
     /// - Parameters:
-    ///   - height: Used to determin the header view's height.
     ///   - header: A closure that takes in no parameters and returns any View, used for building the header view.
     ///   - headerOffScreenOffset: A binding variable that projects the header off screen offset, 0 means header is fully visible and 1 meand that the header is fully scrolled out of screen.
     ///   - offScreenPercentageClosure: A closure that takes not parameters and returns a value between 0-1 indicating how much of the header is scrolled off screen,
     ///                                    0 means header is fully visible and 1 meand that the header is fully scrolled out of screen.
     public init(
-        height: CGFloat,
-        headerOffScreenOffset: Binding<CGFloat> = .constant(0),
+        _ headerOffScreenOffset: Binding<CGFloat> = .constant(0),
         @ViewBuilder header: @MainActor @escaping () -> Header,
         headerOffScreenPercentageClosure: ((CGFloat) -> Void)? = nil
     ) {
-        self.height = height
         self.header = header
         self.headerOffScreenPercentageClosure = headerOffScreenPercentageClosure
         self._offScreenOffset = headerOffScreenOffset
@@ -48,7 +44,7 @@ public struct StretchyHeader<Header: View>: View {
                 .scaleEffect(max(1 - (scrollOffset / geo.frame(in: .global).height), 1), anchor: .bottom)
                 .position(x: geo.frame(in: .local).midX, y: geo.frame(in: .local).midY)
                 .offset(y: max(scrollOffset / 1.25, 0))
-                .clipShape(BottomClipShape(height: height))
+                .clipShape(.bottomClip(height: geo.size.height))
                 .didScroll { offset in
                     scrollOffset = offset
                     let offScreenPercentage = offset / geo.size.height
@@ -56,25 +52,6 @@ public struct StretchyHeader<Header: View>: View {
                     self.offScreenOffset = offScreenPercentage.clamped(to: 0...1)
                 }
         }
-        .frame(height: height)
-    }
-}
-
-fileprivate struct BottomClipShape: Shape {
-    
-    let height: CGFloat
-    
-    func path(in rect: CGRect) -> Path {
-        
-        var path = Path()
-        let topOffset = height * 2
-        
-        path.move(to: CGPoint(x: 0, y: rect.minY - topOffset))
-        path.addLine(to: CGPoint(x: 0, y: rect.height))
-        path.addLine(to: CGPoint(x: rect.width, y: rect.height))
-        path.addLine(to: CGPoint(x: rect.width, y: rect.minY - topOffset))
-        path.closeSubpath()
-        return path
     }
 }
 
@@ -82,7 +59,7 @@ fileprivate struct BottomClipShape: Shape {
     GeometryReader { geometry in
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                StretchyHeader(height: geometry.size.width * 1.4) {
+                StretchyHeader {
                     let imageUrl = URL(string: "https://image.tmdb.org/t/p/original/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg")
                     
                     LazyImage(url: imageUrl) { state in
@@ -96,6 +73,7 @@ fileprivate struct BottomClipShape: Shape {
                 } headerOffScreenPercentageClosure: { offScreenPercentage in
                     // Do some animation with `offScreenPercentage`
                 }
+                .frame(height: geometry.size.width * 1.4)
                 
                 ForEach(0 ..< 5) { item in
                     Text(Movie.mock.title!)
@@ -112,5 +90,6 @@ fileprivate struct BottomClipShape: Shape {
                 }
             }
         }
+        .ignoresSafeArea()
     }
 }

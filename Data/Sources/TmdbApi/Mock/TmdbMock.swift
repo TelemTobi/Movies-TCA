@@ -17,7 +17,7 @@ public enum TmdbMock: String {
     case topRatedMovies = "TopRatedMoviesStub"
     case upcomingMovies = "UpcomingMoviesStub"
     case searchMovies = "SearchMoviesStub"
-    case discoverMovies = "DiscoveryMoviesStub"
+    case discoverMovies = "DiscoverMoviesStub"
     case movieDetails = "MovieDetailsStub"
     
     var fileName: String {

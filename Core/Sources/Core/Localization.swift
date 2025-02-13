@@ -22,13 +22,14 @@ public enum Localization {
     case dark
     case directedBy
     case director
-    case discovery
     case done
     case genres
+    case discoverByGenre
     case information
     case language
     case light
     case more
+    case movies
     case moviesSearchPrompt
     case notAvailable
     case nowPlaying

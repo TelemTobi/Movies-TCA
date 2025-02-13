@@ -4,24 +4,23 @@ import PackageDescription
 
 let package = Package(
     name: "Presentation",
-    platforms: [.iOS(.v17), .macOS(.v14)],
+    platforms: [.iOS(.v18), .macOS(.v15)],
     products: [
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
         
-        .library(name: "DiscoveryFeature", targets: ["DiscoveryFeature"]),
+        .library(name: "GenreDetailsFeature", targets: ["GenreDetailsFeature"]),
+        .library(name: "MoviesHomepageFeature", targets: ["MoviesHomepageFeature"]),
         .library(name: "MovieDetailsFeature", targets: ["MovieDetailsFeature"]),
-        .library(name: "MovieListFeature", targets: ["MovieListFeature"]),
+        .library(name: "MovieCollectionFeature", targets: ["MovieCollectionFeature"]),
         .library(name: "PreferencesFeature", targets: ["PreferencesFeature"]),
         .library(name: "SearchFeature", targets: ["SearchFeature"]),
         .library(name: "SplashFeature", targets: ["SplashFeature"]),
-        .library(name: "WatchlistFeature", targets: ["WatchlistFeature"]),
         
-        .library(name: "DiscoveryNavigator", targets: ["DiscoveryNavigator"]),
         .library(name: "HomeNavigator", targets: ["HomeNavigator"]),
+        .library(name: "MoviesNavigator", targets: ["MoviesNavigator"]),
         .library(name: "MovieNavigator", targets: ["MovieNavigator"]),
         .library(name: "RootNavigator", targets: ["RootNavigator"]),
         .library(name: "SearchNavigator", targets: ["SearchNavigator"]),
-        .library(name: "WatchlistNavigator", targets: ["WatchlistNavigator"]),
     ],
     dependencies: [
         .package(path: "../Core"),
@@ -51,19 +50,18 @@ let package = Package(
         .testTarget(
             name: "PresentationTests",
             dependencies: [
-                "DiscoveryFeature",
+                "GenreDetailsFeature",
+                "MoviesHomepageFeature",
                 "MovieDetailsFeature",
-                "MovieListFeature",
+                "MovieCollectionFeature",
                 "PreferencesFeature",
                 "SearchFeature",
                 "SplashFeature",
-                "WatchlistFeature",
-                "DiscoveryNavigator",
                 "HomeNavigator",
+                "MoviesNavigator",
                 "MovieNavigator",
                 "RootNavigator",
                 "SearchNavigator",
-                "WatchlistNavigator",
                 .product(name: "Core", package: "Core"),
                 .product(name: "Models", package: "Data"),
                 .product(name: "Domain", package: "Domain")
@@ -77,16 +75,20 @@ let package = Package(
 
 let features: [PackageDescription.Target] = [
     .target(
-        name: "DiscoveryFeature",
-        path: "Sources/Features/Discovery"
+        name: "GenreDetailsFeature",
+        path: "Sources/Features/GenreDetails"
+    ),
+    .target(
+        name: "MoviesHomepageFeature",
+        path: "Sources/Features/MoviesHomepage"
     ),
     .target(
         name: "MovieDetailsFeature",
         path: "Sources/Features/MovieDetails"
     ),
     .target(
-        name: "MovieListFeature",
-        path: "Sources/Features/MovieList"
+        name: "MovieCollectionFeature",
+        path: "Sources/Features/MovieCollection"
     ),
     .target(
         name: "PreferencesFeature",
@@ -99,10 +101,6 @@ let features: [PackageDescription.Target] = [
     .target(
         name: "SplashFeature",
         path: "Sources/Features/Splash"
-    ),
-    .target(
-        name: "WatchlistFeature",
-        path: "Sources/Features/Watchlist"
     )
 ]
 
@@ -123,23 +121,23 @@ for target in features {
 
 let navigators: [PackageDescription.Target] = [
     .target(
-        name: "DiscoveryNavigator",
+        name: "HomeNavigator",
         dependencies: [
-            "DiscoveryFeature",
-            "MovieListFeature",
+            "MoviesNavigator",
+            "SearchNavigator"
+        ],
+        path: "Sources/Navigators/Home"
+    ),
+    .target(
+        name: "MoviesNavigator",
+        dependencies: [
+            "GenreDetailsFeature",
+            "MoviesHomepageFeature",
+            "MovieCollectionFeature",
             "PreferencesFeature",
             "MovieNavigator"
         ],
-        path: "Sources/Navigators/Discovery"
-    ),
-    .target(
-        name: "HomeNavigator",
-        dependencies: [
-            "DiscoveryNavigator",
-            "SearchNavigator",
-            "WatchlistNavigator"
-        ],
-        path: "Sources/Navigators/Home"
+        path: "Sources/Navigators/Movies"
     ),
     .target(
         name: "MovieNavigator",
@@ -160,19 +158,11 @@ let navigators: [PackageDescription.Target] = [
         name: "SearchNavigator",
         dependencies: [
             "SearchFeature",
+            "GenreDetailsFeature",
             "PreferencesFeature",
             "MovieNavigator"
         ],
         path: "Sources/Navigators/Search"
-    ),
-    .target(
-        name: "WatchlistNavigator",
-        dependencies: [
-            "WatchlistFeature",
-            "PreferencesFeature",
-            "MovieNavigator"
-        ],
-        path: "Sources/Navigators/Watchlist"
     )
 ]
 

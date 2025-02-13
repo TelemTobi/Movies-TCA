@@ -3,7 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>UILaunchScreen</key>
-	<dict/>
+	<dict>
+		<key>UIColorName</key>
+		<string>mtBackground</string>
+	</dict>
 	<key>tmdbAccessToken</key>
 	<string>${TMDB_API_ACCESS_TOKEN}</string>
 	<key>tmdbBaseUrl</key>
