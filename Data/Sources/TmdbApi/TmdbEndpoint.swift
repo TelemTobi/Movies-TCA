@@ -103,7 +103,7 @@ extension TmdbEndpoint: Endpoint {
     }
     
     var shouldPrintLogs: Bool {
-        true
+        false
     }
     #endif
 }

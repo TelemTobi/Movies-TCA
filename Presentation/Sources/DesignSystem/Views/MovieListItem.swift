@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import NukeUI
 import Core
 import Models
 
@@ -52,19 +51,10 @@ public struct MovieListItem: View {
         let imageHeight = geometry.size.height * 0.9
         let imageWidth = imageHeight * imageType.ratio
         
-        LazyImage(url: imageUrl) { state in
-            ZStack {
-                if let image = state.image {
-                    image.resizable()
-                } else {
-                    TmdbImagePlaceholder()
-                }
-            }
-            .animation(.smooth, value: state.image)
-        }
-        .frame(width: imageWidth, height: imageHeight)
-        .aspectRatio(imageType.ratio, contentMode: .fill)
-        .cornerRadius(10)
+        LazyImage(url: imageUrl)
+            .frame(width: imageWidth, height: imageHeight)
+            .aspectRatio(imageType.ratio, contentMode: .fill)
+            .cornerRadius(10)
     }
     
     @ViewBuilder

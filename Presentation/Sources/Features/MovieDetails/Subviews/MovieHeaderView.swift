@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import NukeUI
 import ComposableArchitecture
 import Core
 import DesignSystem
@@ -19,17 +18,10 @@ extension MovieDetailsView {
         
         ZStack(alignment: .bottom) {
             StretchyHeader($headerOffScreenPercentage) {
-                LazyImage(url: movie.posterUrl) { state in
-                    if let image = state.image {
-                        image.resizable()
-                    } else {
-                        LazyImage(url: movie.posterThumbnailUrl) { state in
-                            if let image = state.image {
-                                image.resizable()
-                            }
-                        }
-                    }
-                }
+                LazyImage(
+                    url: movie.posterUrl,
+                    placeholder: { LazyImage(url: movie.posterThumbnailUrl) }
+                )
             }
             .aspectRatio(14/21, contentMode: .fill)
             

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import NukeUI
 import Core
 import Models
 
@@ -36,19 +35,10 @@ public struct MovieGridItem: View {
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            LazyImage(url: imageUrl) { state in
-                ZStack {
-                    if let image = state.image {
-                        image.resizable()
-                    } else {
-                        TmdbImagePlaceholder()
-                    }
-                }
-                .animation(.smooth, value: state.image)
-            }
-            .aspectRatio(imageType.ratio, contentMode: .fill)
-            .clipShape(.rect(cornerRadius: 10))
-            .adaptiveConstrast(shadow: .off)
+            LazyImage(url: imageUrl)
+                .aspectRatio(imageType.ratio, contentMode: .fill)
+                .clipShape(.rect(cornerRadius: 10))
+                .adaptiveConstrast(shadow: .off)
             
             Group {
                 if case .on = extendedDetails {
