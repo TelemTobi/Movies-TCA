@@ -443,6 +443,23 @@
         }
       }
     },
+    "recentlyViewed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recently Viewed"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נצפו לאחרונה"
+          }
+        }
+      }
+    },
     "related" : {
       "extractionState" : "manual",
       "localizations" : {

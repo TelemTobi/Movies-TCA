@@ -24,3 +24,7 @@ public extension SharedKey where Self == AppStorageKey<Bool> {
 public extension SharedKey where Self == FileStorageKey<IdentifiedArrayOf<Movie>> {
     static var watchlist: Self { .fileStorage(.applicationDirectory.appending(path: "watchlist.json")) }
 }
+
+public extension SharedKey where Self == FileStorageKey<IdentifiedArrayOf<Movie>> {
+    static var recentlyViewed: Self { .fileStorage(.applicationDirectory.appending(path: "recentlyViewed.json")) }
+}

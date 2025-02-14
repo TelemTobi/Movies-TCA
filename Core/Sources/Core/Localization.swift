@@ -37,6 +37,7 @@ public enum Localization {
     case originalTitle
     case popular
     case preferences
+    case recentlyViewed
     case related
     case releaseDate
     case remove

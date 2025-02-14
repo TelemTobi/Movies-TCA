@@ -27,8 +27,10 @@ public struct SearchView: View {
             switch store.viewState {
             case .suggestions:
                 suggestionsView()
+                
             case .loading:
                 ProgressView()
+                
             case let .searchResult(movies):
                 resultsView(movies)
             }
@@ -85,12 +87,41 @@ public struct SearchView: View {
                     value: didFirstAppear
                 )
             }
-            .padding(.horizontal)
             .onFirstAppear {
                 withAnimation { didFirstAppear = true }
             }
+            
+            if store.recentlyViewed.isNotEmpty {
+                recentlyViewed()
+            }
         }
+        .padding(.horizontal)
         .scrollIndicators(.hidden)
+    }
+    
+    @ViewBuilder
+    private func recentlyViewed() -> some View {
+        LazyVStack(alignment: .leading, spacing: 8) {
+            SectionHeader(title: .localized(.recentlyViewed))
+                .padding(.bottom)
+            
+            ForEach(store.recentlyViewed) { movie in
+                Button {
+                    send(.onMovieTap(movie))
+                } label: {
+                    MovieListItem(
+                        movie: movie,
+                        imageType: .backdrop
+                    )
+                }
+                .buttonStyle(.plain)
+                .frame(height: 70)
+                
+                Divider()
+                    .padding(.leading,  70 * Constants.ImageType.backdrop.ratio)
+            }
+        }
+        .padding(.vertical)
     }
     
     @ViewBuilder

@@ -20,6 +20,7 @@ public struct Search {
 
         @Shared(.genres) var genres = []
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
+        @Shared(.recentlyViewed) var recentlyViewed: IdentifiedArrayOf<Movie> = []
         
         var isSearchActive: Bool {
             searchInput.count >= 2
