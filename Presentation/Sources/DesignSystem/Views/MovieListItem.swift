@@ -29,6 +29,7 @@ public struct MovieListItem: View {
             HStack(spacing: 16) {
                 imageView(geometry)
                     .adaptiveConstrast()
+                    .matchedTransitionSource(id: movie.id.description, in: namespace)
                 
                 if let index {
                     Text(index.description)
@@ -64,7 +65,6 @@ public struct MovieListItem: View {
         .frame(width: imageWidth, height: imageHeight)
         .aspectRatio(imageType.ratio, contentMode: .fill)
         .cornerRadius(10)
-        .matchedTransitionSource(id: movie.id.description, in: namespace)
     }
     
     @ViewBuilder
@@ -95,7 +95,6 @@ public struct MovieListItem: View {
                     .font(subtitleFont)
                     .foregroundStyle(.secondary)
             }
-
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

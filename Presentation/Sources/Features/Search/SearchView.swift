@@ -16,7 +16,7 @@ import Models
 public struct SearchView: View {
     
     @Bindable public var store: StoreOf<Search>
-    @State private var didFirstAppear: Bool = false
+    @State var didFirstAppear: Bool = false
     
     public init(store: StoreOf<Search>) {
         self.store = store
@@ -58,70 +58,6 @@ public struct SearchView: View {
                 }
             )
         }
-    }
-    
-    @ViewBuilder
-    private func suggestionsView() -> some View {
-        let delays = Array(0..<store.genres.count)
-            .map { 0.2 + (CGFloat($0) * 0.05) }
-            .shuffled()
-        
-        ScrollView {
-            CapsulesView(items: store.genres) { index, genre in
-                Button(
-                    action: {
-                        send(.onGenreTap(genre))
-                    },
-                    label: {
-                        Text(genre.description)
-                            .font(.rounded(.footnote))
-                            .fontWeight(.medium)
-                    }
-                )
-                .buttonStyle(.capsuled)
-                .opacity(didFirstAppear ? 1 : 0)
-                .scaleEffect(didFirstAppear ? 1 : 0.7)
-                .rotationEffect(.degrees(didFirstAppear ? 0 : 10))
-                .animation(
-                    .easeInOut(duration: 0.25).delay(delays[index]),
-                    value: didFirstAppear
-                )
-            }
-            .onFirstAppear {
-                withAnimation { didFirstAppear = true }
-            }
-            
-            if store.recentlyViewed.isNotEmpty {
-                recentlyViewed()
-            }
-        }
-        .padding(.horizontal)
-        .scrollIndicators(.hidden)
-    }
-    
-    @ViewBuilder
-    private func recentlyViewed() -> some View {
-        LazyVStack(alignment: .leading, spacing: 8) {
-            SectionHeader(title: .localized(.recentlyViewed))
-                .padding(.bottom)
-            
-            ForEach(store.recentlyViewed) { movie in
-                Button {
-                    send(.onMovieTap(movie))
-                } label: {
-                    MovieListItem(
-                        movie: movie,
-                        imageType: .backdrop
-                    )
-                }
-                .buttonStyle(.plain)
-                .frame(height: 70)
-                
-                Divider()
-                    .padding(.leading,  70 * Constants.ImageType.backdrop.ratio)
-            }
-        }
-        .padding(.vertical)
     }
     
     @ViewBuilder

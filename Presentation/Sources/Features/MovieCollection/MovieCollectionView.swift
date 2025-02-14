@@ -47,18 +47,18 @@ public struct MovieCollectionView: View {
                         index: store.section.indexed ? index + 1 : nil,
                         imageType: .backdrop
                     )
-                    .swipeActions(edge: .trailing) {
-                        if editable {
-                            Button(role: .destructive) {
-                                send(.onDeleteAction(movie))
-                            } label: {
-                                Image(systemName: "trash.fill")
-                            }
-                        }
-                    }
                 }
                 .buttonStyle(.plain)
                 .frame(height: 70)
+                .swipeActions(edge: .trailing) {
+                    if editable {
+                        Button(role: .destructive) {
+                            send(.onDeleteAction(movie))
+                        } label: {
+                            Image(systemName: "trash.fill")
+                        }
+                    }
+                }
             }
             .listRowBackground(Color.clear)
             .listSectionSeparator(.hidden, edges: [.top, .bottom])

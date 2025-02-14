@@ -46,7 +46,7 @@ public struct MoviesRow: View {
     
     @ViewBuilder
     private func itemView(_ movie: Movie, _ index: Int) -> some View {
-        let index = indexed ? index : nil
+        let itemExtededDetails: MovieGridItem.ExtendedDetails = indexed ? .on(index: index) : .off
         let transitionSourceId = movie.id.description + TransitionSource.collection.rawValue
         
         Button {
@@ -55,7 +55,7 @@ public struct MoviesRow: View {
             MovieGridItem(
                 movie: movie,
                 imageType: imageType,
-                index: index
+                extendedDetails: itemExtededDetails
             )
         }
         .buttonStyle(.plain)
