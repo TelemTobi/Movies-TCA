@@ -33,7 +33,7 @@ public struct MoviesHomepage {
             case onMovieTap(Movie, TransitionSource)
             case onSectionHeaderTap(HomepageSection)
             case onGenreTap(Genre)
-            case onMovieLike(Movie)
+            case toggleWatchlist(Movie)
         }
         
         @CasePathable
@@ -107,7 +107,7 @@ public struct MoviesHomepage {
         case let .onGenreTap(genre):
             return .send(.navigation(.genreDetails(genre)))
             
-        case let .onMovieLike(movie):
+        case let .toggleWatchlist(movie):
             return .run { _ in
                 await interactor.toggleWatchlist(for: movie)
             }

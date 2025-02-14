@@ -1,6 +1,23 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "addToWatchlist" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to Watchlist"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הוספה לרשימת צפייה"
+          }
+        }
+      }
+    },
     "adultContent" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -235,6 +252,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ז׳אנרים"
+          }
+        }
+      }
+    },
+    "goToMovie" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to Movie"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מעבר לסרט"
           }
         }
       }
@@ -511,6 +545,40 @@
         }
       }
     },
+    "removeFromRecent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from Recent"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הסרה מאחרונים"
+          }
+        }
+      }
+    },
+    "removeFromWatchlist" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from Watchlist"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הסרה מרשימת צפייה"
+          }
+        }
+      }
+    },
     "revenue" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -575,6 +643,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "הכל"
+          }
+        }
+      }
+    },
+    "share" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שיתוף"
           }
         }
       }

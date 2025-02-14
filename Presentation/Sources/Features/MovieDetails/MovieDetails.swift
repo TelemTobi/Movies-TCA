@@ -34,6 +34,7 @@ public struct MovieDetails {
             case onFirstAppear
             case onCloseButtonTap
             case onRelatedMovieTap(Movie)
+            case toggleWatchlist(Movie)
             case onLikeTap
         }
         
@@ -98,6 +99,11 @@ public struct MovieDetails {
             
         case let .onRelatedMovieTap(movie):
             return .send(.navigation(.pushRelatedMovie(movie)))
+            
+        case let .toggleWatchlist(movie):
+            return .run { _ in
+                await interactor.toggleWatchlist(for: movie)
+            }
             
         case .onLikeTap:
             let movie = state.detailedMovie.movie

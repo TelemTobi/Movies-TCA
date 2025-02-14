@@ -87,7 +87,8 @@ public struct MoviesHomepageView: View {
                     imageType: section.imageType,
                     itemWidth: section.itemWidth,
                     indexed: section.indexed,
-                    onMovieTap: { send(.onMovieTap($0, .collection)) }
+                    onMovieTap: { send(.onMovieTap($0, .collection)) },
+                    toggleWatchlist: { send(.toggleWatchlist($0)) }
                 )
                 
             case .genres:

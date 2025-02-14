@@ -41,7 +41,7 @@ public struct MovieCollection {
         public enum View: Equatable {
             case onMovieTap(Movie)
             case onMovieLike(Movie)
-            case onDeleteAction(Movie)
+            case onToggleWatchlist(Movie)
         }
         
         @CasePathable
@@ -79,14 +79,10 @@ public struct MovieCollection {
                 await interactor.toggleWatchlist(for: movie)
             }
             
-        case let .onDeleteAction(movie):
-            switch state.section {
-            case .watchlist:
-                let _ = state.$watchlist.withLock { $0.remove(movie) }
-            default:
-                break
+        case let .onToggleWatchlist(movie):
+            return .run { _ in
+                await interactor.toggleWatchlist(for: movie)
             }
-            return .none
         }
     }
 }

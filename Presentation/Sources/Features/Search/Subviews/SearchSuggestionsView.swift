@@ -77,16 +77,12 @@ extension SearchView {
                 }
                 .buttonStyle(.plain)
                 .frame(height: 70)
-                .contextMenu {
-                    contextMenu(for: movie)
-                } preview: {
-                    MovieGridItem(
-                        movie: movie,
-                        imageType: .backdrop
-                    )
-                    .padding()
-                    .frame(width: 280)
-                }
+                .mediaContextMenu(
+                    movie,
+                    goToMedia: { send(.onMovieTap(movie)) },
+                    shareMedia: {},
+                    removeFromRecents: { send(.onRemoveFromRecents(movie)) }
+                )
                 .swipeActions(edge: .trailing) {
                     Button(role: .destructive) {
                         send(.onRemoveFromRecents(movie))
@@ -100,29 +96,6 @@ extension SearchView {
         .listSectionSeparator(.hidden, edges: .bottom)
         .alignmentGuide(.listRowSeparatorLeading) { _ in
             70 * Constants.ImageType.backdrop.ratio
-        }
-    }
-    
-    @ViewBuilder
-    private func contextMenu(for movie: Movie) -> some View {
-        Button(role: .destructive) {
-            send(.onRemoveFromRecents(movie))
-        } label: {
-            Label("Remove from Recent", systemImage: "x.circle")
-        }
-        
-        Divider()
-        
-        Button {
-            send(.onMovieTap(movie))
-        } label: {
-            Label("Go to Movie", systemImage: "info.circle")
-        }
-        
-        Button {
-            
-        } label: {
-            Label("Share", systemImage: "square.and.arrow.up")
         }
     }
 }
