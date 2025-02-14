@@ -35,7 +35,7 @@ public struct LazyImage<Placeholder: View, Fallback: View>: View {
                     placeholder()
                 }
             }
-            .animation(.smooth(duration: 0.1), value: state.image)
+            .animation(.smooth, value: state.image)
         }
     }
 }
