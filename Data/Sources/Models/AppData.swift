@@ -13,6 +13,7 @@ import IdentifiedCollections
 public actor AppData {
     @Shared(.genres) public var genres: [Genre] = []
     @Shared(.watchlist) public var watchlist: IdentifiedArrayOf<Movie> = []
+    @Shared(.recentlyViewed) var recentlyViewed: IdentifiedArrayOf<Movie> = []
     
     public func setGenres(_ genres: [Genre]) {
         self.$genres.withLock { $0 = genres }

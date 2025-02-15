@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import NukeUI
 import Models
 import Domain
 
@@ -62,14 +61,8 @@ public struct StretchyHeader<Header: View>: View {
                 StretchyHeader {
                     let imageUrl = URL(string: "https://image.tmdb.org/t/p/original/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg")
                     
-                    LazyImage(url: imageUrl) { state in
-                        if let image = state.image {
-                            image.resizable()
-                        } else {
-                            TmdbImagePlaceholder()
-                        }
-                    }
-                    .centerCropped()
+                    LazyImage(url: imageUrl)
+                        .centerCropped()
                 } headerOffScreenPercentageClosure: { offScreenPercentage in
                     // Do some animation with `offScreenPercentage`
                 }

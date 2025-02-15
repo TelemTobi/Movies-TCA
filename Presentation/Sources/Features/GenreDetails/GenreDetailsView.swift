@@ -26,6 +26,7 @@ public struct GenreDetailsView: View {
         }
         .navigationTitle(store.genre.description)
         .navigationBarTitleDisplayMode(.large)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .backgroundColor(.background)
         .onAppear { send(.onAppear) }
         .zoomTransition(sourceID: store.genre.description, in: namespace)

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import NukeUI
 import Core
 import Models
 
@@ -17,15 +16,17 @@ public struct MoviesRow: View {
     let itemWidth: CGFloat
     let indexed: Bool
     let onMovieTap: (Movie) -> Void
+    let toggleWatchlist: (Movie) -> Void
     
     @Environment(\.namespace) private var namespace: Namespace.ID?
     
-    public init(movies: [Movie], imageType: Constants.ImageType = .poster, itemWidth: CGFloat = 160, indexed: Bool = false, onMovieTap: @escaping (Movie) -> Void) {
+    public init(movies: [Movie], imageType: Constants.ImageType = .poster, itemWidth: CGFloat = 160, indexed: Bool = false, onMovieTap: @escaping (Movie) -> Void, toggleWatchlist: @escaping (Movie) -> Void) {
         self.movies = movies
         self.imageType = imageType
         self.itemWidth = itemWidth
         self.indexed = indexed
         self.onMovieTap = onMovieTap
+        self.toggleWatchlist = toggleWatchlist
     }
     
     public var body: some View {
@@ -46,7 +47,7 @@ public struct MoviesRow: View {
     
     @ViewBuilder
     private func itemView(_ movie: Movie, _ index: Int) -> some View {
-        let index = indexed ? index : nil
+        let itemExtededDetails: MovieGridItem.ExtendedDetails = indexed ? .on(index: index) : .off
         let transitionSourceId = movie.id.description + TransitionSource.collection.rawValue
         
         Button {
@@ -55,7 +56,7 @@ public struct MoviesRow: View {
             MovieGridItem(
                 movie: movie,
                 imageType: imageType,
-                index: index
+                extendedDetails: itemExtededDetails
             )
         }
         .buttonStyle(.plain)
@@ -63,13 +64,20 @@ public struct MoviesRow: View {
             view.scaleEffect(phase.isIdentity ? 1 : 0.95)
         }
         .matchedTransitionSource(id: transitionSourceId, in: namespace)
+        .mediaContextMenu(
+            movie,
+            goToMedia: { onMovieTap(movie) },
+            shareMedia: {},
+            toggleWatchlist: { toggleWatchlist(movie) }
+        )
     }
 }
 
 #Preview {
     MoviesRow(
         movies: MovieList.mock.movies ?? [],
-        onMovieTap: { _ in }
+        onMovieTap: { _ in },
+        toggleWatchlist: { _ in }
     )
     .frame(height: 150)
 }

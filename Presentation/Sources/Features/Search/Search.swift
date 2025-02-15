@@ -20,6 +20,7 @@ public struct Search {
 
         @Shared(.genres) var genres = []
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
+        @Shared(.recentlyViewed) var recentlyViewed: IdentifiedArrayOf<Movie> = []
         
         var isSearchActive: Bool {
             searchInput.count >= 2
@@ -36,7 +37,8 @@ public struct Search {
             case onPreferencesTap
             case onMovieTap(Movie)
             case onGenreTap(Genre)
-            case onMovieLike(Movie)
+            case onWatchlistToggle(Movie)
+            case onRemoveFromRecents(Movie)
         }
         
         @CasePathable
@@ -128,10 +130,14 @@ public struct Search {
         case .onPreferencesTap:
             return .send(.navigation(.presentPreferences))
             
-        case let .onMovieLike(movie):
+        case let .onWatchlistToggle(movie):
             return .run { _ in
                 await interactor.toggleWatchlist(for: movie)
             }
+            
+        case let .onRemoveFromRecents(movie):
+            let _ = state.$recentlyViewed.withLock { $0.remove(movie) }
+            return .none
         }
     }
 }

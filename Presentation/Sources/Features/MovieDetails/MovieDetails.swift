@@ -17,6 +17,7 @@ public struct MovieDetails {
         public var detailedMovie: DetailedMovie
         
         @Shared(.watchlist) var watchlist: IdentifiedArrayOf<Movie> = []
+        @Shared(.recentlyViewed) var recentlyViewed: IdentifiedArrayOf<Movie> = []
         
         public init(detailedMovie: DetailedMovie) {
             self.detailedMovie = detailedMovie
@@ -33,6 +34,7 @@ public struct MovieDetails {
             case onFirstAppear
             case onCloseButtonTap
             case onRelatedMovieTap(Movie)
+            case toggleWatchlist(Movie)
             case onLikeTap
         }
         
@@ -86,6 +88,10 @@ public struct MovieDetails {
     private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
         switch action {
         case .onFirstAppear:
+            state.$recentlyViewed.withLock {
+                $0.insert(state.detailedMovie.movie, at: .zero)
+                $0 = .init(uniqueElements: Array($0.prefix(5)))
+            }
             return .send(.fetchMovieDetails)
             
         case .onCloseButtonTap:
@@ -93,6 +99,11 @@ public struct MovieDetails {
             
         case let .onRelatedMovieTap(movie):
             return .send(.navigation(.pushRelatedMovie(movie)))
+            
+        case let .toggleWatchlist(movie):
+            return .run { _ in
+                await interactor.toggleWatchlist(for: movie)
+            }
             
         case .onLikeTap:
             let movie = state.detailedMovie.movie

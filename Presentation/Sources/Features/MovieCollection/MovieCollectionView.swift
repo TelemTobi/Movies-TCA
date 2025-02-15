@@ -16,6 +16,8 @@ public struct MovieCollectionView: View {
     
     public let store: StoreOf<MovieCollection>
     
+    @Environment(\.namespace) private var namespace: Namespace.ID?
+    
     public init(store: StoreOf<MovieCollection>) {
         self.store = store
     }
@@ -47,18 +49,24 @@ public struct MovieCollectionView: View {
                         index: store.section.indexed ? index + 1 : nil,
                         imageType: .backdrop
                     )
-                    .swipeActions(edge: .trailing) {
-                        if editable {
-                            Button(role: .destructive) {
-                                send(.onDeleteAction(movie))
-                            } label: {
-                                Image(systemName: "trash.fill")
-                            }
-                        }
-                    }
                 }
                 .buttonStyle(.plain)
                 .frame(height: 70)
+                .mediaContextMenu(
+                    movie,
+                    goToMedia: { send(.onMovieTap(movie)) },
+                    shareMedia: {},
+                    toggleWatchlist: { send(.onToggleWatchlist(movie)) }
+                )
+                .swipeActions(edge: .trailing) {
+                    if editable {
+                        Button(role: .destructive) {
+                            send(.onToggleWatchlist(movie))
+                        } label: {
+                            Image(systemName: "trash.fill")
+                        }
+                    }
+                }
             }
             .listRowBackground(Color.clear)
             .listSectionSeparator(.hidden, edges: [.top, .bottom])
@@ -78,9 +86,20 @@ public struct MovieCollectionView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(store.movieList.movies ?? []) { movie in
-                    MovieGridItem(
-                        movie: movie,
-                        imageType: .backdrop
+                    Button {
+                        send(.onMovieTap(movie))
+                    } label: {
+                        MovieGridItem(
+                            movie: movie,
+                            imageType: .backdrop
+                        )
+                    }
+                    .matchedTransitionSource(id: movie.id.description, in: namespace)
+                    .mediaContextMenu(
+                        movie,
+                        goToMedia: { send(.onMovieTap(movie)) },
+                        shareMedia: {},
+                        toggleWatchlist: { send(.onToggleWatchlist(movie)) }
                     )
                 }
             }

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import IdentifiedCollections
-import NukeUI
 import Models
 import TmdbApi
 
@@ -46,7 +45,7 @@ public struct MoviesPager: View {
             ParallaxPager(
                 collection: movies,
                 content: {
-                    content(for: $0)
+                    LazyImage(url: $0.posterUrl ?? $0.posterThumbnailUrl)
                         .position(x: geo.frame(in: .local).midX, y: geo.frame(in: .local).midY)
                         .offset(y: max(scrollOffset / 1.25, 0))
                         .clipShape(.bottomClip(height: geo.size.height))
@@ -65,20 +64,6 @@ public struct MoviesPager: View {
         .overlay {
             Color(resource: .background)
                 .opacity(headerOpacity)
-        }
-    }
-    
-    @ViewBuilder
-    private func content(for movie: Movie) -> some View {
-        LazyImage(url: movie.posterUrl ?? movie.posterThumbnailUrl) { state in
-            ZStack {
-                if let image = state.image {
-                    image.resizable()
-                } else {
-                    TmdbImagePlaceholder()
-                }
-            }
-            .animation(.smooth, value: state.image)
         }
     }
     

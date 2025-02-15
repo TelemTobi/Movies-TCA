@@ -71,7 +71,7 @@ public struct Movie: Codable, Equatable, Identifiable, Sendable {
     
     public var posterUrl: URL? {
         guard let posterPath else { return nil }
-        return .init(string: Config.TmdbApi.photoBaseUrl + "/original/" + posterPath)
+        return .init(string: Config.TmdbApi.photoBaseUrl + "/w780/" + posterPath)
     }
     
     public var posterThumbnailUrl: URL? {

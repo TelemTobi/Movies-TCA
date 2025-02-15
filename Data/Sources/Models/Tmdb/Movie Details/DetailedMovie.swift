@@ -29,7 +29,7 @@ public extension DetailedMovie {
         }
         
         jsonDictionary["movie"] = jsonDictionary
-        jsonDictionary["relatedMovies"] = jsonDictionary["similar"] ?? jsonDictionary["recommendations"]
+        jsonDictionary["relatedMovies"] = jsonDictionary["recommendations"] ?? jsonDictionary["similar"]
         
         return try JSONSerialization.data(withJSONObject: jsonDictionary)
     }

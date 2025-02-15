@@ -6,15 +6,19 @@
 //
 
 import SwiftUI
-import NukeUI
 import Core
 import Models
 
 public struct MovieGridItem: View {
     
+    public enum ExtendedDetails {
+        case on(index: Int?)
+        case off
+    }
+    
     let movie: Movie
     let imageType: Constants.ImageType
-    let index: Int?
+    let extendedDetails: ExtendedDetails
     
     private var imageUrl: URL? {
         switch imageType {
@@ -23,31 +27,22 @@ public struct MovieGridItem: View {
         }
     }
     
-    public init(movie: Movie, imageType: Constants.ImageType, index: Int? = nil) {
+    public init(movie: Movie, imageType: Constants.ImageType, extendedDetails: ExtendedDetails = .on(index: nil)) {
         self.movie = movie
         self.imageType = imageType
-        self.index = index
+        self.extendedDetails = extendedDetails
     }
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            LazyImage(url: imageUrl) { state in
-                ZStack {
-                    if let image = state.image {
-                        image.resizable()
-                    } else {
-                        TmdbImagePlaceholder()
-                    }
-                }
-                .animation(.smooth, value: state.image)
-            }
-            .aspectRatio(imageType.ratio, contentMode: .fill)
-            .clipShape(.rect(cornerRadius: 10))
-            .adaptiveConstrast(shadow: .off)
+            LazyImage(url: imageUrl)
+                .aspectRatio(imageType.ratio, contentMode: .fill)
+                .clipShape(.rect(cornerRadius: 10))
+                .adaptiveConstrast(shadow: .off)
             
             Group {
-                if let index {
-                    extendedDetailsView(index)
+                if case .on = extendedDetails {
+                    extendedDetailsView()
                 } else {
                     Text(movie.title ?? .empty)
                         .lineLimit(1)
@@ -62,15 +57,17 @@ public struct MovieGridItem: View {
     }
     
     @ViewBuilder
-    private func extendedDetailsView(_ index: Int) -> some View {
+    private func extendedDetailsView() -> some View {
         let subtitle = [movie.releaseDate?.year.description, movie.genres?.first?.description]
             .compactMap { $0 }
             .joined(separator: .dotSeparator)
         
         HStack {
-            Text(index.description)
-                .font(.rounded(42, weight: .bold))
-                .foregroundStyle(.secondary)
+            if case let .on(index) = extendedDetails, let index {
+                Text(index.description)
+                    .font(.rounded(42, weight: .bold))
+                    .foregroundStyle(.secondary)
+            }
             
             VStack(alignment: .leading) {
                 Text(movie.title ?? .empty)
@@ -96,6 +93,6 @@ public struct MovieGridItem: View {
     MovieGridItem(
         movie: .mock,
         imageType: .backdrop,
-        index: 2
+        extendedDetails: .on(index: 3)
     )
 }

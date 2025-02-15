@@ -1,6 +1,23 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "addToWatchlist" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to Watchlist"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הוספה לרשימת צפייה"
+          }
+        }
+      }
+    },
     "adultContent" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -239,6 +256,23 @@
         }
       }
     },
+    "goToMovie" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to Movie"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מעבר לסרט"
+          }
+        }
+      }
+    },
     "information" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -443,6 +477,23 @@
         }
       }
     },
+    "recentlyViewed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recently Viewed"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נצפו לאחרונה"
+          }
+        }
+      }
+    },
     "related" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -490,6 +541,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "הסרה"
+          }
+        }
+      }
+    },
+    "removeFromRecent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from Recent"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הסרה מאחרונים"
+          }
+        }
+      }
+    },
+    "removeFromWatchlist" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from Watchlist"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הסרה מרשימת צפייה"
           }
         }
       }
@@ -558,6 +643,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "הכל"
+          }
+        }
+      }
+    },
+    "share" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שיתוף"
           }
         }
       }

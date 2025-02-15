@@ -11,6 +11,7 @@ import SwiftUI
 
 @Localizable
 public enum Localization {
+    case addToWatchlist
     case adultContent
     case appearance
     case areYouSure
@@ -25,6 +26,7 @@ public enum Localization {
     case done
     case genres
     case discoverByGenre
+    case goToMovie
     case information
     case language
     case light
@@ -37,13 +39,17 @@ public enum Localization {
     case originalTitle
     case popular
     case preferences
+    case recentlyViewed
     case related
     case releaseDate
     case remove
+    case removeFromRecent
+    case removeFromWatchlist
     case revenue
     case runtime
     case search
     case seeAll
+    case share
     case status
     case system
     case topRated

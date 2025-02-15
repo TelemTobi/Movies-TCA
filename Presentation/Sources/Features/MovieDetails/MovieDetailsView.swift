@@ -122,7 +122,8 @@ public struct MovieDetailsView: View {
             Section {
                 MoviesRow(
                     movies: relatedMovies,
-                    onMovieTap: { send(.onRelatedMovieTap($0)) }
+                    onMovieTap: { send(.onRelatedMovieTap($0)) },
+                    toggleWatchlist: { send(.toggleWatchlist($0)) }
                 )
             } header: {
                 SectionHeader(title: .localized(.related))
