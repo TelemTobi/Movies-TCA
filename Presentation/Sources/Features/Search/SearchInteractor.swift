@@ -19,8 +19,8 @@ struct SearchInteractor: Sendable {
         get async { await genresUseCases.get() }
     }
     
-    func discoverMovies(by genreId: Int) async -> Result<MovieList, TmdbError> {
-        await moviesUseCases.discoverByGenre(genreId)
+    func discoverByGenre(_ genre: Genre) async -> Result<MovieList, TmdbError> {
+        await moviesUseCases.discoverByGenre(genre)
     }
     
     func searchMovies(using query: String) async -> Result<MovieList, TmdbError> {

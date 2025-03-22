@@ -14,7 +14,7 @@ enum TmdbEndpoint {
     case listGenres
     case listMovies(type: MovieListType)
     case searchMovies(query: String)
-    case discoverMovies(genreId: Int)
+    case discoverByGenre(Genre)
     case movieDetails(id: Int)
 }
 
@@ -25,38 +25,38 @@ extension TmdbEndpoint: Endpoint {
     }
     
     var path: String {
-        return switch self {
+        switch self {
         case .listGenres: "/genre/movie/list"
         case .listMovies(let type): "/movie/\(type.rawValue.snakeCased)"
         case .searchMovies: "/search/movie"
-        case .discoverMovies: "/discover/movie"
+        case .discoverByGenre: "/discover/movie"
         case .movieDetails(let id): "/movie/\(id)"
         }
     }
     
     var method: HttpMethod {
-        return switch self {
+        switch self {
         case .listGenres: .get
         case .listMovies: .get
         case .searchMovies: .get
-        case .discoverMovies: .get
+        case .discoverByGenre: .get
         case .movieDetails: .get
         }
     }
     
     var task: HttpTask {
-        return switch self {
+        switch self {
         case .listGenres: 
             .none
             
         case .listMovies:
             .none
             
-        case .searchMovies(let query):
+        case let .searchMovies(query):
             .queryParameters(["query": query])
             
-        case .discoverMovies(let genreId):
-            .queryParameters(["with_genres": genreId.description])
+        case let .discoverByGenre(genre):
+            .queryParameters(["with_genres": genre.rawValue.description])
             
         case .movieDetails:
             .queryParameters(["append_to_response": "credits,recommendations,similar"])
@@ -73,7 +73,7 @@ extension TmdbEndpoint: Endpoint {
     
     #if DEBUG
     var sampleData: Data? {
-        return switch self {
+        switch self {
         case .listGenres:
             TmdbMock.listGenres.dataEncoded
             
@@ -94,7 +94,7 @@ extension TmdbEndpoint: Endpoint {
         case .searchMovies:
             TmdbMock.searchMovies.dataEncoded
             
-        case .discoverMovies:
+        case .discoverByGenre:
             TmdbMock.discoverMovies.dataEncoded
             
         case .movieDetails:

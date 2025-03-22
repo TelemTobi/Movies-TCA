@@ -16,7 +16,7 @@ public struct MoviesUseCases: Sendable {
     public var favorites: @Sendable () async -> Shared<IdentifiedArrayOf<Movie>>
     public var fetchList: @Sendable (MovieListType) async -> Result<MovieList, TmdbError>
     public var search: @Sendable (_ query: String) async -> Result<MovieList, TmdbError>
-    public var discoverByGenre: @Sendable (_ genreId: Int) async -> Result<MovieList, TmdbError>
+    public var discoverByGenre: @Sendable (Genre) async -> Result<MovieList, TmdbError>
     public var fetchLists: @Sendable ([MovieListType]) async -> [MovieListType: Result<MovieList, TmdbError>]
 }
 
@@ -34,9 +34,9 @@ extension MoviesUseCases: DependencyKey {
             @Dependency(\.tmdbApiClient) var tmdbApiClient
             return await tmdbApiClient.searchMovies(query: query)
         },
-        discoverByGenre: { genreId in
+        discoverByGenre: { genre in
             @Dependency(\.tmdbApiClient) var tmdbApiClient
-            return await tmdbApiClient.discoverMovies(by: genreId)
+            return await tmdbApiClient.discoverByGenre(genre)
         },
         fetchLists: { listTypes in
             await withTaskGroup(of: (MovieListType, Result<MovieList, TmdbError>).self) { group in
