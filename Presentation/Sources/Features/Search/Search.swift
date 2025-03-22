@@ -84,7 +84,7 @@ public struct Search {
             case let .searchMovies(query):
                 if let genre = state.genres.first(where: { $0.description == query }) {
                     return .run { send in
-                        let discoverResult = await interactor.discoverMovies(by: genre.rawValue)
+                        let discoverResult = await interactor.discoverByGenre(genre)
                         await send(.searchResult(discoverResult))
                     }
                     .debounce(for: .loading)

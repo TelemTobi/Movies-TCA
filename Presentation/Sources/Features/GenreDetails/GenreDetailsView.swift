@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import DesignSystem
+import MovieCollectionFeature
 
 @ViewAction(for: GenreDetails.self)
 public struct GenreDetailsView: View {
@@ -22,10 +23,22 @@ public struct GenreDetailsView: View {
     
     public var body: some View {
         ZStack {
-            
+            switch store.viewState {
+            case .loading:
+                ProgressView() // TODO: Consider replacing with shimmering
+                
+            case .loaded:
+                if let store = store.scope(state: \.movieCollection, action: \.movieCollection) {
+                    MovieCollectionView(store: store)
+                }
+                
+            case .error:
+                EmptyView() // TODO: Handle error
+            }
         }
+        .animation(.smooth, value: store.viewState)
         .navigationTitle(store.genre.description)
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .backgroundColor(.background)
         .onAppear { send(.onAppear) }

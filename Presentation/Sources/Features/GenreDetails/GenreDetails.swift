@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import Models
+import MovieCollectionFeature
 
 @Reducer
 public struct GenreDetails {
@@ -15,6 +16,8 @@ public struct GenreDetails {
     @ObservableState
     public struct State: Equatable {
         let genre: Genre
+        var viewState: ViewState = .loading
+        var movieCollection: MovieCollection.State?
         
         public init(genre: Genre) {
             self.genre = genre
@@ -34,6 +37,9 @@ public struct GenreDetails {
         
         case view(View)
         case navigation(Navigation)
+        case movieCollection(MovieCollection.Action)
+        case discoverMovies
+        case discoveryResult(Result<MovieList, TmdbError>)
     }
     
     @Dependency(\.interactor) private var interactor
@@ -46,17 +52,50 @@ public struct GenreDetails {
             case let .view(viewAction):
                 return reduceViewAction(&state, viewAction)
                 
-            case .navigation:
+            case .discoverMovies:
+                return .run { [genre = state.genre] send in
+                    let result = await interactor.discoverByGenre(genre)
+                    await send(.discoveryResult(result))
+                }
+                
+            case let .discoveryResult(result):
+                switch result {
+                case let .success(movieList):
+                    state.movieCollection = .init(
+                        movieList: movieList,
+                        title: state.genre.description,
+                        layout: .grid
+                    )
+                    state.viewState = .loaded
+                    return .none
+                    
+                case .failure:
+                    state.viewState = .error
+                    return .none
+                }
+                
+            case .navigation, .movieCollection:
                 return .none
             }
+        }
+        .ifLet(\.movieCollection, action: \.movieCollection) {
+            MovieCollection()
         }
     }
     
     private func reduceViewAction(_ state: inout State, _ action: Action.View) -> Effect<Action> {
         switch action {
         case .onAppear:
-            return .none
+            return .send(.discoverMovies)
         }
+    }
+}
+
+extension GenreDetails {
+    enum ViewState: Equatable {
+        case loading
+        case loaded
+        case error
     }
 }
 

@@ -24,7 +24,7 @@ public struct MovieCollectionView: View {
     
     public var body: some View {
         Group {
-            switch store.collectionLayout {
+            switch store.layout {
             case let .list(editable):
                 listView(editable)
             case .grid:
@@ -35,7 +35,7 @@ public struct MovieCollectionView: View {
         .scrollIndicators(.hidden)
         .backgroundColor(.background)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(store.section.title ?? .empty)
+        .navigationTitle(store.title)
     }
     
     private func listView(_ editable: Bool) -> some View {
@@ -46,7 +46,7 @@ public struct MovieCollectionView: View {
                 } label: {
                     MovieListItem(
                         movie: movie,
-                        index: store.section.indexed ? index + 1 : nil,
+                        index: store.indexed ? index + 1 : nil,
                         imageType: .backdrop
                     )
                 }
@@ -113,8 +113,10 @@ public struct MovieCollectionView: View {
         MovieCollectionView(
             store: Store(
                 initialState: MovieCollection.State(
-                    section: .nowPlaying,
-                    movieList: .init(movies: [.mock, .mock])
+                    movieList: .init(movies: [.mock, .mock]),
+                    title: "Now Playing",
+                    layout: .list(editable: true),
+                    indexed: true
                 ),
                 reducer: { MovieCollection() }
             )

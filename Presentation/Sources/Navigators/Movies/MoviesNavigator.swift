@@ -58,7 +58,7 @@ public struct MoviesNavigator {
                 return .none
                 
             case let .root(.navigation(.expandSection(section, movieList))):
-                let movieListState = MovieCollection.State(section: section, movieList: movieList)
+                let movieListState = MovieCollection.State(movieList: movieList, section: section)
                 state.path.append(.movieList(movieListState))
                 return .none
                 

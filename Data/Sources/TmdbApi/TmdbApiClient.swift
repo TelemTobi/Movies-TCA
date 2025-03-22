@@ -32,8 +32,8 @@ public struct TmdbApiClient: Sendable {
         await controller.request(.searchMovies(query: query))
     }
     
-    public func discoverMovies(by genreId: Int) async -> Result<MovieList, TmdbError> {
-        await controller.request(.discoverMovies(genreId: genreId))
+    public func discoverByGenre(_ genre: Genre) async -> Result<MovieList, TmdbError> {
+        await controller.request(.discoverByGenre(genre))
     }
     
     public func movieDetails(for movieId: Int) async -> Result<DetailedMovie, TmdbError> {

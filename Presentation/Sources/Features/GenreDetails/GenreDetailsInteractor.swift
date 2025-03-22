@@ -11,8 +11,7 @@ import Models
 import Domain
 
 struct GenreDetailsInteractor: Sendable {
-    
-    
+    @Dependency(\.useCases.movies.discoverByGenre) var discoverByGenre
 }
 
 extension GenreDetailsInteractor: DependencyKey {

@@ -76,6 +76,9 @@ let package = Package(
 let features: [PackageDescription.Target] = [
     .target(
         name: "GenreDetailsFeature",
+        dependencies: [
+            "MovieCollectionFeature"
+        ],
         path: "Sources/Features/GenreDetails"
     ),
     .target(
