@@ -120,7 +120,6 @@ public struct MoviesPager: View {
         ToolbarItem(placement: .principal) {
             Text(.localized(.movies))
                 .font(.rounded(.headline))
-                .multilineTextAlignment(.center)
                 .opacity(navigationTitleOpacity)
         }
     }

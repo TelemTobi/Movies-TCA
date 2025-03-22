@@ -8,9 +8,11 @@
 import Foundation
 import Combine
 import UIKit
-import Core
+import SwiftUI
 import Sharing
+import Core
 import Models
+import DesignSystem
 
 class SceneDelegate: NSObject, UIWindowSceneDelegate {
     
@@ -23,7 +25,24 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         
         self.window = windowScene.keyWindow
+        applyAppearanceModifications()
         subscribeToColorSchemeChanges()
+    }
+
+    private func applyAppearanceModifications() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        
+        appearance.largeTitleTextAttributes = [
+            .font: UIFont.rounded(size: 42, weight: .bold)
+        ]
+        
+        appearance.titleTextAttributes = [
+            .font : UIFont.rounded(size: 18, weight: .medium)
+        ]
+        
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
     }
     
     private func subscribeToColorSchemeChanges() {
