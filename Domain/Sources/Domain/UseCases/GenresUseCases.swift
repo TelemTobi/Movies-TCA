@@ -19,7 +19,7 @@ extension GenresUseCases: DependencyKey {
     public static let liveValue = GenresUseCases(
         get: {
             @Dependency(\.appData) var appData
-            return appData.genres
+            return await appData.genres
         },
         fetch: {
             @Dependency(\.tmdbApiClient) var tmdbApi
@@ -27,7 +27,7 @@ extension GenresUseCases: DependencyKey {
             
             if let genres = try? result.get().genres {
                 @Dependency(\.appData) var appData
-                appData.setGenres(genres)
+                await appData.setGenres(genres)
             }
             
             return result

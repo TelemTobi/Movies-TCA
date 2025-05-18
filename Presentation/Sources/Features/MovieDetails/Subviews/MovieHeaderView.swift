@@ -63,6 +63,7 @@ extension MovieDetailsView {
                         Button(.localized(.more)) {
                             isOverviewSheetPresented = true
                         }
+                        .foregroundStyle(.white)
                     }
                 }
                 .padding(.top, 10)

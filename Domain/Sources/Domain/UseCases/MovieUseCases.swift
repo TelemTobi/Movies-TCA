@@ -20,10 +20,10 @@ extension MovieUseCases: DependencyKey {
         toggleWatchlist: { movie in
             @Dependency(\.appData) var appData
             
-            if appData.watchlist.contains(movie) {
-                let _ = appData.$watchlist.withLock { $0.remove(movie) }
+            if await appData.watchlist.contains(movie) {
+                let _ = await appData.$watchlist.withLock { $0.remove(movie) }
             } else {
-                let _ = appData.$watchlist.withLock { $0.append(movie) }
+                let _ = await appData.$watchlist.withLock { $0.append(movie) }
             }
         },
         fetchDetails: { movieId in
