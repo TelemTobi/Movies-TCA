@@ -1,10 +1,10 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.2
 
 import PackageDescription
 
 let package = Package(
     name: "Presentation",
-    platforms: [.iOS(.v18), .macOS(.v15)],
+    platforms: [.iOS(.v26), .macOS(.v26)],
     products: [
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
         
@@ -26,7 +26,7 @@ let package = Package(
         .package(path: "../Core"),
         .package(path: "../Data"),
         .package(path: "../Domain"),
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", from: "1.17.0"),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", from: "1.20.2"),
         .package(url: "https://github.com/kean/Nuke.git", from: "12.8.0"),
         .package(url: "https://github.com/EmergeTools/Pow", from: "1.0.0"),
         .package(url: "https://github.com/telemtobi/swift-localization", from: "1.0.2")
@@ -40,7 +40,8 @@ let package = Package(
                 .product(name: "Domain", package: "Domain"),
                 .product(name: "NukeUI", package: "Nuke"),
                 .product(name: "Pow", package: "Pow"),
-                .product(name: "Localization", package: "swift-localization")
+                .product(name: "Localization", package: "swift-localization"),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ],
             path: "Sources/DesignSystem",
             resources: [
