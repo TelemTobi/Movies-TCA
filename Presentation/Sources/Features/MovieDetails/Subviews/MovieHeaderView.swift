@@ -26,21 +26,9 @@ extension MovieDetailsView {
             .aspectRatio(14/21, contentMode: .fill)
             
             VStack(alignment: .leading, spacing: 0) {
-                HStack(alignment: .top) {
-                    Text(movie.title ?? .empty)
-                        .foregroundStyle(.white)
-                        .font(.rounded(.title, weight: .bold))
-                    
-                    Spacer()
-                    
-                    LikeButton(
-                        isLiked: .init(
-                            get: { store.isLiked },
-                            set: { _ in send(.onLikeTap) }
-                        )
-                    )
-                    .padding(.vertical, 6)
-                }
+                Text(movie.title ?? .empty)
+                    .foregroundStyle(.white)
+                    .font(.rounded(.title, weight: .bold))
                 
                 Text(bulletPoints)
                     .foregroundStyle(.white.opacity(0.50))
@@ -98,8 +86,7 @@ extension MovieDetailsView {
                     endPoint: .bottom
                 )
             }
-            .background(.ultraThinMaterial)
-            .environment(\.colorScheme, .light)
+            .background(.ultraThinMaterial.opacity(0.7))
             .mask {
                 LinearGradient(
                     stops: [
