@@ -22,6 +22,7 @@ public struct MoviesNavigator {
         var root = MoviesHomepage.State()
         var path = StackState<Path.State>()
         @Presents var destination: Destination.State?
+        @Presents var sheet: Sheet.State?
         
         var transitionSource: TransitionSource?
         
@@ -35,6 +36,7 @@ public struct MoviesNavigator {
         case root(MoviesHomepage.Action)
         case path(StackAction<Path.State, Path.Action>)
         case destination(PresentationAction<Destination.Action>)
+        case sheet(PresentationAction<Sheet.Action>)
     }
     
     public init() {}
@@ -47,6 +49,10 @@ public struct MoviesNavigator {
             case let .root(.navigation(.movieDetails(movie, transitionSource))):
                 state.transitionSource = transitionSource
                 state.destination = .movie(MovieNavigator.State(detailedMovie: .init(movie: movie)))
+                return .none
+                
+            case .root(.navigation(.presentPreferences)):
+                state.sheet = .preferences(Preferences.State())
                 return .none
                 
             case .destination(.dismiss):
@@ -66,12 +72,13 @@ public struct MoviesNavigator {
                 state.path.append(.genreDetails(GenreDetails.State(genre: genre)))
                 return .none
                 
-            case .root, .path, .destination:
+            case .root, .path, .destination, .sheet:
                 return .none
             }
         }
         .forEach(\.path, action: \.path)
         .ifLet(\.$destination, action: \.destination)
+        .ifLet(\.$sheet, action: \.sheet)
     }
 }
 
@@ -80,6 +87,10 @@ extension MoviesNavigator {
     @Reducer(state: .equatable)
     public enum Destination {
         case movie(MovieNavigator)
+    }
+    
+    @Reducer(state: .equatable)
+    public enum Sheet {
         case preferences(Preferences)
     }
     

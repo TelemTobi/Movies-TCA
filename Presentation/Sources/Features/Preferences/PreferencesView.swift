@@ -21,19 +21,22 @@ public struct PreferencesView: View {
     }
     
     public var body: some View {
-        List {
-            Group {
-                AppSettingsSection()
-                DeviceSettingsSection()
+        NavigationStack {
+            List {
+                Group {
+                    AppSettingsSection()
+                    DeviceSettingsSection()
+                }
+                .listRowInsets(.zero)
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
             }
-            .listRowInsets(.zero)
-            .listRowBackground(Color.clear)
-            .listRowSeparator(.hidden)
+            .listStyle(.plain)
+            .scrollBounceBehavior(.basedOnSize)
+            .contentMargins(16, for: .scrollContent)
+            .navigationTitle(.localized(.preferences))
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .listStyle(.plain)
-        .padding(.horizontal)
-        .backgroundColor(.background)
-        .navigationTitle(.localized(.preferences))
     }
 }
 
@@ -72,7 +75,7 @@ extension PreferencesView {
         case .system: colorScheme == .light ? .orange : .purple
         }
         
-        VStack {
+        VStack(spacing: 20) {
             Button(
                 action: { send(.onLanguageTap) },
                 label: {
