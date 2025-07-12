@@ -15,18 +15,18 @@ public struct HomeNavigator {
     
     @ObservableState
     public struct State: Equatable {
-        var selectedTab: Tab = .movies
+        var selectedTab: TabType = .movies
         
         var movies = MoviesNavigator.State()
         var search = SearchNavigator.State()
         
-        public init(selectedTab: Tab = .movies) {
+        public init(selectedTab: TabType = .movies) {
             self.selectedTab = selectedTab
         }
     }
     
     public enum Action {
-        case onTabSelection(Tab)
+        case onTabSelection(TabType)
         
         case movies(MoviesNavigator.Action)
         case search(SearchNavigator.Action)
@@ -54,8 +54,9 @@ public struct HomeNavigator {
 
 extension HomeNavigator {
     
-    public enum Tab {
+    public enum TabType {
         case movies
+        case tvShows
         case search
     }
 }

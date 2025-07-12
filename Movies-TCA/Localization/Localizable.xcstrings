@@ -120,6 +120,17 @@
         }
       }
     },
+    "categories" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Categories"
+          }
+        }
+      }
+    },
     "close" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -364,12 +375,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shows, Movies and More"
+            "value" : "Shows, Movies and more"
           }
         },
         "he" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "סדרות, סרטים ועוד"
           }
         }
@@ -711,6 +722,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "מדורגים גבוה"
+          }
+        }
+      }
+    },
+    "tvShows" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TV Shows"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "סדרות"
           }
         }
       }
