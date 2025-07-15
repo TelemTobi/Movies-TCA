@@ -20,18 +20,20 @@ public struct SearchNavigator {
         var root = Search.State()
         var path = StackState<Path.State>()
         @Presents var destination: Destination.State?
+        @Presents var sheet: Sheet.State?
         
-        public init(path: StackState<Path.State> = .init(), destination: Destination.State? = nil) {
+        public init(path: StackState<Path.State> = .init(), destination: Destination.State? = nil, sheet: Sheet.State? = nil) {
             self.path = path
             self.destination = destination
+            self.sheet = sheet
         }
-        
     }
     
     public enum Action {
         case root(Search.Action)
         case path(StackAction<Path.State, Path.Action>)
         case destination(PresentationAction<Destination.Action>)
+        case sheet(PresentationAction<Sheet.Action>)
     }
     
     public init() {}
@@ -46,15 +48,16 @@ public struct SearchNavigator {
                 return .none
                 
             case .root(.navigation(.presentPreferences)):
-                state.destination = .preferences(Preferences.State())
+                state.sheet = .preferences(Preferences.State())
                 return .none
                 
-            case .root, .path, .destination:
+            case .root, .path, .destination, .sheet:
                 return .none
             }
         }
         .forEach(\.path, action: \.path)
         .ifLet(\.$destination, action: \.destination)
+        .ifLet(\.$sheet, action: \.sheet)
     }
 }
 
@@ -63,6 +66,10 @@ extension SearchNavigator {
     @Reducer(state: .equatable)
     public enum Destination {
         case movie(MovieNavigator)
+    }
+    
+    @Reducer(state: .equatable)
+    public enum Sheet {
         case preferences(Preferences)
     }
     

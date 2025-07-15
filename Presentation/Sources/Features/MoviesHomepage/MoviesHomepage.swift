@@ -30,6 +30,7 @@ public struct MoviesHomepage {
         @CasePathable
         public enum View: Equatable {
             case onFirstAppear
+            case onPreferencesTap
             case onMovieTap(Movie, TransitionSource)
             case onSectionHeaderTap(HomepageSection)
             case onGenreTap(Genre)
@@ -41,6 +42,7 @@ public struct MoviesHomepage {
             case movieDetails(Movie, TransitionSource)
             case expandSection(HomepageSection, MovieList)
             case genreDetails(Genre)
+            case presentPreferences
         }
         
         case view(View)
@@ -88,6 +90,9 @@ public struct MoviesHomepage {
         case .onFirstAppear:
             return .send(.fetchMovieLists)
             
+        case .onPreferencesTap:
+            return .send(.navigation(.presentPreferences))
+        
         case let .onMovieTap(movie, transitionSource):
             return .send(.navigation(.movieDetails(movie, transitionSource)))
             

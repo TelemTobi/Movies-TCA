@@ -31,9 +31,16 @@ public extension SearchNavigator {
                                 switch store.case {
                                 case let .movie(store):
                                     MovieNavigator.ContentView(store: store)
-                                    
+                                }
+                            }
+                        )
+                        .sheet(
+                            item: $store.scope(state: \.sheet, action: \.sheet),
+                            content: { store in
+                                switch store.case {
                                 case let .preferences(store):
-                                    PreferencesSheet(store: store)
+                                    PreferencesView(store: store)
+                                        .presentationDetents([.medium])
                                 }
                             }
                         )
@@ -42,20 +49,6 @@ public extension SearchNavigator {
                     
                 }
             )
-        }
-        
-        @MainActor
-        private func PreferencesSheet(store: StoreOf<Preferences>) -> some View {
-            NavigationStack {
-                PreferencesView(store: store)
-                    .toolbar {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button("Close", systemImage: "xmark") {
-                                store.send(.view(.onCloseButtonTap))
-                            }
-                        }
-                    }
-            }
         }
     }
 }

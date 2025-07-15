@@ -18,6 +18,7 @@ public enum Localization {
     case budget
     case cancel
     case cast
+    case categories
     case close
     case country
     case dark
@@ -53,6 +54,7 @@ public enum Localization {
     case status
     case system
     case topRated
+    case tvShows
     case upcoming
     case watchlist
     case watchlistEmptyStateContent

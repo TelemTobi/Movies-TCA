@@ -21,6 +21,6 @@ public actor AppData {
 }
 
 extension AppData: DependencyKey {
-    public static var liveValue = AppData()
-    public static var testValue = AppData()
+    public static let liveValue = AppData()
+    public static let testValue = AppData()
 }

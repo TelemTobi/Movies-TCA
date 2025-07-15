@@ -32,6 +32,9 @@ extension SearchView {
             .shuffled()
         
         Section {
+            SectionHeader(title: .localized(.categories))
+                .listRowSeparator(.hidden)
+            
             CapsulesView(items: store.genres) { index, genre in
                 Button(
                     action: {
@@ -41,9 +44,11 @@ extension SearchView {
                         Text(genre.description)
                             .font(.rounded(.footnote))
                             .fontWeight(.medium)
+                            .padding(.vertical, 4)
+                            .padding(.horizontal, 6)
                     }
                 )
-                .buttonStyle(.capsuled)
+                .buttonStyle(.glass)
                 .opacity(didFirstAppear ? 1 : 0)
                 .scaleEffect(didFirstAppear ? 1 : 0.7)
                 .rotationEffect(.degrees(didFirstAppear ? 0 : 10))

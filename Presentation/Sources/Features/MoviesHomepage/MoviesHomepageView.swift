@@ -34,9 +34,23 @@ public struct MoviesHomepageView: View {
         .ignoresSafeArea(edges: .top)
         .navigationTitle(.localized(.movies))
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: toolbarContent)
         .animation(.smooth, value: store.viewState)
         .backgroundColor(.background)
         .onFirstAppear { send(.onFirstAppear) }
+    }
+    
+    @ToolbarContentBuilder
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(
+                action: { send(.onPreferencesTap) },
+                label: {
+                    Image(systemName: "gear")
+                        .foregroundColor(.accentColor)
+                }
+            )
+        }
     }
     
     @ViewBuilder

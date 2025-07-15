@@ -20,7 +20,7 @@ public struct MovieDetailsView: View {
     @State var isOverviewTruncated: Bool = false
     @State var isOverviewSheetPresented: Bool = false
     
-    var navigationBarVisibilityThreshold: CGFloat = 0.83
+    var navigationBarVisibilityThreshold: CGFloat = 0.75
     
     private var isHeaderShowing: Bool {
         headerOffScreenPercentage < navigationBarVisibilityThreshold
@@ -64,12 +64,25 @@ public struct MovieDetailsView: View {
                     .multilineTextAlignment(.center)
                     .opacity(navigationTitleOpacity)
             }
+
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    send(.onLikeTap)
+                } label: {
+                    Image(systemName: store.isLiked ? "heart" : "heart.fill")
+                        .contentTransition(.symbolEffect(.automatic))
+                }
+                .sensoryFeedback(.selection, trigger: store.isLiked)
+            }
+            
+            ToolbarSpacer(.fixed, placement: .topBarTrailing)
             
             ToolbarItem(placement: .topBarTrailing) {
-                CloseButton(
-                    backgroundOpacity: 1 - navigationTitleOpacity,
-                    action: { send(.onCloseButtonTap) }
-                )
+                Button {
+                    send(.onCloseButtonTap)
+                } label: {
+                    Image(systemName: "xmark")
+                }
             }
         }
     }

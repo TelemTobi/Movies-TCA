@@ -23,17 +23,21 @@ public extension HomeNavigator {
         
         public var body: some View {
             TabView(selection: $store.selectedTab.sending(\.onTabSelection)) {
-                MoviesNavigator.ContentView(
-                    store: store.scope(state: \.movies, action: \.movies)
-                )
-                .tabItem { Label(.localized(.movies), systemImage: "movieclapper") }
-                .tag(HomeNavigator.Tab.movies)
+                Tab(.localized(.movies), systemImage: "movieclapper", value: TabType.movies) {
+                    MoviesNavigator.ContentView(
+                        store: store.scope(state: \.movies, action: \.movies)
+                    )
+                }
                 
-                SearchNavigator.ContentView(
-                    store: store.scope(state: \.search, action: \.search)
-                )
-                .tabItem { Label(.localized(.search), systemImage: "magnifyingglass") }
-                .tag(HomeNavigator.Tab.search)
+                Tab(.localized(.tvShows), systemImage: "tv", value: TabType.tvShows) {
+                    Color.clear
+                }
+                
+                Tab(.localized(.search), systemImage: "magnifyingglass", value: TabType.search, role: .search) {
+                    SearchNavigator.ContentView(
+                        store: store.scope(state: \.search, action: \.search)
+                    )
+                }
             }
             .environment(\.namespace, transitionNamespace)
         }

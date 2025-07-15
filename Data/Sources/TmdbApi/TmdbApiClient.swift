@@ -12,12 +12,12 @@ import Dependencies
 
 public struct TmdbApiClient: Sendable {
     
-    private let authenticator: Authenticator
+    private let interceptor: Interceptor
     private let controller: NetworkingController<TmdbEndpoint, TmdbError>
     
     public init(environment: Networking.Environment = .live) {
-        authenticator = TmdbAuthenticator()
-        controller = NetworkingController(environment: environment, authenticator: authenticator)
+        interceptor = TmdbInterceptor()
+        controller = NetworkingController(environment: environment, interceptor: interceptor)
     }
     
     public func fetchGenres() async -> Result<GenresResponse, TmdbError> {

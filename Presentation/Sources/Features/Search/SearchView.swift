@@ -39,6 +39,7 @@ public struct SearchView: View {
         .backgroundColor(.background)
         .animation(.snappy, value: store.viewState)
         .navigationTitle(.localized(.search))
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: toolbarContent)
         .searchable(
             text: $store.searchInput.sending(\.onInputChange),
