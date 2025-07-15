@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@preconcurrency import Networking
+import Networking
 import Models
 import Dependencies
 

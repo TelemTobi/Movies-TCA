@@ -1,5 +1,5 @@
 {
-  "originHash" : "1a2b0474a2f3b417f3d0892649f652033f8a54b2e8accc56ddf336418053c59f",
+  "originHash" : "8ae9753ed3864b03953c10773d8af34014b838743cd2e02eccc0c8ef33011ec7",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -123,8 +123,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/telemtobi/swift-networking.git",
       "state" : {
-        "revision" : "db2cbdbf1629154927a51d23945068372ca98e98",
-        "version" : "1.3.0"
+        "revision" : "0850737bb1c7219b35e13e89d06d0d26f0b261c4",
+        "version" : "1.3.1"
       }
     },
     {
